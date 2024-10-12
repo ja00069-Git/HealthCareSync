@@ -1,46 +1,31 @@
-﻿namespace HealthCareSync
+﻿using HealthCareSync.ViewModels;
+
+namespace HealthCareSync
 {
     public partial class LoginForm : Form
     {
+        private readonly LoginViewModel loginViewModel;
         public LoginForm()
         {
             InitializeComponent();
+            loginViewModel = new LoginViewModel();
         }
 
         private void loginBTN_Click(object sender, EventArgs e)
         {
-            // Hardcoded valid username and password for this example
-            string validUsername = "admin";
-            string validPassword = "password123";
+            // Bind UI data to ViewModel
+            loginViewModel.User.Username = usernameTB.Text;
+            loginViewModel.User.Password = passwordTB.Text;
 
-            // Get the input from textboxes
-            string enteredUsername = usernameTB.Text;
-            string enteredPassword = passwordTB.Text;
+            // Call the Login method in the ViewModel
+            bool loginSuccess = loginViewModel.Login();
 
-            // Simple validation
-            if (string.IsNullOrWhiteSpace(enteredUsername))
+            if (loginSuccess)
             {
-                MessageBox.Show("Please enter your username.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(enteredPassword))
-            {
-                MessageBox.Show("Please enter your password.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Check if the username and password are correct
-            if (enteredUsername == validUsername && enteredPassword == validPassword)
-            {
-                // Proceed to the next form or dashboard
+                // Open the dashboard or next form
                 var dashboard = new HomePage();
                 this.Hide();
                 dashboard.Show();
-            }
-            else
-            {
-                MessageBox.Show("Invalid username or password. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
