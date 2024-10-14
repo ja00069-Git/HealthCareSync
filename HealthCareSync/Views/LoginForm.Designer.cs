@@ -37,6 +37,7 @@
             usernameTB = new TextBox();
             passwordTB = new TextBox();
             sigupLabel = new Label();
+            exitAppBTN = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -135,12 +136,25 @@
             sigupLabel.AutoSize = true;
             sigupLabel.Font = new Font("MS UI Gothic", 12F, FontStyle.Underline, GraphicsUnit.Point, 0);
             sigupLabel.ForeColor = SystemColors.HotTrack;
-            sigupLabel.Location = new Point(486, 376);
+            sigupLabel.Location = new Point(486, 375);
             sigupLabel.Name = "sigupLabel";
             sigupLabel.Size = new Size(284, 24);
             sigupLabel.TabIndex = 4;
             sigupLabel.Text = "You don't have an account?";
             sigupLabel.Click += label1_Click;
+            // 
+            // exitAppBTN
+            // 
+            exitAppBTN.BackgroundImage = Properties.Resources.Screenshot_2024_10_13_132820;
+            exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
+            exitAppBTN.FlatAppearance.BorderSize = 0;
+            exitAppBTN.FlatStyle = FlatStyle.Flat;
+            exitAppBTN.Location = new Point(734, 12);
+            exitAppBTN.Name = "exitAppBTN";
+            exitAppBTN.Size = new Size(54, 54);
+            exitAppBTN.TabIndex = 6;
+            exitAppBTN.UseVisualStyleBackColor = true;
+            exitAppBTN.Click += exitAppBTN_Click;
             // 
             // LoginForm
             // 
@@ -148,6 +162,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(800, 450);
+            Controls.Add(exitAppBTN);
             Controls.Add(sigupLabel);
             Controls.Add(passwordTB);
             Controls.Add(usernameTB);
@@ -179,5 +194,6 @@
         private TextBox usernameTB;
         private TextBox passwordTB;
         private Label sigupLabel;
+        private Button exitAppBTN;
     }
 }
