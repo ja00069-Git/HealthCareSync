@@ -1,4 +1,5 @@
 ﻿using HealthCareSync.ViewModels;
+using HealthCareSync.Views;
 
 namespace HealthCareSync
 {
@@ -13,17 +14,14 @@ namespace HealthCareSync
 
         private void loginBTN_Click(object sender, EventArgs e)
         {
-            // Bind UI data to ViewModel
             loginViewModel.User.Username = usernameTB.Text;
             loginViewModel.User.Password = passwordTB.Text;
 
-            // Call the Login method in the ViewModel
             bool loginSuccess = loginViewModel.Login();
 
             if (loginSuccess)
             {
-                // Open the dashboard or next form
-                var dashboard = new HomePage();
+                var dashboard = new HomePage(loginViewModel.LogedInUser);
                 this.Hide();
                 dashboard.Show();
             }
@@ -32,9 +30,14 @@ namespace HealthCareSync
 
         private void label1_Click(object sender, EventArgs e)
         {
-            var signupForm = new SignupForm();
-            signupForm.Show();
+            var signup = new SignupForm();
+            signup.Show();
             this.Hide();
+        }
+
+        private void exitAppBTN_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

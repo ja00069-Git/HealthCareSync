@@ -1,6 +1,6 @@
-﻿namespace HealthCareSync
+﻿namespace HealthCareSync.Views
 {
-    partial class HomePage
+    partial class ManageVisits
     {
         /// <summary>
         /// Required designer variable.
@@ -28,20 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            label1 = new Label();
             SuspendLayout();
             // 
-            // HomePage
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(282, 160);
+            label1.Name = "label1";
+            label1.Size = new Size(189, 38);
+            label1.TabIndex = 0;
+            label1.Text = "Manage Visits";
+            // 
+            // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(800, 450);
+            Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "HomePage";
-            Text = "Home Page";
+            Name = "ManageVisits";
+            Text = "ManageVisits";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
     }
 }
