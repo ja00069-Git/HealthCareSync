@@ -133,7 +133,6 @@
             managPatBTN.FlatAppearance.BorderSize = 0;
             managPatBTN.FlatStyle = FlatStyle.Flat;
             managPatBTN.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            managPatBTN.Image = Properties.Resources.Screenshot_2024_10_13_1434264;
             managPatBTN.ImageAlign = ContentAlignment.MiddleLeft;
             managPatBTN.Location = new Point(-1, -3);
             managPatBTN.Name = "managPatBTN";
