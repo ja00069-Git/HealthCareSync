@@ -45,7 +45,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Untitled_design;
+            pictureBox1.Image = Properties.Resources.logo_icon;
             pictureBox1.Location = new Point(1, -1);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(457, 449);
@@ -55,7 +55,7 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.Image = Properties.Resources.Screenshot_2024_10_11_125530;
+            pictureBox2.Image = Properties.Resources.red_user_icon;
             pictureBox2.Location = new Point(464, 84);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(61, 53);
@@ -74,7 +74,7 @@
             // 
             // pictureBox3
             // 
-            pictureBox3.Image = Properties.Resources.Screenshot_2024_10_11_125452;
+            pictureBox3.Image = Properties.Resources.security_icon;
             pictureBox3.Location = new Point(464, 204);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(61, 53);
@@ -145,7 +145,7 @@
             // 
             // exitAppBTN
             // 
-            exitAppBTN.BackgroundImage = Properties.Resources.Screenshot_2024_10_13_132820;
+            exitAppBTN.BackgroundImage = Properties.Resources.close_form_icon;
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;

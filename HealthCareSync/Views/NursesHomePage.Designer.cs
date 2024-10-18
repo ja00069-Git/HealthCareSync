@@ -1,6 +1,6 @@
 ﻿namespace HealthCareSync
 {
-    partial class HomePage
+    partial class NursesHomePage
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NursesHomePage));
             exitAppBTN = new Button();
             sidebar = new FlowLayoutPanel();
             menuPanel = new Panel();
@@ -61,7 +62,7 @@
             // 
             // exitAppBTN
             // 
-            exitAppBTN.BackgroundImage = Properties.Resources.Screenshot_2024_10_13_132820;
+            exitAppBTN.BackgroundImage = (Image)resources.GetObject("exitAppBTN.BackgroundImage");
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
@@ -100,7 +101,7 @@
             // menuBTN
             // 
             menuBTN.Cursor = Cursors.Hand;
-            menuBTN.Image = Properties.Resources.Screenshot_2024_10_13_154443;
+            menuBTN.Image = (Image)resources.GetObject("menuBTN.Image");
             menuBTN.Location = new Point(3, 9);
             menuBTN.Name = "menuBTN";
             menuBTN.Size = new Size(45, 37);
@@ -133,6 +134,7 @@
             managPatBTN.FlatAppearance.BorderSize = 0;
             managPatBTN.FlatStyle = FlatStyle.Flat;
             managPatBTN.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            managPatBTN.Image = Properties.Resources.manage_patients_icon;
             managPatBTN.ImageAlign = ContentAlignment.MiddleLeft;
             managPatBTN.Location = new Point(-1, -3);
             managPatBTN.Name = "managPatBTN";
@@ -158,7 +160,7 @@
             manageAppt.FlatAppearance.BorderSize = 0;
             manageAppt.FlatStyle = FlatStyle.Flat;
             manageAppt.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            manageAppt.Image = Properties.Resources.Screenshot_2024_10_13_143741;
+            manageAppt.Image = (Image)resources.GetObject("manageAppt.Image");
             manageAppt.ImageAlign = ContentAlignment.MiddleLeft;
             manageAppt.Location = new Point(-1, 0);
             manageAppt.Name = "manageAppt";
@@ -188,7 +190,7 @@
             testsBTN.FlatAppearance.BorderSize = 0;
             testsBTN.FlatStyle = FlatStyle.Flat;
             testsBTN.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            testsBTN.Image = Properties.Resources.Screenshot_2024_10_13_143908;
+            testsBTN.Image = (Image)resources.GetObject("testsBTN.Image");
             testsBTN.ImageAlign = ContentAlignment.MiddleLeft;
             testsBTN.Location = new Point(0, 99);
             testsBTN.Name = "testsBTN";
@@ -206,7 +208,7 @@
             visitsBTN.FlatAppearance.BorderSize = 0;
             visitsBTN.FlatStyle = FlatStyle.Flat;
             visitsBTN.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            visitsBTN.Image = Properties.Resources.Screenshot_2024_10_13_1713042;
+            visitsBTN.Image = (Image)resources.GetObject("visitsBTN.Image");
             visitsBTN.ImageAlign = ContentAlignment.MiddleLeft;
             visitsBTN.Location = new Point(0, 48);
             visitsBTN.Name = "visitsBTN";
@@ -224,7 +226,7 @@
             manageVisit.FlatAppearance.BorderSize = 0;
             manageVisit.FlatStyle = FlatStyle.Flat;
             manageVisit.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            manageVisit.Image = Properties.Resources.Screenshot_2024_10_13_143504;
+            manageVisit.Image = (Image)resources.GetObject("manageVisit.Image");
             manageVisit.ImageAlign = ContentAlignment.MiddleLeft;
             manageVisit.Location = new Point(0, 0);
             manageVisit.Name = "manageVisit";
@@ -273,7 +275,7 @@
             // 
             // userPictureBox
             // 
-            userPictureBox.Image = Properties.Resources.Screenshot_2024_10_11_124514;
+            userPictureBox.Image = (Image)resources.GetObject("userPictureBox.Image");
             userPictureBox.Location = new Point(9, 6);
             userPictureBox.Name = "userPictureBox";
             userPictureBox.Size = new Size(49, 53);

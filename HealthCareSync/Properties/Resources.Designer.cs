@@ -63,9 +63,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_11_124514 {
+        internal static System.Drawing.Bitmap blue_user_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-11 124514", resourceCulture);
+                object obj = ResourceManager.GetObject("blue_user_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_11_125452 {
+        internal static System.Drawing.Bitmap calender_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-11 125452", resourceCulture);
+                object obj = ResourceManager.GetObject("calender_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_11_125530 {
+        internal static System.Drawing.Bitmap checklist_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-11 125530", resourceCulture);
+                object obj = ResourceManager.GetObject("checklist_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_132820 {
+        internal static System.Drawing.Bitmap close_form_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 132820", resourceCulture);
+                object obj = ResourceManager.GetObject("close_form_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_1434262 {
+        internal static System.Drawing.Bitmap logo_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 1434262", resourceCulture);
+                object obj = ResourceManager.GetObject("logo_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_1434263 {
+        internal static System.Drawing.Bitmap manage_patients_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 1434263", resourceCulture);
+                object obj = ResourceManager.GetObject("manage_patients_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_143504 {
+        internal static System.Drawing.Bitmap receipt_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 143504", resourceCulture);
+                object obj = ResourceManager.GetObject("receipt_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_143741 {
+        internal static System.Drawing.Bitmap red_user_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 143741", resourceCulture);
+                object obj = ResourceManager.GetObject("red_user_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_143908 {
+        internal static System.Drawing.Bitmap security_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 143908", resourceCulture);
+                object obj = ResourceManager.GetObject("security_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_154443 {
+        internal static System.Drawing.Bitmap tests_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 154443", resourceCulture);
+                object obj = ResourceManager.GetObject("tests_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,19 +163,9 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Screenshot_2024_10_13_1713042 {
+        internal static System.Drawing.Bitmap wafle_icon {
             get {
-                object obj = ResourceManager.GetObject("Screenshot 2024-10-13 1713042", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Untitled_design {
-            get {
-                object obj = ResourceManager.GetObject("Untitled design", resourceCulture);
+                object obj = ResourceManager.GetObject("wafle_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
