@@ -47,9 +47,15 @@
             stateTextBox = new TextBox();
             address2TextBox = new TextBox();
             flagStatusLabel = new Label();
-            flagStatusTextBox = new TextBox();
             idLabel = new Label();
             idTextBox = new TextBox();
+            phoneNumberTextBox = new TextBox();
+            phoneNumberLabel = new Label();
+            flagStatusComboBox = new ComboBox();
+            errorLabel = new Label();
+            addButton = new Button();
+            deleteButton = new Button();
+            unselectButton = new Button();
             SuspendLayout();
             // 
             // patientListBox
@@ -64,9 +70,9 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(413, 207);
+            saveButton.Location = new Point(413, 228);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(100, 40);
+            saveButton.Size = new Size(100, 33);
             saveButton.TabIndex = 1;
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = true;
@@ -204,28 +210,20 @@
             // flagStatusLabel
             // 
             flagStatusLabel.AutoSize = true;
-            flagStatusLabel.Location = new Point(433, 138);
+            flagStatusLabel.Location = new Point(205, 189);
             flagStatusLabel.Name = "flagStatusLabel";
             flagStatusLabel.Size = new Size(64, 15);
             flagStatusLabel.TabIndex = 20;
             flagStatusLabel.Text = "Flag Status";
             // 
-            // flagStatusTextBox
-            // 
-            flagStatusTextBox.Location = new Point(413, 156);
-            flagStatusTextBox.Name = "flagStatusTextBox";
-            flagStatusTextBox.Size = new Size(100, 23);
-            flagStatusTextBox.TabIndex = 21;
-            flagStatusTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
             // idLabel
             // 
             idLabel.AutoSize = true;
-            idLabel.Location = new Point(104, 199);
+            idLabel.Location = new Point(85, 199);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(17, 15);
+            idLabel.Size = new Size(59, 15);
             idLabel.TabIndex = 22;
-            idLabel.Text = "Id";
+            idLabel.Text = "Patient_Id";
             // 
             // idTextBox
             // 
@@ -237,15 +235,86 @@
             idTextBox.TabIndex = 23;
             idTextBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // phoneNumberTextBox
+            // 
+            phoneNumberTextBox.Location = new Point(413, 156);
+            phoneNumberTextBox.Name = "phoneNumberTextBox";
+            phoneNumberTextBox.Size = new Size(100, 23);
+            phoneNumberTextBox.TabIndex = 24;
+            // 
+            // phoneNumberLabel
+            // 
+            phoneNumberLabel.AutoSize = true;
+            phoneNumberLabel.Location = new Point(420, 138);
+            phoneNumberLabel.Name = "phoneNumberLabel";
+            phoneNumberLabel.Size = new Size(88, 15);
+            phoneNumberLabel.TabIndex = 25;
+            phoneNumberLabel.Text = "Phone Number";
+            // 
+            // flagStatusComboBox
+            // 
+            flagStatusComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            flagStatusComboBox.FormattingEnabled = true;
+            flagStatusComboBox.Location = new Point(186, 207);
+            flagStatusComboBox.Name = "flagStatusComboBox";
+            flagStatusComboBox.Size = new Size(100, 23);
+            flagStatusComboBox.TabIndex = 26;
+            // 
+            // errorLabel
+            // 
+            errorLabel.AutoSize = true;
+            errorLabel.ForeColor = Color.Red;
+            errorLabel.Location = new Point(132, 246);
+            errorLabel.Name = "errorLabel";
+            errorLabel.Size = new Size(0, 15);
+            errorLabel.TabIndex = 27;
+            // 
+            // addButton
+            // 
+            addButton.Location = new Point(304, 189);
+            addButton.Name = "addButton";
+            addButton.Size = new Size(100, 33);
+            addButton.TabIndex = 28;
+            addButton.Text = "Add";
+            addButton.UseVisualStyleBackColor = true;
+            addButton.Click += addButton_Click;
+            // 
+            // deleteButton
+            // 
+            deleteButton.Enabled = false;
+            deleteButton.Location = new Point(413, 189);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(100, 33);
+            deleteButton.TabIndex = 29;
+            deleteButton.Text = "Delete";
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += deleteButton_Click;
+            // 
+            // unselectButton
+            // 
+            unselectButton.Location = new Point(304, 228);
+            unselectButton.Name = "unselectButton";
+            unselectButton.Size = new Size(100, 33);
+            unselectButton.TabIndex = 30;
+            unselectButton.Text = "Unselect";
+            unselectButton.UseVisualStyleBackColor = true;
+            unselectButton.Click += unselectButton_Click;
+            // 
             // Manage_Patients
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(561, 270);
+            Controls.Add(unselectButton);
+            Controls.Add(deleteButton);
+            Controls.Add(addButton);
+            Controls.Add(errorLabel);
+            Controls.Add(flagStatusComboBox);
+            Controls.Add(phoneNumberLabel);
+            Controls.Add(phoneNumberTextBox);
             Controls.Add(idTextBox);
             Controls.Add(idLabel);
-            Controls.Add(flagStatusTextBox);
             Controls.Add(flagStatusLabel);
             Controls.Add(address2TextBox);
             Controls.Add(stateTextBox);
@@ -294,8 +363,14 @@
         private TextBox stateTextBox;
         private TextBox address2TextBox;
         private Label flagStatusLabel;
-        private TextBox flagStatusTextBox;
         private Label idLabel;
         private TextBox idTextBox;
+        private TextBox phoneNumberTextBox;
+        private Label phoneNumberLabel;
+        private ComboBox flagStatusComboBox;
+        private Label errorLabel;
+        private Button addButton;
+        private Button deleteButton;
+        private Button unselectButton;
     }
 }
