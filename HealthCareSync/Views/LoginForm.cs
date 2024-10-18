@@ -21,7 +21,7 @@ namespace HealthCareSync
 
             if (loginSuccess)
             {
-                var dashboard = new LoginTypePage(loginViewModel.LogedInUser);
+                var dashboard = new HomePage(loginViewModel.LogedInUser);
                 this.Hide();
                 dashboard.Show();
             }
