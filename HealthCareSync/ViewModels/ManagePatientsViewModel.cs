@@ -19,7 +19,6 @@ namespace HealthCareSync.ViewModels
     {
         private Patient selectedPatient;
         private PatientDAL patientDAL;
-        private AddressDAL addressDAL;
 
         /// <summary>
         /// Gets the first name.
@@ -222,7 +221,7 @@ namespace HealthCareSync.ViewModels
             this.Patients.Remove(this.selectedPatient);
             OnPropertyChanged(nameof(Patients));
 
-            //TODO: Delete patient in the database
+            this.patientDAL.DeletePatient(this.selectedPatient.Id);
         }
     }
 }

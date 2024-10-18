@@ -199,11 +199,11 @@ namespace HealthCareSync.Views
 
             if (dialogResult == DialogResult.Yes)
             {
-                this.errorLabel.ForeColor = Color.Green;
-                this.errorLabel.Text = "Successfully deleted patient";
                 this.viewModel.Delete();
                 this.ClearAllBoxes();
                 this.refreshListBox();
+                this.errorLabel.ForeColor = Color.Green;
+                this.errorLabel.Text = "Successfully deleted patient";
             }
         }
 
