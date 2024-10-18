@@ -44,7 +44,7 @@
             // 
             // exitAppBTN
             // 
-            exitAppBTN.BackgroundImage = Properties.Resources.Screenshot_2024_10_13_132820;
+            exitAppBTN.BackgroundImage = Properties.Resources.close_form_icon;
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
