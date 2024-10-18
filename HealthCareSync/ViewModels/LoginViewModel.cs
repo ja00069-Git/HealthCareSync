@@ -1,14 +1,15 @@
 ﻿using MySql.Data.MySqlClient;
 using HealthCareSync.Models;
+using HealthCareSync.DAL;
+using HealthCareSync.Enums;
+using System.Data;
 namespace HealthCareSync.ViewModels
 {
     public class LoginViewModel
     {
-        private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
-             "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
-
         public User User { get; set; }
-        public string LogedInUser { get; set; } = string.Empty;
+        public string LoggedInUser { get; set; } = string.Empty;
+        public UserRole UserRole { get; set; } = UserRole.NONE;
 
         public LoginViewModel()
         {
@@ -29,30 +30,52 @@ namespace HealthCareSync.ViewModels
                 return false;
             }
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionSting()))
             {
                 try
                 {
                     connection.Open();
 
-                    string query = "SELECT COUNT(1) FROM user WHERE username=@username AND password=@password";
+                    string query = @"
+                            SELECT 
+                                COALESCE(a.fname, n.fname) AS fname,
+                                COALESCE(a.lname, n.lname) AS lname,
+                                CASE 
+                                    WHEN a.username IS NOT NULL THEN 'Admin'
+                                    WHEN n.username IS NOT NULL THEN 'Nurse'
+                                END AS role
+                            FROM user u
+                            LEFT JOIN administrator a ON u.username = a.username
+                            LEFT JOIN nurse n ON u.username = n.username
+                            WHERE u.username = @username AND u.password = @password";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@username", User.Username);
                         command.Parameters.AddWithValue("@password", User.Password);
 
-                        int count = Convert.ToInt32(command.ExecuteScalar());
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                LoggedInUser = reader["fname"].ToString() + " " + reader["lname"].ToString();
 
-                        if (count == 1)
-                        {
-                            LogedInUser = User.Username;
-                            return true;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Invalid username or password. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return false;
+                                // Map the string role from the database to the enum
+                                string? roleString = reader["role"] as string;
+                                UserRole = roleString switch
+                                {
+                                    "Admin" => UserRole.ADMIN,
+                                    "Nurse" => UserRole.NURSE,
+                                    _ => UserRole.NONE
+                                };
+
+                                return true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Invalid username or password. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return false;
+                            }
                         }
                     }
                 }
@@ -65,3 +88,4 @@ namespace HealthCareSync.ViewModels
         }
     }
 }
+

@@ -1,4 +1,5 @@
-﻿using HealthCareSync.ViewModels;
+﻿using HealthCareSync.Enums;
+using HealthCareSync.ViewModels;
 using HealthCareSync.Views;
 
 namespace HealthCareSync
@@ -17,16 +18,30 @@ namespace HealthCareSync
             loginViewModel.User.Username = usernameTB.Text;
             loginViewModel.User.Password = passwordTB.Text;
 
-            bool loginSuccess = loginViewModel.Login();
-
-            if (loginSuccess)
+            if (loginViewModel.Login())
             {
-                var dashboard = new NursesHomePage(loginViewModel.LogedInUser);
-                this.Hide();
-                dashboard.Show();
-            }
+                switch (loginViewModel.UserRole)
+                {
+                    case UserRole.ADMIN:
+                        var adminHomePage = new AdminHomePage(loginViewModel.LoggedInUser);
+                        adminHomePage.Show();
+                        break;
 
+                    case UserRole.NURSE:
+                        var nurseHomePage = new NursesHomePage(loginViewModel.LoggedInUser);
+                        nurseHomePage.Show();
+                        break;
+
+                    case UserRole.NONE:
+                    default:
+                        MessageBox.Show("You don't have permission to access this application.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        break;
+                }
+
+                this.Hide();
+            }
         }
+
 
         private void label1_Click(object sender, EventArgs e)
         {
