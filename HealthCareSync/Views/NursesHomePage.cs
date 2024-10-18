@@ -14,7 +14,7 @@ namespace HealthCareSync
             this.sidebarTimer.Start();
             this.mngVisitTimer.Start();
             this.openChildForm(new Manage_Patients());
-            
+            this.openChildForm(new ManageNurses());
         }
 
         public NursesHomePage(string logedInUser)
@@ -135,5 +135,9 @@ namespace HealthCareSync
             login.Show();
         }
 
+        private void manageNurseBTN_Click(object sender, EventArgs e)
+        {
+            openChildForm(new ManageNurses());
+        }
     }
 }

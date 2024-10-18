@@ -50,6 +50,7 @@
             sidebarTimer = new System.Windows.Forms.Timer(components);
             mngVisitTimer = new System.Windows.Forms.Timer(components);
             mainPanel = new Panel();
+            manageNurseBTN = new Button();
             sidebar.SuspendLayout();
             menuPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)menuBTN).BeginInit();
@@ -69,7 +70,7 @@
             exitAppBTN.Location = new Point(734, 11);
             exitAppBTN.Margin = new Padding(2, 4, 2, 4);
             exitAppBTN.Name = "exitAppBTN";
-            exitAppBTN.Size = new Size(54, 54);
+            exitAppBTN.Size = new Size(38, 32);
             exitAppBTN.TabIndex = 0;
             exitAppBTN.UseVisualStyleBackColor = true;
             exitAppBTN.Click += button1_Click;
@@ -88,7 +89,7 @@
             sidebar.MaximumSize = new Size(210, 450);
             sidebar.MinimumSize = new Size(71, 450);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(210, 450);
+            sidebar.Size = new Size(147, 270);
             sidebar.TabIndex = 1;
             // 
             // menuPanel
@@ -121,12 +122,13 @@
             menuLabel.Location = new Point(66, 9);
             menuLabel.Margin = new Padding(2, 0, 2, 0);
             menuLabel.Name = "menuLabel";
-            menuLabel.Size = new Size(66, 28);
+            menuLabel.Size = new Size(46, 19);
             menuLabel.TabIndex = 1;
             menuLabel.Text = "Menu";
             // 
             // mngPatientsPanel
             // 
+            mngPatientsPanel.Controls.Add(manageNurseBTN);
             mngPatientsPanel.Controls.Add(managPatBTN);
             mngPatientsPanel.Location = new Point(2, 71);
             mngPatientsPanel.Margin = new Padding(2, 4, 2, 4);
@@ -281,7 +283,7 @@
             logoutBTN.Location = new Point(76, 16);
             logoutBTN.Margin = new Padding(2, 4, 2, 4);
             logoutBTN.Name = "logoutBTN";
-            logoutBTN.Size = new Size(111, 34);
+            logoutBTN.Size = new Size(78, 20);
             logoutBTN.TabIndex = 2;
             logoutBTN.Text = "Log Out";
             logoutBTN.UseVisualStyleBackColor = false;
@@ -315,15 +317,15 @@
             mainPanel.Location = new Point(0, 0);
             mainPanel.Margin = new Padding(2, 4, 2, 4);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(800, 450);
+            mainPanel.Size = new Size(560, 270);
             mainPanel.TabIndex = 2;
             // 
             // NursesHomePage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(560, 270);
             Controls.Add(sidebar);
             Controls.Add(exitAppBTN);
             Controls.Add(mainPanel);
@@ -367,5 +369,6 @@
         private PictureBox userPictureBox;
         private Button logoutBTN;
         private TextBox logedInUserTextBox;
+        private Button manageNurseBTN;
     }
 }
