@@ -4,9 +4,20 @@ using HealthCareSync.Views;
 
 namespace HealthCareSync
 {
+    /**
+     * The login form for the application
+     * @author Jabesi
+     * @version Fall 2024
+     */
     public partial class LoginForm : Form
     {
         private readonly LoginViewModel loginViewModel;
+
+        /**
+         * Constructor
+         * @precondition none
+         * @postcondition none
+         */
         public LoginForm()
         {
             InitializeComponent();
@@ -25,20 +36,23 @@ namespace HealthCareSync
                     case UserRole.ADMIN:
                         var adminHomePage = new AdminHomePage(loginViewModel.LoggedInUser);
                         adminHomePage.Show();
+                        this.Hide();
                         break;
 
                     case UserRole.NURSE:
                         var nurseHomePage = new NursesHomePage(loginViewModel.LoggedInUser);
                         nurseHomePage.Show();
+                        this.Hide();
                         break;
 
                     case UserRole.NONE:
                     default:
                         MessageBox.Show("You don't have permission to access this application.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        usernameTB.Text = string.Empty;
+                        passwordTB.Text = string.Empty;
                         break;
                 }
 
-                this.Hide();
             }
         }
 

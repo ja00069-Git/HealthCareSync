@@ -43,6 +43,7 @@
             exitAppBTN.Size = new Size(54, 54);
             exitAppBTN.TabIndex = 1;
             exitAppBTN.UseVisualStyleBackColor = true;
+            exitAppBTN.Click += exitAppBTN_Click;
             // 
             // AdminHomePage
             // 
@@ -53,6 +54,7 @@
             Controls.Add(exitAppBTN);
             FormBorderStyle = FormBorderStyle.None;
             Name = "AdminHomePage";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AdminHomePage";
             ResumeLayout(false);
         }

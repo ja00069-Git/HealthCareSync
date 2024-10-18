@@ -2,9 +2,14 @@
 using HealthCareSync.Models;
 using HealthCareSync.DAL;
 using HealthCareSync.Enums;
-using System.Data;
+
 namespace HealthCareSync.ViewModels
 {
+    /**
+     * The view model for the login form
+     * @author Jabesi
+     * @version Fall 2024
+     */
     public class LoginViewModel
     {
         public User User { get; set; }
@@ -16,6 +21,13 @@ namespace HealthCareSync.ViewModels
             User = new User();
         }
 
+        /**
+         * Logs the user in to the system using the provided username and password
+         * Contol access to the system based on the user's role
+         * @precondition none
+         * @postcondition none
+         * @return true if the user was logged in successfully, false otherwise
+         */
         public bool Login()
         {
             if (string.IsNullOrWhiteSpace(User.Username))
@@ -37,17 +49,17 @@ namespace HealthCareSync.ViewModels
                     connection.Open();
 
                     string query = @"
-                            SELECT 
-                                COALESCE(a.fname, n.fname) AS fname,
-                                COALESCE(a.lname, n.lname) AS lname,
-                                CASE 
-                                    WHEN a.username IS NOT NULL THEN 'Admin'
-                                    WHEN n.username IS NOT NULL THEN 'Nurse'
-                                END AS role
-                            FROM user u
-                            LEFT JOIN administrator a ON u.username = a.username
-                            LEFT JOIN nurse n ON u.username = n.username
-                            WHERE u.username = @username AND u.password = @password";
+                  SELECT 
+                     COALESCE(a.fname, n.fname) AS fname,
+                     COALESCE(a.lname, n.lname) AS lname,
+                     CASE 
+                        WHEN a.username IS NOT NULL THEN 'Admin'
+                        WHEN n.username IS NOT NULL THEN 'Nurse'
+                     END AS role
+                  FROM user u
+                  LEFT JOIN administrator a ON u.username = a.username
+                  LEFT JOIN nurse n ON u.username = n.username
+                  WHERE u.username = @username AND u.password = @password";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
@@ -60,7 +72,6 @@ namespace HealthCareSync.ViewModels
                             {
                                 LoggedInUser = reader["fname"].ToString() + " " + reader["lname"].ToString();
 
-                                // Map the string role from the database to the enum
                                 string? roleString = reader["role"] as string;
                                 UserRole = roleString switch
                                 {
@@ -88,4 +99,3 @@ namespace HealthCareSync.ViewModels
         }
     }
 }
-

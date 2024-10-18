@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 namespace HealthCareSync.DAL
 {
     public class PatientDAL
-    {
-        private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
-             "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
-
+    { 
     }
 }

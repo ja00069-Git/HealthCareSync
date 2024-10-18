@@ -65,6 +65,7 @@
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "SignupForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "SignupForm";
             ResumeLayout(false);
             PerformLayout();
