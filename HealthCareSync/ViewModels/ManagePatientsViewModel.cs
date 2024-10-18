@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HealthCareSync.DAL;
 using HealthCareSync.Enums;
 using HealthCareSync.Models;
 
@@ -16,6 +18,8 @@ namespace HealthCareSync.ViewModels
     public class ManagePatientsViewModel : INotifyPropertyChanged
     {
         private Patient selectedPatient;
+        private PatientDAL patientDAL;
+        private AddressDAL addressDAL;
 
         /// <summary>
         /// Gets the first name.
@@ -87,7 +91,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The city.
         /// </value>
-        public string? City => SelectedPatient?.Address?.Zip;
+        public string? City => SelectedPatient?.Address?.City;
 
         /// <summary>
         /// Gets the state.
@@ -152,13 +156,10 @@ namespace HealthCareSync.ViewModels
         /// </summary>
         public ManagePatientsViewModel() 
         {
-            Address address = new Address("912 Lovvorn rd", "30117", "Carrollton", "Georgia", "Apt 312");
+            this.patientDAL = new PatientDAL();
 
-            this.Patients = new ObservableCollection<Patient>{
-                new Patient("ahmad", "hammett", DateTime.Now, "6788019001", address, null),
-                new Patient(2, "tom", "hanks", DateTime.Now, null, null, Enums.FlagStatus.INACTIVE) 
-            };
-
+            this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatients());
+      
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -211,7 +212,9 @@ namespace HealthCareSync.ViewModels
             OnPropertyChanged(nameof(SelectedPatient));
             OnPropertyChanged(nameof(Patients));
 
-            //TODO: Edit patient in the database
+            this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, DateTime.Parse(formattedBDate), address1,
+                zip, city, state, address2, phoneNum, flag);
+           
         }
 
         public void Delete()
