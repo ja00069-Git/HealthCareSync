@@ -30,7 +30,7 @@
         {
             idTextBox = new TextBox();
             idLabel = new Label();
-            flagStatusTextBox = new TextBox();
+            usernameTextBox = new TextBox();
             usernameLabel = new Label();
             address2TextBox = new TextBox();
             stateTextBox = new TextBox();
@@ -71,13 +71,13 @@
             idLabel.TabIndex = 66;
             idLabel.Text = "Id";
             // 
-            // flagStatusTextBox
+            // usernameTextBox
             // 
-            flagStatusTextBox.Location = new Point(412, 163);
-            flagStatusTextBox.Name = "flagStatusTextBox";
-            flagStatusTextBox.Size = new Size(100, 23);
-            flagStatusTextBox.TabIndex = 65;
-            flagStatusTextBox.TextAlign = HorizontalAlignment.Center;
+            usernameTextBox.Location = new Point(412, 163);
+            usernameTextBox.Name = "usernameTextBox";
+            usernameTextBox.Size = new Size(100, 23);
+            usernameTextBox.TabIndex = 65;
+            usernameTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // usernameLabel
             // 
@@ -225,6 +225,7 @@
             saveButton.TabIndex = 47;
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = true;
+            saveButton.Click += saveButton_Click;
             // 
             // nurseListBox
             // 
@@ -234,6 +235,7 @@
             nurseListBox.Name = "nurseListBox";
             nurseListBox.Size = new Size(120, 184);
             nurseListBox.TabIndex = 46;
+            nurseListBox.SelectedIndexChanged += NurseListBox_SelectedIndexChanged;
             // 
             // ManageNurses
             // 
@@ -243,7 +245,7 @@
             ClientSize = new Size(561, 270);
             Controls.Add(idTextBox);
             Controls.Add(idLabel);
-            Controls.Add(flagStatusTextBox);
+            Controls.Add(usernameTextBox);
             Controls.Add(usernameLabel);
             Controls.Add(address2TextBox);
             Controls.Add(stateTextBox);
@@ -274,7 +276,7 @@
 
         private TextBox idTextBox;
         private Label idLabel;
-        private TextBox flagStatusTextBox;
+        private TextBox usernameTextBox;
         private Label usernameLabel;
         private TextBox address2TextBox;
         private TextBox stateTextBox;
