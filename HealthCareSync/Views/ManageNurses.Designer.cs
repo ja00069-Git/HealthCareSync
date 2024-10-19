@@ -50,6 +50,8 @@
             firstNameTextBox = new TextBox();
             saveButton = new Button();
             nurseListBox = new ListBox();
+            phoneNumLabel = new Label();
+            phoneNumTextBox = new TextBox();
             SuspendLayout();
             // 
             // idTextBox
@@ -237,12 +239,30 @@
             nurseListBox.TabIndex = 46;
             nurseListBox.SelectedIndexChanged += NurseListBox_SelectedIndexChanged;
             // 
+            // phoneNumLabel
+            // 
+            phoneNumLabel.AutoSize = true;
+            phoneNumLabel.Location = new Point(187, 196);
+            phoneNumLabel.Name = "phoneNumLabel";
+            phoneNumLabel.Size = new Size(88, 15);
+            phoneNumLabel.TabIndex = 69;
+            phoneNumLabel.Text = "Phone Number";
+            // 
+            // phoneNumTextBox
+            // 
+            phoneNumTextBox.Location = new Point(187, 214);
+            phoneNumTextBox.Name = "phoneNumTextBox";
+            phoneNumTextBox.Size = new Size(100, 23);
+            phoneNumTextBox.TabIndex = 68;
+            // 
             // ManageNurses
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(561, 270);
+            Controls.Add(phoneNumLabel);
+            Controls.Add(phoneNumTextBox);
             Controls.Add(idTextBox);
             Controls.Add(idLabel);
             Controls.Add(usernameTextBox);
@@ -296,5 +316,7 @@
         private TextBox firstNameTextBox;
         private Button saveButton;
         private ListBox nurseListBox;
+        private Label phoneNumLabel;
+        private TextBox phoneNumTextBox;
     }
 }
