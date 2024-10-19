@@ -2,11 +2,11 @@
 
 namespace HealthCareSync
 {
-    public partial class HomePage : Form
+    public partial class NursesHomePage : Form
     {
         bool isCollapsed;
         bool isMngVisitCollapsed;
-        public HomePage()
+        public NursesHomePage()
         {
             InitializeComponent();
             isCollapsed = false;
@@ -16,7 +16,7 @@ namespace HealthCareSync
             this.openChildForm(new Manage_Patients());
         }
 
-        public HomePage(string logedInUser)
+        public NursesHomePage(string logedInUser)
         {
             InitializeComponent();
             isCollapsed = false;
