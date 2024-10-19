@@ -62,7 +62,7 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The phone number.
         /// </value>
-        public string? PhoneNumber { get; }
+        public string PhoneNumber { get; }
 
         /// <summary>
         ///     Gets the address identifier.
