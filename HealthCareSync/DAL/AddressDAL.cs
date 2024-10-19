@@ -12,6 +12,15 @@ namespace HealthCareSync.DAL
         private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
              "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
 
+        /// <summary>
+        /// Updates the address if exists else creates one.
+        /// </summary>
+        /// <param name="address_1">The address 1.</param>
+        /// <param name="zip">The zip.</param>
+        /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
+        /// <param name="address_2">The address 2.</param>
+        /// <returns></returns>
         public int UpdateAddressIfExistsElseCreate(string address_1, string zip, string? city, string? state, string? address_2)
         {
             using var connection = new MySqlConnection(connectionString);

@@ -8,6 +8,9 @@ using MySql.Data.MySqlClient;
 
 namespace HealthCareSync.DAL
 {
+    /// <summary>
+    ///     Helper class define an Extension method that checks if a column is null before it returns it value.
+    /// </summary>
     public static class DataHelper
     {
 

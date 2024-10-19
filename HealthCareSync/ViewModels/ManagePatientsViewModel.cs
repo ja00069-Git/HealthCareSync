@@ -166,9 +166,24 @@ namespace HealthCareSync.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Adds the patient to the database and collection.
+        /// </summary>
+        /// <param name="fname">The fname.</param>
+        /// <param name="lname">The lname.</param>
+        /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="phoneNum">The phone number.</param>
+        /// <param name="address1">The address1.</param>
+        /// <param name="zip">The zip.</param>
+        /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
+        /// <param name="address2">The address2.</param>
+        /// <param name="flag">The flag.</param>
         public void Add(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, FlagStatus? flag)
         {
-            var newPatient = new Patient(fname, lname, DateTime.Parse(formattedBDate), phoneNum, null, flag);
+            int patientId = this.patientDAL.AddPatient(fname, lname, DateTime.Parse(formattedBDate), address1,
+               zip, city, state, address2, phoneNum, flag);
+            var newPatient = new Patient(patientId, fname, lname, DateTime.Parse(formattedBDate), phoneNum, null, flag);
 
             if (address1?.Trim().Length > 0 && zip?.Trim().Length > 0)
             {
@@ -179,12 +194,26 @@ namespace HealthCareSync.ViewModels
             this.Patients.Add(newPatient);
 
             OnPropertyChanged(nameof(Patients));
-
-            //TODO: Add patient in the database
         }
 
+        /// <summary>
+        /// Saves the patient to the database and connection.
+        /// </summary>
+        /// <param name="fname">The fname.</param>
+        /// <param name="lname">The lname.</param>
+        /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="phoneNum">The phone number.</param>
+        /// <param name="address1">The address1.</param>
+        /// <param name="zip">The zip.</param>
+        /// <param name="city">The city.</param>
+        /// <param name="state">The state.</param>
+        /// <param name="address2">The address2.</param>
+        /// <param name="flag">The flag.</param>
         public void Save(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, FlagStatus? flag)
         {
+            this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, DateTime.Parse(formattedBDate), address1,
+            zip, city, state, address2, phoneNum, flag);
+
             this.selectedPatient.FirstName = fname;
             this.selectedPatient.LastName = lname;
             this.selectedPatient.BirthDate = DateTime.Parse(formattedBDate);
@@ -209,19 +238,18 @@ namespace HealthCareSync.ViewModels
             }
 
             OnPropertyChanged(nameof(SelectedPatient));
-            OnPropertyChanged(nameof(Patients));
-
-            this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, DateTime.Parse(formattedBDate), address1,
-                zip, city, state, address2, phoneNum, flag);
-           
+            OnPropertyChanged(nameof(Patients));  
         }
 
+        /// <summary>
+        /// Deletes the patient from the database and collection.
+        /// </summary>
         public void Delete()
         {
+            this.patientDAL.DeletePatient(this.selectedPatient.Id);
+
             this.Patients.Remove(this.selectedPatient);
             OnPropertyChanged(nameof(Patients));
-
-            this.patientDAL.DeletePatient(this.selectedPatient.Id);
         }
     }
 }
