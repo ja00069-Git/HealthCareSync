@@ -49,6 +49,8 @@ namespace HealthCareSync.Views
                 this.birthDateTextBox.DataBindings.Add("Text", selectedNurseBindingSource, "FormattedBirthDate");
                 this.usernameTextBox.DataBindings.Clear();
                 this.usernameTextBox.DataBindings.Add("Text", selectedNurseBindingSource, "Username");
+                this.phoneNumTextBox.DataBindings.Clear();
+                this.phoneNumTextBox.DataBindings.Add("Text", selectedNurseBindingSource, "PhoneNumber");
                 this.idTextBox.DataBindings.Clear();
                 this.idTextBox.DataBindings.Add("Text", selectedNurseBindingSource, "Id");
             }
