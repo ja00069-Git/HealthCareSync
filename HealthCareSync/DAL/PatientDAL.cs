@@ -13,9 +13,6 @@ namespace HealthCareSync.DAL
     {
         private AddressDAL addressDAL;
 
-        private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
-             "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PatientDAL"/> class.
         /// </summary>
@@ -38,7 +35,7 @@ namespace HealthCareSync.DAL
         public int AddPatient(string fname, string lname, DateTime bdate, string? address_1,
             string? zip, string? city, string? state, string? address_2, string? phone_num, FlagStatus? flag)
         {
-            using var connection = new MySqlConnection(connectionString);
+            using var connection = new MySqlConnection(Connection.ConnectionString());
 
             connection.Open();
 
@@ -97,7 +94,7 @@ namespace HealthCareSync.DAL
         /// <param name="id">The identifier.</param>
         public void DeletePatient(int id)
         {
-            using var connection = new MySqlConnection(connectionString);
+            using var connection = new MySqlConnection(Connection.ConnectionString());
 
             connection.Open();
 
@@ -107,6 +104,9 @@ namespace HealthCareSync.DAL
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             command.ExecuteNonQuery();
+
+            this.addressDAL.DeleteUnreferencedAddresses();
+
             connection.Close();
         }
 
@@ -127,7 +127,7 @@ namespace HealthCareSync.DAL
         public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, string? address_1,
             string? zip, string? city, string? state, string? address_2, string? phone_num, FlagStatus? flag)
         {
-            using var connection = new MySqlConnection(connectionString);
+            using var connection = new MySqlConnection(Connection.ConnectionString());
 
             connection.Open();
 
@@ -161,6 +161,9 @@ namespace HealthCareSync.DAL
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
 
             command.ExecuteNonQuery();
+
+            this.addressDAL.DeleteUnreferencedAddresses();
+
             connection.Close();
         }
 
@@ -171,7 +174,7 @@ namespace HealthCareSync.DAL
         public List<Patient> GetPatients()
         {
             var patientList = new List<Patient>();
-            using var connection = new MySqlConnection(connectionString);
+            using var connection = new MySqlConnection(Connection.ConnectionString());
 
             connection.Open();
 

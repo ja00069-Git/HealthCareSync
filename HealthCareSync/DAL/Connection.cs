@@ -2,7 +2,7 @@
 {
     public static class Connection
     {
-        public static string ConnectionSting()
+        public static string ConnectionString()
         {
             var builder = new MySql.Data.MySqlClient.MySqlConnectionStringBuilder
             {

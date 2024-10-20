@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HealthCareSync.Models;
+using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace HealthCareSync.DAL
 {
@@ -11,6 +15,22 @@ namespace HealthCareSync.DAL
     {
         private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
              "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
+
+        public void DeleteUnreferencedAddresses()
+        {
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"delete from address
+                            where not exists(
+                            select 1 from patient where patient.address_id = address.id)";
+
+            using var command = new MySqlCommand(query, connection);
+            command.ExecuteNonQuery();
+
+            connection.Close();
+        }
 
         /// <summary>
         /// Updates the address if exists else creates one.
@@ -23,7 +43,7 @@ namespace HealthCareSync.DAL
         /// <returns></returns>
         public int UpdateAddressIfExistsElseCreate(string address_1, string zip, string? city, string? state, string? address_2)
         {
-            using var connection = new MySqlConnection(connectionString);
+            using var connection = new MySqlConnection(Connection.ConnectionString());
 
             connection.Open();
 
