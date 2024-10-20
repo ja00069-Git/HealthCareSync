@@ -56,6 +56,8 @@
             deleteButton = new Button();
             unselectButton = new Button();
             stateComboBox = new ComboBox();
+            genderComboBox = new ComboBox();
+            genderLabel = new Label();
             SuspendLayout();
             // 
             // patientListBox
@@ -256,10 +258,11 @@
             // errorLabel
             // 
             errorLabel.AutoSize = true;
+            errorLabel.Font = new Font("Segoe UI", 8F);
             errorLabel.ForeColor = Color.Red;
-            errorLabel.Location = new Point(132, 246);
+            errorLabel.Location = new Point(51, 246);
             errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(0, 15);
+            errorLabel.Size = new Size(0, 13);
             errorLabel.TabIndex = 27;
             // 
             // addButton
@@ -302,12 +305,32 @@
             stateComboBox.Size = new Size(100, 23);
             stateComboBox.TabIndex = 31;
             // 
+            // genderComboBox
+            // 
+            genderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            genderComboBox.FormattingEnabled = true;
+            genderComboBox.Location = new Point(519, 90);
+            genderComboBox.Name = "genderComboBox";
+            genderComboBox.Size = new Size(38, 23);
+            genderComboBox.TabIndex = 32;
+            // 
+            // genderLabel
+            // 
+            genderLabel.AutoSize = true;
+            genderLabel.Location = new Point(515, 72);
+            genderLabel.Name = "genderLabel";
+            genderLabel.Size = new Size(45, 15);
+            genderLabel.TabIndex = 33;
+            genderLabel.Text = "Gender";
+            // 
             // Manage_Patients
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(561, 270);
+            Controls.Add(genderLabel);
+            Controls.Add(genderComboBox);
             Controls.Add(stateComboBox);
             Controls.Add(unselectButton);
             Controls.Add(deleteButton);
@@ -374,5 +397,7 @@
         private Button deleteButton;
         private Button unselectButton;
         private ComboBox stateComboBox;
+        private ComboBox genderComboBox;
+        private Label genderLabel;
     }
 }

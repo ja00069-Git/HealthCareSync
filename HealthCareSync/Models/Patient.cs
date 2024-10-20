@@ -12,6 +12,7 @@ namespace HealthCareSync.Models
         private string firstName;
         private string lastName;
         private DateTime birthDate;
+        private Gender gender;
         private string? phoneNumber;
         private Address? address;
         private FlagStatus? flagStatus;
@@ -95,6 +96,15 @@ namespace HealthCareSync.Models
         /// </value>
         public string FormattedBirthDate => this.BirthDate.ToString("MM/dd/yyyy");
 
+        public Gender Gender
+        {
+            get => this.gender;
+            set
+            {
+                this.gender = value;
+            }
+        }
+
         /// <summary>
         ///     Gets the phone number.
         /// </summary>
@@ -155,6 +165,7 @@ namespace HealthCareSync.Models
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
         /// <param name="birthDate">The birth date.</param>
+        /// <param name="gender"> The gender</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address">The address.</param>
         /// <param name="flagStatus">The flag flagStatus.</param>
@@ -164,7 +175,7 @@ namespace HealthCareSync.Models
         /// or
         /// lname
         /// </exception>
-        public Patient(int id, string fname, string lname, DateTime birthDate, string? phoneNum, Address? address, FlagStatus? flagStatus)
+        public Patient(int id, string fname, string lname, DateTime birthDate, Gender gender, string? phoneNum, Address? address, FlagStatus? flagStatus)
         {
             if (id <= 0)
             {
@@ -183,6 +194,7 @@ namespace HealthCareSync.Models
             this.firstName = fname;
             this.lastName = lname;
             this.birthDate = birthDate;
+            this.gender = gender;
             this.phoneNumber = phoneNum?.Trim();
             this.address = address;
             this.flagStatus = flagStatus;
@@ -193,6 +205,7 @@ namespace HealthCareSync.Models
         /// </summary>
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
+        /// <param name="gender"> The gender</param>
         /// <param name="birthDate">The birth date.</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address">The address.</param>
@@ -203,7 +216,7 @@ namespace HealthCareSync.Models
         /// or
         /// lname
         /// </exception>
-        public Patient(string fname, string lname, DateTime birthDate, string? phoneNum, Address? address, FlagStatus? flagStatus)
+        public Patient(string fname, string lname, DateTime birthDate, Gender gender, string? phoneNum, Address? address, FlagStatus? flagStatus)
         {
             if (string.IsNullOrWhiteSpace(fname))
             {
@@ -217,6 +230,7 @@ namespace HealthCareSync.Models
             this.firstName = fname;
             this.lastName = lname;
             this.birthDate = birthDate;
+            this.gender = gender;
             this.phoneNumber = phoneNum;
             this.address = address;
             this.flagStatus = flagStatus;

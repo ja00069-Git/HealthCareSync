@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace HealthCareSync.DAL
         /// <param name="phone_num">The phone number.</param>
         /// <param name="flag">The flag.</param>
         /// <returns></returns>
-        public int AddPatient(string fname, string lname, DateTime bdate, string? address_1,
+        public int AddPatient(string fname, string lname, DateTime bdate, Gender gender, string? address_1,
             string? zip, string? city, State? state, string? address_2, string? phone_num, FlagStatus? flag)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
@@ -47,15 +48,15 @@ namespace HealthCareSync.DAL
 
             if (string.IsNullOrWhiteSpace(address_1))
             {
-                query = @"insert into patient (fname, lname, birth_date, phone_num, flag_status)
-                          values (@fname, @lname, @bdate, @phone_num, @flag)";
+                query = @"insert into patient (fname, lname, birth_date, gender, phone_num, flag_status)
+                          values (@fname, @lname, @bdate, @gender, @phone_num, @flag)";
             }
             else
             {
                 address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(address_1!, zip!, city, state, address_2);
 
-                query = @"insert into patient (fname, lname, birth_date, phone_num, address_id, flag_status)
-                          values (@fname, @lname, @bdate, @phone_num, @address_id, @flag)";
+                query = @"insert into patient (fname, lname, birth_date, gender, phone_num, address_id, flag_status)
+                          values (@fname, @lname, @bdate, @gender, @phone_num, @address_id, @flag)";
             }
 
             using var command = new MySqlCommand(query, connection);
@@ -63,6 +64,7 @@ namespace HealthCareSync.DAL
             command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
             command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
             command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
+            command.Parameters.Add("@gender", MySqlDbType.VarChar).Value = gender.ToString();
             command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
             command.Parameters.Add("@flag", MySqlDbType.VarChar).Value = flag.ToString();
 
@@ -127,7 +129,7 @@ namespace HealthCareSync.DAL
         /// <param name="address_2">The address 2.</param>
         /// <param name="phone_num">The phone number.</param>
         /// <param name="flag">The flag.</param>
-        public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, string? address_1,
+        public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, Gender gender, string? address_1,
             string? zip, string? city, State? state, string? address_2, string? phone_num, FlagStatus? flag)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
@@ -141,7 +143,7 @@ namespace HealthCareSync.DAL
             {
                 query = @"update patient 
                         set fname = @fname, lname = @lname, address_id = null,
-                        birth_date = @bdate, phone_num = @phone_num, flag_status = @flag
+                        birth_date = @bdate, gender = @gender, phone_num = @phone_num, flag_status = @flag
                         where id = @id";
             }
             else
@@ -150,7 +152,7 @@ namespace HealthCareSync.DAL
 
                 query = @"update patient 
                         set fname = @fname, lname = @lname, address_id = @address_id,
-                        birth_date = @bdate, phone_num = @phone_num, flag_status = @flag
+                        birth_date = @bdate, gender = @gender, phone_num = @phone_num, flag_status = @flag
                         where id = @id";
             }
 
@@ -159,6 +161,7 @@ namespace HealthCareSync.DAL
             command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
             command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
             command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
+            command.Parameters.Add("@gender", MySqlDbType.VarChar).Value = gender.ToString();
             command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
             command.Parameters.Add("@flag", MySqlDbType.VarChar).Value = flag.ToString();
             command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
@@ -187,6 +190,7 @@ namespace HealthCareSync.DAL
                             fname, 
                             lname, 
                             birth_date, 
+                            gender,
                             phone_num, 
                             flag_status, 
                             address_1, 
@@ -206,6 +210,7 @@ namespace HealthCareSync.DAL
             var fnameOrdinal = reader.GetOrdinal("fname");
             var lnameOrdinal = reader.GetOrdinal("lname");
             var bdateOrdinal = reader.GetOrdinal("birth_date");
+            var genderOrdinal = reader.GetOrdinal("gender");
             var phoneOrdinal = reader.GetOrdinal("phone_num");
             var flagOrdinal = reader.GetOrdinal("flag_status");
             var address1Ordinal = reader.GetOrdinal("address_1");
@@ -217,7 +222,7 @@ namespace HealthCareSync.DAL
             while (reader.Read())
             {
                 patientList.Add(CreatePatient(reader, idOrdinal, addressIdOrdinal, fnameOrdinal, lnameOrdinal, bdateOrdinal,
-                    phoneOrdinal, flagOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
+                    genderOrdinal, phoneOrdinal, flagOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
             }
 
             connection.Close();
@@ -226,7 +231,7 @@ namespace HealthCareSync.DAL
         }
 
         private static Patient CreatePatient(MySqlDataReader reader, int idOrdinal, int addressIdOrdinal, int fnameOrdinal, int lnameOrdinal, int bdateOrdinal,
-            int phoneOrdinal, int flagOrdinal, int address1Ordinal, int zipOrdinal, int stateOrdinal,
+            int genderOrdinal, int phoneOrdinal, int flagOrdinal, int address1Ordinal, int zipOrdinal, int stateOrdinal,
             int cityOrdinal, int address2Ordinal)
         {
             FlagStatus? flag = null;
@@ -235,7 +240,7 @@ namespace HealthCareSync.DAL
 
             if (!string.IsNullOrEmpty(flagValue))
             {
-                if (Enum.TryParse<FlagStatus>(flagValue, out FlagStatus parsedFlag))
+                if (Enum.TryParse<FlagStatus>(flagValue.ToUpper(), out FlagStatus parsedFlag))
                 {
                     flag = parsedFlag;
                 }
@@ -245,11 +250,14 @@ namespace HealthCareSync.DAL
                 }
             }
 
+            Gender gender = Enum.Parse<Gender>(reader.GetFieldValueCheckNull<string>(genderOrdinal).ToUpper());
+
             var patient = new Patient(
                 reader.GetFieldValueCheckNull<int>(idOrdinal),
                 reader.GetFieldValueCheckNull<string>(fnameOrdinal),
                 reader.GetFieldValueCheckNull<string>(lnameOrdinal),
                 reader.GetFieldValueCheckNull<DateTime>(bdateOrdinal),
+                gender,
                 reader.GetFieldValueCheckNull<string?>(phoneOrdinal),
                 null,
                 flag

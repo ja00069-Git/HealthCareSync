@@ -45,6 +45,14 @@ namespace HealthCareSync.ViewModels
         public string? FormattedBirthDate => SelectedPatient?.FormattedBirthDate;
 
         /// <summary>
+        /// Gets the gender.
+        /// </summary>
+        /// <value>
+        /// The gender.
+        /// </value>
+        public Gender? Gender => SelectedPatient?.Gender;
+
+        /// <summary>
         /// Gets the phone number.
         /// </summary>
         /// <value>
@@ -122,6 +130,7 @@ namespace HealthCareSync.ViewModels
                     OnPropertyChanged(nameof(FirstName)); 
                     OnPropertyChanged(nameof(LastName));
                     OnPropertyChanged(nameof(FormattedBirthDate));
+                    OnPropertyChanged(nameof(Gender));
                     OnPropertyChanged(nameof(PhoneNumber));
                     OnPropertyChanged(nameof(Patient_Id));
                     OnPropertyChanged(nameof(FlagStatus));
@@ -159,6 +168,14 @@ namespace HealthCareSync.ViewModels
         public List<State> States => Enum.GetValues(typeof(State)).Cast<State>().ToList();
 
         /// <summary>
+        /// Gets the genders.
+        /// </summary>
+        /// <value>
+        /// The genders.
+        /// </value>
+        public List<Gender> Genders => Enum.GetValues<Gender>().Cast<Gender>().ToList();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ManagePatientsViewModel"/> class.
         /// </summary>
         public ManagePatientsViewModel() 
@@ -180,6 +197,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
         /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="gender">The gender</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address1">The address1.</param>
         /// <param name="zip">The zip.</param>
@@ -187,11 +205,11 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public void Add(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, State? state, string? address2, FlagStatus? flag)
+        public void Add(string fname, string lname, string formattedBDate, Gender gender, string? phoneNum, string? address1, string? zip, string? city, State? state, string? address2, FlagStatus? flag)
         {
-            int patientId = this.patientDAL.AddPatient(fname, lname, DateTime.Parse(formattedBDate), address1,
+            int patientId = this.patientDAL.AddPatient(fname, lname, DateTime.Parse(formattedBDate), gender, address1,
                zip, city, state, address2, phoneNum, flag);
-            var newPatient = new Patient(patientId, fname, lname, DateTime.Parse(formattedBDate), phoneNum, null, flag);
+            var newPatient = new Patient(patientId, fname, lname, DateTime.Parse(formattedBDate), gender, phoneNum, null, flag);
 
             if (address1?.Trim().Length > 0 && zip?.Trim().Length > 0)
             {
@@ -210,6 +228,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
         /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="gender">The gender</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address1">The address1.</param>
         /// <param name="zip">The zip.</param>
@@ -217,14 +236,15 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public void Save(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, State? state, string? address2, FlagStatus? flag)
+        public void Save(string fname, string lname, string formattedBDate, Gender gender, string? phoneNum, string? address1, string? zip, string? city, State? state, string? address2, FlagStatus? flag)
         {
-            this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, DateTime.Parse(formattedBDate), address1,
+            this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, DateTime.Parse(formattedBDate), gender, address1,
             zip, city, state, address2, phoneNum, flag);
 
             this.selectedPatient.FirstName = fname;
             this.selectedPatient.LastName = lname;
             this.selectedPatient.BirthDate = DateTime.Parse(formattedBDate);
+            this.selectedPatient.Gender = gender;
             this.selectedPatient.PhoneNumber = phoneNum;
             this.selectedPatient.FlagStatus = flag;
 

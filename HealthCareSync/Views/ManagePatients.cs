@@ -20,6 +20,8 @@ namespace HealthCareSync.Views
         private readonly string ERROR_PHONE_NUMBER = "Phone number must be 10 digits";
         private readonly string ERROR_ADDRESS_1 = "Address 1 cannot be blank";
         private readonly string ERROR_ZIP = "Zip must be 5 digits";
+        private readonly string ERROR_GENDER = "Must select a gender";
+        private readonly string ERROR_DATE = "Not a valid date";
 
         private ManagePatientsViewModel viewModel;
 
@@ -32,8 +34,6 @@ namespace HealthCareSync.Views
             this.BindToViewModel();
             this.ClearAllBoxes();
             this.patientListBox.SelectedIndex = -1;
-            this.flagStatusComboBox.SelectedIndex = -1;
-            this.stateComboBox.SelectedIndex = -1;
         }
 
         private void BindToViewModel()
@@ -42,6 +42,7 @@ namespace HealthCareSync.Views
             this.patientListBox.DisplayMember = "FullName";
             this.flagStatusComboBox.DataSource = this.viewModel.FlagStatuses;
             this.stateComboBox.DataSource = this.viewModel.States;
+            this.genderComboBox.DataSource = this.viewModel.Genders;
         }
 
         private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
@@ -63,6 +64,7 @@ namespace HealthCareSync.Views
             this.stateComboBox.SelectedIndex = -1;
             this.address2TextBox.Clear();
             this.flagStatusComboBox.SelectedIndex = -1;
+            this.genderComboBox.SelectedIndex = -1;
         }
 
         private void PatientListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,6 +91,8 @@ namespace HealthCareSync.Views
                 this.stateComboBox.DataBindings.Clear();
                 this.stateComboBox.DataBindings.Add("SelectedItem", this.viewModel, "State", true, DataSourceUpdateMode.OnPropertyChanged);
                 this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
+                this.genderComboBox.DataBindings.Clear();
+                this.genderComboBox.DataBindings.Add("SelectedItem", this.viewModel, "Gender", true, DataSourceUpdateMode.OnPropertyChanged);
 
                 if (this.viewModel.FlagStatus == null)
                 {
@@ -129,10 +133,12 @@ namespace HealthCareSync.Views
             State? state = (State?)this.stateComboBox.SelectedItem;
             var address2 = this.address2TextBox.Text;
             FlagStatus? flag = (FlagStatus?)this.flagStatusComboBox.SelectedItem;
+            Gender? gender = (Gender?)this.genderComboBox.SelectedItem;
 
-            if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
+            if (this.inputsValid(fname, lname, formattedBDate, gender, phoneNum, address1, zip))
             {
-                this.viewModel.Save(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, flag);
+                Gender actualGender = (Gender)this.genderComboBox.SelectedItem!;
+                this.viewModel.Save(fname, lname, formattedBDate, actualGender, phoneNum, address1, zip, city, state, address2, flag);
                 this.refreshListBox();
                 this.errorLabel.ForeColor = Color.Green;
                 this.errorLabel.Text = "Successfully edited patient";
@@ -146,7 +152,14 @@ namespace HealthCareSync.Views
             this.patientListBox.DisplayMember = "FullName";
         }
 
-        private bool inputsValid(string fname, string lname, string formattedBDate, string phoneNum, string address1, string zip)
+        private static bool isValidDate(string formattedBDate)
+        {
+            DateTime parsedDate;
+
+            return DateTime.TryParse(formattedBDate, out parsedDate);
+        }
+
+        private bool inputsValid(string fname, string lname, string formattedBDate, Gender? gender, string phoneNum, string address1, string zip)
         {
             if (string.IsNullOrWhiteSpace(fname))
             {
@@ -161,6 +174,16 @@ namespace HealthCareSync.Views
             else if (!Regex.IsMatch(formattedBDate, BIRTH_DATE_REGEX_PATTERN))
             {
                 this.errorLabel.Text = ERROR_BIRTH_DATE;
+                return false;
+            }
+            else if (!isValidDate(formattedBDate))
+            {
+                this.errorLabel.Text = ERROR_DATE;
+                return false;
+            }
+            else if (gender == null)
+            {
+                this.errorLabel.Text = ERROR_GENDER;
                 return false;
             }
             else if (phoneNum.Trim().Length > 0 && !Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
@@ -226,11 +249,13 @@ namespace HealthCareSync.Views
             var city = this.cityTextBox.Text;
             State? state = (State?)this.stateComboBox.SelectedItem;
             var address2 = this.address2TextBox.Text;
+            Gender? gender = (Gender?)this.genderComboBox.SelectedItem;
             FlagStatus? flag = (FlagStatus?)this.flagStatusComboBox.SelectedItem;
 
-            if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
+            if (this.inputsValid(fname, lname, formattedBDate, gender, phoneNum, address1, zip))
             {
-                this.viewModel.Add(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, flag);
+                Gender actualGender = (Gender)this.genderComboBox.SelectedItem!;
+                this.viewModel.Add(fname, lname, formattedBDate, actualGender, phoneNum, address1, zip, city, state, address2, flag);
                 this.refreshListBox();
                 this.patientListBox.SelectedItem = this.viewModel.Patients.Last();
                 this.errorLabel.ForeColor = Color.Green;
