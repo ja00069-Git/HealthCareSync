@@ -9,6 +9,9 @@ using MySql.Data.MySqlClient;
 
 namespace HealthCareSync.DAL
 {
+    /// <summary>
+    ///  Handles all proccesses involving database management of the patient table
+    /// </summary>
     public class PatientDAL
     {
         private AddressDAL addressDAL;
@@ -33,7 +36,7 @@ namespace HealthCareSync.DAL
         /// <param name="flag">The flag.</param>
         /// <returns></returns>
         public int AddPatient(string fname, string lname, DateTime bdate, string? address_1,
-            string? zip, string? city, string? state, string? address_2, string? phone_num, FlagStatus? flag)
+            string? zip, string? city, State? state, string? address_2, string? phone_num, FlagStatus? flag)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
@@ -125,7 +128,7 @@ namespace HealthCareSync.DAL
         /// <param name="phone_num">The phone number.</param>
         /// <param name="flag">The flag.</param>
         public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, string? address_1,
-            string? zip, string? city, string? state, string? address_2, string? phone_num, FlagStatus? flag)
+            string? zip, string? city, State? state, string? address_2, string? phone_num, FlagStatus? flag)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
@@ -254,6 +257,12 @@ namespace HealthCareSync.DAL
 
             var address1 = reader.GetFieldValueCheckNull<string?>(address1Ordinal);
             var zip = reader.GetFieldValueCheckNull<string?>(zipOrdinal);
+            var stateString = reader.GetFieldValueCheckNull<string?>(stateOrdinal);
+            State? state = null;
+            if (!string.IsNullOrWhiteSpace(stateString))
+            {
+                state = Enum.Parse<State>(stateString.ToUpper());
+            }
 
             if (address1 != null && zip != null) // Address isn't null
             {
@@ -262,7 +271,7 @@ namespace HealthCareSync.DAL
                     address1,
                     zip,
                     reader.GetFieldValueCheckNull<string?>(cityOrdinal),
-                    reader.GetFieldValueCheckNull<string?>(stateOrdinal),
+                    state,
                     reader.GetFieldValueCheckNull<string?>(address2Ordinal)
                 );
 

@@ -98,7 +98,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The state.
         /// </value>
-        public string? State => SelectedPatient?.Address?.State;
+        public State? State => SelectedPatient?.Address?.State;
 
         /// <summary>
         /// Gets the address 2.
@@ -151,6 +151,14 @@ namespace HealthCareSync.ViewModels
         public List<FlagStatus> FlagStatuses => Enum.GetValues(typeof(FlagStatus)).Cast<FlagStatus>().ToList();
 
         /// <summary>
+        /// Gets the states.
+        /// </summary>
+        /// <value>
+        /// The states.
+        /// </value>
+        public List<State> States => Enum.GetValues(typeof(State)).Cast<State>().ToList();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ManagePatientsViewModel"/> class.
         /// </summary>
         public ManagePatientsViewModel() 
@@ -179,7 +187,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public void Add(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, FlagStatus? flag)
+        public void Add(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, State? state, string? address2, FlagStatus? flag)
         {
             int patientId = this.patientDAL.AddPatient(fname, lname, DateTime.Parse(formattedBDate), address1,
                zip, city, state, address2, phoneNum, flag);
@@ -209,7 +217,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public void Save(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, FlagStatus? flag)
+        public void Save(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, State? state, string? address2, FlagStatus? flag)
         {
             this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, DateTime.Parse(formattedBDate), address1,
             zip, city, state, address2, phoneNum, flag);

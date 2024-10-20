@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using HealthCareSync.Enums;
 
 namespace HealthCareSync.Models
 {
@@ -15,7 +16,7 @@ namespace HealthCareSync.Models
         private string address_1;
         private string zip;
         private string? city;
-        private string? state;
+        private State? state;
         private string? address_2;
 
         /// <summary>
@@ -92,12 +93,12 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The state.
         /// </value>
-        public string? State 
+        public State? State 
         {
             get => this.state;
             set
             {
-                this.state = value?.Trim();
+                this.state = value;
             }
         }
 
@@ -135,7 +136,7 @@ namespace HealthCareSync.Models
         /// or
         /// zip
         /// </exception>
-        public Address(int id, string address_1, string zip, string? city, string? state, string? address_2)
+        public Address(int id, string address_1, string zip, string? city, State? state, string? address_2)
         {
             if (id <= 0)
             {
@@ -158,7 +159,7 @@ namespace HealthCareSync.Models
             this.address_1 = address_1;
             this.zip = zip;
             this.city = city?.Trim();
-            this.state = state?.Trim();
+            this.state = state;
             this.address_2 = address_2?.Trim();
         }
 
@@ -176,7 +177,7 @@ namespace HealthCareSync.Models
         /// zip
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">zip</exception>
-        public Address(string address_1, string zip, string? city, string? state, string? address_2)
+        public Address(string address_1, string zip, string? city, State? state, string? address_2)
         {
             if (string.IsNullOrWhiteSpace(address_1))
             {
@@ -194,7 +195,7 @@ namespace HealthCareSync.Models
             this.address_1 = address_1;
             this.zip = zip;
             this.city = city?.Trim();
-            this.state = state?.Trim();
+            this.state = state;
             this.address_2 = address_2?.Trim();
         }
     }

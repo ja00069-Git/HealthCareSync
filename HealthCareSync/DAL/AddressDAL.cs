@@ -8,14 +8,19 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using HealthCareSync.Enums;
 
 namespace HealthCareSync.DAL
 {
+    /// <summary>
+    ///  Handles all proccesses involving database management of the address table
+    /// </summary>
     public class AddressDAL
     {
-        private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
-             "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
 
+        /// <summary>
+        /// Deletes all unreferenced addresses
+        /// </summary>
         public void DeleteUnreferencedAddresses()
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
@@ -24,7 +29,13 @@ namespace HealthCareSync.DAL
 
             var query = @"delete from address
                             where not exists(
-                            select 1 from patient where patient.address_id = address.id)";
+                            select 1 from patient where patient.address_id = address.id
+                            union
+                            select 1 from administrator where administrator.address_id = address.id
+                            union
+                            select 1 from nurse where nurse.address_id = address.id
+                            union                            
+                            select 1 from doctor where doctor.address_id = address.id)";
 
             using var command = new MySqlCommand(query, connection);
             command.ExecuteNonQuery();
@@ -41,7 +52,7 @@ namespace HealthCareSync.DAL
         /// <param name="state">The state.</param>
         /// <param name="address_2">The address 2.</param>
         /// <returns></returns>
-        public int UpdateAddressIfExistsElseCreate(string address_1, string zip, string? city, string? state, string? address_2)
+        public int UpdateAddressIfExistsElseCreate(string address_1, string zip, string? city, State? state, string? address_2)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
@@ -63,7 +74,7 @@ namespace HealthCareSync.DAL
 
                 using var updateAddressCommand = new MySqlCommand(updateAddressQuery, connection);
                 updateAddressCommand.Parameters.Add("@address_2", MySqlDbType.VarChar).Value = address_2;
-                updateAddressCommand.Parameters.Add("@state", MySqlDbType.VarString).Value = state;
+                updateAddressCommand.Parameters.Add("@state", MySqlDbType.VarString).Value = state.ToString();
                 updateAddressCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = city;
                 updateAddressCommand.Parameters.Add("@address_1", MySqlDbType.VarChar).Value = address_1;
                 updateAddressCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = zip;
@@ -79,7 +90,7 @@ namespace HealthCareSync.DAL
                 createAddressCommand.Parameters.Add("@address_1", MySqlDbType.VarChar).Value = address_1;
                 createAddressCommand.Parameters.Add("@address_2", MySqlDbType.VarChar).Value = address_2;
                 createAddressCommand.Parameters.Add("@zip", MySqlDbType.VarChar).Value = zip;
-                createAddressCommand.Parameters.Add("@state", MySqlDbType.VarChar).Value = state;
+                createAddressCommand.Parameters.Add("@state", MySqlDbType.VarChar).Value = state.ToString();
                 createAddressCommand.Parameters.Add("@city", MySqlDbType.VarChar).Value = city;
 
                 createAddressCommand.ExecuteNonQuery();

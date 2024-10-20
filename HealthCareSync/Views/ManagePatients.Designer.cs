@@ -44,7 +44,6 @@
             address1TextBox = new TextBox();
             zipTextBox = new TextBox();
             cityTextBox = new TextBox();
-            stateTextBox = new TextBox();
             address2TextBox = new TextBox();
             flagStatusLabel = new Label();
             idLabel = new Label();
@@ -56,6 +55,7 @@
             addButton = new Button();
             deleteButton = new Button();
             unselectButton = new Button();
+            stateComboBox = new ComboBox();
             SuspendLayout();
             // 
             // patientListBox
@@ -193,13 +193,6 @@
             cityTextBox.Size = new Size(100, 23);
             cityTextBox.TabIndex = 17;
             // 
-            // stateTextBox
-            // 
-            stateTextBox.Location = new Point(186, 156);
-            stateTextBox.Name = "stateTextBox";
-            stateTextBox.Size = new Size(100, 23);
-            stateTextBox.TabIndex = 18;
-            // 
             // address2TextBox
             // 
             address2TextBox.Location = new Point(304, 156);
@@ -300,12 +293,22 @@
             unselectButton.UseVisualStyleBackColor = true;
             unselectButton.Click += unselectButton_Click;
             // 
+            // stateComboBox
+            // 
+            stateComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            stateComboBox.FormattingEnabled = true;
+            stateComboBox.Location = new Point(186, 156);
+            stateComboBox.Name = "stateComboBox";
+            stateComboBox.Size = new Size(100, 23);
+            stateComboBox.TabIndex = 31;
+            // 
             // Manage_Patients
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(561, 270);
+            Controls.Add(stateComboBox);
             Controls.Add(unselectButton);
             Controls.Add(deleteButton);
             Controls.Add(addButton);
@@ -317,7 +320,6 @@
             Controls.Add(idLabel);
             Controls.Add(flagStatusLabel);
             Controls.Add(address2TextBox);
-            Controls.Add(stateTextBox);
             Controls.Add(cityTextBox);
             Controls.Add(zipTextBox);
             Controls.Add(address1TextBox);
@@ -360,7 +362,6 @@
         private TextBox address1TextBox;
         private TextBox zipTextBox;
         private TextBox cityTextBox;
-        private TextBox stateTextBox;
         private TextBox address2TextBox;
         private Label flagStatusLabel;
         private Label idLabel;
@@ -372,5 +373,6 @@
         private Button addButton;
         private Button deleteButton;
         private Button unselectButton;
+        private ComboBox stateComboBox;
     }
 }

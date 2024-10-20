@@ -33,6 +33,7 @@ namespace HealthCareSync.Views
             this.ClearAllBoxes();
             this.patientListBox.SelectedIndex = -1;
             this.flagStatusComboBox.SelectedIndex = -1;
+            this.stateComboBox.SelectedIndex = -1;
         }
 
         private void BindToViewModel()
@@ -40,6 +41,7 @@ namespace HealthCareSync.Views
             this.patientListBox.DataSource = this.viewModel.Patients;
             this.patientListBox.DisplayMember = "FullName";
             this.flagStatusComboBox.DataSource = this.viewModel.FlagStatuses;
+            this.stateComboBox.DataSource = this.viewModel.States;
         }
 
         private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
@@ -58,7 +60,7 @@ namespace HealthCareSync.Views
             this.address1TextBox.Clear();
             this.zipTextBox.Clear();
             this.cityTextBox.Clear();
-            this.stateTextBox.Clear();
+            this.stateComboBox.SelectedIndex = -1;
             this.address2TextBox.Clear();
             this.flagStatusComboBox.SelectedIndex = -1;
         }
@@ -84,7 +86,8 @@ namespace HealthCareSync.Views
                 this.BindTextBox(this.address1TextBox, this.viewModel, "Address_1");
                 this.BindTextBox(this.zipTextBox, this.viewModel, "Zip");
                 this.BindTextBox(this.cityTextBox, this.viewModel, "City");
-                this.BindTextBox(this.stateTextBox, this.viewModel, "State");
+                this.stateComboBox.DataBindings.Clear();
+                this.stateComboBox.DataBindings.Add("SelectedItem", this.viewModel, "State", true, DataSourceUpdateMode.OnPropertyChanged);
                 this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
 
                 if (this.viewModel.FlagStatus == null)
@@ -123,7 +126,7 @@ namespace HealthCareSync.Views
             var address1 = this.address1TextBox.Text;
             var zip = this.zipTextBox.Text;
             var city = this.cityTextBox.Text;
-            var state = this.stateTextBox.Text;
+            State? state = (State?)this.stateComboBox.SelectedItem;
             var address2 = this.address2TextBox.Text;
             FlagStatus? flag = (FlagStatus?)this.flagStatusComboBox.SelectedItem;
 
@@ -182,12 +185,12 @@ namespace HealthCareSync.Views
         private bool otherAddressFieldsThanAddress1HasText()
         {
             return this.zipTextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateTextBox.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
+                || this.stateComboBox.SelectedItem != null || this.address2TextBox.Text.Trim().Length > 0;
         }
         private bool otherAddressFieldsThanZipHasText()
         {
             return this.address1TextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateTextBox.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
+                || this.stateComboBox.SelectedItem != null || this.address2TextBox.Text.Trim().Length > 0;
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -221,7 +224,7 @@ namespace HealthCareSync.Views
             var address1 = this.address1TextBox.Text;
             var zip = this.zipTextBox.Text;
             var city = this.cityTextBox.Text;
-            var state = this.stateTextBox.Text;
+            State? state = (State?)this.stateComboBox.SelectedItem;
             var address2 = this.address2TextBox.Text;
             FlagStatus? flag = (FlagStatus?)this.flagStatusComboBox.SelectedItem;
 
