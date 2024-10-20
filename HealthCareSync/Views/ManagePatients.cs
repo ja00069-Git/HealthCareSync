@@ -71,6 +71,7 @@ namespace HealthCareSync.Views
             {
                 this.deleteButton.Enabled = true;
                 this.unselectButton.Enabled = true;
+                this.saveButton.Enabled = true;
                 this.viewModel.SelectedPatient = (Patient)this.patientListBox.SelectedItem;
 
                 this.BindTextBox(this.firstNameTextBox, this.viewModel, "FirstName");
@@ -99,6 +100,7 @@ namespace HealthCareSync.Views
             {
                 this.deleteButton.Enabled = false;
                 this.unselectButton.Enabled = false;
+                this.saveButton.Enabled = false;
                 this.viewModel.SelectedPatient = null!;
                 ClearAllBoxes();
             }

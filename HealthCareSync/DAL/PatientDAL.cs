@@ -48,7 +48,7 @@ namespace HealthCareSync.DAL
             if (string.IsNullOrWhiteSpace(address_1))
             {
                 query = @"insert into patient (fname, lname, birth_date, phone_num, flag_status)
-                          values (@fname, @lname, @bdate, @phone_num, @flag)";      
+                          values (@fname, @lname, @bdate, @phone_num, @flag)";
             }
             else
             {
@@ -86,7 +86,7 @@ namespace HealthCareSync.DAL
                     id = (int)tempId;
                 }
             }
-            
+
             connection.Close();
             return id;
         }
@@ -150,8 +150,8 @@ namespace HealthCareSync.DAL
                         birth_date = @bdate, phone_num = @phone_num, flag_status = @flag
                         where id = @id";
             }
-            
-            using var command  = new MySqlCommand(query, connection);
+
+            using var command = new MySqlCommand(query, connection);
             command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fname;
             command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
             command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
@@ -268,4 +268,5 @@ namespace HealthCareSync.DAL
 
             return patient;
         }
+    }
 }
