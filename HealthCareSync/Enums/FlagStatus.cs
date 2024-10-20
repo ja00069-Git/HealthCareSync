@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HealthCareSync.Enums
+﻿namespace HealthCareSync.Enums
 {
     /// <summary>
     /// Represents the flag statuses of a patient, inactive Patients cannot be used in the system and vice versa

@@ -1,6 +1,6 @@
 ﻿namespace HealthCareSync.Views
 {
-    partial class SignupForm
+    partial class AdminHomePage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,23 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminHomePage));
             exitAppBTN = new Button();
             SuspendLayout();
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(257, 183);
-            label1.Name = "label1";
-            label1.Size = new Size(183, 38);
-            label1.TabIndex = 0;
-            label1.Text = "Sign up Form";
-            // 
             // exitAppBTN
             // 
-            exitAppBTN.BackgroundImage = Properties.Resources.close_form_icon;
+            exitAppBTN.BackgroundImage = (Image)resources.GetObject("exitAppBTN.BackgroundImage");
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
@@ -55,25 +45,22 @@
             exitAppBTN.UseVisualStyleBackColor = true;
             exitAppBTN.Click += exitAppBTN_Click;
             // 
-            // SignupForm
+            // AdminHomePage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(800, 450);
             Controls.Add(exitAppBTN);
-            Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "SignupForm";
+            Name = "AdminHomePage";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "SignupForm";
+            Text = "AdminHomePage";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
         private Button exitAppBTN;
     }
 }

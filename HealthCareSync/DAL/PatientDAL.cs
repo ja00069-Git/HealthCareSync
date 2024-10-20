@@ -268,7 +268,4 @@ namespace HealthCareSync.DAL
 
             return patient;
         }
-
-
-    }
 }
