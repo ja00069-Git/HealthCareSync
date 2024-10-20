@@ -118,26 +118,32 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="receipt_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\receipt_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wafle_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\wafle_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="calender_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\calender_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="security_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\security_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="logo_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logo_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="security_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\security_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="receipt_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\receipt_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="calender_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\calender_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="manage_patients_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\manage_patients_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tests_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tests_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="doc_stethoscope" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\doc_stethoscope.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blue_user_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\blue_user_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tests_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\tests_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="nurse_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nurse_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="close_form_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\close_form_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,10 +151,13 @@
   <data name="checklist_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\checklist_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="wafle_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wafle_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="red_user_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\red_user_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="manage_patients_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\manage_patients_icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="books_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\books_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

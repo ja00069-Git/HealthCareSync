@@ -66,10 +66,10 @@
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
-            exitAppBTN.Location = new Point(587, 9);
-            exitAppBTN.Margin = new Padding(2, 3, 2, 3);
+            exitAppBTN.Location = new Point(734, 11);
+            exitAppBTN.Margin = new Padding(2, 4, 2, 4);
             exitAppBTN.Name = "exitAppBTN";
-            exitAppBTN.Size = new Size(43, 43);
+            exitAppBTN.Size = new Size(54, 54);
             exitAppBTN.TabIndex = 0;
             exitAppBTN.UseVisualStyleBackColor = true;
             exitAppBTN.Click += button1_Click;
@@ -84,30 +84,31 @@
             sidebar.Controls.Add(logoutPanel);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
-            sidebar.Margin = new Padding(2, 3, 2, 3);
-            sidebar.MaximumSize = new Size(168, 360);
-            sidebar.MinimumSize = new Size(57, 360);
+            sidebar.Margin = new Padding(2, 4, 2, 4);
+            sidebar.MaximumSize = new Size(210, 450);
+            sidebar.MinimumSize = new Size(71, 450);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(168, 360);
+            sidebar.Size = new Size(210, 450);
             sidebar.TabIndex = 1;
             // 
             // menuPanel
             // 
             menuPanel.Controls.Add(menuBTN);
             menuPanel.Controls.Add(menuLabel);
-            menuPanel.Location = new Point(2, 3);
-            menuPanel.Margin = new Padding(2, 3, 2, 3);
+            menuPanel.Location = new Point(2, 4);
+            menuPanel.Margin = new Padding(2, 4, 2, 4);
             menuPanel.Name = "menuPanel";
-            menuPanel.Size = new Size(166, 47);
+            menuPanel.Size = new Size(208, 59);
             menuPanel.TabIndex = 0;
             // 
             // menuBTN
             // 
             menuBTN.Cursor = Cursors.Hand;
             menuBTN.Image = (Image)resources.GetObject("menuBTN.Image");
-            menuBTN.Location = new Point(3, 9);
+            menuBTN.Location = new Point(4, 11);
+            menuBTN.Margin = new Padding(4);
             menuBTN.Name = "menuBTN";
-            menuBTN.Size = new Size(37, 29);
+            menuBTN.Size = new Size(46, 36);
             menuBTN.SizeMode = PictureBoxSizeMode.Zoom;
             menuBTN.TabIndex = 0;
             menuBTN.TabStop = false;
@@ -117,20 +118,20 @@
             // 
             menuLabel.AutoSize = true;
             menuLabel.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            menuLabel.Location = new Point(53, 7);
+            menuLabel.Location = new Point(66, 9);
             menuLabel.Margin = new Padding(2, 0, 2, 0);
             menuLabel.Name = "menuLabel";
-            menuLabel.Size = new Size(55, 23);
+            menuLabel.Size = new Size(66, 28);
             menuLabel.TabIndex = 1;
             menuLabel.Text = "Menu";
             // 
             // mngPatientsPanel
             // 
             mngPatientsPanel.Controls.Add(managPatBTN);
-            mngPatientsPanel.Location = new Point(2, 56);
-            mngPatientsPanel.Margin = new Padding(2, 3, 2, 3);
+            mngPatientsPanel.Location = new Point(2, 71);
+            mngPatientsPanel.Margin = new Padding(2, 4, 2, 4);
             mngPatientsPanel.Name = "mngPatientsPanel";
-            mngPatientsPanel.Size = new Size(162, 47);
+            mngPatientsPanel.Size = new Size(202, 59);
             mngPatientsPanel.TabIndex = 2;
             // 
             // managPatBTN
@@ -140,21 +141,23 @@
             managPatBTN.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             managPatBTN.Image = Properties.Resources.manage_patients_icon;
             managPatBTN.ImageAlign = ContentAlignment.MiddleLeft;
-            managPatBTN.Location = new Point(-1, -3);
+            managPatBTN.Location = new Point(-1, -4);
+            managPatBTN.Margin = new Padding(4);
             managPatBTN.Name = "managPatBTN";
-            managPatBTN.Size = new Size(167, 52);
+            managPatBTN.Size = new Size(209, 65);
             managPatBTN.TabIndex = 0;
             managPatBTN.Text = "Manage Patients";
+            managPatBTN.TextAlign = ContentAlignment.MiddleRight;
             managPatBTN.UseVisualStyleBackColor = true;
             managPatBTN.Click += managPatBTN_Click;
             // 
             // mngApptsPanel
             // 
             mngApptsPanel.Controls.Add(manageAppt);
-            mngApptsPanel.Location = new Point(2, 109);
-            mngApptsPanel.Margin = new Padding(2, 3, 2, 3);
+            mngApptsPanel.Location = new Point(2, 138);
+            mngApptsPanel.Margin = new Padding(2, 4, 2, 4);
             mngApptsPanel.Name = "mngApptsPanel";
-            mngApptsPanel.Size = new Size(162, 47);
+            mngApptsPanel.Size = new Size(202, 59);
             mngApptsPanel.TabIndex = 3;
             // 
             // manageAppt
@@ -166,10 +169,10 @@
             manageAppt.Image = (Image)resources.GetObject("manageAppt.Image");
             manageAppt.ImageAlign = ContentAlignment.MiddleLeft;
             manageAppt.Location = new Point(-1, 0);
-            manageAppt.Margin = new Padding(2, 3, 2, 3);
+            manageAppt.Margin = new Padding(2, 4, 2, 4);
             manageAppt.Name = "manageAppt";
             manageAppt.Padding = new Padding(2, 0, 0, 0);
-            manageAppt.Size = new Size(167, 47);
+            manageAppt.Size = new Size(209, 59);
             manageAppt.TabIndex = 0;
             manageAppt.Text = "            Manage Appt";
             manageAppt.TextAlign = ContentAlignment.MiddleLeft;
@@ -181,12 +184,12 @@
             manageVisitPanel.Controls.Add(testsBTN);
             manageVisitPanel.Controls.Add(visitsBTN);
             manageVisitPanel.Controls.Add(manageVisit);
-            manageVisitPanel.Location = new Point(2, 162);
-            manageVisitPanel.Margin = new Padding(2, 3, 2, 3);
-            manageVisitPanel.MaximumSize = new Size(166, 121);
-            manageVisitPanel.MinimumSize = new Size(166, 47);
+            manageVisitPanel.Location = new Point(2, 205);
+            manageVisitPanel.Margin = new Padding(2, 4, 2, 4);
+            manageVisitPanel.MaximumSize = new Size(208, 151);
+            manageVisitPanel.MinimumSize = new Size(208, 59);
             manageVisitPanel.Name = "manageVisitPanel";
-            manageVisitPanel.Size = new Size(166, 121);
+            manageVisitPanel.Size = new Size(208, 151);
             manageVisitPanel.TabIndex = 4;
             // 
             // testsBTN
@@ -197,11 +200,11 @@
             testsBTN.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             testsBTN.Image = (Image)resources.GetObject("testsBTN.Image");
             testsBTN.ImageAlign = ContentAlignment.MiddleLeft;
-            testsBTN.Location = new Point(0, 79);
-            testsBTN.Margin = new Padding(2, 3, 2, 3);
+            testsBTN.Location = new Point(0, 99);
+            testsBTN.Margin = new Padding(2, 4, 2, 4);
             testsBTN.Name = "testsBTN";
-            testsBTN.Padding = new Padding(8, 0, 0, 0);
-            testsBTN.Size = new Size(166, 47);
+            testsBTN.Padding = new Padding(10, 0, 0, 0);
+            testsBTN.Size = new Size(208, 59);
             testsBTN.TabIndex = 0;
             testsBTN.Text = "            Tests";
             testsBTN.TextAlign = ContentAlignment.MiddleLeft;
@@ -216,11 +219,11 @@
             visitsBTN.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             visitsBTN.Image = (Image)resources.GetObject("visitsBTN.Image");
             visitsBTN.ImageAlign = ContentAlignment.MiddleLeft;
-            visitsBTN.Location = new Point(0, 39);
-            visitsBTN.Margin = new Padding(2, 3, 2, 3);
+            visitsBTN.Location = new Point(0, 49);
+            visitsBTN.Margin = new Padding(2, 4, 2, 4);
             visitsBTN.Name = "visitsBTN";
-            visitsBTN.Padding = new Padding(11, 0, 0, 0);
-            visitsBTN.Size = new Size(166, 47);
+            visitsBTN.Padding = new Padding(14, 0, 0, 0);
+            visitsBTN.Size = new Size(208, 59);
             visitsBTN.TabIndex = 0;
             visitsBTN.Text = "          Visits";
             visitsBTN.TextAlign = ContentAlignment.MiddleLeft;
@@ -236,10 +239,10 @@
             manageVisit.Image = (Image)resources.GetObject("manageVisit.Image");
             manageVisit.ImageAlign = ContentAlignment.MiddleLeft;
             manageVisit.Location = new Point(0, 0);
-            manageVisit.Margin = new Padding(2, 3, 2, 3);
+            manageVisit.Margin = new Padding(2, 4, 2, 4);
             manageVisit.Name = "manageVisit";
             manageVisit.Padding = new Padding(1, 0, 0, 0);
-            manageVisit.Size = new Size(166, 47);
+            manageVisit.Size = new Size(208, 59);
             manageVisit.TabIndex = 0;
             manageVisit.Text = "            Manage Visit";
             manageVisit.TextAlign = ContentAlignment.MiddleLeft;
@@ -251,22 +254,22 @@
             logoutPanel.Controls.Add(logedInUserTextBox);
             logoutPanel.Controls.Add(logoutBTN);
             logoutPanel.Controls.Add(userPictureBox);
-            logoutPanel.Location = new Point(2, 289);
-            logoutPanel.Margin = new Padding(2, 3, 2, 3);
+            logoutPanel.Location = new Point(2, 364);
+            logoutPanel.Margin = new Padding(2, 4, 2, 4);
             logoutPanel.Name = "logoutPanel";
-            logoutPanel.Size = new Size(162, 79);
+            logoutPanel.Size = new Size(202, 86);
             logoutPanel.TabIndex = 5;
             // 
             // logedInUserTextBox
             // 
             logedInUserTextBox.BackColor = Color.White;
             logedInUserTextBox.BorderStyle = BorderStyle.None;
-            logedInUserTextBox.Location = new Point(7, 48);
-            logedInUserTextBox.Margin = new Padding(2, 3, 2, 3);
+            logedInUserTextBox.Location = new Point(9, 60);
+            logedInUserTextBox.Margin = new Padding(2, 4, 2, 4);
             logedInUserTextBox.Multiline = true;
             logedInUserTextBox.Name = "logedInUserTextBox";
             logedInUserTextBox.ReadOnly = true;
-            logedInUserTextBox.Size = new Size(153, 31);
+            logedInUserTextBox.Size = new Size(191, 39);
             logedInUserTextBox.TabIndex = 3;
             // 
             // logoutBTN
@@ -275,10 +278,10 @@
             logoutBTN.FlatAppearance.BorderSize = 0;
             logoutBTN.FlatStyle = FlatStyle.Flat;
             logoutBTN.ForeColor = Color.White;
-            logoutBTN.Location = new Point(61, 13);
-            logoutBTN.Margin = new Padding(2, 3, 2, 3);
+            logoutBTN.Location = new Point(76, 16);
+            logoutBTN.Margin = new Padding(2, 4, 2, 4);
             logoutBTN.Name = "logoutBTN";
-            logoutBTN.Size = new Size(89, 27);
+            logoutBTN.Size = new Size(111, 34);
             logoutBTN.TabIndex = 2;
             logoutBTN.Text = "Log Out";
             logoutBTN.UseVisualStyleBackColor = false;
@@ -287,9 +290,10 @@
             // userPictureBox
             // 
             userPictureBox.Image = (Image)resources.GetObject("userPictureBox.Image");
-            userPictureBox.Location = new Point(9, 6);
+            userPictureBox.Location = new Point(11, 8);
+            userPictureBox.Margin = new Padding(4);
             userPictureBox.Name = "userPictureBox";
-            userPictureBox.Size = new Size(39, 43);
+            userPictureBox.Size = new Size(49, 54);
             userPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             userPictureBox.TabIndex = 0;
             userPictureBox.TabStop = false;
@@ -309,23 +313,23 @@
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.ForeColor = Color.Black;
             mainPanel.Location = new Point(0, 0);
-            mainPanel.Margin = new Padding(2, 3, 2, 3);
+            mainPanel.Margin = new Padding(2, 4, 2, 4);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(640, 360);
+            mainPanel.Size = new Size(800, 450);
             mainPanel.TabIndex = 2;
             // 
-            // HomePage
+            // NursesHomePage
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(640, 360);
+            ClientSize = new Size(800, 450);
             Controls.Add(sidebar);
             Controls.Add(exitAppBTN);
             Controls.Add(mainPanel);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2, 3, 2, 3);
-            Name = "HomePage";
+            Margin = new Padding(2, 4, 2, 4);
+            Name = "NursesHomePage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home Page";
             sidebar.ResumeLayout(false);

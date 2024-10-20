@@ -73,6 +73,16 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap books_icon {
+            get {
+                object obj = ResourceManager.GetObject("books_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap calender_icon {
             get {
                 object obj = ResourceManager.GetObject("calender_icon", resourceCulture);
@@ -103,6 +113,16 @@ namespace HealthCareSync.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap doc_stethoscope {
+            get {
+                object obj = ResourceManager.GetObject("doc_stethoscope", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logo_icon {
             get {
                 object obj = ResourceManager.GetObject("logo_icon", resourceCulture);
@@ -116,6 +136,16 @@ namespace HealthCareSync.Properties {
         internal static System.Drawing.Bitmap manage_patients_icon {
             get {
                 object obj = ResourceManager.GetObject("manage_patients_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap nurse_icon {
+            get {
+                object obj = ResourceManager.GetObject("nurse_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

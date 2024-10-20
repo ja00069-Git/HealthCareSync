@@ -1,6 +1,6 @@
 ﻿namespace HealthCareSync.Views
 {
-    partial class ManageDoctor
+    partial class GenerateReport
     {
         /// <summary>
         /// Required designer variable.
@@ -35,13 +35,13 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(300, 166);
+            label1.Location = new Point(253, 166);
             label1.Name = "label1";
-            label1.Size = new Size(221, 38);
+            label1.Size = new Size(232, 38);
             label1.TabIndex = 0;
-            label1.Text = "Manage Doctors";
+            label1.Text = "Generate Reports";
             // 
-            // ManageDoctor
+            // GenerateReport
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -49,10 +49,8 @@
             ClientSize = new Size(800, 450);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 5, 4, 5);
-            Name = "ManageDoctor";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "ManageDoctor";
+            Name = "GenerateReport";
+            Text = "GenerateReport";
             ResumeLayout(false);
             PerformLayout();
         }
