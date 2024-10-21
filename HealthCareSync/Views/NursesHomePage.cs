@@ -14,6 +14,7 @@ namespace HealthCareSync
             this.sidebarTimer.Start();
             this.mngVisitTimer.Start();
             this.openChildForm(new Manage_Patients());
+            
         }
 
         public NursesHomePage(string logedInUser)
@@ -133,5 +134,6 @@ namespace HealthCareSync
             var login = new LoginForm();
             login.Show();
         }
+
     }
 }
