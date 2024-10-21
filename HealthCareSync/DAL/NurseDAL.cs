@@ -52,7 +52,7 @@ namespace HealthCareSync.DAL
             }
             else
             {
-                address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(address_1!, zip!, city, state, address_2);
+                address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
 
                 query = @"insert into nurse (fname, lname, birth_date, phone_num, address, username)
                           values (@fname, @lname, @bdate, @phone_num, @address, @username)";
@@ -143,7 +143,7 @@ namespace HealthCareSync.DAL
             }
             else
             {
-                address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(address_1!, zip!, city, state, address_2);
+                address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
 
                 query = @"update nurse 
                         set fname = @fname, lname = @lname, address_id = @address_id,
@@ -244,7 +244,7 @@ namespace HealthCareSync.DAL
                     address1,
                     zip,
                     reader.GetFieldValueCheckNull<string?>(cityOrdinal),
-                    reader.GetFieldValueCheckNull<string?>(stateOrdinal),
+                    Enum.Parse<State>(reader.GetFieldValueCheckNull<string?>(stateOrdinal).ToUpper()),
                     reader.GetFieldValueCheckNull<string?>(address2Ordinal)
                 );
 
