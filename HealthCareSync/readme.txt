@@ -1,2 +1,3 @@
 ﻿username	password:
-jabesi		mypassword
+jabesi		mypassword  -- nurse
+ahmad		apassword   -- admin
