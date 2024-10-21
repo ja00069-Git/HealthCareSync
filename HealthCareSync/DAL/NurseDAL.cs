@@ -215,7 +215,7 @@ namespace HealthCareSync.DAL
             }
 
             connection.Close();
-            return nursetList;
+            return nurseList;
 
         }
 
@@ -255,4 +255,4 @@ namespace HealthCareSync.DAL
         }
     }
 }
-}
+
