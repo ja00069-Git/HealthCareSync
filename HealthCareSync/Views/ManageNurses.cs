@@ -28,7 +28,7 @@ namespace HealthCareSync.Views
 
         private void bindToViewModel()
         {
-            this.nurseBindingSource.DataSource = this.viewModel.nurses;
+            this.nurseBindingSource.DataSource = this.viewModel.Nurses;
             this.nurseListBox.DataSource = this.nurseBindingSource;
             this.nurseListBox.DisplayMember = "FullName";
 

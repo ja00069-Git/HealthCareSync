@@ -195,8 +195,8 @@ namespace HealthCareSync.DAL
             using var command = new MySqlCommand(query, connection);
             using var reader = command.ExecuteReader();
 
-            var idOrdinal = reader.GetOrdinal("PatientId");
-            var addressOrdinal = reader.GetOrdinal("Address");
+            var idOrdinal = reader.GetOrdinal("NurseId");
+            var addressIdOrdinal = reader.GetOrdinal("AddressId");
             var fnameOrdinal = reader.GetOrdinal("fname");
             var lnameOrdinal = reader.GetOrdinal("lname");
             var bdateOrdinal = reader.GetOrdinal("birth_date");
@@ -210,7 +210,7 @@ namespace HealthCareSync.DAL
 
             while (reader.Read())
             {
-                nurseList.Add(CreateNurse(reader, idOrdinal, addressOrdinal, fnameOrdinal, lnameOrdinal, bdateOrdinal,
+                nurseList.Add(CreateNurse(reader, idOrdinal, addressIdOrdinal, fnameOrdinal, lnameOrdinal, bdateOrdinal,
                     phoneOrdinal, usernameOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
             }
 

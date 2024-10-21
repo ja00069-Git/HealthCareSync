@@ -147,7 +147,7 @@ namespace HealthCareSync.ViewModels
         {
             this.nurseDAL = new NurseDAL();
 
-            this.Nurses = new ObservableCollection<Patient>(this.nurseDAL.GetNurses());
+            this.Nurses = new ObservableCollection<Nurse>(this.nurseDAL.GetNurses());
 
         }
 
@@ -243,4 +243,4 @@ namespace HealthCareSync.ViewModels
         }
     }
 }
-}
+
