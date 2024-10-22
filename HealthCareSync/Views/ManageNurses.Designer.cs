@@ -48,10 +48,14 @@
             lastNameLabel = new Label();
             firstNameLabel = new Label();
             firstNameTextBox = new TextBox();
-            saveButton = new Button();
+            saveNurseButton = new Button();
             nurseListBox = new ListBox();
             phoneNumLabel = new Label();
             phoneNumTextBox = new TextBox();
+            addNurseButton = new Button();
+            unselectNurseButton = new Button();
+            deleteNurseButton = new Button();
+
             SuspendLayout();
             // 
             // idTextBox
@@ -219,15 +223,15 @@
             firstNameTextBox.Size = new Size(100, 23);
             firstNameTextBox.TabIndex = 48;
             // 
-            // saveButton
+            // saveNurseButton
             // 
-            saveButton.Location = new Point(412, 214);
-            saveButton.Name = "saveButton";
-            saveButton.Size = new Size(100, 40);
-            saveButton.TabIndex = 47;
-            saveButton.Text = "Save";
-            saveButton.UseVisualStyleBackColor = true;
-            saveButton.Click += saveButton_Click;
+            saveNurseButton.Location = new Point(412, 228);
+            saveNurseButton.Name = "saveNurseButton";
+            saveNurseButton.Size = new Size(100, 30);
+            saveNurseButton.TabIndex = 47;
+            saveNurseButton.Text = "Save";
+            saveNurseButton.UseVisualStyleBackColor = true;
+            saveNurseButton.Click += saveButton_Click;
             // 
             // nurseListBox
             // 
@@ -255,12 +259,45 @@
             phoneNumTextBox.Size = new Size(100, 23);
             phoneNumTextBox.TabIndex = 68;
             // 
+            // addNurseButton
+            // 
+            addNurseButton.Location = new Point(306, 192);
+            addNurseButton.Name = "addNurseButton";
+            addNurseButton.Size = new Size(100, 30);
+            addNurseButton.TabIndex = 70;
+            addNurseButton.Text = "Add";
+            addNurseButton.UseVisualStyleBackColor = true;
+            addNurseButton.Click += addNurseButton_Click;
+            // 
+            // unselectNurseButton
+            // 
+            unselectNurseButton.Location = new Point(306, 228);
+            unselectNurseButton.Name = "unselectNurseButton";
+            unselectNurseButton.Size = new Size(100, 30);
+            unselectNurseButton.TabIndex = 71;
+            unselectNurseButton.Text = "Clear Fields";
+            unselectNurseButton.UseVisualStyleBackColor = true;
+            unselectNurseButton.Click += unselectNurseButton_Click;
+            // 
+            // deleteNurseButton
+            // 
+            deleteNurseButton.Location = new Point(412, 192);
+            deleteNurseButton.Name = "deleteNurseButton";
+            deleteNurseButton.Size = new Size(100, 30);
+            deleteNurseButton.TabIndex = 72;
+            deleteNurseButton.Text = "Delete";
+            deleteNurseButton.UseVisualStyleBackColor = true;
+            deleteNurseButton.Click += deleteNurseButton_Click;
+            // 
             // ManageNurses
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(561, 270);
+            Controls.Add(deleteNurseButton);
+            Controls.Add(unselectNurseButton);
+            Controls.Add(addNurseButton);
             Controls.Add(phoneNumLabel);
             Controls.Add(phoneNumTextBox);
             Controls.Add(idTextBox);
@@ -283,7 +320,7 @@
             Controls.Add(lastNameLabel);
             Controls.Add(firstNameLabel);
             Controls.Add(firstNameTextBox);
-            Controls.Add(saveButton);
+            Controls.Add(saveNurseButton);
             Controls.Add(nurseListBox);
             FormBorderStyle = FormBorderStyle.None;
             Name = "ManageNurses";
@@ -314,9 +351,12 @@
         private Label lastNameLabel;
         private Label firstNameLabel;
         private TextBox firstNameTextBox;
-        private Button saveButton;
+        private Button saveNurseButton;
         private ListBox nurseListBox;
         private Label phoneNumLabel;
         private TextBox phoneNumTextBox;
+        private Button addNurseButton;
+        private Button unselectNurseButton;
+        private Button deleteNurseButton;
     }
 }
