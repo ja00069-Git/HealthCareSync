@@ -27,13 +27,12 @@ namespace HealthCareSync.Views
         private readonly string ERROR_ZIP = "Zip must be 5 digits";
 
         private ManageNursesViewModel viewModel;
-        //private BindingSource nurseBindingSource;
-        //private Nurse selectedNurse;
+       
         public ManageNurses()
         {
             InitializeComponent();
             this.viewModel = new ManageNursesViewModel();
-           // this.nurseBindingSource = new BindingSource();
+            
             this.bindToViewModel();
             this.ClearAllBoxes();
             this.nurseListBox.SelectedIndex = -1;
@@ -100,8 +99,8 @@ namespace HealthCareSync.Views
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            //this.errorLabel.ForeColor = Color.Red;
-            //this.errorLabel.Text = string.Empty;
+            this.errorLabel.ForeColor = Color.Red;
+            this.errorLabel.Text = string.Empty;
 
             var fname = this.firstNameTextBox.Text;
             var lname = this.lastNameTextBox.Text;
@@ -118,8 +117,8 @@ namespace HealthCareSync.Views
             {
                 this.viewModel.Save(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, username);
                 this.refreshListBox();
-               // this.errorLabel.ForeColor = Color.Green;
-               // this.errorLabel.Text = "Successfully edited patient";
+                this.errorLabel.ForeColor = Color.Green;
+                this.errorLabel.Text = "Successfully edited nurse";
             }
         }
         private void refreshListBox()
@@ -132,32 +131,32 @@ namespace HealthCareSync.Views
         {
             if (string.IsNullOrWhiteSpace(fname))
             {
-                //this.errorLabel.Text = ERROR_FIRST_NAME;
+                this.errorLabel.Text = ERROR_FIRST_NAME;
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(lname))
             {
-               // this.errorLabel.Text = ERROR_LAST_NAME;
+                 this.errorLabel.Text = ERROR_LAST_NAME;
                 return false;
             }
             else if (!Regex.IsMatch(formattedBDate, BIRTH_DATE_REGEX_PATTERN))
             {
-                //this.errorLabel.Text = ERROR_BIRTH_DATE;
+                this.errorLabel.Text = ERROR_BIRTH_DATE;
                 return false;
             }
             else if (phoneNum.Trim().Length > 0 && !Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
             {
-                //this.errorLabel.Text = ERROR_PHONE_NUMBER;
+                this.errorLabel.Text = ERROR_PHONE_NUMBER;
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(address1) && this.otherAddressFieldsThanAddress1HasText())
             {
-                //this.errorLabel.Text = ERROR_ADDRESS_1;
+                this.errorLabel.Text = ERROR_ADDRESS_1;
                 return false;
             }
             else if ((string.IsNullOrWhiteSpace(zip) || !Regex.IsMatch(zip, ZIP_REGEX_PATTERN)) && this.otherAddressFieldsThanZipHasText())
             {
-                //this.errorLabel.Text = ERROR_ZIP;
+                this.errorLabel.Text = ERROR_ZIP;
                 return false;
             }
 
@@ -175,8 +174,8 @@ namespace HealthCareSync.Views
         }
         private void addNurseButton_Click(object sender, EventArgs e)
         {
-            //this.errorLabel.ForeColor = Color.Red;
-            //this.errorLabel.Text = string.Empty;
+            this.errorLabel.ForeColor = Color.Red;
+            this.errorLabel.Text = string.Empty;
 
             var fname = this.firstNameTextBox.Text;
             var lname = this.lastNameTextBox.Text;
@@ -188,15 +187,15 @@ namespace HealthCareSync.Views
             var city = this.cityTextBox.Text;
             var state = this.stateTextBox.Text;
             var address2 = this.address2TextBox.Text;
-            
+
 
             if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
             {
                 this.viewModel.Add(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, username);
                 this.refreshListBox();
                 this.nurseListBox.SelectedItem = this.viewModel.Nurses.Last();
-                //this.errorLabel.ForeColor = Color.Green;
-                //this.errorLabel.Text = "Successfully added nurse";
+                this.errorLabel.ForeColor = Color.Green;
+                this.errorLabel.Text = "Successfully added nurse";
             }
         }
 
@@ -214,8 +213,8 @@ namespace HealthCareSync.Views
                 this.viewModel.Delete();
                 this.ClearAllBoxes();
                 this.refreshListBox();
-                //this.errorLabel.ForeColor = Color.Green;
-                //this.errorLabel.Text = "Successfully deleted nurse";
+                this.errorLabel.ForeColor = Color.Green;
+                this.errorLabel.Text = "Successfully deleted nurse";
             }
         }
 
@@ -223,7 +222,12 @@ namespace HealthCareSync.Views
         {
             this.nurseListBox.SelectedIndex = -1;
             this.ClearAllBoxes();
-            //this.errorLabel.Text = string.Empty;
+            this.errorLabel.Text = string.Empty;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
