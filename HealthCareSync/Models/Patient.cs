@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Google.Protobuf.WellKnownTypes;
 using HealthCareSync.Enums;
 
 namespace HealthCareSync.Models
@@ -13,9 +14,9 @@ namespace HealthCareSync.Models
         private string lastName;
         private DateTime birthDate;
         private Gender gender;
-        private string? phoneNumber;
-        private Address? address;
-        private FlagStatus? flagStatus;
+        private string phoneNumber;
+        private Address address;
+        private FlagStatus flagStatus;
 
         /// <summary>
         ///     Gets the Patient's Patient_Id.
@@ -111,12 +112,17 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The phone number.
         /// </value>
-        public string? PhoneNumber 
+        public string PhoneNumber 
         { 
             get => this.phoneNumber;
             set
             {
-                this.phoneNumber = value?.Trim();
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException(nameof(value), $"{nameof(value)} cannot be null or empty");
+                }
+
+                this.phoneNumber = value.Trim();
             }
         }
 
@@ -126,7 +132,7 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The address identifier.
         /// </value>
-        public int? AddressId => this.Address?.Id;
+        public int AddressId => this.Address.Id;
 
         /// <summary>
         ///     Gets the address.
@@ -134,11 +140,16 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The address.
         /// </value>
-        public Address? Address 
+        public Address Address 
         {
             get => this.address;
             set
             {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), $"{nameof(value)} cannot be null");
+                }
+
                 this.address = value;
             }
         }
@@ -149,7 +160,7 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The flag flagStatus.
         /// </value>
-        public FlagStatus? FlagStatus 
+        public FlagStatus FlagStatus 
         {
             get => this.flagStatus;
             set
@@ -175,7 +186,7 @@ namespace HealthCareSync.Models
         /// or
         /// lname
         /// </exception>
-        public Patient(int id, string fname, string lname, DateTime birthDate, Gender gender, string? phoneNum, Address? address, FlagStatus? flagStatus)
+        public Patient(int id, string fname, string lname, DateTime birthDate, Gender gender, string phoneNum, Address address, FlagStatus flagStatus)
         {
             if (id <= 0)
             {
@@ -189,13 +200,21 @@ namespace HealthCareSync.Models
             {
                 throw new ArgumentNullException(nameof(lname), $"{nameof(lname)} cannot be null or empty");
             }
-           
+            if (string.IsNullOrWhiteSpace(phoneNum))
+            {
+                throw new ArgumentNullException(nameof(phoneNum), $"{nameof(phoneNum)} cannot be null or empty");
+            }
+            if (address == null)
+            {
+                throw new ArgumentNullException(nameof(address), $"{nameof(address)} cannot be null");
+            }
+
             this.Id = id;
             this.firstName = fname;
             this.lastName = lname;
             this.birthDate = birthDate;
             this.gender = gender;
-            this.phoneNumber = phoneNum?.Trim();
+            this.phoneNumber = phoneNum.Trim();
             this.address = address;
             this.flagStatus = flagStatus;
         }
@@ -216,7 +235,7 @@ namespace HealthCareSync.Models
         /// or
         /// lname
         /// </exception>
-        public Patient(string fname, string lname, DateTime birthDate, Gender gender, string? phoneNum, Address? address, FlagStatus? flagStatus)
+        public Patient(string fname, string lname, DateTime birthDate, Gender gender, string phoneNum, Address address, FlagStatus flagStatus)
         {
             if (string.IsNullOrWhiteSpace(fname))
             {
@@ -225,6 +244,14 @@ namespace HealthCareSync.Models
             if (string.IsNullOrWhiteSpace(lname))
             {
                 throw new ArgumentNullException(nameof(lname), $"{nameof(lname)} cannot be null or empty");
+            }
+            if (string.IsNullOrWhiteSpace(phoneNum))
+            {
+                throw new ArgumentNullException(nameof(phoneNum), $"{nameof(phoneNum)} cannot be null or empty");
+            }
+            if (address == null)
+            {
+                throw new ArgumentNullException(nameof(address), $"{nameof(address)} cannot be null");
             }
 
             this.firstName = fname;

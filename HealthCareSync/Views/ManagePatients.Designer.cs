@@ -38,7 +38,6 @@
             zipcodeLabel = new Label();
             stateLabel = new Label();
             lastNameTextBox = new TextBox();
-            birthDateTextBox = new TextBox();
             cityLabel = new Label();
             address2Label = new Label();
             address1TextBox = new TextBox();
@@ -53,11 +52,11 @@
             flagStatusComboBox = new ComboBox();
             errorLabel = new Label();
             addButton = new Button();
-            deleteButton = new Button();
             unselectButton = new Button();
             stateComboBox = new ComboBox();
             genderComboBox = new ComboBox();
             genderLabel = new Label();
+            birthDateTimePicker = new DateTimePicker();
             SuspendLayout();
             // 
             // patientListBox
@@ -72,7 +71,7 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(413, 228);
+            saveButton.Location = new Point(413, 189);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(100, 33);
             saveButton.TabIndex = 1;
@@ -126,7 +125,7 @@
             // zipcodeLabel
             // 
             zipcodeLabel.AutoSize = true;
-            zipcodeLabel.Location = new Point(326, 72);
+            zipcodeLabel.Location = new Point(326, 138);
             zipcodeLabel.Name = "zipcodeLabel";
             zipcodeLabel.Size = new Size(55, 15);
             zipcodeLabel.TabIndex = 7;
@@ -148,14 +147,6 @@
             lastNameTextBox.Size = new Size(100, 23);
             lastNameTextBox.TabIndex = 9;
             // 
-            // birthDateTextBox
-            // 
-            birthDateTextBox.Location = new Point(413, 31);
-            birthDateTextBox.Name = "birthDateTextBox";
-            birthDateTextBox.Size = new Size(100, 23);
-            birthDateTextBox.TabIndex = 10;
-            birthDateTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
             // cityLabel
             // 
             cityLabel.AutoSize = true;
@@ -168,7 +159,7 @@
             // address2Label
             // 
             address2Label.AutoSize = true;
-            address2Label.Location = new Point(326, 138);
+            address2Label.Location = new Point(326, 72);
             address2Label.Name = "address2Label";
             address2Label.Size = new Size(58, 15);
             address2Label.TabIndex = 12;
@@ -183,7 +174,7 @@
             // 
             // zipTextBox
             // 
-            zipTextBox.Location = new Point(304, 90);
+            zipTextBox.Location = new Point(304, 156);
             zipTextBox.Name = "zipTextBox";
             zipTextBox.Size = new Size(100, 23);
             zipTextBox.TabIndex = 16;
@@ -197,7 +188,7 @@
             // 
             // address2TextBox
             // 
-            address2TextBox.Location = new Point(304, 156);
+            address2TextBox.Location = new Point(304, 90);
             address2TextBox.Name = "address2TextBox";
             address2TextBox.Size = new Size(100, 23);
             address2TextBox.TabIndex = 19;
@@ -275,20 +266,9 @@
             addButton.UseVisualStyleBackColor = true;
             addButton.Click += addButton_Click;
             // 
-            // deleteButton
-            // 
-            deleteButton.Enabled = false;
-            deleteButton.Location = new Point(413, 189);
-            deleteButton.Name = "deleteButton";
-            deleteButton.Size = new Size(100, 33);
-            deleteButton.TabIndex = 29;
-            deleteButton.Text = "Delete";
-            deleteButton.UseVisualStyleBackColor = true;
-            deleteButton.Click += deleteButton_Click;
-            // 
             // unselectButton
             // 
-            unselectButton.Location = new Point(304, 228);
+            unselectButton.Location = new Point(413, 228);
             unselectButton.Name = "unselectButton";
             unselectButton.Size = new Size(100, 33);
             unselectButton.TabIndex = 30;
@@ -323,17 +303,26 @@
             genderLabel.TabIndex = 33;
             genderLabel.Text = "Gender";
             // 
+            // birthDateTimePicker
+            // 
+            birthDateTimePicker.Format = DateTimePickerFormat.Short;
+            birthDateTimePicker.Location = new Point(413, 31);
+            birthDateTimePicker.MaxDate = new DateTime(9998, 12, 25, 0, 0, 0, 0);
+            birthDateTimePicker.Name = "birthDateTimePicker";
+            birthDateTimePicker.Size = new Size(100, 23);
+            birthDateTimePicker.TabIndex = 34;
+            birthDateTimePicker.Value = new DateTime(2024, 10, 9, 0, 0, 0, 0);
+            // 
             // Manage_Patients
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
-            ClientSize = new Size(561, 270);
+            ClientSize = new Size(567, 270);
+            Controls.Add(birthDateTimePicker);
             Controls.Add(genderLabel);
             Controls.Add(genderComboBox);
             Controls.Add(stateComboBox);
             Controls.Add(unselectButton);
-            Controls.Add(deleteButton);
             Controls.Add(addButton);
             Controls.Add(errorLabel);
             Controls.Add(flagStatusComboBox);
@@ -348,7 +337,6 @@
             Controls.Add(address1TextBox);
             Controls.Add(address2Label);
             Controls.Add(cityLabel);
-            Controls.Add(birthDateTextBox);
             Controls.Add(lastNameTextBox);
             Controls.Add(stateLabel);
             Controls.Add(zipcodeLabel);
@@ -379,7 +367,6 @@
         private Label zipcodeLabel;
         private Label stateLabel;
         private TextBox lastNameTextBox;
-        private TextBox birthDateTextBox;
         private Label cityLabel;
         private Label address2Label;
         private TextBox address1TextBox;
@@ -394,10 +381,10 @@
         private ComboBox flagStatusComboBox;
         private Label errorLabel;
         private Button addButton;
-        private Button deleteButton;
         private Button unselectButton;
         private ComboBox stateComboBox;
         private ComboBox genderComboBox;
         private Label genderLabel;
+        private DateTimePicker birthDateTimePicker;
     }
 }

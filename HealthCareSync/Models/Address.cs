@@ -15,8 +15,8 @@ namespace HealthCareSync.Models
     {
         private string address_1;
         private string zip;
-        private string? city;
-        private State? state;
+        private string city;
+        private State state;
         private string? address_2;
 
         /// <summary>
@@ -38,9 +38,9 @@ namespace HealthCareSync.Models
             get => this.address_1;
             set
             {
-                if (string.IsNullOrWhiteSpace(address_1))
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException(nameof(address_1), $"{nameof(address_1)} cannot be null or empty");
+                    throw new ArgumentNullException(nameof(value), $"{nameof(value)} cannot be null or empty");
                 }
 
                 this.address_1 = value;
@@ -59,13 +59,13 @@ namespace HealthCareSync.Models
             get => this.zip;
             set
             {
-                if (string.IsNullOrWhiteSpace(zip))
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException(nameof(zip), $"{nameof(zip)} cannot be null or empty");
+                    throw new ArgumentNullException(nameof(value), $"{nameof(value)} cannot be null or empty");
                 }
-                if (!new Regex(@"^\d{5}$").IsMatch(zip))
+                if (!new Regex(@"^\d{5}$").IsMatch(value))
                 {
-                    throw new ArgumentOutOfRangeException(nameof(zip), $"{nameof(zip)} must be 5 digits");
+                    throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(value)} must be 5 digits");
                 }
 
                 this.zip = value;
@@ -78,12 +78,12 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The city.
         /// </value>
-        public string? City 
+        public string City 
         {
             get => this.city;
             set
             {
-                this.city = value?.Trim();
+                this.city = value.Trim();
             }
         }
 
@@ -93,7 +93,7 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The state.
         /// </value>
-        public State? State 
+        public State State 
         {
             get => this.state;
             set
@@ -136,7 +136,7 @@ namespace HealthCareSync.Models
         /// or
         /// zip
         /// </exception>
-        public Address(int id, string address_1, string zip, string? city, State? state, string? address_2)
+        public Address(int id, string address_1, string zip, string city, State state, string? address_2)
         {
             if (id <= 0)
             {
@@ -154,11 +154,15 @@ namespace HealthCareSync.Models
             {
                 throw new ArgumentOutOfRangeException(nameof(zip), $"{nameof(zip)} must be 5 digits");
             }
-            
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                throw new ArgumentNullException(nameof(city), $"{nameof(city)} cannot be null or empty");
+            }
+
             this.Id = id;
             this.address_1 = address_1;
             this.zip = zip;
-            this.city = city?.Trim();
+            this.city = city.Trim();
             this.state = state;
             this.address_2 = address_2?.Trim();
         }
@@ -177,7 +181,7 @@ namespace HealthCareSync.Models
         /// zip
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">zip</exception>
-        public Address(string address_1, string zip, string? city, State? state, string? address_2)
+        public Address(string address_1, string zip, string city, State state, string? address_2)
         {
             if (string.IsNullOrWhiteSpace(address_1))
             {
@@ -191,10 +195,14 @@ namespace HealthCareSync.Models
             {
                 throw new ArgumentOutOfRangeException(nameof(zip), $"{nameof(zip)} must be 5 digits");
             }
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                throw new ArgumentNullException(nameof(city), $"{nameof(city)} cannot be null or empty");
+            }
 
             this.address_1 = address_1;
             this.zip = zip;
-            this.city = city?.Trim();
+            this.city = city.Trim();
             this.state = state;
             this.address_2 = address_2?.Trim();
         }
