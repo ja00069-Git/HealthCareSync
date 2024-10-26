@@ -39,7 +39,6 @@
             address1TextBox = new TextBox();
             address2Label = new Label();
             cityLabel = new Label();
-            birthDateTextBox = new TextBox();
             lastNameTextBox = new TextBox();
             stateLabel = new Label();
             zipcodeLabel = new Label();
@@ -56,189 +55,171 @@
             unselectNurseButton = new Button();
             deleteNurseButton = new Button();
             errorLabel = new Label();
+            dateTimePickerForNurse = new DateTimePicker();
             SuspendLayout();
             // 
             // idTextBox
             // 
             idTextBox.Enabled = false;
-            idTextBox.Location = new Point(70, 299);
-            idTextBox.Margin = new Padding(3, 4, 3, 4);
+            idTextBox.Location = new Point(61, 224);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
-            idTextBox.Size = new Size(114, 27);
+            idTextBox.Size = new Size(100, 23);
             idTextBox.TabIndex = 67;
             idTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // idLabel
             // 
             idLabel.AutoSize = true;
-            idLabel.Location = new Point(118, 275);
+            idLabel.Location = new Point(103, 206);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(22, 20);
+            idLabel.Size = new Size(17, 15);
             idLabel.TabIndex = 66;
             idLabel.Text = "Id";
             // 
             // usernameTextBox
             // 
-            usernameTextBox.Location = new Point(471, 217);
-            usernameTextBox.Margin = new Padding(3, 4, 3, 4);
+            usernameTextBox.Location = new Point(412, 163);
             usernameTextBox.Name = "usernameTextBox";
-            usernameTextBox.Size = new Size(114, 27);
+            usernameTextBox.Size = new Size(100, 23);
             usernameTextBox.TabIndex = 65;
             usernameTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // usernameLabel
             // 
             usernameLabel.AutoSize = true;
-            usernameLabel.Location = new Point(494, 193);
+            usernameLabel.Location = new Point(432, 145);
             usernameLabel.Name = "usernameLabel";
-            usernameLabel.Size = new Size(75, 20);
+            usernameLabel.Size = new Size(60, 15);
             usernameLabel.TabIndex = 64;
             usernameLabel.Text = "Username";
             // 
             // address2TextBox
             // 
-            address2TextBox.Location = new Point(346, 217);
-            address2TextBox.Margin = new Padding(3, 4, 3, 4);
+            address2TextBox.Location = new Point(303, 163);
             address2TextBox.Name = "address2TextBox";
-            address2TextBox.Size = new Size(114, 27);
+            address2TextBox.Size = new Size(100, 23);
             address2TextBox.TabIndex = 63;
             // 
             // stateTextBox
             // 
-            stateTextBox.Location = new Point(211, 217);
-            stateTextBox.Margin = new Padding(3, 4, 3, 4);
+            stateTextBox.Location = new Point(185, 163);
             stateTextBox.Name = "stateTextBox";
-            stateTextBox.Size = new Size(114, 27);
+            stateTextBox.Size = new Size(100, 23);
             stateTextBox.TabIndex = 62;
             // 
             // cityTextBox
             // 
-            cityTextBox.Location = new Point(471, 129);
-            cityTextBox.Margin = new Padding(3, 4, 3, 4);
+            cityTextBox.Location = new Point(412, 97);
             cityTextBox.Name = "cityTextBox";
-            cityTextBox.Size = new Size(114, 27);
+            cityTextBox.Size = new Size(100, 23);
             cityTextBox.TabIndex = 61;
             // 
             // zipTextBox
             // 
-            zipTextBox.Location = new Point(346, 129);
-            zipTextBox.Margin = new Padding(3, 4, 3, 4);
+            zipTextBox.Location = new Point(303, 97);
             zipTextBox.Name = "zipTextBox";
-            zipTextBox.Size = new Size(114, 27);
+            zipTextBox.Size = new Size(100, 23);
             zipTextBox.TabIndex = 60;
             // 
             // address1TextBox
             // 
-            address1TextBox.Location = new Point(211, 129);
-            address1TextBox.Margin = new Padding(3, 4, 3, 4);
+            address1TextBox.Location = new Point(185, 97);
             address1TextBox.Name = "address1TextBox";
-            address1TextBox.Size = new Size(114, 27);
+            address1TextBox.Size = new Size(100, 23);
             address1TextBox.TabIndex = 59;
             // 
             // address2Label
             // 
             address2Label.AutoSize = true;
-            address2Label.Location = new Point(371, 193);
+            address2Label.Location = new Point(325, 145);
             address2Label.Name = "address2Label";
-            address2Label.Size = new Size(74, 20);
+            address2Label.Size = new Size(58, 15);
             address2Label.TabIndex = 58;
             address2Label.Text = "Address 2";
             // 
             // cityLabel
             // 
             cityLabel.AutoSize = true;
-            cityLabel.Location = new Point(513, 105);
+            cityLabel.Location = new Point(449, 79);
             cityLabel.Name = "cityLabel";
-            cityLabel.Size = new Size(34, 20);
+            cityLabel.Size = new Size(28, 15);
             cityLabel.TabIndex = 57;
             cityLabel.Text = "City";
             // 
-            // birthDateTextBox
-            // 
-            birthDateTextBox.Location = new Point(471, 51);
-            birthDateTextBox.Margin = new Padding(3, 4, 3, 4);
-            birthDateTextBox.Name = "birthDateTextBox";
-            birthDateTextBox.Size = new Size(114, 27);
-            birthDateTextBox.TabIndex = 56;
-            birthDateTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
             // lastNameTextBox
             // 
-            lastNameTextBox.Location = new Point(346, 51);
-            lastNameTextBox.Margin = new Padding(3, 4, 3, 4);
+            lastNameTextBox.Location = new Point(303, 38);
             lastNameTextBox.Name = "lastNameTextBox";
-            lastNameTextBox.Size = new Size(114, 27);
+            lastNameTextBox.Size = new Size(100, 23);
             lastNameTextBox.TabIndex = 55;
             // 
             // stateLabel
             // 
             stateLabel.AutoSize = true;
-            stateLabel.Location = new Point(251, 193);
+            stateLabel.Location = new Point(220, 145);
             stateLabel.Name = "stateLabel";
-            stateLabel.Size = new Size(43, 20);
+            stateLabel.Size = new Size(33, 15);
             stateLabel.TabIndex = 54;
             stateLabel.Text = "State";
             // 
             // zipcodeLabel
             // 
             zipcodeLabel.AutoSize = true;
-            zipcodeLabel.Location = new Point(371, 105);
+            zipcodeLabel.Location = new Point(325, 79);
             zipcodeLabel.Name = "zipcodeLabel";
-            zipcodeLabel.Size = new Size(70, 20);
+            zipcodeLabel.Size = new Size(55, 15);
             zipcodeLabel.TabIndex = 53;
             zipcodeLabel.Text = "Zip Code";
             // 
             // address1Label
             // 
             address1Label.AutoSize = true;
-            address1Label.Location = new Point(233, 105);
+            address1Label.Location = new Point(204, 79);
             address1Label.Name = "address1Label";
-            address1Label.Size = new Size(74, 20);
+            address1Label.Size = new Size(58, 15);
             address1Label.TabIndex = 52;
             address1Label.Text = "Address 1";
             // 
             // birthDateLabel
             // 
             birthDateLabel.AutoSize = true;
-            birthDateLabel.Location = new Point(499, 27);
+            birthDateLabel.Location = new Point(437, 20);
             birthDateLabel.Name = "birthDateLabel";
-            birthDateLabel.Size = new Size(76, 20);
+            birthDateLabel.Size = new Size(59, 15);
             birthDateLabel.TabIndex = 51;
             birthDateLabel.Text = "Birth Date";
             // 
             // lastNameLabel
             // 
             lastNameLabel.AutoSize = true;
-            lastNameLabel.Location = new Point(371, 27);
+            lastNameLabel.Location = new Point(325, 20);
             lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new Size(79, 20);
+            lastNameLabel.Size = new Size(63, 15);
             lastNameLabel.TabIndex = 50;
             lastNameLabel.Text = "Last Name";
             // 
             // firstNameLabel
             // 
             firstNameLabel.AutoSize = true;
-            firstNameLabel.Location = new Point(233, 27);
+            firstNameLabel.Location = new Point(204, 20);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(80, 20);
+            firstNameLabel.Size = new Size(64, 15);
             firstNameLabel.TabIndex = 49;
             firstNameLabel.Text = "First Name";
             // 
             // firstNameTextBox
             // 
-            firstNameTextBox.Location = new Point(211, 51);
-            firstNameTextBox.Margin = new Padding(3, 4, 3, 4);
+            firstNameTextBox.Location = new Point(185, 38);
             firstNameTextBox.Name = "firstNameTextBox";
-            firstNameTextBox.Size = new Size(114, 27);
+            firstNameTextBox.Size = new Size(100, 23);
             firstNameTextBox.TabIndex = 48;
             // 
             // saveNurseButton
             // 
-            saveNurseButton.Location = new Point(471, 304);
-            saveNurseButton.Margin = new Padding(3, 4, 3, 4);
+            saveNurseButton.Location = new Point(412, 228);
             saveNurseButton.Name = "saveNurseButton";
-            saveNurseButton.Size = new Size(114, 40);
+            saveNurseButton.Size = new Size(100, 30);
             saveNurseButton.TabIndex = 47;
             saveNurseButton.Text = "Save";
             saveNurseButton.UseVisualStyleBackColor = true;
@@ -247,36 +228,34 @@
             // nurseListBox
             // 
             nurseListBox.FormattingEnabled = true;
-            nurseListBox.Location = new Point(57, 25);
-            nurseListBox.Margin = new Padding(3, 4, 3, 4);
+            nurseListBox.ItemHeight = 15;
+            nurseListBox.Location = new Point(50, 19);
             nurseListBox.Name = "nurseListBox";
-            nurseListBox.Size = new Size(137, 244);
+            nurseListBox.Size = new Size(120, 184);
             nurseListBox.TabIndex = 46;
             nurseListBox.SelectedIndexChanged += NurseListBox_SelectedIndexChanged;
             // 
             // phoneNumLabel
             // 
             phoneNumLabel.AutoSize = true;
-            phoneNumLabel.Location = new Point(214, 261);
+            phoneNumLabel.Location = new Point(187, 196);
             phoneNumLabel.Name = "phoneNumLabel";
-            phoneNumLabel.Size = new Size(108, 20);
+            phoneNumLabel.Size = new Size(88, 15);
             phoneNumLabel.TabIndex = 69;
             phoneNumLabel.Text = "Phone Number";
             // 
             // phoneNumTextBox
             // 
-            phoneNumTextBox.Location = new Point(214, 285);
-            phoneNumTextBox.Margin = new Padding(3, 4, 3, 4);
+            phoneNumTextBox.Location = new Point(187, 214);
             phoneNumTextBox.Name = "phoneNumTextBox";
-            phoneNumTextBox.Size = new Size(114, 27);
+            phoneNumTextBox.Size = new Size(100, 23);
             phoneNumTextBox.TabIndex = 68;
             // 
             // addNurseButton
             // 
-            addNurseButton.Location = new Point(350, 256);
-            addNurseButton.Margin = new Padding(3, 4, 3, 4);
+            addNurseButton.Location = new Point(306, 192);
             addNurseButton.Name = "addNurseButton";
-            addNurseButton.Size = new Size(114, 40);
+            addNurseButton.Size = new Size(100, 30);
             addNurseButton.TabIndex = 70;
             addNurseButton.Text = "Add";
             addNurseButton.UseVisualStyleBackColor = true;
@@ -284,10 +263,9 @@
             // 
             // unselectNurseButton
             // 
-            unselectNurseButton.Location = new Point(350, 304);
-            unselectNurseButton.Margin = new Padding(3, 4, 3, 4);
+            unselectNurseButton.Location = new Point(306, 228);
             unselectNurseButton.Name = "unselectNurseButton";
-            unselectNurseButton.Size = new Size(114, 40);
+            unselectNurseButton.Size = new Size(100, 30);
             unselectNurseButton.TabIndex = 71;
             unselectNurseButton.Text = "Clear Fields";
             unselectNurseButton.UseVisualStyleBackColor = true;
@@ -295,10 +273,9 @@
             // 
             // deleteNurseButton
             // 
-            deleteNurseButton.Location = new Point(471, 256);
-            deleteNurseButton.Margin = new Padding(3, 4, 3, 4);
+            deleteNurseButton.Location = new Point(412, 192);
             deleteNurseButton.Name = "deleteNurseButton";
-            deleteNurseButton.Size = new Size(114, 40);
+            deleteNurseButton.Size = new Size(100, 30);
             deleteNurseButton.TabIndex = 72;
             deleteNurseButton.Text = "Delete";
             deleteNurseButton.UseVisualStyleBackColor = true;
@@ -307,18 +284,26 @@
             // errorLabel
             // 
             errorLabel.AutoSize = true;
-            errorLabel.Location = new Point(212, 160);
+            errorLabel.Location = new Point(186, 120);
             errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(0, 20);
+            errorLabel.Size = new Size(0, 15);
             errorLabel.TabIndex = 73;
             errorLabel.Click += label1_Click;
             // 
+            // dateTimePickerForNurse
+            // 
+            dateTimePickerForNurse.Location = new Point(412, 38);
+            dateTimePickerForNurse.Name = "dateTimePickerForNurse";
+            dateTimePickerForNurse.Size = new Size(100, 23);
+            dateTimePickerForNurse.TabIndex = 74;
+            // 
             // ManageNurses
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(641, 360);
+            ClientSize = new Size(561, 270);
+            Controls.Add(dateTimePickerForNurse);
             Controls.Add(errorLabel);
             Controls.Add(deleteNurseButton);
             Controls.Add(unselectNurseButton);
@@ -336,7 +321,6 @@
             Controls.Add(address1TextBox);
             Controls.Add(address2Label);
             Controls.Add(cityLabel);
-            Controls.Add(birthDateTextBox);
             Controls.Add(lastNameTextBox);
             Controls.Add(stateLabel);
             Controls.Add(zipcodeLabel);
@@ -348,7 +332,6 @@
             Controls.Add(saveNurseButton);
             Controls.Add(nurseListBox);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
             Name = "ManageNurses";
             Text = "ManageNurses";
             ResumeLayout(false);
@@ -368,7 +351,6 @@
         private TextBox address1TextBox;
         private Label address2Label;
         private Label cityLabel;
-        private TextBox birthDateTextBox;
         private TextBox lastNameTextBox;
         private Label stateLabel;
         private Label zipcodeLabel;
@@ -385,5 +367,6 @@
         private Button unselectNurseButton;
         private Button deleteNurseButton;
         private Label errorLabel;
+        private DateTimePicker dateTimePickerForNurse;
     }
 }

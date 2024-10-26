@@ -16,7 +16,7 @@ namespace HealthCareSync.Views
 {
     public partial class ManageNurses : Form
     {
-        private readonly string PHONE_NUMBER_REGEX_PATTERN = @"^\d{10}$";
+        private readonly string PHONE_NUMBER_REGEX_PATTERN = @"^(?:\+?(\d{1,3})[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}$";
         private readonly string ZIP_REGEX_PATTERN = @"^\d{5}$";
         private readonly string BIRTH_DATE_REGEX_PATTERN = @"^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/([0-9]{4})$";
         private readonly string ERROR_FIRST_NAME = "First name cannot be blank.";
@@ -42,7 +42,7 @@ namespace HealthCareSync.Views
         private void bindToViewModel()
         {
             this.nurseListBox.DataSource = this.viewModel.Nurses;
-            //this.nurseListBox.DataSource = this.nurseBindingSource;
+           
             this.nurseListBox.DisplayMember = "FullName";
 
 
@@ -52,11 +52,17 @@ namespace HealthCareSync.Views
             textBox.DataBindings.Clear();
             textBox.DataBindings.Add("Text", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
         }
+        private void BindDateTimePicker(DateTimePicker dateTimePicker, object dataSource, string dataMember)
+        {
+            dateTimePicker.DataBindings.Clear();
+            dateTimePicker.DataBindings.Add("Value", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
         private void ClearAllBoxes()
         {
             this.firstNameTextBox.Clear();
             this.lastNameTextBox.Clear();
-            this.birthDateTextBox.Clear();
+            this.dateTimePickerForNurse.Value = DateTime.Now;   //DateTimePicker
             this.phoneNumTextBox.Clear();
             this.idTextBox.Text = string.Empty;
             this.address1TextBox.Clear();
@@ -68,7 +74,7 @@ namespace HealthCareSync.Views
         }
         private void NurseListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //this.errorLabel.Text = string.Empty;
+            
             if (this.nurseListBox.SelectedItem is Nurse)
             {
                 this.deleteNurseButton.Enabled = true;
@@ -78,7 +84,7 @@ namespace HealthCareSync.Views
 
                 this.BindTextBox(this.firstNameTextBox, this.viewModel, "FirstName");
                 this.BindTextBox(this.lastNameTextBox, this.viewModel, "LastName");
-                this.BindTextBox(this.birthDateTextBox, this.viewModel, "FormattedBirthDate");
+                this.BindDateTimePicker(this.dateTimePickerForNurse, this.viewModel, "FormattedBirthDate");
                 this.BindTextBox(this.phoneNumTextBox, this.viewModel, "PhoneNumber");
                 this.BindTextBox(this.idTextBox, this.viewModel, "Nurse_Id");
                 this.BindTextBox(this.usernameTextBox, this.viewModel, "Username");
@@ -107,7 +113,7 @@ namespace HealthCareSync.Views
 
                 var fname = this.firstNameTextBox.Text;
                 var lname = this.lastNameTextBox.Text;
-                var formattedBDate = this.birthDateTextBox.Text;
+                var formattedBDate = this.dateTimePickerForNurse.Text;
                 var phoneNum = this.phoneNumTextBox.Text;
                 var username = this.usernameTextBox.Text;
                 var address1 = this.address1TextBox.Text;
@@ -150,11 +156,7 @@ namespace HealthCareSync.Views
                  this.errorLabel.Text = ERROR_LAST_NAME;
                 return false;
             }
-            else if (!Regex.IsMatch(formattedBDate, BIRTH_DATE_REGEX_PATTERN))
-            {
-                this.errorLabel.Text = ERROR_BIRTH_DATE;
-                return false;
-            }
+            
             else if (phoneNum.Trim().Length > 0 && !Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
             {
                 this.errorLabel.Text = ERROR_PHONE_NUMBER_DASH;
@@ -192,7 +194,7 @@ namespace HealthCareSync.Views
 
                 var fname = this.firstNameTextBox.Text;
                 var lname = this.lastNameTextBox.Text;
-                var formattedBDate = this.birthDateTextBox.Text;
+                var formattedBDate = this.dateTimePickerForNurse.Text;
                 var phoneNum = this.phoneNumTextBox.Text;
                 var username = this.usernameTextBox.Text;
                 var address1 = this.address1TextBox.Text;
