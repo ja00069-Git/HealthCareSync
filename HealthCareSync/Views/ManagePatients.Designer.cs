@@ -65,6 +65,7 @@
             searchByBirthDateCheckBox = new CheckBox();
             searchByNameCheckBox = new CheckBox();
             searchButton = new Button();
+            resetSearchButton = new Button();
             SuspendLayout();
             // 
             // patientListBox
@@ -323,7 +324,7 @@
             // 
             // searchLastNameTextBox
             // 
-            searchLastNameTextBox.Location = new Point(173, 110);
+            searchLastNameTextBox.Location = new Point(167, 110);
             searchLastNameTextBox.Name = "searchLastNameTextBox";
             searchLastNameTextBox.Size = new Size(100, 23);
             searchLastNameTextBox.TabIndex = 35;
@@ -331,14 +332,14 @@
             // searchBirthDatePicker
             // 
             searchBirthDatePicker.Format = DateTimePickerFormat.Short;
-            searchBirthDatePicker.Location = new Point(121, 41);
+            searchBirthDatePicker.Location = new Point(111, 40);
             searchBirthDatePicker.Name = "searchBirthDatePicker";
             searchBirthDatePicker.Size = new Size(100, 23);
             searchBirthDatePicker.TabIndex = 36;
             // 
             // searchFirstNameTextBox
             // 
-            searchFirstNameTextBox.Location = new Point(58, 110);
+            searchFirstNameTextBox.Location = new Point(54, 110);
             searchFirstNameTextBox.Name = "searchFirstNameTextBox";
             searchFirstNameTextBox.Size = new Size(100, 23);
             searchFirstNameTextBox.TabIndex = 39;
@@ -355,7 +356,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(213, 92);
+            label2.Location = new Point(203, 92);
             label2.Name = "label2";
             label2.Size = new Size(28, 15);
             label2.TabIndex = 41;
@@ -364,7 +365,7 @@
             // searchByBirthDateCheckBox
             // 
             searchByBirthDateCheckBox.AutoSize = true;
-            searchByBirthDateCheckBox.Location = new Point(130, 16);
+            searchByBirthDateCheckBox.Location = new Point(120, 15);
             searchByBirthDateCheckBox.Name = "searchByBirthDateCheckBox";
             searchByBirthDateCheckBox.Size = new Size(132, 19);
             searchByBirthDateCheckBox.TabIndex = 42;
@@ -374,7 +375,7 @@
             // searchByNameCheckBox
             // 
             searchByNameCheckBox.AutoSize = true;
-            searchByNameCheckBox.Location = new Point(130, 70);
+            searchByNameCheckBox.Location = new Point(120, 69);
             searchByNameCheckBox.Name = "searchByNameCheckBox";
             searchByNameCheckBox.Size = new Size(112, 19);
             searchByNameCheckBox.TabIndex = 43;
@@ -384,7 +385,7 @@
             // searchButton
             // 
             searchButton.Enabled = false;
-            searchButton.Location = new Point(127, 141);
+            searchButton.Location = new Point(167, 141);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(75, 23);
             searchButton.TabIndex = 44;
@@ -392,11 +393,22 @@
             searchButton.UseVisualStyleBackColor = true;
             searchButton.Click += searchButton_Click;
             // 
+            // resetSearchButton
+            // 
+            resetSearchButton.Location = new Point(79, 141);
+            resetSearchButton.Name = "resetSearchButton";
+            resetSearchButton.Size = new Size(75, 23);
+            resetSearchButton.TabIndex = 45;
+            resetSearchButton.Text = "Reset";
+            resetSearchButton.UseVisualStyleBackColor = true;
+            resetSearchButton.Click += resetSearchButton_Click;
+            // 
             // Manage_Patients
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             ClientSize = new Size(723, 404);
+            Controls.Add(resetSearchButton);
             Controls.Add(searchButton);
             Controls.Add(searchByNameCheckBox);
             Controls.Add(searchByBirthDateCheckBox);
@@ -481,5 +493,6 @@
         private CheckBox searchByBirthDateCheckBox;
         private CheckBox searchByNameCheckBox;
         private Button searchButton;
+        private Button resetSearchButton;
     }
 }

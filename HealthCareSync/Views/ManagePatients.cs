@@ -89,6 +89,11 @@ namespace HealthCareSync.Views
             this.stateComboBox.SelectedIndex = -1;
             this.address2TextBox.Clear();
             this.genderComboBox.SelectedIndex = -1;
+            this.searchFirstNameTextBox.Clear();
+            this.searchLastNameTextBox.Clear();
+            this.searchBirthDatePicker.Value = DateTime.Today;  
+            this.searchByBirthDateCheckBox.Checked = false;
+            this.searchByNameCheckBox.Checked = false;
         }
 
         private void PatientListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -277,22 +282,54 @@ namespace HealthCareSync.Views
 
             if (bothAreChecked)
             {
-                this.viewModel.SearchByNameAndBirthDate(this.searchFirstNameTextBox.Text, this.searchLastNameTextBox.Text, this.searchBirthDatePicker.Value);
-                this.patientListBox.DataSource = this.viewModel.Patients;
-                this.patientListBox.DisplayMember = "FullName";
+                if (this.viewModel.SearchByNameAndBirthDate(this.searchFirstNameTextBox.Text, this.searchLastNameTextBox.Text, this.searchBirthDatePicker.Value))
+                {
+                    this.patientListBox.DataSource = this.viewModel.Patients;
+                    this.patientListBox.DisplayMember = "FullName";
+                }
+                else
+                {
+                    MessageBox.Show("Could not find any patients with the given name and birth date", "Patient(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
-            else if (onlyNameChecked) 
+            else if (onlyNameChecked)
             {
-                this.viewModel.SearchByName(this.searchFirstNameTextBox.Text, this.searchLastNameTextBox.Text);
-                this.patientListBox.DataSource = this.viewModel.Patients;
-                this.patientListBox.DisplayMember = "FullName";
+                if (this.viewModel.SearchByName(this.searchFirstNameTextBox.Text, this.searchLastNameTextBox.Text))
+                {
+                    this.patientListBox.DataSource = this.viewModel.Patients;
+                    this.patientListBox.DisplayMember = "FullName";
+                }
+                else
+                {
+                    MessageBox.Show("Could not find any patients with the given name", "Patient(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (onlyBirthDateChecked)
             {
-                this.viewModel.SearchByBirthDate(this.searchBirthDatePicker.Value);
-                this.patientListBox.DataSource = this.viewModel.Patients;
-                this.patientListBox.DisplayMember = "FullName";
+                if (this.viewModel.SearchByBirthDate(this.searchBirthDatePicker.Value))
+                {
+                    this.patientListBox.DataSource = this.viewModel.Patients;
+                    this.patientListBox.DisplayMember = "FullName";
+                }
+                else
+                {
+                    MessageBox.Show("Could not find any patients with the given birth date", "Patient(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
+        }
+
+        private void resetSearchButton_Click(object sender, EventArgs e)
+        {
+            this.viewModel.SearchByName(string.Empty, string.Empty);
+            this.patientListBox.DataSource = this.viewModel.Patients;
+            this.patientListBox.DisplayMember = "FullName";
+
+            this.patientListBox.SelectedIndex = -1;
+            this.flagStatusComboBox.SelectedIndex = 0;
+            this.flagStatusComboBox.Enabled = false;
+            this.ClearAllBoxes();
         }
     }
 }

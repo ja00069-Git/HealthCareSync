@@ -208,38 +208,99 @@ namespace HealthCareSync.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void SearchByName(string firstName, string lastName)
+        /// <summary>
+        /// Updates the patient list with those with the given name and returns true if there exists a patient with the name, false if not.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <returns>true if there is patient with name, false otherwise</returns>
+        public bool SearchByName(string firstName, string lastName)
         {
             if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
             {
                 this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatients());
                 OnPropertyChanged(nameof(Patients));
+                return true;
             }
             else if (string.IsNullOrWhiteSpace(firstName))
             {
-                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithLastName(lastName));
-                OnPropertyChanged(nameof(Patients));
+                var list = this.patientDAL.GetPatientsWithLastName(lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithLastName(lastName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
             } 
             else if (string.IsNullOrWhiteSpace(lastName))
             {
-                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFirstName(firstName));
-                OnPropertyChanged(nameof(Patients));
+                var list = this.patientDAL.GetPatientsWithFirstName(firstName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFirstName(firstName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
             }
             else
             {
-                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFullName(firstName, lastName));
-                OnPropertyChanged(nameof(Patients));
+                var list = this.patientDAL.GetPatientsWithFullName(firstName, lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFullName(firstName, lastName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
             }
         }
 
-        public void SearchByBirthDate(DateTime bDate)
+        /// <summary>
+        /// Updates the patient list with those with the given birth date and returns true if there exists a patient with the given birth date, false if not
+        /// </summary>
+        /// <param name="bDate">The b date.</param>
+        /// <returns>true if theres a patient with the given birth date, false otherwise</returns>
+        public bool SearchByBirthDate(DateTime bDate)
         {
+            var list = this.patientDAL.GetPatientsWithBirthDate(bDate);
 
+            if (list.Count != 0)
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithBirthDate(bDate));
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+
+            return false;
         }
 
-        public void SearchByNameAndBirthDate(string  first, string last, DateTime bDate)
+        /// <summary>
+        /// Updates the patient list with those with the given name and birth date and returns true if there exists a patient with the given name and birth date, false if not
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="last">The last.</param>
+        /// <param name="bDate">The b date.</param>
+        /// <returns>tru if theres a patient with the given name and birth date, false otherwise</returns>
+        public bool SearchByNameAndBirthDate(string  first, string last, DateTime bDate)
         {
+            var list = this.patientDAL.GetPatientsWithNameAndBirthDate(first, last, bDate);
 
+            if (list.Count != 0)
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithNameAndBirthDate(first,last, bDate));
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
