@@ -24,6 +24,172 @@ namespace HealthCareSync.DAL
         /// </summary>
         public PatientDAL() { this.addressDAL = new AddressDAL(); }
 
+        public List<Patient> GetPatientsWithFirstName(string firstName)
+        {
+            var patientList = new List<Patient>();
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"select 
+                            P.id as PatientId, 
+                            A.id as AddressId, 
+                            fname, 
+                            lname, 
+                            birth_date, 
+                            gender,
+                            phone_num, 
+                            flag_status, 
+                            address_1, 
+                            zip, 
+                            state, 
+                            city, 
+                            address_2
+                          from patient P
+                          left join address A on P.address_id = A.id
+                          where (P.address_id = A.id OR P.address_id IS NULL)
+                          AND P.fname = @fname";
+
+            using var command = new MySqlCommand(query, connection);
+            
+            command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = firstName;
+
+            using var reader = command.ExecuteReader();
+
+            var idOrdinal = reader.GetOrdinal("PatientId");
+            var addressIdOrdinal = reader.GetOrdinal("AddressId");
+            var fnameOrdinal = reader.GetOrdinal("fname");
+            var lnameOrdinal = reader.GetOrdinal("lname");
+            var bdateOrdinal = reader.GetOrdinal("birth_date");
+            var genderOrdinal = reader.GetOrdinal("gender");
+            var phoneOrdinal = reader.GetOrdinal("phone_num");
+            var flagOrdinal = reader.GetOrdinal("flag_status");
+            var address1Ordinal = reader.GetOrdinal("address_1");
+            var zipOrdinal = reader.GetOrdinal("zip");
+            var stateOrdinal = reader.GetOrdinal("state");
+            var cityOrdinal = reader.GetOrdinal("city");
+            var address2Ordinal = reader.GetOrdinal("address_2");
+
+            while (reader.Read())
+            {
+                patientList.Add(CreatePatient(reader, idOrdinal, addressIdOrdinal, fnameOrdinal, lnameOrdinal, bdateOrdinal,
+                    genderOrdinal, phoneOrdinal, flagOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
+            }
+
+            return patientList;
+        }
+
+        public List<Patient> GetPatientsWithLastName(string lastName)
+        {
+            var patientList = new List<Patient>();
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"select 
+                            P.id as PatientId, 
+                            A.id as AddressId, 
+                            fname, 
+                            lname, 
+                            birth_date, 
+                            gender,
+                            phone_num, 
+                            flag_status, 
+                            address_1, 
+                            zip, 
+                            state, 
+                            city, 
+                            address_2
+                          from patient P
+                          left join address A on P.address_id = A.id
+                          where (P.address_id = A.id OR P.address_id IS NULL)
+                          AND P.lname = @lname";
+
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lastName;
+
+            using var reader = command.ExecuteReader();
+
+            var idOrdinal = reader.GetOrdinal("PatientId");
+            var addressIdOrdinal = reader.GetOrdinal("AddressId");
+            var fnameOrdinal = reader.GetOrdinal("fname");
+            var lnameOrdinal = reader.GetOrdinal("lname");
+            var bdateOrdinal = reader.GetOrdinal("birth_date");
+            var genderOrdinal = reader.GetOrdinal("gender");
+            var phoneOrdinal = reader.GetOrdinal("phone_num");
+            var flagOrdinal = reader.GetOrdinal("flag_status");
+            var address1Ordinal = reader.GetOrdinal("address_1");
+            var zipOrdinal = reader.GetOrdinal("zip");
+            var stateOrdinal = reader.GetOrdinal("state");
+            var cityOrdinal = reader.GetOrdinal("city");
+            var address2Ordinal = reader.GetOrdinal("address_2");
+
+            while (reader.Read())
+            {
+                patientList.Add(CreatePatient(reader, idOrdinal, addressIdOrdinal, fnameOrdinal, lnameOrdinal, bdateOrdinal,
+                    genderOrdinal, phoneOrdinal, flagOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
+            }
+
+            return patientList;
+        }
+
+        public List<Patient> GetPatientsWithFullName(string firstName, string lastName)
+        {
+            var patientList = new List<Patient>();
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"select 
+                            P.id as PatientId, 
+                            A.id as AddressId, 
+                            fname, 
+                            lname, 
+                            birth_date, 
+                            gender,
+                            phone_num, 
+                            flag_status, 
+                            address_1, 
+                            zip, 
+                            state, 
+                            city, 
+                            address_2
+                          from patient P
+                          left join address A on P.address_id = A.id
+                          where (P.address_id = A.id OR P.address_id IS NULL)
+                          AND P.fname = @fname AND P.lname = @lname";
+
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = firstName;
+            command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lastName;
+
+            using var reader = command.ExecuteReader();
+
+            var idOrdinal = reader.GetOrdinal("PatientId");
+            var addressIdOrdinal = reader.GetOrdinal("AddressId");
+            var fnameOrdinal = reader.GetOrdinal("fname");
+            var lnameOrdinal = reader.GetOrdinal("lname");
+            var bdateOrdinal = reader.GetOrdinal("birth_date");
+            var genderOrdinal = reader.GetOrdinal("gender");
+            var phoneOrdinal = reader.GetOrdinal("phone_num");
+            var flagOrdinal = reader.GetOrdinal("flag_status");
+            var address1Ordinal = reader.GetOrdinal("address_1");
+            var zipOrdinal = reader.GetOrdinal("zip");
+            var stateOrdinal = reader.GetOrdinal("state");
+            var cityOrdinal = reader.GetOrdinal("city");
+            var address2Ordinal = reader.GetOrdinal("address_2");
+
+            while (reader.Read())
+            {
+                patientList.Add(CreatePatient(reader, idOrdinal, addressIdOrdinal, fnameOrdinal, lnameOrdinal, bdateOrdinal,
+                    genderOrdinal, phoneOrdinal, flagOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
+            }
+
+            return patientList;
+        }
+
         /// <summary>
         /// Adds the patient.
         /// </summary>
