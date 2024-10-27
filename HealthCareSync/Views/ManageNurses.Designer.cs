@@ -33,7 +33,6 @@
             usernameTextBox = new TextBox();
             usernameLabel = new Label();
             address2TextBox = new TextBox();
-            stateTextBox = new TextBox();
             cityTextBox = new TextBox();
             zipTextBox = new TextBox();
             address1TextBox = new TextBox();
@@ -56,6 +55,7 @@
             deleteNurseButton = new Button();
             errorLabel = new Label();
             dateTimePickerForNurse = new DateTimePicker();
+            stateComboBoxForNurse = new ComboBox();
             SuspendLayout();
             // 
             // idTextBox
@@ -96,17 +96,10 @@
             // 
             // address2TextBox
             // 
-            address2TextBox.Location = new Point(303, 163);
+            address2TextBox.Location = new Point(303, 97);
             address2TextBox.Name = "address2TextBox";
             address2TextBox.Size = new Size(100, 23);
             address2TextBox.TabIndex = 63;
-            // 
-            // stateTextBox
-            // 
-            stateTextBox.Location = new Point(185, 163);
-            stateTextBox.Name = "stateTextBox";
-            stateTextBox.Size = new Size(100, 23);
-            stateTextBox.TabIndex = 62;
             // 
             // cityTextBox
             // 
@@ -117,7 +110,7 @@
             // 
             // zipTextBox
             // 
-            zipTextBox.Location = new Point(303, 97);
+            zipTextBox.Location = new Point(303, 163);
             zipTextBox.Name = "zipTextBox";
             zipTextBox.Size = new Size(100, 23);
             zipTextBox.TabIndex = 60;
@@ -132,7 +125,7 @@
             // address2Label
             // 
             address2Label.AutoSize = true;
-            address2Label.Location = new Point(325, 145);
+            address2Label.Location = new Point(325, 79);
             address2Label.Name = "address2Label";
             address2Label.Size = new Size(58, 15);
             address2Label.TabIndex = 58;
@@ -166,7 +159,7 @@
             // zipcodeLabel
             // 
             zipcodeLabel.AutoSize = true;
-            zipcodeLabel.Location = new Point(325, 79);
+            zipcodeLabel.Location = new Point(328, 145);
             zipcodeLabel.Name = "zipcodeLabel";
             zipcodeLabel.Size = new Size(55, 15);
             zipcodeLabel.TabIndex = 53;
@@ -297,12 +290,21 @@
             dateTimePickerForNurse.Size = new Size(100, 23);
             dateTimePickerForNurse.TabIndex = 74;
             // 
+            // stateComboBoxForNurse
+            // 
+            stateComboBoxForNurse.FormattingEnabled = true;
+            stateComboBoxForNurse.Location = new Point(187, 163);
+            stateComboBoxForNurse.Name = "stateComboBoxForNurse";
+            stateComboBoxForNurse.Size = new Size(100, 23);
+            stateComboBoxForNurse.TabIndex = 75;
+            // 
             // ManageNurses
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(561, 270);
+            Controls.Add(stateComboBoxForNurse);
             Controls.Add(dateTimePickerForNurse);
             Controls.Add(errorLabel);
             Controls.Add(deleteNurseButton);
@@ -315,7 +317,6 @@
             Controls.Add(usernameTextBox);
             Controls.Add(usernameLabel);
             Controls.Add(address2TextBox);
-            Controls.Add(stateTextBox);
             Controls.Add(cityTextBox);
             Controls.Add(zipTextBox);
             Controls.Add(address1TextBox);
@@ -345,7 +346,6 @@
         private TextBox usernameTextBox;
         private Label usernameLabel;
         private TextBox address2TextBox;
-        private TextBox stateTextBox;
         private TextBox cityTextBox;
         private TextBox zipTextBox;
         private TextBox address1TextBox;
@@ -368,5 +368,6 @@
         private Button deleteNurseButton;
         private Label errorLabel;
         private DateTimePicker dateTimePickerForNurse;
+        private ComboBox stateComboBoxForNurse;
     }
 }

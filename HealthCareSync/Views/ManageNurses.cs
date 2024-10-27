@@ -44,7 +44,12 @@ namespace HealthCareSync.Views
             this.nurseListBox.DataSource = this.viewModel.Nurses;
            
             this.nurseListBox.DisplayMember = "FullName";
-
+            List<string> items = new List<string> { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
+                "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
+                "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
+                "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+                "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" };
+            stateComboBoxForNurse.Items.AddRange(items.ToArray());
 
         }
         private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
@@ -57,6 +62,12 @@ namespace HealthCareSync.Views
             dateTimePicker.DataBindings.Clear();
             dateTimePicker.DataBindings.Add("Value", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
         }
+        private void BindComboBox(ComboBox comboBox, object dataSource, string dataMember)
+        {
+            comboBox.DataBindings.Clear();
+            comboBox.DataBindings.Add("SelectedValue", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
+        }
+
 
         private void ClearAllBoxes()
         {
@@ -68,7 +79,7 @@ namespace HealthCareSync.Views
             this.address1TextBox.Clear();
             this.zipTextBox.Clear();
             this.cityTextBox.Clear();
-            this.stateTextBox.Clear();
+            this.stateComboBoxForNurse.SelectedIndex = -1;
             this.address2TextBox.Clear();
             this.usernameTextBox.Clear();
         }
@@ -91,7 +102,7 @@ namespace HealthCareSync.Views
                 this.BindTextBox(this.address1TextBox, this.viewModel, "Address_1");
                 this.BindTextBox(this.zipTextBox, this.viewModel, "Zip");
                 this.BindTextBox(this.cityTextBox, this.viewModel, "City");
-                this.BindTextBox(this.stateTextBox, this.viewModel, "State");
+                this.BindComboBox(this.stateComboBoxForNurse, this.viewModel, "State");
                 this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
             }
             else
@@ -119,7 +130,7 @@ namespace HealthCareSync.Views
                 var address1 = this.address1TextBox.Text;
                 var zip = this.zipTextBox.Text;
                 var city = this.cityTextBox.Text;
-                var state = this.stateTextBox.Text;
+                var state = this.stateComboBoxForNurse.Text;
                 var address2 = this.address2TextBox.Text;
 
                 if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
@@ -178,12 +189,12 @@ namespace HealthCareSync.Views
         private bool otherAddressFieldsThanAddress1HasText()
         {
             return this.zipTextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateTextBox.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
+                || this.stateComboBoxForNurse.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
         }
         private bool otherAddressFieldsThanZipHasText()
         {
             return this.address1TextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateTextBox.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
+                || this.stateComboBoxForNurse.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
         }
         private void addNurseButton_Click(object sender, EventArgs e)
         {
@@ -200,7 +211,7 @@ namespace HealthCareSync.Views
                 var address1 = this.address1TextBox.Text;
                 var zip = this.zipTextBox.Text;
                 var city = this.cityTextBox.Text;
-                var state = this.stateTextBox.Text;
+                var state = this.stateComboBoxForNurse.Text;
                 var address2 = this.address2TextBox.Text;
 
 
