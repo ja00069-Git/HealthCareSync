@@ -28,45 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            docTimesListBox = new ListBox();
+            docsTimesListBox = new ListBox();
             monthCalendar = new MonthCalendar();
-            patientNameTBX = new TextBox();
+            patientNameTextBox = new TextBox();
             panel1 = new Panel();
-            label1 = new Label();
-            label2 = new Label();
-            doctorsNameTBX = new TextBox();
+            patientNameLabel = new Label();
+            doctorsNameLabel = new Label();
+            doctorsNameTextBox = new TextBox();
             panel2 = new Panel();
-            label3 = new Label();
-            timeTBX = new TextBox();
+            appointmentTimeLabel = new Label();
+            appointmentTimeTextBox = new TextBox();
             panel3 = new Panel();
-            label4 = new Label();
-            reasonTBX = new TextBox();
+            reasonLabel = new Label();
+            reasonTextBox = new TextBox();
             panel4 = new Panel();
             scheduleBTN = new Button();
             EditBTN = new Button();
-            appointments = new ListBox();
-            searchTBX = new TextBox();
+            appointmentsListBox = new ListBox();
+            searchTextBox = new TextBox();
             panel5 = new Panel();
             searchBTN = new Button();
-            searchErrorLabel = new Label();
-            label5 = new Label();
-            label6 = new Label();
+            searchLabel = new Label();
+            appointmentLabel = new Label();
+            avalableTimesLabel = new Label();
             panel6 = new Panel();
             panel7 = new Panel();
-            clearBTN = new Button();
+            clearSearchBTN = new Button();
             patentNameErrorLabel = new Label();
-            reasonLabel = new Label();
+            reasonErrorLabel = new Label();
+            patientNameErrorLabel = new Label();
+            generalErrorlLabel = new Label();
             SuspendLayout();
             // 
-            // docTimesListBox
+            // docsTimesListBox
             // 
-            docTimesListBox.BorderStyle = BorderStyle.FixedSingle;
-            docTimesListBox.FormattingEnabled = true;
-            docTimesListBox.ItemHeight = 25;
-            docTimesListBox.Location = new Point(71, 267);
-            docTimesListBox.Name = "docTimesListBox";
-            docTimesListBox.Size = new Size(312, 177);
-            docTimesListBox.TabIndex = 1;
+            docsTimesListBox.BorderStyle = BorderStyle.FixedSingle;
+            docsTimesListBox.FormattingEnabled = true;
+            docsTimesListBox.ItemHeight = 25;
+            docsTimesListBox.Location = new Point(71, 267);
+            docsTimesListBox.Name = "docsTimesListBox";
+            docsTimesListBox.Size = new Size(312, 177);
+            docsTimesListBox.TabIndex = 1;
+            docsTimesListBox.SelectedIndexChanged += docsTimesListBox_SelectedIndexChanged;
             // 
             // monthCalendar
             // 
@@ -81,17 +84,17 @@
             monthCalendar.TrailingForeColor = SystemColors.ActiveCaptionText;
             monthCalendar.DateChanged += monthCalendar_DateChanged;
             // 
-            // patientNameTBX
+            // patientNameTextBox
             // 
-            patientNameTBX.BackColor = Color.White;
-            patientNameTBX.BorderStyle = BorderStyle.None;
-            patientNameTBX.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            patientNameTBX.ForeColor = SystemColors.HotTrack;
-            patientNameTBX.Location = new Point(623, 12);
-            patientNameTBX.Multiline = true;
-            patientNameTBX.Name = "patientNameTBX";
-            patientNameTBX.Size = new Size(165, 28);
-            patientNameTBX.TabIndex = 6;
+            patientNameTextBox.BackColor = Color.White;
+            patientNameTextBox.BorderStyle = BorderStyle.None;
+            patientNameTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            patientNameTextBox.ForeColor = SystemColors.HotTrack;
+            patientNameTextBox.Location = new Point(623, 12);
+            patientNameTextBox.Multiline = true;
+            patientNameTextBox.Name = "patientNameTextBox";
+            patientNameTextBox.Size = new Size(246, 28);
+            patientNameTextBox.TabIndex = 6;
             // 
             // panel1
             // 
@@ -99,118 +102,118 @@
             panel1.ForeColor = SystemColors.ButtonShadow;
             panel1.Location = new Point(465, 46);
             panel1.Name = "panel1";
-            panel1.Size = new Size(323, 1);
+            panel1.Size = new Size(404, 1);
             panel1.TabIndex = 7;
             // 
-            // label1
+            // patientNameLabel
             // 
-            label1.AutoSize = true;
-            label1.BackColor = SystemColors.Control;
-            label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ActiveCaptionText;
-            label1.Location = new Point(482, 12);
-            label1.Name = "label1";
-            label1.Size = new Size(129, 25);
-            label1.TabIndex = 8;
-            label1.Text = "Patient Name:";
+            patientNameLabel.AutoSize = true;
+            patientNameLabel.BackColor = SystemColors.Control;
+            patientNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            patientNameLabel.ForeColor = SystemColors.ActiveCaptionText;
+            patientNameLabel.Location = new Point(482, 12);
+            patientNameLabel.Name = "patientNameLabel";
+            patientNameLabel.Size = new Size(129, 25);
+            patientNameLabel.TabIndex = 8;
+            patientNameLabel.Text = "Patient Name:";
             // 
-            // label2
+            // doctorsNameLabel
             // 
-            label2.AutoSize = true;
-            label2.BackColor = SystemColors.Control;
-            label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ActiveCaptionText;
-            label2.Location = new Point(482, 95);
-            label2.Name = "label2";
-            label2.Size = new Size(139, 25);
-            label2.TabIndex = 11;
-            label2.Text = "Doctor's Name:";
+            doctorsNameLabel.AutoSize = true;
+            doctorsNameLabel.BackColor = SystemColors.Control;
+            doctorsNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            doctorsNameLabel.ForeColor = SystemColors.ActiveCaptionText;
+            doctorsNameLabel.Location = new Point(482, 88);
+            doctorsNameLabel.Name = "doctorsNameLabel";
+            doctorsNameLabel.Size = new Size(139, 25);
+            doctorsNameLabel.TabIndex = 11;
+            doctorsNameLabel.Text = "Doctor's Name:";
             // 
-            // doctorsNameTBX
+            // doctorsNameTextBox
             // 
-            doctorsNameTBX.BackColor = Color.White;
-            doctorsNameTBX.BorderStyle = BorderStyle.None;
-            doctorsNameTBX.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            doctorsNameTBX.ForeColor = SystemColors.HotTrack;
-            doctorsNameTBX.Location = new Point(623, 95);
-            doctorsNameTBX.Multiline = true;
-            doctorsNameTBX.Name = "doctorsNameTBX";
-            doctorsNameTBX.Size = new Size(165, 31);
-            doctorsNameTBX.TabIndex = 9;
+            doctorsNameTextBox.BackColor = Color.White;
+            doctorsNameTextBox.BorderStyle = BorderStyle.None;
+            doctorsNameTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            doctorsNameTextBox.ForeColor = SystemColors.HotTrack;
+            doctorsNameTextBox.Location = new Point(623, 83);
+            doctorsNameTextBox.Multiline = true;
+            doctorsNameTextBox.Name = "doctorsNameTextBox";
+            doctorsNameTextBox.Size = new Size(246, 31);
+            doctorsNameTextBox.TabIndex = 9;
             // 
             // panel2
             // 
             panel2.BackColor = Color.IndianRed;
             panel2.ForeColor = SystemColors.ButtonShadow;
-            panel2.Location = new Point(465, 132);
+            panel2.Location = new Point(465, 116);
             panel2.Name = "panel2";
-            panel2.Size = new Size(323, 1);
+            panel2.Size = new Size(404, 1);
             panel2.TabIndex = 10;
             // 
-            // label3
+            // appointmentTimeLabel
             // 
-            label3.AutoSize = true;
-            label3.BackColor = SystemColors.Control;
-            label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ActiveCaptionText;
-            label3.Location = new Point(482, 183);
-            label3.Name = "label3";
-            label3.Size = new Size(107, 25);
-            label3.TabIndex = 14;
-            label3.Text = "Appt. Time:";
+            appointmentTimeLabel.AutoSize = true;
+            appointmentTimeLabel.BackColor = SystemColors.Control;
+            appointmentTimeLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            appointmentTimeLabel.ForeColor = SystemColors.ActiveCaptionText;
+            appointmentTimeLabel.Location = new Point(482, 163);
+            appointmentTimeLabel.Name = "appointmentTimeLabel";
+            appointmentTimeLabel.Size = new Size(107, 25);
+            appointmentTimeLabel.TabIndex = 14;
+            appointmentTimeLabel.Text = "Appt. Time:";
             // 
-            // timeTBX
+            // appointmentTimeTextBox
             // 
-            timeTBX.BackColor = Color.White;
-            timeTBX.BorderStyle = BorderStyle.None;
-            timeTBX.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            timeTBX.ForeColor = SystemColors.HotTrack;
-            timeTBX.Location = new Point(602, 182);
-            timeTBX.Multiline = true;
-            timeTBX.Name = "timeTBX";
-            timeTBX.Size = new Size(193, 33);
-            timeTBX.TabIndex = 12;
+            appointmentTimeTextBox.BackColor = Color.White;
+            appointmentTimeTextBox.BorderStyle = BorderStyle.None;
+            appointmentTimeTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            appointmentTimeTextBox.ForeColor = SystemColors.HotTrack;
+            appointmentTimeTextBox.Location = new Point(595, 157);
+            appointmentTimeTextBox.Multiline = true;
+            appointmentTimeTextBox.Name = "appointmentTimeTextBox";
+            appointmentTimeTextBox.Size = new Size(274, 33);
+            appointmentTimeTextBox.TabIndex = 12;
             // 
             // panel3
             // 
             panel3.BackColor = Color.IndianRed;
             panel3.ForeColor = SystemColors.ButtonShadow;
-            panel3.Location = new Point(472, 221);
+            panel3.Location = new Point(472, 192);
             panel3.Name = "panel3";
-            panel3.Size = new Size(323, 1);
+            panel3.Size = new Size(404, 1);
             panel3.TabIndex = 13;
             // 
-            // label4
+            // reasonLabel
             // 
-            label4.AutoSize = true;
-            label4.BackColor = SystemColors.Control;
-            label4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = SystemColors.ActiveCaptionText;
-            label4.Location = new Point(482, 278);
-            label4.Name = "label4";
-            label4.Size = new Size(76, 25);
-            label4.TabIndex = 17;
-            label4.Text = "Reason:";
+            reasonLabel.AutoSize = true;
+            reasonLabel.BackColor = SystemColors.Control;
+            reasonLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            reasonLabel.ForeColor = SystemColors.ActiveCaptionText;
+            reasonLabel.Location = new Point(482, 250);
+            reasonLabel.Name = "reasonLabel";
+            reasonLabel.Size = new Size(76, 25);
+            reasonLabel.TabIndex = 17;
+            reasonLabel.Text = "Reason:";
             // 
-            // reasonTBX
+            // reasonTextBox
             // 
-            reasonTBX.BackColor = Color.White;
-            reasonTBX.BorderStyle = BorderStyle.None;
-            reasonTBX.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            reasonTBX.ForeColor = SystemColors.HotTrack;
-            reasonTBX.Location = new Point(574, 277);
-            reasonTBX.Multiline = true;
-            reasonTBX.Name = "reasonTBX";
-            reasonTBX.Size = new Size(214, 32);
-            reasonTBX.TabIndex = 15;
+            reasonTextBox.BackColor = Color.White;
+            reasonTextBox.BorderStyle = BorderStyle.None;
+            reasonTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            reasonTextBox.ForeColor = SystemColors.HotTrack;
+            reasonTextBox.Location = new Point(574, 249);
+            reasonTextBox.Multiline = true;
+            reasonTextBox.Name = "reasonTextBox";
+            reasonTextBox.Size = new Size(295, 32);
+            reasonTextBox.TabIndex = 15;
             // 
             // panel4
             // 
             panel4.BackColor = Color.IndianRed;
             panel4.ForeColor = SystemColors.ButtonShadow;
-            panel4.Location = new Point(472, 315);
+            panel4.Location = new Point(472, 287);
             panel4.Name = "panel4";
-            panel4.Size = new Size(323, 1);
+            panel4.Size = new Size(404, 1);
             panel4.TabIndex = 16;
             // 
             // scheduleBTN
@@ -243,33 +246,33 @@
             EditBTN.UseVisualStyleBackColor = false;
             EditBTN.Click += EditBTN_Click;
             // 
-            // appointments
+            // appointmentsListBox
             // 
-            appointments.BorderStyle = BorderStyle.FixedSingle;
-            appointments.FormattingEnabled = true;
-            appointments.ItemHeight = 25;
-            appointments.Location = new Point(863, 40);
-            appointments.Name = "appointments";
-            appointments.Size = new Size(307, 277);
-            appointments.TabIndex = 20;
+            appointmentsListBox.BorderStyle = BorderStyle.FixedSingle;
+            appointmentsListBox.FormattingEnabled = true;
+            appointmentsListBox.ItemHeight = 25;
+            appointmentsListBox.Location = new Point(940, 40);
+            appointmentsListBox.Name = "appointmentsListBox";
+            appointmentsListBox.Size = new Size(326, 277);
+            appointmentsListBox.TabIndex = 20;
             // 
-            // searchTBX
+            // searchTextBox
             // 
-            searchTBX.BackColor = Color.White;
-            searchTBX.BorderStyle = BorderStyle.None;
-            searchTBX.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            searchTBX.ForeColor = SystemColors.HotTrack;
-            searchTBX.Location = new Point(847, 384);
-            searchTBX.Multiline = true;
-            searchTBX.Name = "searchTBX";
-            searchTBX.Size = new Size(128, 37);
-            searchTBX.TabIndex = 21;
+            searchTextBox.BackColor = Color.White;
+            searchTextBox.BorderStyle = BorderStyle.None;
+            searchTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            searchTextBox.ForeColor = SystemColors.HotTrack;
+            searchTextBox.Location = new Point(924, 384);
+            searchTextBox.Multiline = true;
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.Size = new Size(128, 37);
+            searchTextBox.TabIndex = 21;
             // 
             // panel5
             // 
             panel5.BackColor = Color.IndianRed;
             panel5.ForeColor = SystemColors.ButtonShadow;
-            panel5.Location = new Point(847, 427);
+            panel5.Location = new Point(924, 427);
             panel5.Name = "panel5";
             panel5.Size = new Size(323, 1);
             panel5.TabIndex = 22;
@@ -281,7 +284,7 @@
             searchBTN.FlatStyle = FlatStyle.Flat;
             searchBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             searchBTN.ForeColor = Color.White;
-            searchBTN.Location = new Point(981, 377);
+            searchBTN.Location = new Point(1058, 377);
             searchBTN.Name = "searchBTN";
             searchBTN.Size = new Size(95, 44);
             searchBTN.TabIndex = 23;
@@ -289,37 +292,37 @@
             searchBTN.UseVisualStyleBackColor = false;
             searchBTN.Click += searchBTN_Click;
             // 
-            // searchErrorLabel
+            // searchLabel
             // 
-            searchErrorLabel.AutoSize = true;
-            searchErrorLabel.Location = new Point(862, 328);
-            searchErrorLabel.Name = "searchErrorLabel";
-            searchErrorLabel.Size = new Size(0, 25);
-            searchErrorLabel.TabIndex = 24;
+            searchLabel.AutoSize = true;
+            searchLabel.Location = new Point(939, 328);
+            searchLabel.Name = "searchLabel";
+            searchLabel.Size = new Size(0, 25);
+            searchLabel.TabIndex = 24;
             // 
-            // label5
+            // appointmentLabel
             // 
-            label5.AutoSize = true;
-            label5.BackColor = SystemColors.Control;
-            label5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = SystemColors.ActiveCaptionText;
-            label5.Location = new Point(863, 12);
-            label5.Name = "label5";
-            label5.Size = new Size(136, 25);
-            label5.TabIndex = 25;
-            label5.Text = "Appointments:";
+            appointmentLabel.AutoSize = true;
+            appointmentLabel.BackColor = SystemColors.Control;
+            appointmentLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            appointmentLabel.ForeColor = SystemColors.ActiveCaptionText;
+            appointmentLabel.Location = new Point(940, 12);
+            appointmentLabel.Name = "appointmentLabel";
+            appointmentLabel.Size = new Size(136, 25);
+            appointmentLabel.TabIndex = 25;
+            appointmentLabel.Text = "Appointments:";
             // 
-            // label6
+            // avalableTimesLabel
             // 
-            label6.AutoSize = true;
-            label6.BackColor = SystemColors.Control;
-            label6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.ForeColor = SystemColors.ActiveCaptionText;
-            label6.Location = new Point(71, 239);
-            label6.Name = "label6";
-            label6.Size = new Size(140, 25);
-            label6.TabIndex = 26;
-            label6.Text = "AvailableTimes:";
+            avalableTimesLabel.AutoSize = true;
+            avalableTimesLabel.BackColor = SystemColors.Control;
+            avalableTimesLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            avalableTimesLabel.ForeColor = SystemColors.ActiveCaptionText;
+            avalableTimesLabel.Location = new Point(71, 239);
+            avalableTimesLabel.Name = "avalableTimesLabel";
+            avalableTimesLabel.Size = new Size(140, 25);
+            avalableTimesLabel.TabIndex = 26;
+            avalableTimesLabel.Text = "AvailableTimes:";
             // 
             // panel6
             // 
@@ -332,25 +335,25 @@
             // panel7
             // 
             panel7.BackColor = Color.IndianRed;
-            panel7.Location = new Point(824, 12);
+            panel7.Location = new Point(896, 12);
             panel7.Name = "panel7";
             panel7.Size = new Size(1, 409);
             panel7.TabIndex = 28;
             // 
-            // clearBTN
+            // clearSearchBTN
             // 
-            clearBTN.BackColor = Color.IndianRed;
-            clearBTN.FlatAppearance.BorderSize = 0;
-            clearBTN.FlatStyle = FlatStyle.Flat;
-            clearBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            clearBTN.ForeColor = Color.White;
-            clearBTN.Location = new Point(1082, 375);
-            clearBTN.Name = "clearBTN";
-            clearBTN.Size = new Size(95, 44);
-            clearBTN.TabIndex = 29;
-            clearBTN.Text = "Clear";
-            clearBTN.UseVisualStyleBackColor = false;
-            clearBTN.Click += clearBTN_Click;
+            clearSearchBTN.BackColor = Color.IndianRed;
+            clearSearchBTN.FlatAppearance.BorderSize = 0;
+            clearSearchBTN.FlatStyle = FlatStyle.Flat;
+            clearSearchBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            clearSearchBTN.ForeColor = Color.White;
+            clearSearchBTN.Location = new Point(1159, 375);
+            clearSearchBTN.Name = "clearSearchBTN";
+            clearSearchBTN.Size = new Size(95, 44);
+            clearSearchBTN.TabIndex = 29;
+            clearSearchBTN.Text = "Clear";
+            clearSearchBTN.UseVisualStyleBackColor = false;
+            clearSearchBTN.Click += clearBTN_Click;
             // 
             // patentNameErrorLabel
             // 
@@ -360,82 +363,102 @@
             patentNameErrorLabel.Size = new Size(0, 25);
             patentNameErrorLabel.TabIndex = 30;
             // 
-            // reasonLabel
+            // reasonErrorLabel
             // 
-            reasonLabel.AutoSize = true;
-            reasonLabel.Location = new Point(482, 319);
-            reasonLabel.Name = "reasonLabel";
-            reasonLabel.Size = new Size(0, 25);
-            reasonLabel.TabIndex = 31;
+            reasonErrorLabel.AutoSize = true;
+            reasonErrorLabel.Location = new Point(482, 291);
+            reasonErrorLabel.Name = "reasonErrorLabel";
+            reasonErrorLabel.Size = new Size(0, 25);
+            reasonErrorLabel.TabIndex = 31;
+            // 
+            // patientNameErrorLabel
+            // 
+            patientNameErrorLabel.AutoSize = true;
+            patientNameErrorLabel.Location = new Point(482, 50);
+            patientNameErrorLabel.Name = "patientNameErrorLabel";
+            patientNameErrorLabel.Size = new Size(0, 25);
+            patientNameErrorLabel.TabIndex = 32;
+            // 
+            // generalErrorlLabel
+            // 
+            generalErrorlLabel.AutoSize = true;
+            generalErrorlLabel.Location = new Point(472, 339);
+            generalErrorlLabel.Name = "generalErrorlLabel";
+            generalErrorlLabel.Size = new Size(0, 25);
+            generalErrorlLabel.TabIndex = 33;
             // 
             // ManageAppts
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            Controls.Add(reasonLabel);
+            Controls.Add(generalErrorlLabel);
+            Controls.Add(patientNameErrorLabel);
+            Controls.Add(reasonErrorLabel);
             Controls.Add(patentNameErrorLabel);
-            Controls.Add(clearBTN);
+            Controls.Add(clearSearchBTN);
             Controls.Add(panel7);
             Controls.Add(panel6);
-            Controls.Add(label6);
-            Controls.Add(label5);
-            Controls.Add(searchErrorLabel);
+            Controls.Add(avalableTimesLabel);
+            Controls.Add(appointmentLabel);
+            Controls.Add(searchLabel);
             Controls.Add(searchBTN);
-            Controls.Add(searchTBX);
+            Controls.Add(searchTextBox);
             Controls.Add(panel5);
-            Controls.Add(appointments);
+            Controls.Add(appointmentsListBox);
             Controls.Add(EditBTN);
             Controls.Add(scheduleBTN);
-            Controls.Add(label4);
-            Controls.Add(reasonTBX);
+            Controls.Add(reasonLabel);
+            Controls.Add(reasonTextBox);
             Controls.Add(panel4);
-            Controls.Add(label3);
-            Controls.Add(timeTBX);
+            Controls.Add(appointmentTimeLabel);
+            Controls.Add(appointmentTimeTextBox);
             Controls.Add(panel3);
-            Controls.Add(label2);
-            Controls.Add(doctorsNameTBX);
+            Controls.Add(doctorsNameLabel);
+            Controls.Add(doctorsNameTextBox);
             Controls.Add(panel2);
-            Controls.Add(label1);
-            Controls.Add(patientNameTBX);
+            Controls.Add(patientNameLabel);
+            Controls.Add(patientNameTextBox);
             Controls.Add(panel1);
-            Controls.Add(docTimesListBox);
+            Controls.Add(docsTimesListBox);
             Controls.Add(monthCalendar);
             Name = "ManageAppts";
-            Size = new Size(1191, 450);
+            Size = new Size(1308, 450);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ListBox docTimesListBox;
+        private ListBox docsTimesListBox;
         private MonthCalendar monthCalendar;
-        private TextBox patientNameTBX;
+        private TextBox patientNameTextBox;
         private Panel panel1;
-        private Label label1;
-        private Label label2;
-        private TextBox doctorsNameTBX;
+        private Label patientNameLabel;
+        private Label doctorsNameLabel;
+        private TextBox doctorsNameTextBox;
         private Panel panel2;
-        private Label label3;
-        private TextBox timeTBX;
+        private Label appointmentTimeLabel;
+        private TextBox appointmentTimeTextBox;
         private Panel panel3;
-        private Label label4;
-        private TextBox reasonTBX;
+        private Label reasonLabel;
+        private TextBox reasonTextBox;
         private Panel panel4;
         private Button scheduleBTN;
         private Button EditBTN;
-        private ListBox appointments;
-        private TextBox searchTBX;
+        private ListBox appointmentsListBox;
+        private TextBox searchTextBox;
         private Panel panel5;
         private Button searchBTN;
-        private Label searchErrorLabel;
-        private Label label5;
-        private Label label6;
+        private Label searchLabel;
+        private Label appointmentLabel;
+        private Label avalableTimesLabel;
         private Panel panel6;
         private Panel panel7;
-        private Button clearBTN;
+        private Button clearSearchBTN;
         private Label patentNameErrorLabel;
-        private Label reasonLabel;
+        private Label reasonErrorLabel;
+        private Label patientNameErrorLabel;
+        private Label generalErrorlLabel;
     }
 }
