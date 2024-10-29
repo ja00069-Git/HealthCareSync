@@ -91,7 +91,7 @@ namespace HealthCareSync.Views
             this.genderComboBox.SelectedIndex = -1;
             this.searchFirstNameTextBox.Clear();
             this.searchLastNameTextBox.Clear();
-            this.searchBirthDatePicker.Value = DateTime.Today;  
+            this.searchBirthDatePicker.Value = DateTime.Today;
             this.searchByBirthDateCheckBox.Checked = false;
             this.searchByNameCheckBox.Checked = false;
         }
@@ -291,7 +291,7 @@ namespace HealthCareSync.Views
                 {
                     MessageBox.Show("Could not find any patients with the given name and birth date", "Patient(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
             else if (onlyNameChecked)
             {

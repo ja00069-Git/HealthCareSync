@@ -41,7 +41,11 @@ namespace HealthCareSync
             if (childForm is Manage_Patients)
             {
                 this.Size = childForm.Size;
-                this.exitAppBTN.Location = new Point(this.exitAppBTN.Location.X + 160, this.exitAppBTN.Location.Y);
+                this.exitAppBTN.Location = new Point(1050, this.exitAppBTN.Location.Y);
+            }
+            else
+            {
+                this.Size= childForm.Size;
             }
 
             childForm.Dock = DockStyle.Fill;
