@@ -255,6 +255,7 @@
             appointmentsListBox.Name = "appointmentsListBox";
             appointmentsListBox.Size = new Size(326, 277);
             appointmentsListBox.TabIndex = 20;
+            appointmentsListBox.SelectedIndexChanged += appointmentsListBox_SelectedIndexChanged;
             // 
             // searchTextBox
             // 
