@@ -13,8 +13,7 @@ namespace HealthCareSync.DAL
     {
         private AddressDAL addressDAL;
 
-        private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
-             "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
+        private readonly string connectionString = Connection.ConnectionSting();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PatientDAL"/> class.
