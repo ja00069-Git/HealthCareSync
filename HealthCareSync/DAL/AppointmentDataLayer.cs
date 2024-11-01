@@ -14,7 +14,7 @@ namespace HealthCareSync.DAL
                 SELECT da.availability_id, da.doctor_id, da.start_time, da.end_time, d.fname, d.lname 
                 FROM doctor_availability da
                 JOIN doctor d ON da.doctor_id = d.id
-                WHERE da.available_date = @date AND da.isAvailable = 0";
+                WHERE da.available_date = @date AND da.isAvailable = 1";
 
             using (var connection = new MySqlConnection(Connection.ConnectionString()))
             using (var command = new MySqlCommand(query, connection))
@@ -70,7 +70,7 @@ namespace HealthCareSync.DAL
 
             string updateQuery = @"
                 UPDATE doctor_availability 
-                SET isAvailable = 1 
+                SET isAvailable = 0 
                 WHERE availability_id = @availabilityId";
 
             using (var connection = new MySqlConnection(Connection.ConnectionString()))
@@ -192,7 +192,48 @@ namespace HealthCareSync.DAL
             return doctorId;
         }
 
+        // Get appointment by patient Name
+        public List<Appointment> GetAppointmentsByPatientName(string patientName)
+        {
+            var appointments = new List<Appointment>();
 
+            string query = @"
+                SELECT a.id, a.patient_id, a.doctor_id, a.date_time, a.reason, 
+                       d.fname AS doctor_fname, d.lname AS doctor_lname, 
+                       p.fname AS patient_fname, p.lname AS patient_lname 
+                FROM appointment a
+                JOIN doctor d ON a.doctor_id = d.id
+                JOIN patient p ON a.patient_id = p.id
+                WHERE CONCAT(p.fname, ' ', p.lname) = @patientName";
+
+            using (var connection = new MySqlConnection(Connection.ConnectionString()))
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@patientName", patientName);
+
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var appointment = new Appointment
+                        {
+                            AppointmentId = reader.GetInt32("id"),
+                            PatientId = reader.GetInt32("patient_id"),
+                            DoctorId = reader.GetInt32("doctor_id"),
+                            DateTime = reader.GetDateTime("date_time"),
+                            Reason = reader.GetString("reason"),
+                            DoctorName = $"{reader.GetString("doctor_fname")} {reader.GetString("doctor_lname")}",
+                            PatientName = $"{reader.GetString("patient_fname")} {reader.GetString("patient_lname")}"
+                        };
+
+                        appointments.Add(appointment);
+                    }
+                }
+            }
+
+            return appointments;
+        }
 
         // Retrieve appointments for a given date
         public List<Appointment> GetAppointmentsByDate(DateTime date)
@@ -237,50 +278,6 @@ namespace HealthCareSync.DAL
             return appointments;
         }
 
-        // Get appointment by patient Name
-        public List<Appointment> GetAppointmentsByPatientName(string patientName)
-        {
-            var appointments = new List<Appointment>();
-
-            string query = @"
-                SELECT a.id, a.patient_id, a.doctor_id, a.date_time, a.reason, 
-                       d.fname AS doctor_fname, d.lname AS doctor_lname, 
-                       p.fname AS patient_fname, p.lname AS patient_lname 
-                FROM appointment a
-                JOIN doctor d ON a.doctor_id = d.id
-                JOIN patient p ON a.patient_id = p.id
-                WHERE CONCAT(p.fname, ' ', p.lname) = @patientName";
-
-            using (var connection = new MySqlConnection(Connection.ConnectionString()))
-            using (var command = new MySqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@patientName", patientName);
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var appointment = new Appointment
-                        {
-                            AppointmentId = reader.GetInt32("id"),
-                            PatientId = reader.GetInt32("patient_id"),
-                            DoctorId = reader.GetInt32("doctor_id"),
-                            DateTime = reader.GetDateTime("date_time"),
-                            Reason = reader.GetString("reason"),
-                            DoctorName = $"{reader.GetString("doctor_fname")} {reader.GetString("doctor_lname")}",
-                            PatientName = $"{reader.GetString("patient_fname")} {reader.GetString("patient_lname")}"
-                        };
-
-                        appointments.Add(appointment);
-                    }
-                }
-            }
-
-            return appointments;
-        }
-
-        // Update an existing appointment
         public void UpdateAppointment(Appointment appointment, int newAvailabilityId, int previousAvailabilityId)
         {
             string updateAppointmentQuery = @"
@@ -319,17 +316,16 @@ namespace HealthCareSync.DAL
             }
         }
 
-        // New method to update the doctor's availability status
         public void UpdateDoctorAvailability(int previousAvailabilityId, int newAvailabilityId)
         {
             if (previousAvailabilityId != 0)
             {
-                UpdateAvailabilityStatus(previousAvailabilityId, 0); 
+                UpdateAvailabilityStatus(previousAvailabilityId, 1);  // Set to available (1)
             }
 
             if (newAvailabilityId != 0)
             {
-                UpdateAvailabilityStatus(newAvailabilityId, 1);
+                UpdateAvailabilityStatus(newAvailabilityId, 0);  // Set to unavailable (0)
             }
         }
 
@@ -337,16 +333,15 @@ namespace HealthCareSync.DAL
         public void UpdateAvailabilityStatus(int availabilityId, int status)
         {
             string query = @"
-                UPDATE doctor_availability 
-                SET isAvailable = @status 
-                WHERE availability_id = @availabilityId";
+        UPDATE doctor_availability 
+        SET isAvailable = @status 
+        WHERE availability_id = @availabilityId";
 
             using (var connection = new MySqlConnection(Connection.ConnectionString()))
             using (var command = new MySqlCommand(query, connection))
             {
                 command.Parameters.AddWithValue("@status", status);
                 command.Parameters.AddWithValue("@availabilityId", availabilityId);
-
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -363,7 +358,7 @@ namespace HealthCareSync.DAL
                 WHERE da.doctor_id = @doctorId 
                 AND da.start_time <= @dateTime 
                 AND da.end_time > @dateTime 
-                AND da.isAvailable = 0";
+                AND da.isAvailable = 1";
 
             using (var connection = new MySqlConnection(Connection.ConnectionString()))
             using (var command = new MySqlCommand(query, connection))

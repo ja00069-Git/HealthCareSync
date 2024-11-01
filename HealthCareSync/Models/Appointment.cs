@@ -10,9 +10,11 @@
         public string? DoctorName { get; set; }
         public string? PatientName { get; set; }
 
+        private string DisplayInfo => $"{DateTime:MM/dd/yyyy HH:mm} with {DoctorName} | {PatientName}";
+
         public override string ToString()
         {
-            return $"{DateTime:MM/dd/yyyy HH:mm} with {DoctorName} | {PatientName}";
+            return DisplayInfo;
         }
     }
 }
