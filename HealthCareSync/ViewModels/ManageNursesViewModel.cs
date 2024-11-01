@@ -94,7 +94,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The state.
         /// </value>
-        public string? State => SelectedNurse?.Address?.State;
+        public string? State => SelectedNurse?.Address?.State.ToString().ToUpper();
 
         /// <summary>
         /// Gets the address 2.
@@ -177,7 +177,7 @@ namespace HealthCareSync.ViewModels
 
             if (address1?.Trim().Length > 0 && zip?.Trim().Length > 0)
             {
-                var address = new Address(address1, zip, city, state, address2);
+                var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
                 newNurse.Address = address;
             }
 
@@ -217,12 +217,12 @@ namespace HealthCareSync.ViewModels
                     this.selectedNurse.Address.Address_1 = address1;
                     this.selectedNurse.Address.Zip = zip;
                     this.selectedNurse.Address.City = city;
-                    this.selectedNurse.Address.State = state;
+                    this.selectedNurse.Address.State = Enum.Parse<State>(state.ToUpper());
                     this.selectedNurse.Address.Address_2 = address2;
                 }
                 else
                 {
-                    var address = new Address(address1, zip, city, state, address2);
+                    var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
                     this.selectedNurse.Address = address;
                 }
             }

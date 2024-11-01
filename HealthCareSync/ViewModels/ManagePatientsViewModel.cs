@@ -45,6 +45,22 @@ namespace HealthCareSync.ViewModels
         public string? FormattedBirthDate => SelectedPatient?.FormattedBirthDate;
 
         /// <summary>
+        /// Gets the birth date.
+        /// </summary>
+        /// <value>
+        /// The birth date.
+        /// </value>
+        public DateTime? BirthDate => SelectedPatient?.BirthDate;
+
+        /// <summary>
+        /// Gets the gender.
+        /// </summary>
+        /// <value>
+        /// The gender.
+        /// </value>
+        public Gender? Gender => SelectedPatient?.Gender;
+
+        /// <summary>
         /// Gets the phone number.
         /// </summary>
         /// <value>
@@ -74,7 +90,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The address 1.
         /// </value>
-        public string? Address_1 => SelectedPatient?.Address?.Address_1;
+        public string? Address_1 => SelectedPatient?.Address.Address_1;
 
         /// <summary>
         /// Gets the zip.
@@ -82,7 +98,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The zip.
         /// </value>
-        public string? Zip => SelectedPatient?.Address?.Zip;
+        public string? Zip => SelectedPatient?.Address.Zip;
 
         /// <summary>
         /// Gets the city.
@@ -90,7 +106,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The city.
         /// </value>
-        public string? City => SelectedPatient?.Address?.City;
+        public string? City => SelectedPatient?.Address.City;
 
         /// <summary>
         /// Gets the state.
@@ -98,7 +114,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The state.
         /// </value>
-        public string? State => SelectedPatient?.Address?.State;
+        public State? State => SelectedPatient?.Address.State;
 
         /// <summary>
         /// Gets the address 2.
@@ -106,10 +122,19 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The address 2.
         /// </value>
-        public string? Address_2 => SelectedPatient?.Address?.Address_2;
+        public string? Address_2 => SelectedPatient?.Address.Address_2;
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Gets or sets the selected patient.
+        /// </summary>
+        /// <value>
+        /// The selected patient.
+        /// </value>
         public Patient SelectedPatient
         {
             get { return selectedPatient; }
@@ -121,7 +146,8 @@ namespace HealthCareSync.ViewModels
                     OnPropertyChanged(nameof(SelectedPatient));
                     OnPropertyChanged(nameof(FirstName)); 
                     OnPropertyChanged(nameof(LastName));
-                    OnPropertyChanged(nameof(FormattedBirthDate));
+                    OnPropertyChanged(nameof(BirthDate));
+                    OnPropertyChanged(nameof(Gender));
                     OnPropertyChanged(nameof(PhoneNumber));
                     OnPropertyChanged(nameof(Patient_Id));
                     OnPropertyChanged(nameof(FlagStatus));
@@ -140,7 +166,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         ///     The Patients.
         /// </value>
-        public ObservableCollection<Patient> Patients { get; }
+        public ObservableCollection<Patient> Patients { get; set; }
 
         /// <summary>
         ///     Gets the flag statuses.
@@ -149,6 +175,22 @@ namespace HealthCareSync.ViewModels
         ///     The flag statuses.
         /// </value>
         public List<FlagStatus> FlagStatuses => Enum.GetValues(typeof(FlagStatus)).Cast<FlagStatus>().ToList();
+
+        /// <summary>
+        /// Gets the states.
+        /// </summary>
+        /// <value>
+        /// The states.
+        /// </value>
+        public List<State> States => Enum.GetValues(typeof(State)).Cast<State>().ToList();
+
+        /// <summary>
+        /// Gets the genders.
+        /// </summary>
+        /// <value>
+        /// The genders.
+        /// </value>
+        public List<Gender> Genders => Enum.GetValues<Gender>().Cast<Gender>().ToList();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManagePatientsViewModel"/> class.
@@ -167,11 +209,107 @@ namespace HealthCareSync.ViewModels
         }
 
         /// <summary>
+        /// Updates the patient list with those with the given name and returns true if there exists a patient with the name, false if not.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <returns>true if there is patient with name, false otherwise</returns>
+        public bool SearchByName(string firstName, string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatients());
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+            else if (string.IsNullOrWhiteSpace(firstName))
+            {
+                var list = this.patientDAL.GetPatientsWithLastName(lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithLastName(lastName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
+            } 
+            else if (string.IsNullOrWhiteSpace(lastName))
+            {
+                var list = this.patientDAL.GetPatientsWithFirstName(firstName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFirstName(firstName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                var list = this.patientDAL.GetPatientsWithFullName(firstName, lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFullName(firstName, lastName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Updates the patient list with those with the given birth date and returns true if there exists a patient with the given birth date, false if not
+        /// </summary>
+        /// <param name="bDate">The b date.</param>
+        /// <returns>true if theres a patient with the given birth date, false otherwise</returns>
+        public bool SearchByBirthDate(DateTime bDate)
+        {
+            var list = this.patientDAL.GetPatientsWithBirthDate(bDate);
+
+            if (list.Count != 0)
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithBirthDate(bDate));
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Updates the patient list with those with the given name and birth date and returns true if there exists a patient with the given name and birth date, false if not
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="last">The last.</param>
+        /// <param name="bDate">The b date.</param>
+        /// <returns>tru if theres a patient with the given name and birth date, false otherwise</returns>
+        public bool SearchByNameAndBirthDate(string  first, string last, DateTime bDate)
+        {
+            var list = this.patientDAL.GetPatientsWithNameAndBirthDate(first, last, bDate);
+
+            if (list.Count != 0)
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithNameAndBirthDate(first,last, bDate));
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Adds the patient to the database and collection.
         /// </summary>
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
-        /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="bDate">The b date.</param>
+        /// <param name="gender">The gender</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address1">The address1.</param>
         /// <param name="zip">The zip.</param>
@@ -179,17 +317,13 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public void Add(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, FlagStatus? flag)
+        public void Add(string fname, string lname, DateTime bDate, Gender gender, string phoneNum, string address1, string zip, string city, State state, string? address2, FlagStatus flag)
         {
-            int patientId = this.patientDAL.AddPatient(fname, lname, DateTime.Parse(formattedBDate), address1,
+            int patientId = this.patientDAL.AddPatient(fname, lname, bDate, gender, address1,
                zip, city, state, address2, phoneNum, flag);
-            var newPatient = new Patient(patientId, fname, lname, DateTime.Parse(formattedBDate), phoneNum, null, flag);
 
-            if (address1?.Trim().Length > 0 && zip?.Trim().Length > 0)
-            {
-                var address = new Address(address1, zip, city, state, address2);
-                newPatient.Address = address;
-            }
+            var address = new Address(address1, zip, city, state, address2);
+            var newPatient = new Patient(patientId, fname, lname, bDate, gender, phoneNum, address, flag);
 
             this.Patients.Add(newPatient);
 
@@ -201,7 +335,8 @@ namespace HealthCareSync.ViewModels
         /// </summary>
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
-        /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="bDate">The b date.</param>
+        /// <param name="gender">The gender</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address1">The address1.</param>
         /// <param name="zip">The zip.</param>
@@ -209,47 +344,23 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public void Save(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, FlagStatus? flag)
+        public void Save(string fname, string lname, DateTime bDate, Gender gender, string phoneNum, string address1, string zip, string city, State state, string address2, FlagStatus flag)
         {
-            this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, DateTime.Parse(formattedBDate), address1,
+            this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, bDate, gender, address1,
             zip, city, state, address2, phoneNum, flag);
 
             this.selectedPatient.FirstName = fname;
             this.selectedPatient.LastName = lname;
-            this.selectedPatient.BirthDate = DateTime.Parse(formattedBDate);
+            this.selectedPatient.BirthDate = bDate;
+            this.selectedPatient.Gender = gender;
             this.selectedPatient.PhoneNumber = phoneNum;
             this.selectedPatient.FlagStatus = flag;
 
-            if (address1?.Trim().Length > 0 && zip?.Trim().Length > 0)
-            {
-                if (this.selectedPatient.Address != null)
-                {
-                    this.selectedPatient.Address.Address_1 = address1;
-                    this.selectedPatient.Address.Zip = zip;
-                    this.selectedPatient.Address.City = city;
-                    this.selectedPatient.Address.State = state;
-                    this.selectedPatient.Address.Address_2 = address2;
-                }
-                else
-                {
-                    var address = new Address(address1, zip, city, state, address2);
-                    this.selectedPatient.Address = address;
-                }
-            }
+            var address = new Address(address1, zip, city, state, address2);
+            this.selectedPatient.Address = address;
 
             OnPropertyChanged(nameof(SelectedPatient));
             OnPropertyChanged(nameof(Patients));  
-        }
-
-        /// <summary>
-        /// Deletes the patient from the database and collection.
-        /// </summary>
-        public void Delete()
-        {
-            this.patientDAL.DeletePatient(this.selectedPatient.Id);
-
-            this.Patients.Remove(this.selectedPatient);
-            OnPropertyChanged(nameof(Patients));
         }
     }
 }

@@ -16,13 +16,16 @@ namespace HealthCareSync.Views
         private readonly string BIRTH_DATE_REGEX_PATTERN = @"^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/([0-9]{4})$";
         private readonly string ERROR_FIRST_NAME = "First name cannot be blank.";
         private readonly string ERROR_LAST_NAME = "Last name cannot be blank.";
-        private readonly string ERROR_BIRTH_DATE = "Birth date must be in the format MM/dd/yyyy";
         private readonly string ERROR_PHONE_NUMBER = "Phone number must be 10 digits";
         private readonly string ERROR_ADDRESS_1 = "Address 1 cannot be blank";
         private readonly string ERROR_ZIP = "Zip must be 5 digits";
+        private readonly string ERROR_GENDER = "Must select a gender";
+        private readonly string ERROR_CITY = "Enter a city";
+        private readonly string ERROR_STATE = "Select a state";
+
+        private string errorMessages = string.Empty;
 
         private ManagePatientsViewModel viewModel;
-
 
         public Manage_Patients()
         {
@@ -30,9 +33,22 @@ namespace HealthCareSync.Views
             this.viewModel = new ManagePatientsViewModel();
 
             this.BindToViewModel();
+            this.BindSearchElements();
             this.ClearAllBoxes();
+            this.SetupBirthDateTimePicker();
             this.patientListBox.SelectedIndex = -1;
-            this.flagStatusComboBox.SelectedIndex = -1;
+            this.flagStatusComboBox.Enabled = false;
+            this.errorMessages = string.Empty;
+        }
+
+        private void UpdateButtonState(object sender, EventArgs e)
+        {
+            this.searchButton.Enabled = this.searchByBirthDateCheckBox.Checked || this.searchByNameCheckBox.Checked;
+        }
+
+        private void SetupBirthDateTimePicker()
+        {
+            this.birthDateTimePicker.MaxDate = DateTime.Today;
         }
 
         private void BindToViewModel()
@@ -40,6 +56,18 @@ namespace HealthCareSync.Views
             this.patientListBox.DataSource = this.viewModel.Patients;
             this.patientListBox.DisplayMember = "FullName";
             this.flagStatusComboBox.DataSource = this.viewModel.FlagStatuses;
+            this.stateComboBox.DataSource = this.viewModel.States;
+            this.genderComboBox.DataSource = this.viewModel.Genders;
+        }
+
+        private void BindSearchElements()
+        {
+            this.searchBirthDatePicker.DataBindings.Add("Enabled", this.searchByBirthDateCheckBox, "Checked", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.searchFirstNameTextBox.DataBindings.Add("Enabled", this.searchByNameCheckBox, "Checked", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.searchLastNameTextBox.DataBindings.Add("Enabled", this.searchByNameCheckBox, "Checked", true, DataSourceUpdateMode.OnPropertyChanged);
+
+            this.searchByBirthDateCheckBox.CheckedChanged += this.UpdateButtonState!;
+            this.searchByNameCheckBox.CheckedChanged += this.UpdateButtonState!;
         }
 
         private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
@@ -52,15 +80,20 @@ namespace HealthCareSync.Views
         {
             this.firstNameTextBox.Clear();
             this.lastNameTextBox.Clear();
-            this.birthDateTextBox.Clear();
+            this.birthDateTimePicker.Value = DateTime.Today;
             this.phoneNumberTextBox.Clear();
             this.idTextBox.Text = string.Empty;
             this.address1TextBox.Clear();
             this.zipTextBox.Clear();
             this.cityTextBox.Clear();
-            this.stateTextBox.Clear();
+            this.stateComboBox.SelectedIndex = -1;
             this.address2TextBox.Clear();
-            this.flagStatusComboBox.SelectedIndex = -1;
+            this.genderComboBox.SelectedIndex = -1;
+            this.searchFirstNameTextBox.Clear();
+            this.searchLastNameTextBox.Clear();
+            this.searchBirthDatePicker.Value = DateTime.Today;
+            this.searchByBirthDateCheckBox.Checked = false;
+            this.searchByNameCheckBox.Checked = false;
         }
 
         private void PatientListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -69,14 +102,15 @@ namespace HealthCareSync.Views
 
             if (this.patientListBox.SelectedItem is Patient)
             {
-                this.deleteButton.Enabled = true;
                 this.unselectButton.Enabled = true;
                 this.saveButton.Enabled = true;
+                this.flagStatusComboBox.Enabled = true;
                 this.viewModel.SelectedPatient = (Patient)this.patientListBox.SelectedItem;
 
                 this.BindTextBox(this.firstNameTextBox, this.viewModel, "FirstName");
                 this.BindTextBox(this.lastNameTextBox, this.viewModel, "LastName");
-                this.BindTextBox(this.birthDateTextBox, this.viewModel, "FormattedBirthDate");
+                this.birthDateTimePicker.DataBindings.Clear();
+                this.birthDateTimePicker.DataBindings.Add("Value", this.viewModel, "BirthDate", true, DataSourceUpdateMode.OnPropertyChanged);
                 this.BindTextBox(this.phoneNumberTextBox, this.viewModel, "PhoneNumber");
                 this.BindTextBox(this.idTextBox, this.viewModel, "Patient_Id");
                 this.flagStatusComboBox.DataBindings.Clear();
@@ -84,8 +118,11 @@ namespace HealthCareSync.Views
                 this.BindTextBox(this.address1TextBox, this.viewModel, "Address_1");
                 this.BindTextBox(this.zipTextBox, this.viewModel, "Zip");
                 this.BindTextBox(this.cityTextBox, this.viewModel, "City");
-                this.BindTextBox(this.stateTextBox, this.viewModel, "State");
+                this.stateComboBox.DataBindings.Clear();
+                this.stateComboBox.DataBindings.Add("SelectedItem", this.viewModel, "State", true, DataSourceUpdateMode.OnPropertyChanged);
                 this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
+                this.genderComboBox.DataBindings.Clear();
+                this.genderComboBox.DataBindings.Add("SelectedItem", this.viewModel, "Gender", true, DataSourceUpdateMode.OnPropertyChanged);
 
                 if (this.viewModel.FlagStatus == null)
                 {
@@ -98,7 +135,7 @@ namespace HealthCareSync.Views
             }
             else
             {
-                this.deleteButton.Enabled = false;
+                this.flagStatusComboBox.DataBindings.Clear();
                 this.unselectButton.Enabled = false;
                 this.saveButton.Enabled = false;
                 this.viewModel.SelectedPatient = null!;
@@ -118,94 +155,26 @@ namespace HealthCareSync.Views
 
             var fname = this.firstNameTextBox.Text;
             var lname = this.lastNameTextBox.Text;
-            var formattedBDate = this.birthDateTextBox.Text;
+            var bDate = this.birthDateTimePicker.Value;
             var phoneNum = this.phoneNumberTextBox.Text;
             var address1 = this.address1TextBox.Text;
             var zip = this.zipTextBox.Text;
             var city = this.cityTextBox.Text;
-            var state = this.stateTextBox.Text;
             var address2 = this.address2TextBox.Text;
-            FlagStatus? flag = (FlagStatus?)this.flagStatusComboBox.SelectedItem;
+            FlagStatus flag = (FlagStatus)this.flagStatusComboBox.SelectedItem!;
 
-            if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
+            if (this.inputsValid(fname, lname, phoneNum, address1, city, zip))
             {
-                this.viewModel.Save(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, flag);
+                Gender gender = (Gender)this.genderComboBox.SelectedItem!;
+                State state = (State)this.stateComboBox.SelectedItem!;
+                this.viewModel.Save(fname, lname, bDate, gender, phoneNum, address1, zip, city, state, address2, flag);
                 this.refreshListBox();
                 this.errorLabel.ForeColor = Color.Green;
                 this.errorLabel.Text = "Successfully edited patient";
             }
-        }
-
-        private void refreshListBox()
-        {
-            this.patientListBox.DataSource = null;
-            this.patientListBox.DataSource = this.viewModel.Patients;
-            this.patientListBox.DisplayMember = "FullName";
-        }
-
-        private bool inputsValid(string fname, string lname, string formattedBDate, string phoneNum, string address1, string zip)
-        {
-            if (string.IsNullOrWhiteSpace(fname))
+            else
             {
-                this.errorLabel.Text = ERROR_FIRST_NAME;
-                return false;
-            }
-            else if (string.IsNullOrWhiteSpace(lname))
-            {
-                this.errorLabel.Text = ERROR_LAST_NAME;
-                return false;
-            }
-            else if (!Regex.IsMatch(formattedBDate, BIRTH_DATE_REGEX_PATTERN))
-            {
-                this.errorLabel.Text = ERROR_BIRTH_DATE;
-                return false;
-            }
-            else if (phoneNum.Trim().Length > 0 && !Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
-            {
-                this.errorLabel.Text = ERROR_PHONE_NUMBER;
-                return false;
-            }
-            else if (string.IsNullOrWhiteSpace(address1) && this.otherAddressFieldsThanAddress1HasText())
-            {
-                this.errorLabel.Text = ERROR_ADDRESS_1;
-                return false;
-            }
-            else if ((string.IsNullOrWhiteSpace(zip) || !Regex.IsMatch(zip, ZIP_REGEX_PATTERN)) && this.otherAddressFieldsThanZipHasText())
-            {
-                this.errorLabel.Text = ERROR_ZIP;
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool otherAddressFieldsThanAddress1HasText()
-        {
-            return this.zipTextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateTextBox.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
-        }
-        private bool otherAddressFieldsThanZipHasText()
-        {
-            return this.address1TextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateTextBox.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
-        }
-
-        private void deleteButton_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show(
-                "Are you sure you want to delete the selected patient?",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-            );
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                this.viewModel.Delete();
-                this.ClearAllBoxes();
-                this.refreshListBox();
-                this.errorLabel.ForeColor = Color.Green;
-                this.errorLabel.Text = "Successfully deleted patient";
+                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -216,30 +185,151 @@ namespace HealthCareSync.Views
 
             var fname = this.firstNameTextBox.Text;
             var lname = this.lastNameTextBox.Text;
-            var formattedBDate = this.birthDateTextBox.Text;
+            var bDate = this.birthDateTimePicker.Value;
             var phoneNum = this.phoneNumberTextBox.Text;
             var address1 = this.address1TextBox.Text;
             var zip = this.zipTextBox.Text;
             var city = this.cityTextBox.Text;
-            var state = this.stateTextBox.Text;
             var address2 = this.address2TextBox.Text;
-            FlagStatus? flag = (FlagStatus?)this.flagStatusComboBox.SelectedItem;
+            FlagStatus flag = (FlagStatus)this.flagStatusComboBox.SelectedItem!;
 
-            if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
+            if (this.inputsValid(fname, lname, phoneNum, address1, city, zip))
             {
-                this.viewModel.Add(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, flag);
+                Gender gender = (Gender)this.genderComboBox.SelectedItem!;
+                State state = (State)this.stateComboBox.SelectedItem!;
+                this.viewModel.Add(fname, lname, bDate, gender, phoneNum, address1, zip, city, state, address2, flag);
                 this.refreshListBox();
                 this.patientListBox.SelectedItem = this.viewModel.Patients.Last();
                 this.errorLabel.ForeColor = Color.Green;
                 this.errorLabel.Text = "Successfully added patient";
+            }
+            else
+            {
+                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void unselectButton_Click(object sender, EventArgs e)
         {
             this.patientListBox.SelectedIndex = -1;
+            this.flagStatusComboBox.SelectedIndex = 0;
+            this.flagStatusComboBox.Enabled = false;
             this.ClearAllBoxes();
             this.errorLabel.Text = string.Empty;
+        }
+
+        private void refreshListBox()
+        {
+            this.patientListBox.DataSource = null;
+            this.patientListBox.DataSource = this.viewModel.Patients;
+            this.patientListBox.DisplayMember = "FullName";
+        }
+
+        private bool inputsValid(string fname, string lname, string phoneNum, string address1, string city, string zip)
+        {
+            this.errorMessages = string.Empty;
+            bool isErrors = false;
+
+            if (string.IsNullOrWhiteSpace(fname))
+            {
+                this.errorMessages += $"\n {ERROR_FIRST_NAME}";
+                isErrors = true;
+            }
+            if (string.IsNullOrWhiteSpace(lname))
+            {
+                this.errorMessages += $"\n {ERROR_LAST_NAME}";
+                isErrors = true;
+            }
+            if (this.genderComboBox.SelectedItem == null)
+            {
+                this.errorMessages += $"\n {ERROR_GENDER}";
+                isErrors = true;
+            }
+            if (!Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
+            {
+                this.errorMessages += $"\n {ERROR_PHONE_NUMBER}";
+                isErrors = true;
+            }
+            if (string.IsNullOrWhiteSpace(address1))
+            {
+                this.errorMessages += $"\n {ERROR_ADDRESS_1}";
+                isErrors = true;
+            }
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                this.errorMessages += $"\n {ERROR_CITY}";
+                isErrors = true;
+            }
+            if (this.stateComboBox.SelectedItem == null)
+            {
+                this.errorMessages += $"\n {ERROR_STATE}";
+                isErrors = true;
+            }
+            if (!Regex.IsMatch(zip, ZIP_REGEX_PATTERN))
+            {
+                this.errorMessages += $"\n {ERROR_ZIP}";
+                isErrors = true;
+            }
+
+            return !isErrors;
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            bool bothAreChecked = this.searchByNameCheckBox.Checked && this.searchByBirthDateCheckBox.Checked;
+            bool onlyNameChecked = this.searchByNameCheckBox.Checked && !this.searchByBirthDateCheckBox.Checked;
+            bool onlyBirthDateChecked = this.searchByBirthDateCheckBox.Checked && !this.searchByNameCheckBox.Checked;
+
+            if (bothAreChecked)
+            {
+                if (this.viewModel.SearchByNameAndBirthDate(this.searchFirstNameTextBox.Text, this.searchLastNameTextBox.Text, this.searchBirthDatePicker.Value))
+                {
+                    this.patientListBox.DataSource = this.viewModel.Patients;
+                    this.patientListBox.DisplayMember = "FullName";
+                }
+                else
+                {
+                    MessageBox.Show("Could not find any patients with the given name and birth date", "Patient(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            else if (onlyNameChecked)
+            {
+                if (this.viewModel.SearchByName(this.searchFirstNameTextBox.Text, this.searchLastNameTextBox.Text))
+                {
+                    this.patientListBox.DataSource = this.viewModel.Patients;
+                    this.patientListBox.DisplayMember = "FullName";
+                }
+                else
+                {
+                    MessageBox.Show("Could not find any patients with the given name", "Patient(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (onlyBirthDateChecked)
+            {
+                if (this.viewModel.SearchByBirthDate(this.searchBirthDatePicker.Value))
+                {
+                    this.patientListBox.DataSource = this.viewModel.Patients;
+                    this.patientListBox.DisplayMember = "FullName";
+                }
+                else
+                {
+                    MessageBox.Show("Could not find any patients with the given birth date", "Patient(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        private void resetSearchButton_Click(object sender, EventArgs e)
+        {
+            this.viewModel.SearchByName(string.Empty, string.Empty);
+            this.patientListBox.DataSource = this.viewModel.Patients;
+            this.patientListBox.DisplayMember = "FullName";
+
+            this.patientListBox.SelectedIndex = -1;
+            this.flagStatusComboBox.SelectedIndex = 0;
+            this.flagStatusComboBox.Enabled = false;
+            this.ClearAllBoxes();
         }
     }
 }

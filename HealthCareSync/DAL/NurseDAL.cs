@@ -3,6 +3,7 @@ using HealthCareSync.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,52 +42,72 @@ namespace HealthCareSync.DAL
 
             connection.Open();
 
+            MySqlTransaction transaction = connection.BeginTransaction();
+
             var query = string.Empty;
             int address_id = 0;
-
-            if (string.IsNullOrWhiteSpace(address_1))
-            {
-                query = @"insert into nurse (fname, lname, birth_date, phone_num, username)
-                          values (@fname, @lname, @bdate, @phone_num, @username)";
-            }
-            else
-            {
-                address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(address_1!, zip!, city, state, address_2);
-
-                query = @"insert into nurse (fname, lname, birth_date, phone_num, address, username)
-                          values (@fname, @lname, @bdate, @phone_num, @address, @username)";
-            }
-
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fname;
-            command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
-            command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
-            command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
-            command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
-            command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
-
-            command.ExecuteNonQuery();
-
-            // retrieve nurse id
-            var retrieveQuery = @"select LAST_INSERT_ID()";
-
-            using var retrieveIdCommand = new MySqlCommand(retrieveQuery, connection);
-            using var retrieveIdReader = retrieveIdCommand.ExecuteReader();
-            int idOrdinal = retrieveIdReader.GetOrdinal("LAST_INSERT_ID()");
-
             int id = 0;
 
-            while (retrieveIdReader.Read())
-            {
-                ulong tempId = retrieveIdReader.GetFieldValueCheckNull<UInt64>(idOrdinal);
+            using var command = new MySqlCommand(query, connection);
+            command.Transaction = transaction;
 
-                if (tempId <= Int32.MaxValue)
+            try
+            {
+                if (string.IsNullOrWhiteSpace(address_1))
                 {
-                    id = (int)tempId;
+                    query = @"insert into nurse (fname, lname, birth_date, phone_num, username)
+                          values (@fname, @lname, @bdate, @phone_num, @username)";
+                }
+                else
+                {
+                    address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(connection, transaction, address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
+
+                    query = @"insert into nurse (fname, lname, birth_date, phone_num, address, username)
+                          values (@fname, @lname, @bdate, @phone_num, @address, @username)";
+                }
+
+                command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fname;
+                command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
+                command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
+                command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
+                command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
+                command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
+
+                command.ExecuteNonQuery();
+
+                // retrieve nurse id
+                var retrieveQuery = @"select LAST_INSERT_ID()";
+
+                using var retrieveIdCommand = new MySqlCommand(retrieveQuery, connection);
+                retrieveIdCommand.Transaction = transaction;
+                using var retrieveIdReader = retrieveIdCommand.ExecuteReader();
+                int idOrdinal = retrieveIdReader.GetOrdinal("LAST_INSERT_ID()");
+
+                while (retrieveIdReader.Read())
+                {
+                    ulong tempId = retrieveIdReader.GetFieldValueCheckNull<UInt64>(idOrdinal);
+
+                    if (tempId <= Int32.MaxValue)
+                    {
+                        id = (int)tempId;
+                    }
+                }
+
+                transaction.Commit();
+            }
+            catch (Exception ex) 
+            {
+                try
+                {
+                    transaction.Rollback();
+                }
+                catch (Exception rollbackEx)
+                {
+                    Debug.WriteLine("Rollback failed: " + rollbackEx.Message);
                 }
             }
 
-            connection.Close();
+            
             return id;
         }
 
@@ -130,37 +151,56 @@ namespace HealthCareSync.DAL
 
             connection.Open();
 
+            MySqlTransaction transaction = connection.BeginTransaction();
+
             var query = string.Empty;
             int address_id = 0;
 
-            if (string.IsNullOrWhiteSpace(address_1))
+            using var command = new MySqlCommand(query, connection);
+            command.Transaction = transaction;
+
+            try 
             {
-                query = @"update nurse 
+                if (string.IsNullOrWhiteSpace(address_1))
+                {
+                    query = @"update nurse 
                         set fname = @fname, lname = @lname, address_id = null,
                         birth_date = @bdate, phone_num = @phone_num, username = @username
                         where id = @id";
-            }
-            else
-            {
-                address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(address_1!, zip!, city, state, address_2);
+                }
+                else
+                {
+                    address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(connection, transaction, address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
 
-                query = @"update nurse 
+                    query = @"update nurse 
                         set fname = @fname, lname = @lname, address_id = @address_id,
                         birth_date = @bdate, phone_num = @phone_num, username = @username
                         where id = @id";
+                }
+
+                command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fname;
+                command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
+                command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
+                command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
+                command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
+                command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
+                command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+
+                command.ExecuteNonQuery();
+
+                transaction.Commit();
             }
-
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fname;
-            command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
-            command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
-            command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
-            command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
-            command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
-            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
-
-            command.ExecuteNonQuery();
-            connection.Close();
+            catch (Exception ex) 
+            {
+                try
+                {
+                    transaction.Rollback();
+                }
+                catch (Exception rollbackEx)
+                {
+                    Debug.WriteLine("Rollback failed: " + rollbackEx.Message);
+                }
+            }
         }
 
         /// <summary>
@@ -243,7 +283,7 @@ namespace HealthCareSync.DAL
                     address1,
                     zip,
                     reader.GetFieldValueCheckNull<string?>(cityOrdinal),
-                    reader.GetFieldValueCheckNull<string?>(stateOrdinal),
+                    Enum.Parse<State>(reader.GetFieldValueCheckNull<string?>(stateOrdinal).ToUpper()),
                     reader.GetFieldValueCheckNull<string?>(address2Ordinal)
                 );
 

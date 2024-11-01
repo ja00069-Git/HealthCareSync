@@ -42,7 +42,7 @@ namespace HealthCareSync.ViewModels
                 return false;
             }
 
-            using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionSting()))
+            using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString()))
             {
                 try
                 {
