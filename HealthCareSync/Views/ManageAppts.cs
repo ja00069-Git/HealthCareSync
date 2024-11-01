@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using HealthCareSync.Models;
 using HealthCareSync.ViewModels;
@@ -14,6 +15,7 @@ namespace HealthCareSync.Views
             InitializeComponent();
             viewModel = new AppointmentViewModel();
             BindControls();
+            SubscribeToViewModelEvents();
         }
 
         private void BindControls()
@@ -27,6 +29,7 @@ namespace HealthCareSync.Views
             // Field bindings
             this.patientNameTextBox.DataBindings.Add(new Binding("Text", viewModel, "PatientName", true, DataSourceUpdateMode.OnPropertyChanged));
             this.doctorsNameTextBox.DataBindings.Add(new Binding("Text", viewModel, "DoctorName", true, DataSourceUpdateMode.OnPropertyChanged));
+            this.searchTextBox.DataBindings.Add(new Binding("Text", viewModel, "PatientSearchName", true, DataSourceUpdateMode.OnPropertyChanged));
             this.reasonTextBox.DataBindings.Add(new Binding("Text", viewModel, "Reason", true, DataSourceUpdateMode.OnPropertyChanged));
             this.monthCalendar.DataBindings.Add(new Binding("SelectionRange", viewModel, "SelectedDate", true, DataSourceUpdateMode.OnPropertyChanged));
             this.appointmentTimeTextBox.DataBindings.Add(new Binding("Text", viewModel, "AppointmentTime", true, DataSourceUpdateMode.OnPropertyChanged));
@@ -36,6 +39,36 @@ namespace HealthCareSync.Views
             this.appointmentsListBox.DisplayMember = "DisplayInfo";
             this.appointmentsListBox.ClearSelected();
             this.docsTimesListBox.DataSource = viewModel.AvailableTimeSlots;
+
+            // Set initial colors
+            SetLabelColors();
+        }
+
+        private void SubscribeToViewModelEvents()
+        {
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(viewModel.Appointments) || e.PropertyName == nameof(viewModel.AvailableTimeSlots))
+            {
+                appointmentsListBox.DataSource = null;
+                appointmentsListBox.DataSource = viewModel.Appointments;
+                appointmentsListBox.DisplayMember = "DisplayInfo";
+
+                docsTimesListBox.DataSource = null;
+                docsTimesListBox.DataSource = viewModel.AvailableTimeSlots;
+            }
+            SetLabelColors();
+        }
+
+        private void SetLabelColors()
+        {
+            generalErrorlLabel.ForeColor = string.IsNullOrEmpty(viewModel.GeneralErrorMessage) ? Color.Red : Color.Green;
+            searchLabel.ForeColor = string.IsNullOrEmpty(viewModel.SearchMessage) ? Color.Red : Color.Green;
+            patentNameErrorLabel.ForeColor = string.IsNullOrEmpty(viewModel.PatientNameErrorMessage) ? Color.Red : Color.Green;
+            reasonErrorLabel.ForeColor = string.IsNullOrEmpty(viewModel.ReasonErrorMessage) ? Color.Red : Color.Green;
         }
 
         private void exitAppBTN_Click(object sender, EventArgs e)
@@ -45,26 +78,21 @@ namespace HealthCareSync.Views
 
         private void scheduleBTN_Click(object sender, EventArgs e)
         {
-            // Call the ScheduleAppointment method in the ViewModel
-           viewModel.ScheduleAppointment();
- 
+            viewModel.ScheduleAppointment();
         }
 
         private void searchBTN_Click(object sender, EventArgs e)
         {
-            // Call the SearchAppointments method in the ViewModel
             viewModel.SearchAppointments();
         }
 
         private void EditBTN_Click(object sender, EventArgs e)
         {
-            // Call the EditAppointment method in the ViewModel
             viewModel.EditAppointment();
         }
 
         private void clearBTN_Click(object sender, EventArgs e)
         {
-            // Clear search results and refresh available time slots
             viewModel.SelectedDate = monthCalendar.SelectionRange.Start;
             viewModel.LoadAppointments();
             viewModel.LoadAvailableTimeSlots();
@@ -73,11 +101,7 @@ namespace HealthCareSync.Views
 
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            // Update available time slots based on the selected date
             viewModel.SelectedDate = monthCalendar.SelectionRange.Start;
-            viewModel.LoadAppointments();
-            viewModel.LoadAvailableTimeSlots();
-            viewModel.ClearInputFields();
         }
 
         private void docsTimesListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,10 +115,9 @@ namespace HealthCareSync.Views
 
         private void appointmentsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Set the selected appointment in the ViewModel when an appointment is selected in the ListBox
-            if (appointmentsListBox.SelectedItem is Appointment selectedAppointment)
+            if (appointmentsListBox.SelectedItem != null)
             {
-                viewModel.SelectedAppointment = selectedAppointment;
+                viewModel.SelectedAppointment = (Appointment)appointmentsListBox.SelectedItem;
                 viewModel.PopulateFieldsFromSelectedAppointment();
             }
         }

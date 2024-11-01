@@ -14,6 +14,13 @@ namespace HealthCareSync.ViewModels
 
         // Error message properties
         private string generalErrorMessage = string.Empty;
+
+        /**
+         * GeneralErrorMessage property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string GeneralErrorMessage
         {
             get => generalErrorMessage;
@@ -21,6 +28,13 @@ namespace HealthCareSync.ViewModels
         }
 
         private string patientNameErrorMessage = string.Empty;
+
+        /**
+         * PatientNameErrorMessage property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string PatientNameErrorMessage
         {
             get => patientNameErrorMessage;
@@ -28,6 +42,13 @@ namespace HealthCareSync.ViewModels
         }
 
         private string reasonErrorMessage = string.Empty;
+
+        /**
+         * ReasonErrorMessage property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string ReasonErrorMessage
         {
             get => reasonErrorMessage;
@@ -35,6 +56,13 @@ namespace HealthCareSync.ViewModels
         }
 
         private string searchMessage = string.Empty;
+
+        /**
+         * SearchMessage property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string SearchMessage
         {
             get => searchMessage;
@@ -42,7 +70,28 @@ namespace HealthCareSync.ViewModels
         }
 
         // Appointment properties
+        private string patientSearchName = string.Empty;
+
+        /**
+         * PatientSearchName property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
+        public string PatientSearchName
+        {
+            get => patientSearchName;
+            set { patientSearchName = value; OnPropertyChanged(nameof(PatientSearchName)); }
+        }
+
         private string patientName = string.Empty;
+
+        /**
+         * PatientName property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string PatientName
         {
             get => patientName;
@@ -50,6 +99,13 @@ namespace HealthCareSync.ViewModels
         }
 
         private string doctorName = string.Empty;
+
+        /**
+         * DoctorName property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string DoctorName
         {
             get => doctorName;
@@ -57,6 +113,13 @@ namespace HealthCareSync.ViewModels
         }
 
         private string appointmentTime = string.Empty;
+
+        /**
+         * AppointmentTime property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string AppointmentTime
         {
             get => appointmentTime;
@@ -64,6 +127,13 @@ namespace HealthCareSync.ViewModels
         }
 
         private string reason = string.Empty;
+
+        /**
+         * Reason property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string Reason
         {
             get => reason;
@@ -71,6 +141,13 @@ namespace HealthCareSync.ViewModels
         }
 
         private DateTime selectedDate;
+
+        /**
+         * SelectedDate property
+         * @precondition none
+         * @postcondition none
+         * @return DateTime
+         */
         public DateTime SelectedDate
         {
             get => selectedDate;
@@ -83,16 +160,37 @@ namespace HealthCareSync.ViewModels
             }
         }
 
+
         private string selectedTimeSlot = string.Empty;
+
+        /**
+         * SelectedTimeSlot property
+         * @precondition none
+         * @postcondition none
+         * @return string
+         */
         public string SelectedTimeSlot
         {
             get => selectedTimeSlot;
             set { selectedTimeSlot = value; OnPropertyChanged(nameof(SelectedTimeSlot)); }
         }
 
+        /**
+         * SelectedAppointment property
+         * @precondition none
+         * @postcondition none
+         * @return Appointment
+         */
         public Appointment? SelectedAppointment { get; set; }
 
         private ObservableCollection<string> availableTimeSlots;
+
+        /**
+         * AvailableTimeSlots property
+         * @precondition none
+         * @postcondition none
+         * @return ObservableCollection<string>
+         */
         public ObservableCollection<string> AvailableTimeSlots
         {
             get => availableTimeSlots;
@@ -101,17 +199,55 @@ namespace HealthCareSync.ViewModels
 
         private ObservableCollection<Appointment> appointments;
 
+        /**
+         * Appointments property
+         * @precondition none
+         * @postcondition none
+         * @return ObservableCollection<Appointment>
+         */
         public ObservableCollection<Appointment> Appointments
         {
             get => appointments;
             set { appointments = value; OnPropertyChanged(nameof(Appointments)); }
         }
 
+        private void SetELabel(Label label, string message, Color? color = null)
+        {
+            label.Text = message;
+            label.ForeColor = color ?? Color.Red;
+        }
+
         // Commands
+
+        /**
+         * ScheduleCommand property
+         * @precondition none
+         * @postcondition none
+         * @return ICommand
+         */
         public ICommand ScheduleCommand { get; }
+
+        /**
+         * EditCommand property
+         * @precondition none
+         * @postcondition none
+         * @return ICommand
+         */
         public ICommand EditCommand { get; }
+
+        /**
+         * SearchCommand property
+         * @precondition none
+         * @postcondition none
+         * @return ICommand
+         */
         public ICommand SearchCommand { get; }
 
+        /**
+         * AppointmentViewModel constructor
+         * @precondition none
+         * @postcondition none
+         */
         public AppointmentViewModel()
         {
             ScheduleCommand = new RelayCommand(_ => ScheduleAppointment(), _ => CanExecuteSchedule());
@@ -128,6 +264,13 @@ namespace HealthCareSync.ViewModels
 
         private bool CanExecuteEdit() => SelectedAppointment != null && ValidateFields();
 
+        /**
+         * Shedules and appointment and update the database
+         * @precondition none
+         * @postcondition none
+         * @return true if the appointment was scheduled successfully, false otherwise
+         */
+
         public bool ScheduleAppointment()
         {
             if (!ValidateFields()) return false;
@@ -142,12 +285,15 @@ namespace HealthCareSync.ViewModels
             if (!TryGetSelectedTimeSlot(patientId, out int doctorId, out DateTime appointmentDateTime, out int availabilityId)) return false;
 
             CreateAppointment(patientId, doctorId, appointmentDateTime, Reason, availabilityId);
-            appointmentDAL.UpdateAvailabilityStatus(availabilityId, 0);
-
             GeneralErrorMessage = "Appointment scheduled successfully!";
             return true;
         }
 
+        /**
+         * Load available time slots form the database into the AvailableTimeSlots collection
+         * @precondition none
+         * @postcondition none
+         */
         public void LoadAvailableTimeSlots()
         {
             var slots = appointmentDAL.GetAvailableTimeSlots(SelectedDate);
@@ -159,6 +305,11 @@ namespace HealthCareSync.ViewModels
             }
         }
 
+        /**
+         * Load appointments form the database into the Appointments collection
+         * @precondition none
+         * @postcondition none
+         */
         public void LoadAppointments()
         {
             var appointments = appointmentDAL.GetAppointmentsByDate(SelectedDate);
@@ -170,29 +321,35 @@ namespace HealthCareSync.ViewModels
             }
         }
 
+        /**
+         * Search the database for appointments by patient name
+         * @precondition none
+         * @postcondition none
+         */
         public void SearchAppointments()
         {
-            if (string.IsNullOrEmpty(PatientName))
+            if (string.IsNullOrEmpty(PatientSearchName))
             {
                 SearchMessage = "Please enter a patient name to search.";
                 return;
             }
 
-            var appointments = appointmentDAL.GetAppointmentsByPatientName(PatientName);
+            var appointments = appointmentDAL.GetAppointmentsByPatientName(PatientSearchName);
             if (!appointments.Any())
             {
                 SearchMessage = "No appointments found.";
                 return;
             }
 
-            Appointments.Clear();
-            foreach (var appointment in appointments)
-            {
-                Appointments.Add(appointment);
-            }
+            Appointments = new ObservableCollection<Appointment>(appointments);
             SearchMessage = $"{appointments.Count} appointments found.";
         }
 
+        /**
+         * Edit an appointment and update the database
+         * @precondition none
+         * @postcondition none
+         */
         public void EditAppointment()
         {
             if (!IsAppointmentSelected() || !ValidateFields()) return;
@@ -204,7 +361,6 @@ namespace HealthCareSync.ViewModels
             }
 
             int previousAvailabilityId = appointmentDAL.GetAvailabilityId(SelectedAppointment!.DoctorId, SelectedAppointment.DateTime);
-            UpdatePreviousAvailability(previousAvailabilityId);
             UpdateAppointment(doctorId, appointmentDateTime, newAvailabilityId);
             LoadAppointments();
         }
@@ -226,18 +382,6 @@ namespace HealthCareSync.ViewModels
 
             int previousAvailabilityId = appointmentDAL.GetAvailabilityId(SelectedAppointment.DoctorId, SelectedAppointment.DateTime);
             appointmentDAL.UpdateAppointment(updatedAppointment, newAvailabilityId, previousAvailabilityId);
-            appointmentDAL.UpdateDoctorAvailability(previousAvailabilityId, newAvailabilityId);
-        }
-
-        private void UpdatePreviousAvailability(int previousAvailabilityId)
-        {
-            appointmentDAL.UpdateAvailabilityStatus(previousAvailabilityId, 0);
-        }
-
-        public void ClearSearchResults()
-        {
-            Appointments.Clear();
-            SearchMessage = "Search results cleared.";
         }
 
         private bool TryGetNewAppointmentDetails(out int doctorId, out DateTime appointmentDateTime, out int newAvailabilityId)
@@ -269,11 +413,14 @@ namespace HealthCareSync.ViewModels
                 return false;
             }
 
-            if (!DateTime.TryParse($"{SelectedDate.ToShortDateString()} {timeSlot}", out appointmentDateTime))
+            var startTime = timeSlot.Split('-')[0].Trim();
+            if (!DateTime.TryParseExact(startTime, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedTime))
             {
-                GeneralErrorMessage = "Invalid date/time format.";
+                GeneralErrorMessage = "Error: Invalid time format.";
                 return false;
             }
+
+            appointmentDateTime = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, parsedTime.Hour, parsedTime.Minute, 0);
 
             newAvailabilityId = appointmentDAL.GetAvailabilityId(doctorId, appointmentDateTime);
             if (newAvailabilityId == 0)
@@ -285,6 +432,11 @@ namespace HealthCareSync.ViewModels
             return true;
         }
 
+        /**
+         * Populate the fields with the selected appointment details
+         * @precondition none
+         * @postcondition none
+         */
         public void PopulateFieldsFromSelectedAppointment()
         {
             if (SelectedAppointment != null)
@@ -292,59 +444,55 @@ namespace HealthCareSync.ViewModels
                 PatientName = SelectedAppointment.PatientName ?? string.Empty;
                 DoctorName = SelectedAppointment.DoctorName ?? string.Empty;
                 Reason = SelectedAppointment.Reason ?? string.Empty;
-                AppointmentTime = SelectedAppointment.DateTime.ToString("HH:mm");
+                AppointmentTime = $"{SelectedAppointment.DateTime:MM/dd/yyyy | HH:mm}";
             }
         }
 
+        /**
+         * Populate the fields with the selected time slot details
+         * @precondition none
+         * @postcondition none
+         */
         public void PopulateFieldsFromSelectedTimeSlot()
         {
             if (string.IsNullOrEmpty(SelectedTimeSlot)) return;
 
-            // Split the SelectedTimeSlot to retrieve the time and doctor's name
             var timeSlotParts = SelectedTimeSlot.Split('|');
             if (timeSlotParts.Length != 2) return;
 
-            var timePart = timeSlotParts[0].Trim(); // This is the timeslot (e.g., "10:00 - 10:30")
-            var doctorNamePart = timeSlotParts[1].Trim(); // This is the doctor's name
+            var timePart = timeSlotParts[0].Trim();
+            var doctorNamePart = timeSlotParts[1].Trim();
 
-            // Update DoctorName
             DoctorName = doctorNamePart;
 
-            // Set the appointment time in the desired format "Date | timeslot"
-            AppointmentTime = $"{SelectedDate:MM/dd/yyyy} | {timePart}"; // Combine date and time part
+            AppointmentTime = $"{SelectedDate:MM/dd/yyyy} | {timePart}";
 
-            // Set appointment time by combining SelectedDate with the parsed time
             if (DateTime.TryParse($"{SelectedDate.ToShortDateString()} {timePart}", out DateTime appointmentDateTime))
             {
                 SelectedDate = appointmentDateTime;
             }
         }
 
-
         private bool ValidateFields()
         {
             bool isValid = true;
 
-            // Clear previous error messages
             GeneralErrorMessage = string.Empty;
             PatientNameErrorMessage = string.Empty;
             ReasonErrorMessage = string.Empty;
 
-            // Validate PatientName
             if (string.IsNullOrWhiteSpace(PatientName))
             {
                 PatientNameErrorMessage = "Patient name is required.";
                 isValid = false;
             }
 
-            // Validate Reason
             if (string.IsNullOrWhiteSpace(Reason))
             {
                 ReasonErrorMessage = "Reason for appointment is required.";
                 isValid = false;
             }
 
-            // Validate SelectedTimeSlot
             if (string.IsNullOrWhiteSpace(SelectedTimeSlot))
             {
                 GeneralErrorMessage = "Please select a time slot.";
@@ -360,14 +508,12 @@ namespace HealthCareSync.ViewModels
             appointmentDateTime = DateTime.MinValue;
             availabilityId = 0;
 
-            // Ensure SelectedTimeSlot is not empty
             if (string.IsNullOrEmpty(SelectedTimeSlot))
             {
                 GeneralErrorMessage = "Error: Please select a time slot.";
                 return false;
             }
 
-            // Split SelectedTimeSlot to retrieve time and doctor’s name
             var timeSlotParts = SelectedTimeSlot.Split('|');
             if (timeSlotParts.Length != 2)
             {
@@ -375,10 +521,9 @@ namespace HealthCareSync.ViewModels
                 return false;
             }
 
-            var timePart = timeSlotParts[0].Trim();        // e.g., "11:00 - 11:30"
-            var doctorName = timeSlotParts[1].Trim();      // e.g., "Harley Davidson"
+            var timePart = timeSlotParts[0].Trim();    
+            var doctorName = timeSlotParts[1].Trim();      
 
-            // Retrieve DoctorId by name
             doctorId = appointmentDAL.GetDoctorIdByName(doctorName);
             if (doctorId == 0)
             {
@@ -386,15 +531,15 @@ namespace HealthCareSync.ViewModels
                 return false;
             }
 
-            // Parse the starting time of the time slot
-            var startTime = timePart.Split('-')[0].Trim(); // Get the start time of the slot
-            if (!DateTime.TryParseExact($"{SelectedDate.ToShortDateString()} {startTime}", "MM/dd/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out appointmentDateTime))
+            var startTime = timePart.Split('-')[0].Trim();
+            if (!DateTime.TryParseExact(startTime, "HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedTime))
             {
-                GeneralErrorMessage = "Error: Invalid date/time format.";
+                GeneralErrorMessage = "Error: Invalid time format.";
                 return false;
             }
 
-            // Retrieve the AvailabilityId
+            appointmentDateTime = new DateTime(SelectedDate.Year, SelectedDate.Month, SelectedDate.Day, parsedTime.Hour, parsedTime.Minute, 0);
+
             availabilityId = appointmentDAL.GetAvailabilityId(doctorId, appointmentDateTime);
             if (availabilityId == 0)
             {
@@ -402,7 +547,6 @@ namespace HealthCareSync.ViewModels
                 return false;
             }
 
-            // Verify if the time slot is available
             if (!appointmentDAL.IsTimeSlotAvailable(patientId, doctorId, appointmentDateTime))
             {
                 GeneralErrorMessage = "Time slot already booked.";
@@ -411,8 +555,6 @@ namespace HealthCareSync.ViewModels
 
             return true;
         }
-
-
 
         private void CreateAppointment(int patientId, int doctorId, DateTime appointmentDateTime, string reason, int availabilityId)
         {
@@ -442,16 +584,11 @@ namespace HealthCareSync.ViewModels
             return true;
         }
 
-        private void RefreshAppointments()
-        {
-            OnPropertyChanged(nameof(Appointments));
-        }
-
-        private void RefreshAvailableTimeSlots()
-        {
-            OnPropertyChanged(nameof(AvailableTimeSlots));
-        }
-
+        /**
+         * Clear the input fields
+         * @precondition none
+         * @postcondition none
+         */
         public void ClearInputFields()
         {
             PatientName = string.Empty;
@@ -463,6 +600,7 @@ namespace HealthCareSync.ViewModels
             PatientNameErrorMessage = string.Empty;
             ReasonErrorMessage = string.Empty;
             SearchMessage = string.Empty;
+            AppointmentTime = string.Empty;
         }
 
         private void OnPropertyChanged(string propertyName) =>
