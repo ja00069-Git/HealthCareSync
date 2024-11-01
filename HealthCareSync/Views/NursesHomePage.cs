@@ -14,7 +14,6 @@ namespace HealthCareSync
             this.sidebarTimer.Start();
             this.mngVisitTimer.Start();
             this.openChildForm(new Manage_Patients());
-            
         }
 
         public NursesHomePage(string logedInUser)
@@ -128,7 +127,15 @@ namespace HealthCareSync
 
         private void manageAppt_Click(object sender, EventArgs e)
         {
-            openChildForm(new ManageAppts());
+            this.LoadManageAppointments();
+        }
+
+        private void LoadManageAppointments()
+        {
+            ManageAppts manageAppts = new ManageAppts();
+            manageAppts.Dock = DockStyle.None; // Ensure it doesn't dock to fill the panel
+            mainPanel.Controls.Clear(); // Clear previous controls if necessary
+            mainPanel.Controls.Add(manageAppts); // Add the UserControl to the main panel
         }
 
         private void visitsBTN_Click(object sender, EventArgs e)
@@ -147,6 +154,5 @@ namespace HealthCareSync
             var login = new LoginForm();
             login.Show();
         }
-
     }
 }
