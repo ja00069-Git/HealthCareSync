@@ -32,7 +32,6 @@
             visitsListBox = new ListBox();
             visitDateTimePicker = new DateTimePicker();
             saveButton = new Button();
-            systolicTextBox = new TextBox();
             bpmTextBox = new TextBox();
             clearButton = new Button();
             weightTextBox = new TextBox();
@@ -66,6 +65,7 @@
             panel10 = new Panel();
             panel11 = new Panel();
             label14 = new Label();
+            systolicTextBox = new TextBox();
             SuspendLayout();
             // 
             // label1
@@ -87,6 +87,7 @@
             visitsListBox.Name = "visitsListBox";
             visitsListBox.Size = new Size(139, 169);
             visitsListBox.TabIndex = 2;
+            visitsListBox.SelectedIndexChanged += visitsListBox_SelectedIndexChanged;
             // 
             // visitDateTimePicker
             // 
@@ -110,17 +111,7 @@
             saveButton.TabIndex = 5;
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = false;
-            // 
-            // systolicTextBox
-            // 
-            systolicTextBox.BorderStyle = BorderStyle.None;
-            systolicTextBox.Font = new Font("Microsoft YaHei UI", 10F);
-            systolicTextBox.ForeColor = SystemColors.HotTrack;
-            systolicTextBox.Location = new Point(217, 128);
-            systolicTextBox.Name = "systolicTextBox";
-            systolicTextBox.Size = new Size(50, 17);
-            systolicTextBox.TabIndex = 6;
-            systolicTextBox.TextAlign = HorizontalAlignment.Center;
+            saveButton.Click += saveButton_Click;
             // 
             // bpmTextBox
             // 
@@ -145,6 +136,7 @@
             clearButton.TabIndex = 9;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = false;
+            clearButton.Click += clearButton_Click;
             // 
             // weightTextBox
             // 
@@ -196,6 +188,7 @@
             appointmentIdTextBox.Name = "appointmentIdTextBox";
             appointmentIdTextBox.Size = new Size(100, 23);
             appointmentIdTextBox.TabIndex = 14;
+            appointmentIdTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // diastolicTextBox
             // 
@@ -433,12 +426,24 @@
             label14.TabIndex = 66;
             label14.Text = "°F";
             // 
+            // systolicTextBox
+            // 
+            systolicTextBox.BorderStyle = BorderStyle.None;
+            systolicTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            systolicTextBox.ForeColor = SystemColors.HotTrack;
+            systolicTextBox.Location = new Point(217, 131);
+            systolicTextBox.Name = "systolicTextBox";
+            systolicTextBox.Size = new Size(50, 17);
+            systolicTextBox.TabIndex = 67;
+            systolicTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
             // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(563, 305);
+            ClientSize = new Size(570, 305);
+            Controls.Add(systolicTextBox);
             Controls.Add(label14);
             Controls.Add(panel11);
             Controls.Add(panel9);
@@ -472,7 +477,6 @@
             Controls.Add(weightTextBox);
             Controls.Add(clearButton);
             Controls.Add(bpmTextBox);
-            Controls.Add(systolicTextBox);
             Controls.Add(saveButton);
             Controls.Add(visitDateTimePicker);
             Controls.Add(label1);
@@ -491,7 +495,6 @@
         private ListBox visitsListBox;
         private DateTimePicker visitDateTimePicker;
         private Button saveButton;
-        private TextBox systolicTextBox;
         private TextBox bpmTextBox;
         private Button clearButton;
         private TextBox weightTextBox;
@@ -525,5 +528,6 @@
         private Panel panel10;
         private Panel panel11;
         private Label label14;
+        private TextBox systolicTextBox;
     }
 }

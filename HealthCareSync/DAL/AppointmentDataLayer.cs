@@ -384,5 +384,54 @@ namespace HealthCareSync.DAL
             return availabilityId;
         }
 
+        public List<Appointment> GetAppointments()
+        {
+            var appointments = new List<Appointment>();
+
+            string query = @"
+                SELECT A.id, A.doctor_id, A.patient_id, A.date_time, A.reason,
+                       P.fname as patient_fname, P.lname as patient_lname, D.fname as doctor_fname, D.lname as doctor_lname
+                FROM appointment A
+                    JOIN patient P ON A.patient_id = P.id
+                    JOIN doctor D ON A.doctor_id = D.id
+                WHERE P.flag_status = 'active'";
+
+            using (var connection = new MySqlConnection(Connection.ConnectionString()))
+            using (var command = new MySqlCommand(query, connection))
+            { 
+
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    var appointmentIdOrdinal = reader.GetOrdinal("id");
+                    var doctorIdOrdinal = reader.GetOrdinal("doctor_id");
+                    var patientIdOrdinal = reader.GetOrdinal("patient_id");
+                    var dateTimeOrdinal = reader.GetOrdinal("date_time");
+                    var reasonOrdinal = reader.GetOrdinal("reason");
+                    var patientFNameOrdinal = reader.GetOrdinal("patient_fname");
+                    var patientLNameOrdinal = reader.GetOrdinal("patient_lname");
+                    var doctorFNameOrdinal = reader.GetOrdinal("doctor_fname");
+                    var doctorLNameOrdinal = reader.GetOrdinal("doctor_lname");
+
+                    while (reader.Read())
+                    {
+                        var appointment = new Appointment
+                        {
+                            AppointmentId = reader.GetFieldValueCheckNull<int>(appointmentIdOrdinal),
+                            PatientId = reader.GetFieldValueCheckNull<int>(patientIdOrdinal),
+                            DoctorId = reader.GetFieldValueCheckNull<int>(doctorIdOrdinal),
+                            DateTime = reader.GetFieldValueCheckNull<DateTime>(dateTimeOrdinal),
+                            Reason = reader.GetFieldValueCheckNull<string>(reasonOrdinal),
+                            DoctorName = $"{reader.GetFieldValueCheckNull<string>(doctorFNameOrdinal)} {reader.GetFieldValueCheckNull<string>(doctorLNameOrdinal)}",
+                            PatientName = $"{reader.GetFieldValueCheckNull<string>(patientFNameOrdinal)} {reader.GetFieldValueCheckNull<string>(patientLNameOrdinal)}"
+                        };
+
+                        appointments.Add(appointment);
+                    }
+                }
+            }
+
+            return appointments;
+        }
     }
 }
