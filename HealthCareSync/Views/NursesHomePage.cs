@@ -33,7 +33,20 @@ namespace HealthCareSync
             {
                 this.mainPanel.Controls.RemoveAt(0);
             }
+
             childForm.TopLevel = false;
+
+            // Makes the UI bigger for the form Manage_Patients
+            if (childForm is Manage_Patients)
+            {
+                this.Size = childForm.Size;
+                this.exitAppBTN.Location = new Point(1050, this.exitAppBTN.Location.Y);
+            }
+            else
+            {
+                this.Size= childForm.Size;
+            }
+
             childForm.Dock = DockStyle.Fill;
             this.mainPanel.Controls.Add(childForm);
             this.mainPanel.Tag = childForm;

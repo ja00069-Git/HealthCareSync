@@ -57,6 +57,33 @@
             genderComboBox = new ComboBox();
             genderLabel = new Label();
             birthDateTimePicker = new DateTimePicker();
+            searchLastNameTextBox = new TextBox();
+            searchBirthDatePicker = new DateTimePicker();
+            searchFirstNameTextBox = new TextBox();
+            label1 = new Label();
+            label2 = new Label();
+            searchByBirthDateCheckBox = new CheckBox();
+            searchByNameCheckBox = new CheckBox();
+            searchButton = new Button();
+            resetSearchButton = new Button();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            panel4 = new Panel();
+            panel5 = new Panel();
+            panel6 = new Panel();
+            panel7 = new Panel();
+            panel9 = new Panel();
+            panel8 = new Panel();
+            panel10 = new Panel();
+            panel11 = new Panel();
+            panel12 = new Panel();
+            panel13 = new Panel();
+            panel14 = new Panel();
+            panel15 = new Panel();
+            panel16 = new Panel();
+            panel17 = new Panel();
+            panel18 = new Panel();
             SuspendLayout();
             // 
             // patientListBox
@@ -71,25 +98,35 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(413, 189);
+            saveButton.BackColor = Color.IndianRed;
+            saveButton.FlatStyle = FlatStyle.Flat;
+            saveButton.Font = new Font("Showcard Gothic", 9F);
+            saveButton.ForeColor = Color.White;
+            saveButton.Location = new Point(873, 280);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(100, 33);
             saveButton.TabIndex = 1;
             saveButton.Text = "Save";
-            saveButton.UseVisualStyleBackColor = true;
+            saveButton.UseVisualStyleBackColor = false;
             saveButton.Click += saveButton_Click;
             // 
             // firstNameTextBox
             // 
-            firstNameTextBox.Location = new Point(186, 31);
+            firstNameTextBox.BackColor = Color.White;
+            firstNameTextBox.BorderStyle = BorderStyle.None;
+            firstNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            firstNameTextBox.ForeColor = SystemColors.HotTrack;
+            firstNameTextBox.Location = new Point(652, 19);
             firstNameTextBox.Name = "firstNameTextBox";
             firstNameTextBox.Size = new Size(100, 31);
+
             firstNameTextBox.TabIndex = 2;
             // 
             // firstNameLabel
             // 
             firstNameLabel.AutoSize = true;
-            firstNameLabel.Location = new Point(205, 13);
+            firstNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            firstNameLabel.Location = new Point(582, 19);
             firstNameLabel.Name = "firstNameLabel";
             firstNameLabel.Size = new Size(97, 25);
             firstNameLabel.TabIndex = 3;
@@ -98,7 +135,8 @@
             // lastNameLabel
             // 
             lastNameLabel.AutoSize = true;
-            lastNameLabel.Location = new Point(326, 13);
+            lastNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            lastNameLabel.Location = new Point(583, 65);
             lastNameLabel.Name = "lastNameLabel";
             lastNameLabel.Size = new Size(95, 25);
             lastNameLabel.TabIndex = 4;
@@ -107,16 +145,19 @@
             // birthDateLabel
             // 
             birthDateLabel.AutoSize = true;
-            birthDateLabel.Location = new Point(438, 13);
+            birthDateLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            birthDateLabel.Location = new Point(583, 110);
             birthDateLabel.Name = "birthDateLabel";
             birthDateLabel.Size = new Size(90, 25);
+
             birthDateLabel.TabIndex = 5;
             birthDateLabel.Text = "Birth Date";
             // 
             // address1Label
             // 
             address1Label.AutoSize = true;
-            address1Label.Location = new Point(205, 72);
+            address1Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            address1Label.Location = new Point(856, 19);
             address1Label.Name = "address1Label";
             address1Label.Size = new Size(92, 25);
             address1Label.TabIndex = 6;
@@ -125,7 +166,8 @@
             // zipcodeLabel
             // 
             zipcodeLabel.AutoSize = true;
-            zipcodeLabel.Location = new Point(326, 138);
+            zipcodeLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            zipcodeLabel.Location = new Point(856, 186);
             zipcodeLabel.Name = "zipcodeLabel";
             zipcodeLabel.Size = new Size(84, 25);
             zipcodeLabel.TabIndex = 7;
@@ -134,7 +176,8 @@
             // stateLabel
             // 
             stateLabel.AutoSize = true;
-            stateLabel.Location = new Point(221, 138);
+            stateLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            stateLabel.Location = new Point(856, 146);
             stateLabel.Name = "stateLabel";
             stateLabel.Size = new Size(51, 25);
             stateLabel.TabIndex = 8;
@@ -142,7 +185,10 @@
             // 
             // lastNameTextBox
             // 
-            lastNameTextBox.Location = new Point(304, 31);
+            lastNameTextBox.BorderStyle = BorderStyle.None;
+            lastNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            lastNameTextBox.ForeColor = SystemColors.HotTrack;
+            lastNameTextBox.Location = new Point(652, 65);
             lastNameTextBox.Name = "lastNameTextBox";
             lastNameTextBox.Size = new Size(100, 31);
             lastNameTextBox.TabIndex = 9;
@@ -150,7 +196,8 @@
             // cityLabel
             // 
             cityLabel.AutoSize = true;
-            cityLabel.Location = new Point(450, 72);
+            cityLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            cityLabel.Location = new Point(856, 111);
             cityLabel.Name = "cityLabel";
             cityLabel.Size = new Size(42, 25);
             cityLabel.TabIndex = 11;
@@ -159,7 +206,8 @@
             // address2Label
             // 
             address2Label.AutoSize = true;
-            address2Label.Location = new Point(326, 72);
+            address2Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            address2Label.Location = new Point(856, 65);
             address2Label.Name = "address2Label";
             address2Label.Size = new Size(92, 25);
             address2Label.TabIndex = 12;
@@ -167,28 +215,40 @@
             // 
             // address1TextBox
             // 
-            address1TextBox.Location = new Point(186, 90);
+            address1TextBox.BorderStyle = BorderStyle.None;
+            address1TextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            address1TextBox.ForeColor = SystemColors.HotTrack;
+            address1TextBox.Location = new Point(917, 21);
             address1TextBox.Name = "address1TextBox";
             address1TextBox.Size = new Size(100, 31);
             address1TextBox.TabIndex = 15;
             // 
             // zipTextBox
             // 
-            zipTextBox.Location = new Point(304, 156);
+            zipTextBox.BorderStyle = BorderStyle.None;
+            zipTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            zipTextBox.ForeColor = SystemColors.HotTrack;
+            zipTextBox.Location = new Point(917, 187);
             zipTextBox.Name = "zipTextBox";
             zipTextBox.Size = new Size(100, 31);
             zipTextBox.TabIndex = 16;
             // 
             // cityTextBox
             // 
-            cityTextBox.Location = new Point(413, 90);
+            cityTextBox.BorderStyle = BorderStyle.None;
+            cityTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            cityTextBox.ForeColor = SystemColors.HotTrack;
+            cityTextBox.Location = new Point(887, 111);
             cityTextBox.Name = "cityTextBox";
             cityTextBox.Size = new Size(100, 31);
             cityTextBox.TabIndex = 17;
             // 
             // address2TextBox
             // 
-            address2TextBox.Location = new Point(304, 90);
+            address2TextBox.BorderStyle = BorderStyle.None;
+            address2TextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            address2TextBox.ForeColor = SystemColors.HotTrack;
+            address2TextBox.Location = new Point(917, 64);
             address2TextBox.Name = "address2TextBox";
             address2TextBox.Size = new Size(100, 31);
             address2TextBox.TabIndex = 19;
@@ -196,7 +256,8 @@
             // flagStatusLabel
             // 
             flagStatusLabel.AutoSize = true;
-            flagStatusLabel.Location = new Point(205, 189);
+            flagStatusLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            flagStatusLabel.Location = new Point(773, 227);
             flagStatusLabel.Name = "flagStatusLabel";
             flagStatusLabel.Size = new Size(98, 25);
             flagStatusLabel.TabIndex = 20;
@@ -205,7 +266,8 @@
             // idLabel
             // 
             idLabel.AutoSize = true;
-            idLabel.Location = new Point(85, 199);
+            idLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            idLabel.Location = new Point(415, 227);
             idLabel.Name = "idLabel";
             idLabel.Size = new Size(88, 25);
             idLabel.TabIndex = 22;
@@ -214,7 +276,7 @@
             // idTextBox
             // 
             idTextBox.Enabled = false;
-            idTextBox.Location = new Point(62, 217);
+            idTextBox.Location = new Point(393, 245);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
             idTextBox.Size = new Size(100, 31);
@@ -223,7 +285,10 @@
             // 
             // phoneNumberTextBox
             // 
-            phoneNumberTextBox.Location = new Point(413, 156);
+            phoneNumberTextBox.BorderStyle = BorderStyle.None;
+            phoneNumberTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            phoneNumberTextBox.ForeColor = SystemColors.HotTrack;
+            phoneNumberTextBox.Location = new Point(671, 186);
             phoneNumberTextBox.Name = "phoneNumberTextBox";
             phoneNumberTextBox.Size = new Size(100, 31);
             phoneNumberTextBox.TabIndex = 24;
@@ -231,7 +296,8 @@
             // phoneNumberLabel
             // 
             phoneNumberLabel.AutoSize = true;
-            phoneNumberLabel.Location = new Point(420, 138);
+            phoneNumberLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            phoneNumberLabel.Location = new Point(583, 187);
             phoneNumberLabel.Name = "phoneNumberLabel";
             phoneNumberLabel.Size = new Size(132, 25);
             phoneNumberLabel.TabIndex = 25;
@@ -241,7 +307,7 @@
             // 
             flagStatusComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             flagStatusComboBox.FormattingEnabled = true;
-            flagStatusComboBox.Location = new Point(186, 207);
+            flagStatusComboBox.Location = new Point(752, 245);
             flagStatusComboBox.Name = "flagStatusComboBox";
             flagStatusComboBox.Size = new Size(100, 33);
             flagStatusComboBox.TabIndex = 26;
@@ -249,38 +315,47 @@
             // errorLabel
             // 
             errorLabel.AutoSize = true;
-            errorLabel.Font = new Font("Segoe UI", 8F);
+            errorLabel.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             errorLabel.ForeColor = Color.Red;
-            errorLabel.Location = new Point(51, 246);
+            errorLabel.Location = new Point(663, 329);
             errorLabel.Name = "errorLabel";
             errorLabel.Size = new Size(0, 21);
             errorLabel.TabIndex = 27;
             // 
             // addButton
             // 
-            addButton.Location = new Point(304, 189);
+            addButton.BackColor = Color.IndianRed;
+            addButton.FlatStyle = FlatStyle.Flat;
+            addButton.Font = new Font("Showcard Gothic", 9F);
+            addButton.ForeColor = Color.White;
+            addButton.Location = new Point(624, 280);
             addButton.Name = "addButton";
             addButton.Size = new Size(100, 33);
             addButton.TabIndex = 28;
             addButton.Text = "Add";
-            addButton.UseVisualStyleBackColor = true;
+            addButton.UseVisualStyleBackColor = false;
             addButton.Click += addButton_Click;
             // 
             // unselectButton
             // 
-            unselectButton.Location = new Point(413, 228);
+            unselectButton.BackColor = Color.IndianRed;
+            unselectButton.FlatStyle = FlatStyle.Flat;
+            unselectButton.Font = new Font("Showcard Gothic", 9F);
+            unselectButton.ForeColor = Color.White;
+            unselectButton.Location = new Point(752, 280);
             unselectButton.Name = "unselectButton";
             unselectButton.Size = new Size(100, 33);
             unselectButton.TabIndex = 30;
             unselectButton.Text = "Unselect";
-            unselectButton.UseVisualStyleBackColor = true;
+            unselectButton.UseVisualStyleBackColor = false;
             unselectButton.Click += unselectButton_Click;
             // 
             // stateComboBox
             // 
+            stateComboBox.DisplayMember = "fdsf";
             stateComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             stateComboBox.FormattingEnabled = true;
-            stateComboBox.Location = new Point(186, 156);
+            stateComboBox.Location = new Point(896, 139);
             stateComboBox.Name = "stateComboBox";
             stateComboBox.Size = new Size(100, 33);
             stateComboBox.TabIndex = 31;
@@ -289,7 +364,7 @@
             // 
             genderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             genderComboBox.FormattingEnabled = true;
-            genderComboBox.Location = new Point(519, 90);
+            genderComboBox.Location = new Point(634, 141);
             genderComboBox.Name = "genderComboBox";
             genderComboBox.Size = new Size(38, 33);
             genderComboBox.TabIndex = 32;
@@ -297,7 +372,8 @@
             // genderLabel
             // 
             genderLabel.AutoSize = true;
-            genderLabel.Location = new Point(515, 72);
+            genderLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            genderLabel.Location = new Point(583, 147);
             genderLabel.Name = "genderLabel";
             genderLabel.Size = new Size(69, 25);
             genderLabel.TabIndex = 33;
@@ -306,18 +382,289 @@
             // birthDateTimePicker
             // 
             birthDateTimePicker.Format = DateTimePickerFormat.Short;
-            birthDateTimePicker.Location = new Point(413, 31);
+            birthDateTimePicker.Location = new Point(652, 104);
             birthDateTimePicker.MaxDate = new DateTime(9998, 12, 25, 0, 0, 0, 0);
             birthDateTimePicker.Name = "birthDateTimePicker";
             birthDateTimePicker.Size = new Size(100, 31);
             birthDateTimePicker.TabIndex = 34;
             birthDateTimePicker.Value = new DateTime(2024, 10, 9, 0, 0, 0, 0);
             // 
+            // searchLastNameTextBox
+            // 
+            searchLastNameTextBox.BorderStyle = BorderStyle.None;
+            searchLastNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            searchLastNameTextBox.ForeColor = SystemColors.HotTrack;
+            searchLastNameTextBox.Location = new Point(162, 222);
+            searchLastNameTextBox.Name = "searchLastNameTextBox";
+            searchLastNameTextBox.Size = new Size(156, 17);
+            searchLastNameTextBox.TabIndex = 35;
+            // 
+            // searchBirthDatePicker
+            // 
+            searchBirthDatePicker.Format = DateTimePickerFormat.Short;
+            searchBirthDatePicker.Location = new Point(167, 83);
+            searchBirthDatePicker.Name = "searchBirthDatePicker";
+            searchBirthDatePicker.Size = new Size(100, 23);
+            searchBirthDatePicker.TabIndex = 36;
+            // 
+            // searchFirstNameTextBox
+            // 
+            searchFirstNameTextBox.BorderStyle = BorderStyle.None;
+            searchFirstNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            searchFirstNameTextBox.ForeColor = SystemColors.HotTrack;
+            searchFirstNameTextBox.Location = new Point(165, 177);
+            searchFirstNameTextBox.Name = "searchFirstNameTextBox";
+            searchFirstNameTextBox.Size = new Size(146, 17);
+            searchFirstNameTextBox.TabIndex = 39;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            label1.Location = new Point(92, 177);
+            label1.Name = "label1";
+            label1.Size = new Size(64, 15);
+            label1.TabIndex = 40;
+            label1.Text = "First Name";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            label2.Location = new Point(93, 223);
+            label2.Name = "label2";
+            label2.Size = new Size(63, 15);
+            label2.TabIndex = 41;
+            label2.Text = "Last Name";
+            // 
+            // searchByBirthDateCheckBox
+            // 
+            searchByBirthDateCheckBox.AutoSize = true;
+            searchByBirthDateCheckBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            searchByBirthDateCheckBox.Location = new Point(155, 57);
+            searchByBirthDateCheckBox.Name = "searchByBirthDateCheckBox";
+            searchByBirthDateCheckBox.Size = new Size(134, 19);
+            searchByBirthDateCheckBox.TabIndex = 42;
+            searchByBirthDateCheckBox.Text = "Search by Birth Date";
+            searchByBirthDateCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // searchByNameCheckBox
+            // 
+            searchByNameCheckBox.AutoSize = true;
+            searchByNameCheckBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            searchByNameCheckBox.Location = new Point(155, 147);
+            searchByNameCheckBox.Name = "searchByNameCheckBox";
+            searchByNameCheckBox.Size = new Size(113, 19);
+            searchByNameCheckBox.TabIndex = 43;
+            searchByNameCheckBox.Text = "Search by Name";
+            searchByNameCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // searchButton
+            // 
+            searchButton.BackColor = Color.IndianRed;
+            searchButton.Enabled = false;
+            searchButton.FlatStyle = FlatStyle.Flat;
+            searchButton.Font = new Font("Showcard Gothic", 9F);
+            searchButton.ForeColor = Color.White;
+            searchButton.Location = new Point(211, 280);
+            searchButton.Name = "searchButton";
+            searchButton.Size = new Size(100, 33);
+            searchButton.TabIndex = 44;
+            searchButton.Text = "Search";
+            searchButton.UseVisualStyleBackColor = false;
+            searchButton.Click += searchButton_Click;
+            // 
+            // resetSearchButton
+            // 
+            resetSearchButton.BackColor = Color.IndianRed;
+            resetSearchButton.FlatStyle = FlatStyle.Flat;
+            resetSearchButton.Font = new Font("Showcard Gothic", 9F);
+            resetSearchButton.ForeColor = Color.White;
+            resetSearchButton.Location = new Point(79, 280);
+            resetSearchButton.Name = "resetSearchButton";
+            resetSearchButton.Size = new Size(100, 33);
+            resetSearchButton.TabIndex = 45;
+            resetSearchButton.Text = "Reset";
+            resetSearchButton.UseVisualStyleBackColor = false;
+            resetSearchButton.Click += resetSearchButton_Click;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.IndianRed;
+            panel1.Location = new Point(571, 40);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(200, 1);
+            panel1.TabIndex = 46;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.IndianRed;
+            panel2.Location = new Point(571, 83);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(200, 1);
+            panel2.TabIndex = 47;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.IndianRed;
+            panel3.Location = new Point(571, 129);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(200, 1);
+            panel3.TabIndex = 48;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.IndianRed;
+            panel4.Location = new Point(839, 83);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(200, 1);
+            panel4.TabIndex = 49;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.IndianRed;
+            panel5.Location = new Point(804, 19);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(1, 205);
+            panel5.TabIndex = 50;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.IndianRed;
+            panel6.Location = new Point(839, 40);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(200, 1);
+            panel6.TabIndex = 49;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.IndianRed;
+            panel7.Location = new Point(839, 129);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(200, 1);
+            panel7.TabIndex = 50;
+            // 
+            // panel9
+            // 
+            panel9.BackColor = Color.IndianRed;
+            panel9.Location = new Point(839, 168);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(200, 1);
+            panel9.TabIndex = 50;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.IndianRed;
+            panel8.Location = new Point(839, 205);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(200, 1);
+            panel8.TabIndex = 52;
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.IndianRed;
+            panel10.Location = new Point(571, 170);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(200, 1);
+            panel10.TabIndex = 53;
+            // 
+            // panel11
+            // 
+            panel11.BackColor = Color.IndianRed;
+            panel11.Location = new Point(571, 205);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(200, 1);
+            panel11.TabIndex = 54;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.IndianRed;
+            panel12.Location = new Point(552, 19);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(1, 290);
+            panel12.TabIndex = 51;
+            // 
+            // panel13
+            // 
+            panel13.BackColor = Color.IndianRed;
+            panel13.Location = new Point(337, 19);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(1, 290);
+            panel13.TabIndex = 52;
+            // 
+            // panel14
+            // 
+            panel14.AutoScroll = true;
+            panel14.BackColor = Color.IndianRed;
+            panel14.Location = new Point(562, 316);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(480, 1);
+            panel14.TabIndex = 55;
+            // 
+            // panel15
+            // 
+            panel15.BackColor = Color.IndianRed;
+            panel15.Location = new Point(79, 124);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(232, 1);
+            panel15.TabIndex = 56;
+            // 
+            // panel16
+            // 
+            panel16.BackColor = Color.IndianRed;
+            panel16.Location = new Point(79, 316);
+            panel16.Name = "panel16";
+            panel16.Size = new Size(245, 1);
+            panel16.TabIndex = 57;
+            // 
+            // panel17
+            // 
+            panel17.BackColor = Color.IndianRed;
+            panel17.Location = new Point(79, 196);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(232, 1);
+            panel17.TabIndex = 57;
+            // 
+            // panel18
+            // 
+            panel18.BackColor = Color.IndianRed;
+            panel18.Location = new Point(79, 241);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(232, 1);
+            panel18.TabIndex = 57;
+            // 
             // Manage_Patients
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
-            ClientSize = new Size(567, 270);
+            ClientSize = new Size(1095, 368);
+            Controls.Add(panel18);
+            Controls.Add(panel17);
+            Controls.Add(panel16);
+            Controls.Add(panel15);
+            Controls.Add(panel14);
+            Controls.Add(panel13);
+            Controls.Add(panel12);
+            Controls.Add(panel11);
+            Controls.Add(panel10);
+            Controls.Add(panel8);
+            Controls.Add(panel9);
+            Controls.Add(panel7);
+            Controls.Add(panel5);
+            Controls.Add(panel6);
+            Controls.Add(panel4);
+            Controls.Add(panel3);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(resetSearchButton);
+            Controls.Add(searchButton);
+            Controls.Add(searchByNameCheckBox);
+            Controls.Add(searchByBirthDateCheckBox);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(searchFirstNameTextBox);
+            Controls.Add(searchBirthDatePicker);
+            Controls.Add(searchLastNameTextBox);
             Controls.Add(birthDateTimePicker);
             Controls.Add(genderLabel);
             Controls.Add(genderComboBox);
@@ -386,5 +733,32 @@
         private ComboBox genderComboBox;
         private Label genderLabel;
         private DateTimePicker birthDateTimePicker;
+        private TextBox searchLastNameTextBox;
+        private DateTimePicker searchBirthDatePicker;
+        private TextBox searchFirstNameTextBox;
+        private Label label1;
+        private Label label2;
+        private CheckBox searchByBirthDateCheckBox;
+        private CheckBox searchByNameCheckBox;
+        private Button searchButton;
+        private Button resetSearchButton;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Panel panel4;
+        private Panel panel5;
+        private Panel panel6;
+        private Panel panel7;
+        private Panel panel9;
+        private Panel panel8;
+        private Panel panel10;
+        private Panel panel11;
+        private Panel panel12;
+        private Panel panel13;
+        private Panel panel14;
+        private Panel panel15;
+        private Panel panel16;
+        private Panel panel17;
+        private Panel panel18;
     }
 }

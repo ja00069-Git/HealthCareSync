@@ -166,7 +166,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         ///     The Patients.
         /// </value>
-        public ObservableCollection<Patient> Patients { get; }
+        public ObservableCollection<Patient> Patients { get; set; }
 
         /// <summary>
         ///     Gets the flag statuses.
@@ -209,6 +209,101 @@ namespace HealthCareSync.ViewModels
         }
 
         /// <summary>
+        /// Updates the patient list with those with the given name and returns true if there exists a patient with the name, false if not.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <returns>true if there is patient with name, false otherwise</returns>
+        public bool SearchByName(string firstName, string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatients());
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+            else if (string.IsNullOrWhiteSpace(firstName))
+            {
+                var list = this.patientDAL.GetPatientsWithLastName(lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithLastName(lastName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
+            } 
+            else if (string.IsNullOrWhiteSpace(lastName))
+            {
+                var list = this.patientDAL.GetPatientsWithFirstName(firstName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFirstName(firstName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                var list = this.patientDAL.GetPatientsWithFullName(firstName, lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithFullName(firstName, lastName));
+                    OnPropertyChanged(nameof(Patients));
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Updates the patient list with those with the given birth date and returns true if there exists a patient with the given birth date, false if not
+        /// </summary>
+        /// <param name="bDate">The b date.</param>
+        /// <returns>true if theres a patient with the given birth date, false otherwise</returns>
+        public bool SearchByBirthDate(DateTime bDate)
+        {
+            var list = this.patientDAL.GetPatientsWithBirthDate(bDate);
+
+            if (list.Count != 0)
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithBirthDate(bDate));
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Updates the patient list with those with the given name and birth date and returns true if there exists a patient with the given name and birth date, false if not
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <param name="last">The last.</param>
+        /// <param name="bDate">The b date.</param>
+        /// <returns>tru if theres a patient with the given name and birth date, false otherwise</returns>
+        public bool SearchByNameAndBirthDate(string  first, string last, DateTime bDate)
+        {
+            var list = this.patientDAL.GetPatientsWithNameAndBirthDate(first, last, bDate);
+
+            if (list.Count != 0)
+            {
+                this.Patients = new ObservableCollection<Patient>(this.patientDAL.GetPatientsWithNameAndBirthDate(first,last, bDate));
+                OnPropertyChanged(nameof(Patients));
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Adds the patient to the database and collection.
         /// </summary>
         /// <param name="fname">The fname.</param>
@@ -222,7 +317,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public async void Add(string fname, string lname, DateTime bDate, Gender gender, string phoneNum, string address1, string zip, string city, State state, string? address2, FlagStatus flag)
+        public void Add(string fname, string lname, DateTime bDate, Gender gender, string phoneNum, string address1, string zip, string city, State state, string? address2, FlagStatus flag)
         {
             int patientId = this.patientDAL.AddPatient(fname, lname, bDate, gender, address1,
                zip, city, state, address2, phoneNum, flag);
@@ -249,7 +344,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="flag">The flag.</param>
-        public async void Save(string fname, string lname, DateTime bDate, Gender gender, string phoneNum, string address1, string zip, string city, State state, string address2, FlagStatus flag)
+        public void Save(string fname, string lname, DateTime bDate, Gender gender, string phoneNum, string address1, string zip, string city, State state, string address2, FlagStatus flag)
         {
             this.patientDAL.SaveEditedPatient(this.selectedPatient.Id, fname, lname, bDate, gender, address1,
             zip, city, state, address2, phoneNum, flag);
