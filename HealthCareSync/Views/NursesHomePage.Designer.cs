@@ -295,13 +295,14 @@
             // 
             // mainPanel
             // 
+            mainPanel.AutoScroll = true;
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(0, 0);
             mainPanel.Name = "mainPanel";
             mainPanel.Size = new Size(800, 450);
             mainPanel.TabIndex = 2;
             // 
-            // HomePage
+            // NursesHomePage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -311,7 +312,7 @@
             Controls.Add(exitAppBTN);
             Controls.Add(mainPanel);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "HomePage";
+            Name = "NursesHomePage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Home Page";
             sidebar.ResumeLayout(false);
