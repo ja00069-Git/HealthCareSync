@@ -6,6 +6,8 @@ namespace HealthCareSync
     {
         bool isCollapsed;
         bool isMngVisitCollapsed;
+        private readonly Point exitBtnStartingLocation = new Point(514, 7);
+
         public NursesHomePage()
         {
             InitializeComponent();
@@ -46,6 +48,7 @@ namespace HealthCareSync
             else
             {
                 this.Size= childForm.Size;
+                this.exitAppBTN.Location = this.exitBtnStartingLocation;
             }
 
             childForm.Dock = DockStyle.Fill;

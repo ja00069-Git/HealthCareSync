@@ -26,6 +26,10 @@ namespace HealthCareSync.Views
         private readonly string ERROR_PHONE_NUMBER_DASH = "Phone number must be 10 digits without dash";
         private readonly string ERROR_ADDRESS_1 = "Address 1 cannot be blank";
         private readonly string ERROR_ZIP = "Zip must be 5 digits";
+        private readonly string ERROR_CITY = "Enter a city";
+        private readonly string ERROR_STATE = "Select a state";
+
+        private string errorMessages = string.Empty;
 
         private ManageNursesViewModel viewModel;
        
@@ -44,11 +48,11 @@ namespace HealthCareSync.Views
             this.nurseListBox.DataSource = this.viewModel.Nurses;
            
             this.nurseListBox.DisplayMember = "FullName";
-            List<string> items = new List<string> { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
-                "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts",
-                "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
-                "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
-                "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" };
+            List<string> items = new List<string> { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+                                            "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+                                            "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+                                            "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+                                            "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY" };
             stateComboBoxForNurse.Items.AddRange(items.ToArray());
 
         }
@@ -82,6 +86,7 @@ namespace HealthCareSync.Views
             this.stateComboBoxForNurse.SelectedIndex = -1;
             this.address2TextBox.Clear();
             this.usernameTextBox.Clear();
+            this.passwordTextBox.Clear();
         }
         private void NurseListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -99,6 +104,7 @@ namespace HealthCareSync.Views
                 this.BindTextBox(this.phoneNumTextBox, this.viewModel, "PhoneNumber");
                 this.BindTextBox(this.idTextBox, this.viewModel, "Nurse_Id");
                 this.BindTextBox(this.usernameTextBox, this.viewModel, "Username");
+                this.BindTextBox(this.passwordTextBox, this.viewModel, "Password");
                 this.BindTextBox(this.address1TextBox, this.viewModel, "Address_1");
                 this.BindTextBox(this.zipTextBox, this.viewModel, "Zip");
                 this.BindTextBox(this.cityTextBox, this.viewModel, "City");
@@ -153,38 +159,49 @@ namespace HealthCareSync.Views
             this.nurseListBox.DataSource = this.viewModel.Nurses;
             this.nurseListBox.DisplayMember = "FullName";
         }
-        private bool inputsValid(string fname, string lname, string formattedBDate, string phoneNum, string address1, string zip)
+        private bool inputsValid(string fname, string lname, string phoneNum, string address1, string city, string zip)
 
         {
-            this.errorLabel.Text = "";
+            this.errorMessages = string.Empty;
+            bool isErrors = false;
+
             if (string.IsNullOrWhiteSpace(fname))
             {
-                this.errorLabel.Text = ERROR_FIRST_NAME;
-                return false;
+                this.errorMessages += $"\n {ERROR_FIRST_NAME}";
+                isErrors = true;
             }
-            else if (string.IsNullOrWhiteSpace(lname))
+            if (string.IsNullOrWhiteSpace(lname))
             {
-                 this.errorLabel.Text = ERROR_LAST_NAME;
-                return false;
+                this.errorMessages += $"\n {ERROR_LAST_NAME}";
+                isErrors = true;
+            }  
+            if (!Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
+            {
+                this.errorMessages += $"\n {ERROR_PHONE_NUMBER}";
+                isErrors = true;
             }
-            
-            else if (phoneNum.Trim().Length > 0 && !Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
+            if (string.IsNullOrWhiteSpace(address1))
             {
-                this.errorLabel.Text = ERROR_PHONE_NUMBER_DASH;
-                return false;
+                this.errorMessages += $"\n {ERROR_ADDRESS_1}";
+                isErrors = true;
             }
-            else if (string.IsNullOrWhiteSpace(address1) && this.otherAddressFieldsThanAddress1HasText())
+            if (string.IsNullOrWhiteSpace(city))
             {
-                this.errorLabel.Text = ERROR_ADDRESS_1;
-                return false;
+                this.errorMessages += $"\n {ERROR_CITY}";
+                isErrors = true;
             }
-            else if ((string.IsNullOrWhiteSpace(zip) || !Regex.IsMatch(zip, ZIP_REGEX_PATTERN)) && this.otherAddressFieldsThanZipHasText())
+            if (this.stateComboBoxForNurse.SelectedItem == null)
             {
-                this.errorLabel.Text = ERROR_ZIP;
-                return false;
+                this.errorMessages += $"\n {ERROR_STATE}";
+                isErrors = true;
+            }
+            if (!Regex.IsMatch(zip, ZIP_REGEX_PATTERN))
+            {
+                this.errorMessages += $"\n {ERROR_ZIP}";
+                isErrors = true;
             }
 
-            return true;
+            return !isErrors;
         }
         private bool otherAddressFieldsThanAddress1HasText()
         {

@@ -52,10 +52,12 @@
             phoneNumTextBox = new TextBox();
             addNurseButton = new Button();
             unselectNurseButton = new Button();
-            deleteNurseButton = new Button();
             errorLabel = new Label();
             dateTimePickerForNurse = new DateTimePicker();
             stateComboBoxForNurse = new ComboBox();
+            deleteNurseButton = new Button();
+            passwordTextBox = new TextBox();
+            passwordLabel = new Label();
             SuspendLayout();
             // 
             // idTextBox
@@ -79,7 +81,7 @@
             // 
             // usernameTextBox
             // 
-            usernameTextBox.Location = new Point(412, 163);
+            usernameTextBox.Location = new Point(187, 210);
             usernameTextBox.Name = "usernameTextBox";
             usernameTextBox.Size = new Size(100, 23);
             usernameTextBox.TabIndex = 65;
@@ -88,7 +90,7 @@
             // usernameLabel
             // 
             usernameLabel.AutoSize = true;
-            usernameLabel.Location = new Point(432, 145);
+            usernameLabel.Location = new Point(208, 192);
             usernameLabel.Name = "usernameLabel";
             usernameLabel.Size = new Size(60, 15);
             usernameLabel.TabIndex = 64;
@@ -231,7 +233,7 @@
             // phoneNumLabel
             // 
             phoneNumLabel.AutoSize = true;
-            phoneNumLabel.Location = new Point(187, 196);
+            phoneNumLabel.Location = new Point(420, 145);
             phoneNumLabel.Name = "phoneNumLabel";
             phoneNumLabel.Size = new Size(88, 15);
             phoneNumLabel.TabIndex = 69;
@@ -239,7 +241,7 @@
             // 
             // phoneNumTextBox
             // 
-            phoneNumTextBox.Location = new Point(187, 214);
+            phoneNumTextBox.Location = new Point(412, 163);
             phoneNumTextBox.Name = "phoneNumTextBox";
             phoneNumTextBox.Size = new Size(100, 23);
             phoneNumTextBox.TabIndex = 68;
@@ -264,16 +266,6 @@
             unselectNurseButton.UseVisualStyleBackColor = true;
             unselectNurseButton.Click += unselectNurseButton_Click;
             // 
-            // deleteNurseButton
-            // 
-            deleteNurseButton.Location = new Point(412, 192);
-            deleteNurseButton.Name = "deleteNurseButton";
-            deleteNurseButton.Size = new Size(100, 30);
-            deleteNurseButton.TabIndex = 72;
-            deleteNurseButton.Text = "Delete";
-            deleteNurseButton.UseVisualStyleBackColor = true;
-            deleteNurseButton.Click += deleteNurseButton_Click;
-            // 
             // errorLabel
             // 
             errorLabel.AutoSize = true;
@@ -285,6 +277,7 @@
             // 
             // dateTimePickerForNurse
             // 
+            dateTimePickerForNurse.Format = DateTimePickerFormat.Short;
             dateTimePickerForNurse.Location = new Point(412, 38);
             dateTimePickerForNurse.Name = "dateTimePickerForNurse";
             dateTimePickerForNurse.Size = new Size(100, 23);
@@ -298,12 +291,40 @@
             stateComboBoxForNurse.Size = new Size(100, 23);
             stateComboBoxForNurse.TabIndex = 75;
             // 
+            // deleteNurseButton
+            // 
+            deleteNurseButton.Location = new Point(412, 192);
+            deleteNurseButton.Name = "deleteNurseButton";
+            deleteNurseButton.Size = new Size(100, 30);
+            deleteNurseButton.TabIndex = 72;
+            deleteNurseButton.Text = "Delete";
+            deleteNurseButton.UseVisualStyleBackColor = true;
+            deleteNurseButton.Click += deleteNurseButton_Click;
+            // 
+            // passwordTextBox
+            // 
+            passwordTextBox.Location = new Point(185, 260);
+            passwordTextBox.Name = "passwordTextBox";
+            passwordTextBox.Size = new Size(100, 23);
+            passwordTextBox.TabIndex = 76;
+            // 
+            // passwordLabel
+            // 
+            passwordLabel.AutoSize = true;
+            passwordLabel.Location = new Point(208, 242);
+            passwordLabel.Name = "passwordLabel";
+            passwordLabel.Size = new Size(57, 15);
+            passwordLabel.TabIndex = 77;
+            passwordLabel.Text = "Password";
+            // 
             // ManageNurses
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(561, 270);
+            ClientSize = new Size(561, 295);
+            Controls.Add(passwordLabel);
+            Controls.Add(passwordTextBox);
             Controls.Add(stateComboBoxForNurse);
             Controls.Add(dateTimePickerForNurse);
             Controls.Add(errorLabel);
@@ -365,9 +386,11 @@
         private TextBox phoneNumTextBox;
         private Button addNurseButton;
         private Button unselectNurseButton;
-        private Button deleteNurseButton;
         private Label errorLabel;
         private DateTimePicker dateTimePickerForNurse;
         private ComboBox stateComboBoxForNurse;
+        private Button deleteNurseButton;
+        private TextBox passwordTextBox;
+        private Label passwordLabel;
     }
 }

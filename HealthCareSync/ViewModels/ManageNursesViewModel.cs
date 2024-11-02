@@ -14,7 +14,9 @@ namespace HealthCareSync.ViewModels
     public class ManageNursesViewModel : INotifyPropertyChanged
     {
         private Nurse selectedNurse;
+        private User selectedNurseAsUser;
         private NurseDAL nurseDAL;
+        private UserDAL userDAL;
 
         /// <summary>
         /// Gets the first name.
@@ -63,6 +65,8 @@ namespace HealthCareSync.ViewModels
         /// The username.
         /// </value>
         public string? Username => SelectedNurse?.Username;
+
+        public string? Password => selectedNurseAsUser?.Password;
 
         /// <summary>
         /// Gets the address 1.
@@ -114,6 +118,7 @@ namespace HealthCareSync.ViewModels
                 if (selectedNurse != value)
                 {
                     selectedNurse = value;
+                    selectedNurseAsUser = this.userDAL.GetUser(Username!);
                     OnPropertyChanged(nameof(SelectedNurse));
                     OnPropertyChanged(nameof(FirstName));
                     OnPropertyChanged(nameof(LastName));
@@ -121,6 +126,7 @@ namespace HealthCareSync.ViewModels
                     OnPropertyChanged(nameof(PhoneNumber));
                     OnPropertyChanged(nameof(Nurse_Id));
                     OnPropertyChanged(nameof(Username));
+                    OnPropertyChanged(nameof(Password));
                     OnPropertyChanged(nameof(Address_1));
                     OnPropertyChanged(nameof(Zip));
                     OnPropertyChanged(nameof(City));
@@ -146,9 +152,9 @@ namespace HealthCareSync.ViewModels
         public ManageNursesViewModel()
         {
             this.nurseDAL = new NurseDAL();
+            this.userDAL = new UserDAL();
 
             this.Nurses = new ObservableCollection<Nurse>(this.nurseDAL.GetNurses());
-
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

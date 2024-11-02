@@ -14,7 +14,7 @@ namespace HealthCareSync.DAL
     {
         private AddressDAL addressDAL;
 
-        private readonly string connectionString = Connection.ConnectionSting();
+        private readonly string connectionString = Connection.ConnectionString();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PatientDAL"/> class.
