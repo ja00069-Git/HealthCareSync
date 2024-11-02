@@ -57,173 +57,194 @@
             // idTextBox
             // 
             idTextBox.Enabled = false;
-            idTextBox.Location = new Point(61, 224);
+            idTextBox.Location = new Point(87, 373);
+            idTextBox.Margin = new Padding(4, 5, 4, 5);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
-            idTextBox.Size = new Size(100, 23);
+            idTextBox.Size = new Size(141, 31);
             idTextBox.TabIndex = 67;
             idTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // idLabel
             // 
             idLabel.AutoSize = true;
-            idLabel.Location = new Point(103, 206);
+            idLabel.Location = new Point(147, 343);
+            idLabel.Margin = new Padding(4, 0, 4, 0);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(17, 15);
+            idLabel.Size = new Size(28, 25);
             idLabel.TabIndex = 66;
             idLabel.Text = "Id";
             // 
             // usernameTextBox
             // 
-            usernameTextBox.Location = new Point(412, 163);
+            usernameTextBox.Location = new Point(589, 272);
+            usernameTextBox.Margin = new Padding(4, 5, 4, 5);
             usernameTextBox.Name = "usernameTextBox";
-            usernameTextBox.Size = new Size(100, 23);
+            usernameTextBox.Size = new Size(141, 31);
             usernameTextBox.TabIndex = 65;
             usernameTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // usernameLabel
             // 
             usernameLabel.AutoSize = true;
-            usernameLabel.Location = new Point(432, 145);
+            usernameLabel.Location = new Point(617, 242);
+            usernameLabel.Margin = new Padding(4, 0, 4, 0);
             usernameLabel.Name = "usernameLabel";
-            usernameLabel.Size = new Size(60, 15);
+            usernameLabel.Size = new Size(91, 25);
             usernameLabel.TabIndex = 64;
             usernameLabel.Text = "Username";
             // 
             // address2TextBox
             // 
-            address2TextBox.Location = new Point(303, 163);
+            address2TextBox.Location = new Point(433, 272);
+            address2TextBox.Margin = new Padding(4, 5, 4, 5);
             address2TextBox.Name = "address2TextBox";
-            address2TextBox.Size = new Size(100, 23);
+            address2TextBox.Size = new Size(141, 31);
             address2TextBox.TabIndex = 63;
             // 
             // stateTextBox
             // 
-            stateTextBox.Location = new Point(185, 163);
+            stateTextBox.Location = new Point(264, 272);
+            stateTextBox.Margin = new Padding(4, 5, 4, 5);
             stateTextBox.Name = "stateTextBox";
-            stateTextBox.Size = new Size(100, 23);
+            stateTextBox.Size = new Size(141, 31);
             stateTextBox.TabIndex = 62;
             // 
             // cityTextBox
             // 
-            cityTextBox.Location = new Point(412, 97);
+            cityTextBox.Location = new Point(589, 162);
+            cityTextBox.Margin = new Padding(4, 5, 4, 5);
             cityTextBox.Name = "cityTextBox";
-            cityTextBox.Size = new Size(100, 23);
+            cityTextBox.Size = new Size(141, 31);
             cityTextBox.TabIndex = 61;
             // 
             // zipTextBox
             // 
-            zipTextBox.Location = new Point(303, 97);
+            zipTextBox.Location = new Point(433, 162);
+            zipTextBox.Margin = new Padding(4, 5, 4, 5);
             zipTextBox.Name = "zipTextBox";
-            zipTextBox.Size = new Size(100, 23);
+            zipTextBox.Size = new Size(141, 31);
             zipTextBox.TabIndex = 60;
             // 
             // address1TextBox
             // 
-            address1TextBox.Location = new Point(185, 97);
+            address1TextBox.Location = new Point(264, 162);
+            address1TextBox.Margin = new Padding(4, 5, 4, 5);
             address1TextBox.Name = "address1TextBox";
-            address1TextBox.Size = new Size(100, 23);
+            address1TextBox.Size = new Size(141, 31);
             address1TextBox.TabIndex = 59;
             // 
             // address2Label
             // 
             address2Label.AutoSize = true;
-            address2Label.Location = new Point(325, 145);
+            address2Label.Location = new Point(464, 242);
+            address2Label.Margin = new Padding(4, 0, 4, 0);
             address2Label.Name = "address2Label";
-            address2Label.Size = new Size(58, 15);
+            address2Label.Size = new Size(92, 25);
             address2Label.TabIndex = 58;
             address2Label.Text = "Address 2";
             // 
             // cityLabel
             // 
             cityLabel.AutoSize = true;
-            cityLabel.Location = new Point(449, 79);
+            cityLabel.Location = new Point(641, 132);
+            cityLabel.Margin = new Padding(4, 0, 4, 0);
             cityLabel.Name = "cityLabel";
-            cityLabel.Size = new Size(28, 15);
+            cityLabel.Size = new Size(42, 25);
             cityLabel.TabIndex = 57;
             cityLabel.Text = "City";
             // 
             // birthDateTextBox
             // 
-            birthDateTextBox.Location = new Point(412, 38);
+            birthDateTextBox.Location = new Point(589, 63);
+            birthDateTextBox.Margin = new Padding(4, 5, 4, 5);
             birthDateTextBox.Name = "birthDateTextBox";
-            birthDateTextBox.Size = new Size(100, 23);
+            birthDateTextBox.Size = new Size(141, 31);
             birthDateTextBox.TabIndex = 56;
             birthDateTextBox.TextAlign = HorizontalAlignment.Center;
             // 
             // lastNameTextBox
             // 
-            lastNameTextBox.Location = new Point(303, 38);
+            lastNameTextBox.Location = new Point(433, 63);
+            lastNameTextBox.Margin = new Padding(4, 5, 4, 5);
             lastNameTextBox.Name = "lastNameTextBox";
-            lastNameTextBox.Size = new Size(100, 23);
+            lastNameTextBox.Size = new Size(141, 31);
             lastNameTextBox.TabIndex = 55;
             // 
             // stateLabel
             // 
             stateLabel.AutoSize = true;
-            stateLabel.Location = new Point(220, 145);
+            stateLabel.Location = new Point(314, 242);
+            stateLabel.Margin = new Padding(4, 0, 4, 0);
             stateLabel.Name = "stateLabel";
-            stateLabel.Size = new Size(33, 15);
+            stateLabel.Size = new Size(51, 25);
             stateLabel.TabIndex = 54;
             stateLabel.Text = "State";
             // 
             // zipcodeLabel
             // 
             zipcodeLabel.AutoSize = true;
-            zipcodeLabel.Location = new Point(325, 79);
+            zipcodeLabel.Location = new Point(464, 132);
+            zipcodeLabel.Margin = new Padding(4, 0, 4, 0);
             zipcodeLabel.Name = "zipcodeLabel";
-            zipcodeLabel.Size = new Size(55, 15);
+            zipcodeLabel.Size = new Size(84, 25);
             zipcodeLabel.TabIndex = 53;
             zipcodeLabel.Text = "Zip Code";
             // 
             // address1Label
             // 
             address1Label.AutoSize = true;
-            address1Label.Location = new Point(204, 79);
+            address1Label.Location = new Point(291, 132);
+            address1Label.Margin = new Padding(4, 0, 4, 0);
             address1Label.Name = "address1Label";
-            address1Label.Size = new Size(58, 15);
+            address1Label.Size = new Size(92, 25);
             address1Label.TabIndex = 52;
             address1Label.Text = "Address 1";
             // 
             // birthDateLabel
             // 
             birthDateLabel.AutoSize = true;
-            birthDateLabel.Location = new Point(437, 20);
+            birthDateLabel.Location = new Point(624, 33);
+            birthDateLabel.Margin = new Padding(4, 0, 4, 0);
             birthDateLabel.Name = "birthDateLabel";
-            birthDateLabel.Size = new Size(59, 15);
+            birthDateLabel.Size = new Size(90, 25);
             birthDateLabel.TabIndex = 51;
             birthDateLabel.Text = "Birth Date";
             // 
             // lastNameLabel
             // 
             lastNameLabel.AutoSize = true;
-            lastNameLabel.Location = new Point(325, 20);
+            lastNameLabel.Location = new Point(464, 33);
+            lastNameLabel.Margin = new Padding(4, 0, 4, 0);
             lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new Size(63, 15);
+            lastNameLabel.Size = new Size(95, 25);
             lastNameLabel.TabIndex = 50;
             lastNameLabel.Text = "Last Name";
             // 
             // firstNameLabel
             // 
             firstNameLabel.AutoSize = true;
-            firstNameLabel.Location = new Point(204, 20);
+            firstNameLabel.Location = new Point(291, 33);
+            firstNameLabel.Margin = new Padding(4, 0, 4, 0);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(64, 15);
+            firstNameLabel.Size = new Size(97, 25);
             firstNameLabel.TabIndex = 49;
             firstNameLabel.Text = "First Name";
             // 
             // firstNameTextBox
             // 
-            firstNameTextBox.Location = new Point(185, 38);
+            firstNameTextBox.Location = new Point(264, 63);
+            firstNameTextBox.Margin = new Padding(4, 5, 4, 5);
             firstNameTextBox.Name = "firstNameTextBox";
-            firstNameTextBox.Size = new Size(100, 23);
+            firstNameTextBox.Size = new Size(141, 31);
             firstNameTextBox.TabIndex = 48;
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(412, 214);
+            saveButton.Location = new Point(589, 357);
+            saveButton.Margin = new Padding(4, 5, 4, 5);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(100, 40);
+            saveButton.Size = new Size(143, 67);
             saveButton.TabIndex = 47;
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = true;
@@ -232,35 +253,38 @@
             // nurseListBox
             // 
             nurseListBox.FormattingEnabled = true;
-            nurseListBox.ItemHeight = 15;
-            nurseListBox.Location = new Point(50, 19);
+            nurseListBox.ItemHeight = 25;
+            nurseListBox.Location = new Point(71, 32);
+            nurseListBox.Margin = new Padding(4, 5, 4, 5);
             nurseListBox.Name = "nurseListBox";
-            nurseListBox.Size = new Size(120, 184);
+            nurseListBox.Size = new Size(170, 304);
             nurseListBox.TabIndex = 46;
             nurseListBox.SelectedIndexChanged += NurseListBox_SelectedIndexChanged;
             // 
             // phoneNumLabel
             // 
             phoneNumLabel.AutoSize = true;
-            phoneNumLabel.Location = new Point(187, 196);
+            phoneNumLabel.Location = new Point(267, 327);
+            phoneNumLabel.Margin = new Padding(4, 0, 4, 0);
             phoneNumLabel.Name = "phoneNumLabel";
-            phoneNumLabel.Size = new Size(88, 15);
+            phoneNumLabel.Size = new Size(132, 25);
             phoneNumLabel.TabIndex = 69;
             phoneNumLabel.Text = "Phone Number";
             // 
             // phoneNumTextBox
             // 
-            phoneNumTextBox.Location = new Point(187, 214);
+            phoneNumTextBox.Location = new Point(267, 357);
+            phoneNumTextBox.Margin = new Padding(4, 5, 4, 5);
             phoneNumTextBox.Name = "phoneNumTextBox";
-            phoneNumTextBox.Size = new Size(100, 23);
+            phoneNumTextBox.Size = new Size(141, 31);
             phoneNumTextBox.TabIndex = 68;
             // 
             // ManageNurses
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(561, 270);
+            ClientSize = new Size(1308, 615);
             Controls.Add(phoneNumLabel);
             Controls.Add(phoneNumTextBox);
             Controls.Add(idTextBox);
@@ -286,6 +310,7 @@
             Controls.Add(saveButton);
             Controls.Add(nurseListBox);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 5, 4, 5);
             Name = "ManageNurses";
             Text = "ManageNurses";
             ResumeLayout(false);

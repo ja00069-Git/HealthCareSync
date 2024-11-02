@@ -36,17 +36,6 @@ namespace HealthCareSync
 
             childForm.TopLevel = false;
 
-            // Makes the UI bigger for the form Manage_Patients
-            if (childForm is Manage_Patients)
-            {
-                this.Size = childForm.Size;
-                this.exitAppBTN.Location = new Point(1050, this.exitAppBTN.Location.Y);
-            }
-            else
-            {
-                this.Size= childForm.Size;
-            }
-
             childForm.Dock = DockStyle.Fill;
             this.mainPanel.Controls.Add(childForm);
             this.mainPanel.Tag = childForm;
@@ -133,9 +122,9 @@ namespace HealthCareSync
         private void LoadManageAppointments()
         {
             ManageAppts manageAppts = new ManageAppts();
-            manageAppts.Dock = DockStyle.None; // Ensure it doesn't dock to fill the panel
-            mainPanel.Controls.Clear(); // Clear previous controls if necessary
-            mainPanel.Controls.Add(manageAppts); // Add the UserControl to the main panel
+            manageAppts.Dock = DockStyle.None; 
+            mainPanel.Controls.Clear();
+            mainPanel.Controls.Add(manageAppts);
         }
 
         private void visitsBTN_Click(object sender, EventArgs e)
@@ -153,6 +142,11 @@ namespace HealthCareSync
             this.Close();
             var login = new LoginForm();
             login.Show();
+        }
+
+        private void exitAppBTN_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
