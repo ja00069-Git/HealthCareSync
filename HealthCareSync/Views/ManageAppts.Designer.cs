@@ -58,6 +58,7 @@
             reasonErrorLabel = new Label();
             patientNameErrorLabel = new Label();
             generalErrorlLabel = new Label();
+            cancelApptBTN = new Button();
             SuspendLayout();
             // 
             // docsTimesListBox
@@ -65,16 +66,16 @@
             docsTimesListBox.BorderStyle = BorderStyle.FixedSingle;
             docsTimesListBox.FormattingEnabled = true;
             docsTimesListBox.ItemHeight = 25;
-            docsTimesListBox.Location = new Point(71, 267);
+            docsTimesListBox.Location = new Point(71, 317);
             docsTimesListBox.Name = "docsTimesListBox";
-            docsTimesListBox.Size = new Size(312, 177);
+            docsTimesListBox.Size = new Size(312, 277);
             docsTimesListBox.TabIndex = 1;
             docsTimesListBox.SelectedIndexChanged += docsTimesListBox_SelectedIndexChanged;
             // 
             // monthCalendar
             // 
             monthCalendar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            monthCalendar.Location = new Point(71, -16);
+            monthCalendar.Location = new Point(71, 20);
             monthCalendar.Margin = new Padding(0);
             monthCalendar.Name = "monthCalendar";
             monthCalendar.ScrollChange = 1;
@@ -90,7 +91,7 @@
             patientNameTextBox.BorderStyle = BorderStyle.None;
             patientNameTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             patientNameTextBox.ForeColor = SystemColors.HotTrack;
-            patientNameTextBox.Location = new Point(623, 12);
+            patientNameTextBox.Location = new Point(587, 62);
             patientNameTextBox.Multiline = true;
             patientNameTextBox.Name = "patientNameTextBox";
             patientNameTextBox.Size = new Size(246, 28);
@@ -100,7 +101,7 @@
             // 
             panel1.BackColor = Color.IndianRed;
             panel1.ForeColor = SystemColors.ButtonShadow;
-            panel1.Location = new Point(465, 46);
+            panel1.Location = new Point(429, 99);
             panel1.Name = "panel1";
             panel1.Size = new Size(404, 1);
             panel1.TabIndex = 7;
@@ -111,7 +112,7 @@
             patientNameLabel.BackColor = SystemColors.Control;
             patientNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             patientNameLabel.ForeColor = SystemColors.ActiveCaptionText;
-            patientNameLabel.Location = new Point(482, 12);
+            patientNameLabel.Location = new Point(446, 65);
             patientNameLabel.Name = "patientNameLabel";
             patientNameLabel.Size = new Size(129, 25);
             patientNameLabel.TabIndex = 8;
@@ -123,7 +124,7 @@
             doctorsNameLabel.BackColor = SystemColors.Control;
             doctorsNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             doctorsNameLabel.ForeColor = SystemColors.ActiveCaptionText;
-            doctorsNameLabel.Location = new Point(482, 88);
+            doctorsNameLabel.Location = new Point(446, 169);
             doctorsNameLabel.Name = "doctorsNameLabel";
             doctorsNameLabel.Size = new Size(139, 25);
             doctorsNameLabel.TabIndex = 11;
@@ -135,7 +136,7 @@
             doctorsNameTextBox.BorderStyle = BorderStyle.None;
             doctorsNameTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             doctorsNameTextBox.ForeColor = SystemColors.HotTrack;
-            doctorsNameTextBox.Location = new Point(623, 83);
+            doctorsNameTextBox.Location = new Point(591, 163);
             doctorsNameTextBox.Multiline = true;
             doctorsNameTextBox.Name = "doctorsNameTextBox";
             doctorsNameTextBox.Size = new Size(246, 31);
@@ -145,7 +146,7 @@
             // 
             panel2.BackColor = Color.IndianRed;
             panel2.ForeColor = SystemColors.ButtonShadow;
-            panel2.Location = new Point(465, 116);
+            panel2.Location = new Point(429, 197);
             panel2.Name = "panel2";
             panel2.Size = new Size(404, 1);
             panel2.TabIndex = 10;
@@ -156,7 +157,7 @@
             appointmentTimeLabel.BackColor = SystemColors.Control;
             appointmentTimeLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             appointmentTimeLabel.ForeColor = SystemColors.ActiveCaptionText;
-            appointmentTimeLabel.Location = new Point(482, 163);
+            appointmentTimeLabel.Location = new Point(446, 266);
             appointmentTimeLabel.Name = "appointmentTimeLabel";
             appointmentTimeLabel.Size = new Size(107, 25);
             appointmentTimeLabel.TabIndex = 14;
@@ -168,7 +169,7 @@
             appointmentTimeTextBox.BorderStyle = BorderStyle.None;
             appointmentTimeTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             appointmentTimeTextBox.ForeColor = SystemColors.HotTrack;
-            appointmentTimeTextBox.Location = new Point(595, 157);
+            appointmentTimeTextBox.Location = new Point(559, 260);
             appointmentTimeTextBox.Multiline = true;
             appointmentTimeTextBox.Name = "appointmentTimeTextBox";
             appointmentTimeTextBox.Size = new Size(274, 33);
@@ -178,7 +179,7 @@
             // 
             panel3.BackColor = Color.IndianRed;
             panel3.ForeColor = SystemColors.ButtonShadow;
-            panel3.Location = new Point(472, 192);
+            panel3.Location = new Point(436, 295);
             panel3.Name = "panel3";
             panel3.Size = new Size(404, 1);
             panel3.TabIndex = 13;
@@ -189,7 +190,7 @@
             reasonLabel.BackColor = SystemColors.Control;
             reasonLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             reasonLabel.ForeColor = SystemColors.ActiveCaptionText;
-            reasonLabel.Location = new Point(482, 250);
+            reasonLabel.Location = new Point(446, 371);
             reasonLabel.Name = "reasonLabel";
             reasonLabel.Size = new Size(76, 25);
             reasonLabel.TabIndex = 17;
@@ -201,7 +202,7 @@
             reasonTextBox.BorderStyle = BorderStyle.None;
             reasonTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             reasonTextBox.ForeColor = SystemColors.HotTrack;
-            reasonTextBox.Location = new Point(574, 249);
+            reasonTextBox.Location = new Point(538, 370);
             reasonTextBox.Multiline = true;
             reasonTextBox.Name = "reasonTextBox";
             reasonTextBox.Size = new Size(295, 32);
@@ -211,7 +212,7 @@
             // 
             panel4.BackColor = Color.IndianRed;
             panel4.ForeColor = SystemColors.ButtonShadow;
-            panel4.Location = new Point(472, 287);
+            panel4.Location = new Point(436, 408);
             panel4.Name = "panel4";
             panel4.Size = new Size(404, 1);
             panel4.TabIndex = 16;
@@ -221,11 +222,11 @@
             scheduleBTN.BackColor = Color.IndianRed;
             scheduleBTN.FlatAppearance.BorderSize = 0;
             scheduleBTN.FlatStyle = FlatStyle.Flat;
-            scheduleBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            scheduleBTN.Font = new Font("Showcard Gothic", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             scheduleBTN.ForeColor = Color.White;
-            scheduleBTN.Location = new Point(472, 384);
+            scheduleBTN.Location = new Point(436, 550);
             scheduleBTN.Name = "scheduleBTN";
-            scheduleBTN.Size = new Size(125, 44);
+            scheduleBTN.Size = new Size(101, 44);
             scheduleBTN.TabIndex = 18;
             scheduleBTN.Text = "Schedule";
             scheduleBTN.UseVisualStyleBackColor = false;
@@ -236,11 +237,11 @@
             EditBTN.BackColor = Color.IndianRed;
             EditBTN.FlatAppearance.BorderSize = 0;
             EditBTN.FlatStyle = FlatStyle.Flat;
-            EditBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            EditBTN.Font = new Font("Showcard Gothic", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             EditBTN.ForeColor = Color.White;
-            EditBTN.Location = new Point(641, 384);
+            EditBTN.Location = new Point(587, 550);
             EditBTN.Name = "EditBTN";
-            EditBTN.Size = new Size(125, 44);
+            EditBTN.Size = new Size(97, 44);
             EditBTN.TabIndex = 19;
             EditBTN.Text = "Edit";
             EditBTN.UseVisualStyleBackColor = false;
@@ -253,7 +254,7 @@
             appointmentsListBox.ItemHeight = 25;
             appointmentsListBox.Location = new Point(940, 40);
             appointmentsListBox.Name = "appointmentsListBox";
-            appointmentsListBox.Size = new Size(326, 277);
+            appointmentsListBox.Size = new Size(326, 402);
             appointmentsListBox.TabIndex = 20;
             appointmentsListBox.SelectedIndexChanged += appointmentsListBox_SelectedIndexChanged;
             // 
@@ -263,19 +264,19 @@
             searchTextBox.BorderStyle = BorderStyle.None;
             searchTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             searchTextBox.ForeColor = SystemColors.HotTrack;
-            searchTextBox.Location = new Point(924, 384);
+            searchTextBox.Location = new Point(921, 550);
             searchTextBox.Multiline = true;
             searchTextBox.Name = "searchTextBox";
-            searchTextBox.Size = new Size(128, 37);
+            searchTextBox.Size = new Size(170, 37);
             searchTextBox.TabIndex = 21;
             // 
             // panel5
             // 
             panel5.BackColor = Color.IndianRed;
             panel5.ForeColor = SystemColors.ButtonShadow;
-            panel5.Location = new Point(924, 427);
+            panel5.Location = new Point(908, 593);
             panel5.Name = "panel5";
-            panel5.Size = new Size(323, 1);
+            panel5.Size = new Size(378, 1);
             panel5.TabIndex = 22;
             // 
             // searchBTN
@@ -285,7 +286,7 @@
             searchBTN.FlatStyle = FlatStyle.Flat;
             searchBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             searchBTN.ForeColor = Color.White;
-            searchBTN.Location = new Point(1058, 377);
+            searchBTN.Location = new Point(1097, 543);
             searchBTN.Name = "searchBTN";
             searchBTN.Size = new Size(95, 44);
             searchBTN.TabIndex = 23;
@@ -296,7 +297,7 @@
             // searchLabel
             // 
             searchLabel.AutoSize = true;
-            searchLabel.Location = new Point(939, 328);
+            searchLabel.Location = new Point(940, 476);
             searchLabel.Name = "searchLabel";
             searchLabel.Size = new Size(0, 25);
             searchLabel.TabIndex = 24;
@@ -319,7 +320,7 @@
             avalableTimesLabel.BackColor = SystemColors.Control;
             avalableTimesLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             avalableTimesLabel.ForeColor = SystemColors.ActiveCaptionText;
-            avalableTimesLabel.Location = new Point(71, 239);
+            avalableTimesLabel.Location = new Point(71, 287);
             avalableTimesLabel.Name = "avalableTimesLabel";
             avalableTimesLabel.Size = new Size(140, 25);
             avalableTimesLabel.TabIndex = 26;
@@ -328,17 +329,17 @@
             // panel6
             // 
             panel6.BackColor = Color.IndianRed;
-            panel6.Location = new Point(421, 12);
+            panel6.Location = new Point(412, 12);
             panel6.Name = "panel6";
-            panel6.Size = new Size(1, 409);
+            panel6.Size = new Size(1, 589);
             panel6.TabIndex = 27;
             // 
             // panel7
             // 
             panel7.BackColor = Color.IndianRed;
-            panel7.Location = new Point(896, 12);
+            panel7.Location = new Point(887, 12);
             panel7.Name = "panel7";
-            panel7.Size = new Size(1, 409);
+            panel7.Size = new Size(1, 594);
             panel7.TabIndex = 28;
             // 
             // clearSearchBTN
@@ -348,7 +349,7 @@
             clearSearchBTN.FlatStyle = FlatStyle.Flat;
             clearSearchBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             clearSearchBTN.ForeColor = Color.White;
-            clearSearchBTN.Location = new Point(1159, 375);
+            clearSearchBTN.Location = new Point(1198, 541);
             clearSearchBTN.Name = "clearSearchBTN";
             clearSearchBTN.Size = new Size(95, 44);
             clearSearchBTN.TabIndex = 29;
@@ -359,7 +360,7 @@
             // patentNameErrorLabel
             // 
             patentNameErrorLabel.AutoSize = true;
-            patentNameErrorLabel.Location = new Point(482, 50);
+            patentNameErrorLabel.Location = new Point(446, 103);
             patentNameErrorLabel.Name = "patentNameErrorLabel";
             patentNameErrorLabel.Size = new Size(0, 25);
             patentNameErrorLabel.TabIndex = 30;
@@ -367,7 +368,7 @@
             // reasonErrorLabel
             // 
             reasonErrorLabel.AutoSize = true;
-            reasonErrorLabel.Location = new Point(482, 291);
+            reasonErrorLabel.Location = new Point(446, 412);
             reasonErrorLabel.Name = "reasonErrorLabel";
             reasonErrorLabel.Size = new Size(0, 25);
             reasonErrorLabel.TabIndex = 31;
@@ -375,7 +376,7 @@
             // patientNameErrorLabel
             // 
             patientNameErrorLabel.AutoSize = true;
-            patientNameErrorLabel.Location = new Point(482, 50);
+            patientNameErrorLabel.Location = new Point(446, 103);
             patientNameErrorLabel.Name = "patientNameErrorLabel";
             patientNameErrorLabel.Size = new Size(0, 25);
             patientNameErrorLabel.TabIndex = 32;
@@ -383,16 +384,31 @@
             // generalErrorlLabel
             // 
             generalErrorlLabel.AutoSize = true;
-            generalErrorlLabel.Location = new Point(472, 339);
+            generalErrorlLabel.Location = new Point(446, 476);
             generalErrorlLabel.Name = "generalErrorlLabel";
             generalErrorlLabel.Size = new Size(0, 25);
             generalErrorlLabel.TabIndex = 33;
+            // 
+            // cancelApptBTN
+            // 
+            cancelApptBTN.BackColor = Color.IndianRed;
+            cancelApptBTN.FlatAppearance.BorderSize = 0;
+            cancelApptBTN.FlatStyle = FlatStyle.Flat;
+            cancelApptBTN.Font = new Font("Showcard Gothic", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cancelApptBTN.ForeColor = Color.White;
+            cancelApptBTN.Location = new Point(736, 550);
+            cancelApptBTN.Name = "cancelApptBTN";
+            cancelApptBTN.Size = new Size(97, 44);
+            cancelApptBTN.TabIndex = 34;
+            cancelApptBTN.Text = "Cancel";
+            cancelApptBTN.UseVisualStyleBackColor = false;
             // 
             // ManageAppts
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
+            BackColor = Color.Transparent;
+            Controls.Add(cancelApptBTN);
             Controls.Add(generalErrorlLabel);
             Controls.Add(patientNameErrorLabel);
             Controls.Add(reasonErrorLabel);
@@ -424,7 +440,7 @@
             Controls.Add(docsTimesListBox);
             Controls.Add(monthCalendar);
             Name = "ManageAppts";
-            Size = new Size(1308, 450);
+            Size = new Size(1308, 615);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -461,5 +477,6 @@
         private Label reasonErrorLabel;
         private Label patientNameErrorLabel;
         private Label generalErrorlLabel;
+        private Button cancelApptBTN;
     }
 }

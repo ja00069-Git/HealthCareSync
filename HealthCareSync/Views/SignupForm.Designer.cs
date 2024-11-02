@@ -36,7 +36,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(257, 183);
+            label1.Location = new Point(533, 234);
             label1.Name = "label1";
             label1.Size = new Size(183, 38);
             label1.TabIndex = 0;
@@ -48,7 +48,7 @@
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
-            exitAppBTN.Location = new Point(734, 12);
+            exitAppBTN.Location = new Point(1242, 12);
             exitAppBTN.Name = "exitAppBTN";
             exitAppBTN.Size = new Size(54, 54);
             exitAppBTN.TabIndex = 1;
@@ -60,7 +60,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1308, 615);
             Controls.Add(exitAppBTN);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;

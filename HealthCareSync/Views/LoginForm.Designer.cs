@@ -48,7 +48,7 @@
             pictureBox1.Image = Properties.Resources.logo_icon;
             pictureBox1.Location = new Point(1, -1);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(457, 449);
+            pictureBox1.Size = new Size(700, 613);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -56,9 +56,9 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.red_user_icon;
-            pictureBox2.Location = new Point(464, 84);
+            pictureBox2.Location = new Point(724, 127);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(61, 53);
+            pictureBox2.Size = new Size(146, 53);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
@@ -67,17 +67,17 @@
             // 
             panel1.BackColor = Color.IndianRed;
             panel1.ForeColor = SystemColors.ButtonShadow;
-            panel1.Location = new Point(464, 143);
+            panel1.Location = new Point(724, 186);
             panel1.Name = "panel1";
-            panel1.Size = new Size(324, 3);
+            panel1.Size = new Size(454, 3);
             panel1.TabIndex = 5;
             // 
             // pictureBox3
             // 
             pictureBox3.Image = Properties.Resources.security_icon;
-            pictureBox3.Location = new Point(464, 204);
+            pictureBox3.Location = new Point(724, 247);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(61, 53);
+            pictureBox3.Size = new Size(146, 53);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 1;
             pictureBox3.TabStop = false;
@@ -86,9 +86,9 @@
             // 
             panel2.BackColor = Color.IndianRed;
             panel2.ForeColor = SystemColors.ButtonShadow;
-            panel2.Location = new Point(464, 263);
+            panel2.Location = new Point(724, 306);
             panel2.Name = "panel2";
-            panel2.Size = new Size(324, 3);
+            panel2.Size = new Size(454, 3);
             panel2.TabIndex = 5;
             // 
             // loginBTN
@@ -98,9 +98,9 @@
             loginBTN.FlatStyle = FlatStyle.Flat;
             loginBTN.Font = new Font("Showcard Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             loginBTN.ForeColor = Color.White;
-            loginBTN.Location = new Point(553, 283);
+            loginBTN.Location = new Point(813, 326);
             loginBTN.Name = "loginBTN";
-            loginBTN.Size = new Size(125, 56);
+            loginBTN.Size = new Size(255, 56);
             loginBTN.TabIndex = 3;
             loginBTN.Text = "Log In";
             loginBTN.UseVisualStyleBackColor = false;
@@ -112,10 +112,10 @@
             usernameTB.BorderStyle = BorderStyle.None;
             usernameTB.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usernameTB.ForeColor = SystemColors.HotTrack;
-            usernameTB.Location = new Point(531, 100);
+            usernameTB.Location = new Point(885, 127);
             usernameTB.Multiline = true;
             usernameTB.Name = "usernameTB";
-            usernameTB.Size = new Size(257, 37);
+            usernameTB.Size = new Size(293, 53);
             usernameTB.TabIndex = 1;
             // 
             // passwordTB
@@ -124,11 +124,11 @@
             passwordTB.BorderStyle = BorderStyle.None;
             passwordTB.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
             passwordTB.ForeColor = SystemColors.HotTrack;
-            passwordTB.Location = new Point(531, 217);
+            passwordTB.Location = new Point(893, 247);
             passwordTB.Multiline = true;
             passwordTB.Name = "passwordTB";
             passwordTB.PasswordChar = '*';
-            passwordTB.Size = new Size(257, 40);
+            passwordTB.Size = new Size(285, 53);
             passwordTB.TabIndex = 2;
             // 
             // sigupLabel
@@ -136,7 +136,7 @@
             sigupLabel.AutoSize = true;
             sigupLabel.Font = new Font("MS UI Gothic", 12F, FontStyle.Underline, GraphicsUnit.Point, 0);
             sigupLabel.ForeColor = SystemColors.HotTrack;
-            sigupLabel.Location = new Point(486, 375);
+            sigupLabel.Location = new Point(746, 418);
             sigupLabel.Name = "sigupLabel";
             sigupLabel.Size = new Size(284, 24);
             sigupLabel.TabIndex = 4;
@@ -149,7 +149,7 @@
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
-            exitAppBTN.Location = new Point(734, 12);
+            exitAppBTN.Location = new Point(1242, 12);
             exitAppBTN.Name = "exitAppBTN";
             exitAppBTN.Size = new Size(54, 54);
             exitAppBTN.TabIndex = 6;
@@ -161,7 +161,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1308, 615);
             Controls.Add(exitAppBTN);
             Controls.Add(sigupLabel);
             Controls.Add(passwordTB);
