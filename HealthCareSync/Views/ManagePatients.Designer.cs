@@ -93,7 +93,7 @@
             patientListBox.Location = new Point(382, 40);
             patientListBox.Name = "patientListBox";
             patientListBox.Size = new Size(120, 169);
-            patientListBox.TabIndex = 0;
+            patientListBox.TabIndex = 7;
             patientListBox.SelectedIndexChanged += PatientListBox_SelectedIndexChanged;
             // 
             // saveButton
@@ -355,7 +355,7 @@
             stateComboBox.FormattingEnabled = true;
             stateComboBox.Location = new Point(896, 139);
             stateComboBox.Name = "stateComboBox";
-            stateComboBox.Size = new Size(100, 23);
+            stateComboBox.Size = new Size(41, 23);
             stateComboBox.TabIndex = 31;
             // 
             // genderComboBox
@@ -395,7 +395,7 @@
             searchLastNameTextBox.Location = new Point(162, 222);
             searchLastNameTextBox.Name = "searchLastNameTextBox";
             searchLastNameTextBox.Size = new Size(156, 17);
-            searchLastNameTextBox.TabIndex = 35;
+            searchLastNameTextBox.TabIndex = 4;
             // 
             // searchBirthDatePicker
             // 
@@ -403,7 +403,7 @@
             searchBirthDatePicker.Location = new Point(167, 83);
             searchBirthDatePicker.Name = "searchBirthDatePicker";
             searchBirthDatePicker.Size = new Size(100, 23);
-            searchBirthDatePicker.TabIndex = 36;
+            searchBirthDatePicker.TabIndex = 1;
             // 
             // searchFirstNameTextBox
             // 
@@ -413,7 +413,7 @@
             searchFirstNameTextBox.Location = new Point(165, 177);
             searchFirstNameTextBox.Name = "searchFirstNameTextBox";
             searchFirstNameTextBox.Size = new Size(146, 17);
-            searchFirstNameTextBox.TabIndex = 39;
+            searchFirstNameTextBox.TabIndex = 3;
             // 
             // label1
             // 
@@ -442,7 +442,7 @@
             searchByBirthDateCheckBox.Location = new Point(155, 57);
             searchByBirthDateCheckBox.Name = "searchByBirthDateCheckBox";
             searchByBirthDateCheckBox.Size = new Size(134, 19);
-            searchByBirthDateCheckBox.TabIndex = 42;
+            searchByBirthDateCheckBox.TabIndex = 0;
             searchByBirthDateCheckBox.Text = "Search by Birth Date";
             searchByBirthDateCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -453,7 +453,7 @@
             searchByNameCheckBox.Location = new Point(155, 147);
             searchByNameCheckBox.Name = "searchByNameCheckBox";
             searchByNameCheckBox.Size = new Size(113, 19);
-            searchByNameCheckBox.TabIndex = 43;
+            searchByNameCheckBox.TabIndex = 2;
             searchByNameCheckBox.Text = "Search by Name";
             searchByNameCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -467,7 +467,7 @@
             searchButton.Location = new Point(211, 280);
             searchButton.Name = "searchButton";
             searchButton.Size = new Size(100, 33);
-            searchButton.TabIndex = 44;
+            searchButton.TabIndex = 6;
             searchButton.Text = "Search";
             searchButton.UseVisualStyleBackColor = false;
             searchButton.Click += searchButton_Click;
@@ -482,7 +482,7 @@
             resetSearchButton.Location = new Point(79, 280);
             resetSearchButton.Name = "resetSearchButton";
             resetSearchButton.Size = new Size(100, 33);
-            resetSearchButton.TabIndex = 45;
+            resetSearchButton.TabIndex = 5;
             resetSearchButton.Text = "Reset";
             resetSearchButton.UseVisualStyleBackColor = false;
             resetSearchButton.Click += resetSearchButton_Click;

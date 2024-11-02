@@ -19,6 +19,7 @@ namespace HealthCareSync.Views
         private readonly string PHONE_NUMBER_REGEX_PATTERN = @"^(?:\+?(\d{1,3})[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}$";
         private readonly string ZIP_REGEX_PATTERN = @"^\d{5}$";
         private readonly string BIRTH_DATE_REGEX_PATTERN = @"^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/([0-9]{4})$";
+        private readonly string PASSWORD_REGEX_PATTERN = @"^[A-Za-z0-9]{6,}$";
         private readonly string ERROR_FIRST_NAME = "First name cannot be blank.";
         private readonly string ERROR_LAST_NAME = "Last name cannot be blank.";
         private readonly string ERROR_BIRTH_DATE = "Birth date must be in the format MM/dd/yyyy";
@@ -28,16 +29,19 @@ namespace HealthCareSync.Views
         private readonly string ERROR_ZIP = "Zip must be 5 digits";
         private readonly string ERROR_CITY = "Enter a city";
         private readonly string ERROR_STATE = "Select a state";
+        private readonly string ERROR_USERNAME = "Username cannot be blank";
+        private readonly string ERROR_USERNAME_TAKEN = "Username is already taken";
+        private readonly string ERROR_PASSWORD = "Password must be more than 5 characters, letters and digits only";
 
         private string errorMessages = string.Empty;
 
         private ManageNursesViewModel viewModel;
-       
+
         public ManageNurses()
         {
             InitializeComponent();
             this.viewModel = new ManageNursesViewModel();
-            
+
             this.bindToViewModel();
             this.ClearAllBoxes();
             this.nurseListBox.SelectedIndex = -1;
@@ -46,14 +50,9 @@ namespace HealthCareSync.Views
         private void bindToViewModel()
         {
             this.nurseListBox.DataSource = this.viewModel.Nurses;
-           
             this.nurseListBox.DisplayMember = "FullName";
-            List<string> items = new List<string> { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
-                                            "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-                                            "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-                                            "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-                                            "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY" };
-            stateComboBoxForNurse.Items.AddRange(items.ToArray());
+
+            this.stateComboBoxForNurse.DataSource = this.viewModel.States;
 
         }
         private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
@@ -69,7 +68,7 @@ namespace HealthCareSync.Views
         private void BindComboBox(ComboBox comboBox, object dataSource, string dataMember)
         {
             comboBox.DataBindings.Clear();
-            comboBox.DataBindings.Add("SelectedValue", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
+            comboBox.DataBindings.Add("SelectedItem", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
 
@@ -90,10 +89,9 @@ namespace HealthCareSync.Views
         }
         private void NurseListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (this.nurseListBox.SelectedItem is Nurse)
             {
-                this.deleteNurseButton.Enabled = true;
                 this.unselectNurseButton.Enabled = true;
                 this.saveNurseButton.Enabled = true;
                 this.viewModel.SelectedNurse = (Nurse)this.nurseListBox.SelectedItem;
@@ -113,7 +111,6 @@ namespace HealthCareSync.Views
             }
             else
             {
-                this.deleteNurseButton.Enabled = false;
                 this.unselectNurseButton.Enabled = false;
                 this.saveNurseButton.Enabled = false;
                 this.viewModel.SelectedNurse = null!;
@@ -123,35 +120,32 @@ namespace HealthCareSync.Views
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            try
+            var fname = this.firstNameTextBox.Text;
+            var lname = this.lastNameTextBox.Text;
+            var bDate = this.dateTimePickerForNurse.Value;
+            var phoneNum = this.phoneNumTextBox.Text;
+            var username = this.usernameTextBox.Text;
+            var password = this.passwordTextBox.Text;
+            var address1 = this.address1TextBox.Text;
+            var zip = this.zipTextBox.Text;
+            var city = this.cityTextBox.Text;
+            var state = this.stateComboBoxForNurse.Text;
+            var address2 = this.address2TextBox.Text;
+            var isEditing = this.viewModel.SelectedNurse.Username.Equals(username);
+
+            if (this.inputsValid(fname, lname, phoneNum, address1, city, zip, username, password, isEditing))
             {
-                this.errorLabel.ForeColor = Color.Red;
-                this.errorLabel.Text = string.Empty;
-
-                var fname = this.firstNameTextBox.Text;
-                var lname = this.lastNameTextBox.Text;
-                var formattedBDate = this.dateTimePickerForNurse.Text;
-                var phoneNum = this.phoneNumTextBox.Text;
-                var username = this.usernameTextBox.Text;
-                var address1 = this.address1TextBox.Text;
-                var zip = this.zipTextBox.Text;
-                var city = this.cityTextBox.Text;
-                var state = this.stateComboBoxForNurse.Text;
-                var address2 = this.address2TextBox.Text;
-
-                if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
-                {
-                    this.viewModel.Save(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, username);
-                    this.refreshListBox();
-                    this.errorLabel.ForeColor = Color.Green;
-                    this.errorLabel.Text = "Successfully edited nurse";
-                }
+                this.viewModel.Save(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password);
+                this.refreshListBox();
+                this.errorLabel.ForeColor = Color.Green;
+                this.errorLabel.Text = "Successfully edited nurse";
             }
-            catch (Exception)
+            else
             {
-
-                this.errorLabel.Text = "User doesn't exists.";
+                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+
         }
         private void refreshListBox()
         {
@@ -159,7 +153,39 @@ namespace HealthCareSync.Views
             this.nurseListBox.DataSource = this.viewModel.Nurses;
             this.nurseListBox.DisplayMember = "FullName";
         }
-        private bool inputsValid(string fname, string lname, string phoneNum, string address1, string city, string zip)
+
+        private void addNurseButton_Click(object sender, EventArgs e)
+        {
+
+            var fname = this.firstNameTextBox.Text;
+            var lname = this.lastNameTextBox.Text;
+            var bDate = this.dateTimePickerForNurse.Value;
+            var phoneNum = this.phoneNumTextBox.Text;
+            var username = this.usernameTextBox.Text;
+            var password = this.passwordTextBox.Text;
+            var address1 = this.address1TextBox.Text;
+            var zip = this.zipTextBox.Text;
+            var city = this.cityTextBox.Text;
+            var state = this.stateComboBoxForNurse.Text;
+            var address2 = this.address2TextBox.Text;
+
+
+            if (this.inputsValid(fname, lname, phoneNum, address1, city, zip, username, password, false))
+            {
+                this.viewModel.Add(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password);
+                this.refreshListBox();
+                this.nurseListBox.SelectedItem = this.viewModel.Nurses.Last();
+                this.errorLabel.ForeColor = Color.Green;
+                this.errorLabel.Text = "Successfully added nurse";
+
+            }
+            else
+            {
+                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool inputsValid(string fname, string lname, string phoneNum, string address1, string city, string zip, string username, string password, bool isEditing)
 
         {
             this.errorMessages = string.Empty;
@@ -174,7 +200,7 @@ namespace HealthCareSync.Views
             {
                 this.errorMessages += $"\n {ERROR_LAST_NAME}";
                 isErrors = true;
-            }  
+            }
             if (!Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
             {
                 this.errorMessages += $"\n {ERROR_PHONE_NUMBER}";
@@ -200,76 +226,26 @@ namespace HealthCareSync.Views
                 this.errorMessages += $"\n {ERROR_ZIP}";
                 isErrors = true;
             }
-
-            return !isErrors;
-        }
-        private bool otherAddressFieldsThanAddress1HasText()
-        {
-            return this.zipTextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateComboBoxForNurse.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
-        }
-        private bool otherAddressFieldsThanZipHasText()
-        {
-            return this.address1TextBox.Text.Trim().Length > 0 || this.cityTextBox.Text.Trim().Length > 0
-                || this.stateComboBoxForNurse.Text.Trim().Length > 0 || this.address2TextBox.Text.Trim().Length > 0;
-        }
-        private void addNurseButton_Click(object sender, EventArgs e)
-        {
-            try
+            if (string.IsNullOrWhiteSpace(username))
             {
-                this.errorLabel.ForeColor = Color.Red;
-                this.errorLabel.Text = string.Empty;
-
-                var fname = this.firstNameTextBox.Text;
-                var lname = this.lastNameTextBox.Text;
-                var formattedBDate = this.dateTimePickerForNurse.Text;
-                var phoneNum = this.phoneNumTextBox.Text;
-                var username = this.usernameTextBox.Text;
-                var address1 = this.address1TextBox.Text;
-                var zip = this.zipTextBox.Text;
-                var city = this.cityTextBox.Text;
-                var state = this.stateComboBoxForNurse.Text;
-                var address2 = this.address2TextBox.Text;
-
-
-                if (this.inputsValid(fname, lname, formattedBDate, phoneNum, address1, zip))
+                this.errorMessages += $"\n {ERROR_USERNAME}";
+                isErrors = true;
+            }
+            if (!isEditing)
+            {
+                if (!this.viewModel.IsUsernameAvailable(username))
                 {
-
-
-                    this.viewModel.Add(fname, lname, formattedBDate, phoneNum, address1, zip, city, state, address2, username);
-                    this.refreshListBox();
-                    this.nurseListBox.SelectedItem = this.viewModel.Nurses.Last();
-                    this.errorLabel.ForeColor = Color.Green;
-                    this.errorLabel.Text = "Successfully added nurse";
-
+                    this.errorMessages += $"\n {ERROR_USERNAME_TAKEN}";
+                    isErrors = true;
                 }
             }
-            catch (Exception)
+            if (!Regex.IsMatch(password, PASSWORD_REGEX_PATTERN))
             {
-
-                this.errorLabel.Text = "User doesn't exists.";
+                this.errorMessages += $"\n {ERROR_PASSWORD}";
+                isErrors = true;
             }
 
-
-        }
-
-        private void deleteNurseButton_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show(
-                "Are you sure you want to delete the selected murse?",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning
-            );
-
-            if (dialogResult == DialogResult.Yes)
-            {
-                this.viewModel.Delete();
-                this.ClearAllBoxes();
-                this.refreshListBox();
-                this.errorLabel.ForeColor = Color.Green;
-                this.errorLabel.Text = "Successfully deleted nurse";
-            }
+            return !isErrors;
         }
 
         private void unselectNurseButton_Click(object sender, EventArgs e)
@@ -279,9 +255,5 @@ namespace HealthCareSync.Views
             this.errorLabel.Text = string.Empty;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -4,6 +4,8 @@
     {
         bool isCollapsedAd;
         bool isMngVisitCollapsedAd;
+        private readonly Point exitBtnStartingLocation = new Point(514, 7);
+
         public AdminHomePage()
         {
             InitializeComponent();
@@ -25,6 +27,10 @@
             {
                 this.adminMainPanel.Controls.RemoveAt(0);
             }
+
+            this.Size = childForm.Size;
+            this.exitAppBTN.Location = this.exitBtnStartingLocation;
+
             childForm.TopLevel = false;
             childForm.Dock = DockStyle.Fill;
             this.adminMainPanel.Controls.Add(childForm);

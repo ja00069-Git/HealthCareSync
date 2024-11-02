@@ -14,12 +14,15 @@ namespace HealthCareSync.DAL
 
         public UserDAL() { }
 
-        public bool AddUser(string username, string password)
+        /// <summary>
+        /// Adds the user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="connection">The connection.</param>
+        /// <returns></returns>
+        public bool AddUser(string username, string password, MySqlConnection connection)
         {
-            using var connection = new MySqlConnection(Connection.ConnectionString());
-
-            connection.Open();
-
             if (!this.isUsernameAvailable(username, connection))
             {
                 return false;
@@ -39,19 +42,24 @@ namespace HealthCareSync.DAL
             return true;
         }
 
-        public bool SaveEditedUser(string username, string password, bool didUsernameChange)
+        /// <summary>
+        /// Saves the edited user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <param name="password">The password.</param>
+        /// <param name="didUsernameChange">if set to <c>true</c> [did username change].</param>
+        /// <param name="connection">The connection.</param>
+        /// <param name="transaction">The transaction.</param>
+        /// <returns></returns>
+        public bool SaveEditedUser(string username, string password, bool didUsernameChange, MySqlConnection connection, MySqlTransaction transaction)
         {
-            using var connection = new MySqlConnection(Connection.ConnectionString());
-
-            connection.Open();
 
             if (didUsernameChange)
             {
-                if (!this.AddUser(username, password))
+                if (!this.AddUser(username, password, connection))
                 {
                     return false;
                 }
-                this.deleteUnreferencedUsers(connection);
             }
             
 
@@ -64,18 +72,25 @@ namespace HealthCareSync.DAL
             command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
             command.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
 
+            command.Transaction = transaction;
+
             command.ExecuteNonQuery();
 
             return true;
         }
 
-        public User GetUser(string username)
+        /// <summary>
+        /// Gets the user.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        public User? GetUser(string username)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
             connection.Open();
 
-            var query = @"SELECT username, password
+            var query = @"SELECT password
                           FROM user
                           WHERE username = @username";
 
@@ -85,11 +100,20 @@ namespace HealthCareSync.DAL
 
             using var reader = command.ExecuteReader();
 
-            var usernameOrdinal = reader.GetOrdinal("username");
             var passwordOrdinal = reader.GetOrdinal("password");
 
-            var user_name = reader.GetFieldValueCheckNull<string>(usernameOrdinal);
-            var password = reader.GetFieldValueCheckNull<string>(passwordOrdinal);
+            var password = string.Empty;
+
+            while (reader.Read())
+            {
+                password = reader.GetFieldValueCheckNull<string>(passwordOrdinal);
+
+            }
+            
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                return null;
+            }
 
             return new User(username, password);
         }
@@ -104,12 +128,43 @@ namespace HealthCareSync.DAL
 
             command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
 
-            int count = (int)command.ExecuteScalar();
-            
+            int count = Convert.ToInt32(command.ExecuteScalar());
+
             return count == 0;   
         }
 
-        private void deleteUnreferencedUsers(MySqlConnection connection)
+        /// <summary>
+        /// Determines whether [is username available] [the specified username].
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns>
+        ///   <c>true</c> if [is username available] [the specified username]; otherwise, <c>false</c>.
+        /// </returns>
+        public bool IsUsernameAvailable(string username)
+        {
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"SELECT COUNT(1)
+                          FROM user
+                          WHERE username = @username";
+
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
+
+            int count = Convert.ToInt32(command.ExecuteScalar());
+
+            return count == 0;
+        }
+
+        /// <summary>
+        /// Deletes the unreferenced users.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <param name="transaction">The transaction.</param>
+        public void DeleteUnreferencedUsers(MySqlConnection connection, MySqlTransaction transaction)
         {
 
             var query = @"DELETE FROM user
@@ -119,6 +174,8 @@ namespace HealthCareSync.DAL
                             SELECT 1 from nurse where nurse.username = user.username)";
 
             using var command = new MySqlCommand(query, connection);
+
+            command.Transaction = transaction;
 
             command.ExecuteNonQuery();
 

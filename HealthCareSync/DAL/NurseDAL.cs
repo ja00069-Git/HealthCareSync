@@ -13,13 +13,14 @@ namespace HealthCareSync.DAL
     internal class NurseDAL
     {
         private AddressDAL addressDAL;
+        private UserDAL userDAL;
 
         private readonly string connectionString = Connection.ConnectionString();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PatientDAL"/> class.
         /// </summary>
-        public NurseDAL() { this.addressDAL = new AddressDAL(); }
+        public NurseDAL() { this.addressDAL = new AddressDAL(); this.userDAL = new UserDAL(); }
 
         /// <summary>
         /// Adds the nurse.
@@ -34,9 +35,10 @@ namespace HealthCareSync.DAL
         /// <param name="address_2">The address 2.</param>
         /// <param name="phone_num">The phone number.</param>
         /// <param name="username">The username.</param>
+        /// <param name="password">The password</param>
         /// <returns></returns>
-        public int AddNurse(string fname, string lname, DateTime bdate, string? address_1,
-            string? zip, string? city, string? state, string? address_2, string? phone_num, string? username)
+        public int AddNurse(string fname, string lname, DateTime bdate, string address_1,
+            string zip, string city, string state, string? address_2, string phone_num, string username, string password)
         {
             using var connection = new MySqlConnection(connectionString);
 
@@ -44,31 +46,24 @@ namespace HealthCareSync.DAL
 
             MySqlTransaction transaction = connection.BeginTransaction();
 
-            var query = string.Empty;
-            int address_id = 0;
-            int id = 0;
+            var query = @"insert into nurse (fname, lname, birth_date, phone_num, address_id, username)
+                          values (@fname, @lname, @bdate, @phone_num, @address, @username)";
 
             using var command = new MySqlCommand(query, connection);
             command.Transaction = transaction;
 
+            int id = 0;
+
+            this.userDAL.AddUser(username, password, connection);
+
             try
             {
-                if (string.IsNullOrWhiteSpace(address_1))
-                {
-                    query = @"insert into nurse (fname, lname, birth_date, phone_num, username)
-                          values (@fname, @lname, @bdate, @phone_num, @username)";
-                }
-                else
-                {
-                    address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(connection, transaction, address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
 
-                    query = @"insert into nurse (fname, lname, birth_date, phone_num, address, username)
-                          values (@fname, @lname, @bdate, @phone_num, @address, @username)";
-                }
+                int address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(connection, transaction, address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
 
                 command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fname;
                 command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
-                command.Parameters.Add("@address_id", MySqlDbType.Int32).Value = address_id;
+                command.Parameters.Add("@address", MySqlDbType.Int32).Value = address_id;
                 command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
                 command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
                 command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
@@ -80,22 +75,12 @@ namespace HealthCareSync.DAL
 
                 using var retrieveIdCommand = new MySqlCommand(retrieveQuery, connection);
                 retrieveIdCommand.Transaction = transaction;
-                using var retrieveIdReader = retrieveIdCommand.ExecuteReader();
-                int idOrdinal = retrieveIdReader.GetOrdinal("LAST_INSERT_ID()");
 
-                while (retrieveIdReader.Read())
-                {
-                    ulong tempId = retrieveIdReader.GetFieldValueCheckNull<UInt64>(idOrdinal);
-
-                    if (tempId <= Int32.MaxValue)
-                    {
-                        id = (int)tempId;
-                    }
-                }
+                id = Convert.ToInt32(retrieveIdCommand.ExecuteScalar());
 
                 transaction.Commit();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 try
                 {
@@ -107,7 +92,7 @@ namespace HealthCareSync.DAL
                 }
             }
 
-            
+
             return id;
         }
 
@@ -144,8 +129,10 @@ namespace HealthCareSync.DAL
         /// <param name="address_2">The address 2.</param>
         /// <param name="phone_num">The phone number.</param>
         /// <param name="username">The username.</param>
-        public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, string? address_1,
-            string? zip, string? city, string? state, string? address_2, string? phone_num, string? username)
+        /// <param name="password">The password</param>
+        /// <param name="didUsernameChange">The bool of if the username was changed</param>
+        public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, string address_1,
+            string zip, string city, string state, string? address_2, string phone_num, string username, string password, bool didUsernameChange)
         {
             using var connection = new MySqlConnection(connectionString);
 
@@ -153,30 +140,19 @@ namespace HealthCareSync.DAL
 
             MySqlTransaction transaction = connection.BeginTransaction();
 
-            var query = string.Empty;
-            int address_id = 0;
+            var query = @"update nurse 
+                        set fname = @fname, lname = @lname, address_id = @address_id,
+                        birth_date = @bdate, phone_num = @phone_num, username = @username
+                        where id = @id";
 
             using var command = new MySqlCommand(query, connection);
             command.Transaction = transaction;
 
-            try 
-            {
-                if (string.IsNullOrWhiteSpace(address_1))
-                {
-                    query = @"update nurse 
-                        set fname = @fname, lname = @lname, address_id = null,
-                        birth_date = @bdate, phone_num = @phone_num, username = @username
-                        where id = @id";
-                }
-                else
-                {
-                    address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(connection, transaction, address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
+            this.userDAL.SaveEditedUser(username, password, didUsernameChange, connection, transaction);
 
-                    query = @"update nurse 
-                        set fname = @fname, lname = @lname, address_id = @address_id,
-                        birth_date = @bdate, phone_num = @phone_num, username = @username
-                        where id = @id";
-                }
+            try
+            {
+                int address_id = this.addressDAL.UpdateAddressIfExistsElseCreate(connection, transaction, address_1!, zip!, city, Enum.Parse<State>(state.ToUpper()), address_2);
 
                 command.Parameters.Add("@fname", MySqlDbType.VarChar).Value = fname;
                 command.Parameters.Add("@lname", MySqlDbType.VarChar).Value = lname;
@@ -188,9 +164,12 @@ namespace HealthCareSync.DAL
 
                 command.ExecuteNonQuery();
 
+                this.addressDAL.DeleteUnreferencedAddresses(connection, transaction);
+                this.userDAL.DeleteUnreferencedUsers(connection, transaction);
+
                 transaction.Commit();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 try
                 {

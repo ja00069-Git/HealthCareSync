@@ -98,7 +98,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The state.
         /// </value>
-        public string? State => SelectedNurse?.Address?.State.ToString().ToUpper();
+        public State? State => SelectedNurse?.Address?.State;
 
         /// <summary>
         /// Gets the address 2.
@@ -108,8 +108,17 @@ namespace HealthCareSync.ViewModels
         /// </value>
         public string? Address_2 => SelectedNurse?.Address?.Address_2;
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        /// <summary>
+        /// Gets or sets the selected nurse.
+        /// </summary>
+        /// <value>
+        /// The selected nurse.
+        /// </value>
         public Nurse SelectedNurse
         {
             get { return selectedNurse; }
@@ -118,7 +127,7 @@ namespace HealthCareSync.ViewModels
                 if (selectedNurse != value)
                 {
                     selectedNurse = value;
-                    selectedNurseAsUser = this.userDAL.GetUser(Username!);
+                    selectedNurseAsUser = this.userDAL.GetUser(Username!)!;
                     OnPropertyChanged(nameof(SelectedNurse));
                     OnPropertyChanged(nameof(FirstName));
                     OnPropertyChanged(nameof(LastName));
@@ -144,7 +153,13 @@ namespace HealthCareSync.ViewModels
         /// </value>
         public ObservableCollection<Nurse> Nurses { get; }
 
-        
+        /// <summary>
+        /// Gets the states.
+        /// </summary>
+        /// <value>
+        /// The states.
+        /// </value>
+        public List<State> States => Enum.GetValues(typeof(State)).Cast<State>().ToList();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManagePatientsViewModel"/> class.
@@ -167,7 +182,7 @@ namespace HealthCareSync.ViewModels
         /// </summary>
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
-        /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="bDate">The b date.</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address1">The address1.</param>
         /// <param name="zip">The zip.</param>
@@ -175,21 +190,21 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="username">The username.</param>
-        public void Add(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, string? username)
+        public void Add(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password)
         {
-            int nurseId = this.nurseDAL.AddNurse(fname, lname, DateTime.Parse(formattedBDate), address1,
-               zip, city, state, address2, phoneNum, username);
-            var newNurse = new Nurse(nurseId, fname, lname, DateTime.Parse(formattedBDate), phoneNum, null, username);
+            int nurseId = this.nurseDAL.AddNurse(fname, lname, bDate, address1,
+               zip, city, state, address2, phoneNum, username, password);
+            var newNurse = new Nurse(nurseId, fname, lname, bDate, phoneNum, null, username);
 
-            if (address1?.Trim().Length > 0 && zip?.Trim().Length > 0)
-            {
-                var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
-                newNurse.Address = address;
-            }
+            var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
+            newNurse.Address = address;
+            
 
             this.Nurses.Add(newNurse);
+            this.selectedNurseAsUser = this.userDAL.GetUser(Username!)!;
 
             OnPropertyChanged(nameof(Nurses));
+            OnPropertyChanged(nameof(selectedNurseAsUser));
         }
 
         /// <summary>
@@ -197,7 +212,7 @@ namespace HealthCareSync.ViewModels
         /// </summary>
         /// <param name="fname">The fname.</param>
         /// <param name="lname">The lname.</param>
-        /// <param name="formattedBDate">The formatted b date.</param>
+        /// <param name="bDate">The b date.</param>
         /// <param name="phoneNum">The phone number.</param>
         /// <param name="address1">The address1.</param>
         /// <param name="zip">The zip.</param>
@@ -205,35 +220,33 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="username">The username.</param>
-        public void Save(string fname, string lname, string formattedBDate, string? phoneNum, string? address1, string? zip, string? city, string? state, string? address2, string? username)
+        public void Save(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password)
         {
-            this.nurseDAL.SaveEditedPatient(this.selectedNurse.Id, fname, lname, DateTime.Parse(formattedBDate), address1,
-            zip, city, state, address2, phoneNum, username);
+            var prevUsername = Username;
+            bool didUsernameChange = !prevUsername!.ToUpper().Equals(username.ToUpper());
+
+            this.nurseDAL.SaveEditedPatient(this.selectedNurse.Id, fname, lname, bDate, address1,
+            zip, city, state, address2, phoneNum, username, password, didUsernameChange);
 
             this.selectedNurse.FirstName = fname;
             this.selectedNurse.LastName = lname;
-            this.selectedNurse.BirthDate = DateTime.Parse(formattedBDate);
+            this.selectedNurse.BirthDate = bDate;
             this.selectedNurse.PhoneNumber = phoneNum;
             this.selectedNurse.Username = username;
+            this.selectedNurseAsUser.Username = username;
+            this.selectedNurseAsUser.Password = password;
 
-            if (address1?.Trim().Length > 0 && zip?.Trim().Length > 0)
-            {
-                if (this.selectedNurse.Address != null)
-                {
-                    this.selectedNurse.Address.Address_1 = address1;
-                    this.selectedNurse.Address.Zip = zip;
-                    this.selectedNurse.Address.City = city;
-                    this.selectedNurse.Address.State = Enum.Parse<State>(state.ToUpper());
-                    this.selectedNurse.Address.Address_2 = address2;
-                }
-                else
-                {
-                    var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
-                    this.selectedNurse.Address = address;
-                }
-            }
-
+            this.selectedNurse.Address!.Address_1 = address1;
+            this.selectedNurse.Address.Zip = zip;
+            this.selectedNurse.Address.City = city;
+            this.selectedNurse.Address.State = Enum.Parse<State>(state.ToUpper());
+            this.selectedNurse.Address.Address_2 = address2;
+              
+            var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
+            this.selectedNurse.Address = address;
+                
             OnPropertyChanged(nameof(selectedNurse));
+            OnPropertyChanged(nameof(selectedNurseAsUser));
             OnPropertyChanged(nameof(Nurses));
         }
 
@@ -246,6 +259,11 @@ namespace HealthCareSync.ViewModels
 
             this.Nurses.Remove(this.selectedNurse);
             OnPropertyChanged(nameof(Nurses));
+        }
+
+        public bool IsUsernameAvailable(string username)
+        {
+            return this.userDAL.IsUsernameAvailable(username);
         }
     }
 }
