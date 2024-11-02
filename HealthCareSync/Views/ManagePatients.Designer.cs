@@ -473,6 +473,7 @@
             // resetSearchButton
             // 
             resetSearchButton.BackColor = Color.IndianRed;
+            resetSearchButton.Enabled = false;
             resetSearchButton.FlatStyle = FlatStyle.Flat;
             resetSearchButton.Font = new Font("Showcard Gothic", 9F);
             resetSearchButton.ForeColor = Color.White;
