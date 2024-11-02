@@ -17,6 +17,7 @@ namespace HealthCareSync.Models
         private double weight;
         private double height;
 
+
         public int AppointmentId 
         { 
           get { return appointmentId; } 

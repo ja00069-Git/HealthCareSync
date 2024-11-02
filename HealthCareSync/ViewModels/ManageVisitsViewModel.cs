@@ -75,5 +75,25 @@ namespace HealthCareSync.ViewModels
             this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());
             //this.selectedVisitRoutineChecks = this.routineChecksDal.GetRoutineChecks(this.AppointmentId);
         }
+        public void Save (int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM, string symptoms, decimal weight, decimal height)
+        {
+                this.routineChecksDal.SaveEditedRoutineChecks(this.selectedVisitRoutineChecks.AppointmentId, systolicReading, diastolicReading, bodyTemperature, pulseBPM, symptoms, weight, height);
+
+                this.selectedVisitRoutineChecks.AppointmentId = appointmentId;
+                this.selectedVisitRoutineChecks.SystolicReading = systolicReading;
+                this.selectedVisitRoutineChecks.DiastolicReading = diastolicReading;
+                this.selectedVisitRoutineChecks.BodyTemperature = bodyTemperature;
+                this.selectedVisitRoutineChecks.BPM = pulseBPM;
+                this.selectedVisitRoutineChecks.Symptoms = symptoms;
+                this.selectedVisitRoutineChecks.Weight = Convert.ToDouble(weight);
+                this.selectedVisitRoutineChecks.Height = Convert.ToDouble(height);
+
+
+                
+
+                OnPropertyChanged(nameof(selectedVisitRoutineChecks));
+                
+            
+        }
     }
 }

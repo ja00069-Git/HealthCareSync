@@ -90,7 +90,16 @@ namespace HealthCareSync.Views
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            var appointment_id = this.appointmentIdTextBox.Text;
+            var systolic_reading = this.systolicTextBox.Text;
+            var diastolic_reading = this.diastolicTextBox.Text;
+            var body_temperature = this.temperatureTextBox.Text;
+            var pulse_bpm = this.bpmTextBox.Text;
+            var symptoms = this.symptomsTextBox.Text;
+            var weight  = this.weightTextBox.Text;
+            var height = this.heightTextBox.Text;
 
+            this.viewModel.Save(appointment_id, systolic_reading, diastolic_reading, body_temperature, pulse_bpm, symptoms, weight, height);
         }
     }
 }
