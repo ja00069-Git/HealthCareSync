@@ -44,6 +44,7 @@ namespace HealthCareSync.Views
         private void UpdateButtonState(object sender, EventArgs e)
         {
             this.searchButton.Enabled = this.searchByBirthDateCheckBox.Checked || this.searchByNameCheckBox.Checked;
+            this.resetSearchButton.Enabled = this.searchByBirthDateCheckBox.Checked || this.searchByNameCheckBox.Checked;
         }
 
         private void SetupBirthDateTimePicker()
