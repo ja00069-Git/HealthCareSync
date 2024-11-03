@@ -223,7 +223,7 @@
             // 
             nurseListBox.FormattingEnabled = true;
             nurseListBox.ItemHeight = 15;
-            nurseListBox.Location = new Point(50, 19);
+            nurseListBox.Location = new Point(702, 37);
             nurseListBox.Name = "nurseListBox";
             nurseListBox.Size = new Size(120, 184);
             nurseListBox.TabIndex = 46;
@@ -311,7 +311,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(561, 310);
+            ClientSize = new Size(1308, 615);
             Controls.Add(passwordLabel);
             Controls.Add(passwordTextBox);
             Controls.Add(stateComboBoxForNurse);
