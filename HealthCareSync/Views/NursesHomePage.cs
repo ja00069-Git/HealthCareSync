@@ -37,18 +37,10 @@ namespace HealthCareSync
             }
 
             childForm.TopLevel = false;
-
-            // Makes the UI bigger for the form Manage_Patients
-            if (childForm is Manage_Patients)
-            {
-                this.Size = childForm.Size;
-                this.exitAppBTN.Location = new Point(1050, this.exitAppBTN.Location.Y);
-            }  
-            else
-            {
-                this.Size= childForm.Size;
-                this.exitAppBTN.Location = this.exitBtnStartingLocation;
-            }
+           
+            this.Size= childForm.Size;
+            this.exitAppBTN.Location = this.exitBtnStartingLocation;
+            
 
             childForm.Dock = DockStyle.Fill;
             this.mainPanel.Controls.Add(childForm);
