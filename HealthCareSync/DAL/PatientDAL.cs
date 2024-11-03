@@ -463,18 +463,7 @@ namespace HealthCareSync.DAL
                 using var retrieveIdCommand = new MySqlCommand(retrieveQuery, connection);
                 retrieveIdCommand.Transaction = transaction;
 
-                using var retrieveIdReader = retrieveIdCommand.ExecuteReader();
-                int idOrdinal = retrieveIdReader.GetOrdinal("LAST_INSERT_ID()");
-
-                while (retrieveIdReader.Read())
-                {
-                    ulong tempId = retrieveIdReader.GetFieldValueCheckNull<UInt64>(idOrdinal);
-
-                    if (tempId <= Int32.MaxValue)
-                    {
-                        id = (int)tempId;
-                    }
-                }
+                id = Convert.ToInt32(retrieveIdCommand.ExecuteScalar());
 
                 transaction.Commit();
             }

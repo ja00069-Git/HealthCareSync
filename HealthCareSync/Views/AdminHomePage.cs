@@ -25,6 +25,8 @@
             {
                 this.adminMainPanel.Controls.RemoveAt(0);
             }
+
+            this.Size = childForm.Size;
             childForm.TopLevel = false;
             childForm.Dock = DockStyle.Fill;
             this.adminMainPanel.Controls.Add(childForm);
@@ -79,16 +81,14 @@
             login.Show();
         }
 
-        private void exitAppBTN_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-            var login = new LoginForm();
-            login.Show();
-        }
-
         private void generateReportBTN_Click(object sender, EventArgs e)
         {
             openChildFormAd(new GenerateReport());
+        }
+
+        private void exitAppBTN_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

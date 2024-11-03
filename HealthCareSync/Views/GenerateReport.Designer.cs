@@ -35,7 +35,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(253, 166);
+            label1.Location = new Point(461, 277);
             label1.Name = "label1";
             label1.Size = new Size(232, 38);
             label1.TabIndex = 0;
@@ -46,7 +46,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1308, 615);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "GenerateReport";

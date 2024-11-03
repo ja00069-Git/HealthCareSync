@@ -49,17 +49,17 @@ namespace HealthCareSync.ViewModels
                     connection.Open();
 
                     string query = @"
-                  SELECT 
-                     COALESCE(a.fname, n.fname) AS fname,
-                     COALESCE(a.lname, n.lname) AS lname,
-                     CASE 
-                        WHEN a.username IS NOT NULL THEN 'Admin'
-                        WHEN n.username IS NOT NULL THEN 'Nurse'
-                     END AS role
-                  FROM user u
-                  LEFT JOIN administrator a ON u.username = a.username
-                  LEFT JOIN nurse n ON u.username = n.username
-                  WHERE u.username = @username AND u.password = @password";
+                      SELECT 
+                         COALESCE(a.fname, n.fname) AS fname,
+                         COALESCE(a.lname, n.lname) AS lname,
+                         CASE 
+                            WHEN a.username IS NOT NULL THEN 'Admin'
+                            WHEN n.username IS NOT NULL THEN 'Nurse'
+                         END AS role
+                      FROM user u
+                      LEFT JOIN administrator a ON u.username = a.username
+                      LEFT JOIN nurse n ON u.username = n.username
+                      WHERE u.username = @username AND u.password = @password";
 
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
@@ -70,7 +70,9 @@ namespace HealthCareSync.ViewModels
                         {
                             if (reader.Read())
                             {
-                                LoggedInUser = reader["fname"].ToString() + " " + reader["lname"].ToString();
+                                string? firstName = reader["fname"].ToString();
+                                string? lastName = reader["lname"].ToString();
+                                LoggedInUser = $"{User.Username} ({firstName} {lastName})";
 
                                 string? roleString = reader["role"] as string;
                                 UserRole = roleString switch
