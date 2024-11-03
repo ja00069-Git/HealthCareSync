@@ -155,8 +155,6 @@ namespace HealthCareSync.ViewModels
             {
                 selectedDate = value;
                 OnPropertyChanged(nameof(SelectedDate));
-                LoadAppointments();
-                LoadAvailableTimeSlots();
             }
         }
 
@@ -209,12 +207,6 @@ namespace HealthCareSync.ViewModels
         {
             get => appointments;
             set { appointments = value; OnPropertyChanged(nameof(Appointments)); }
-        }
-
-        private void SetELabel(Label label, string message, Color? color = null)
-        {
-            label.Text = message;
-            label.ForeColor = color ?? Color.Red;
         }
 
         // Commands
@@ -278,14 +270,14 @@ namespace HealthCareSync.ViewModels
             int patientId = appointmentDAL.GetPatientIdByName(PatientName);
             if (patientId == 0)
             {
-                PatientNameErrorMessage = "Patient not found.";
+                PatientNameErrorMessage = "Error: Patient not found.";
                 return false;
             }
 
             if (!TryGetSelectedTimeSlot(patientId, out int doctorId, out DateTime appointmentDateTime, out int availabilityId)) return false;
 
             CreateAppointment(patientId, doctorId, appointmentDateTime, Reason, availabilityId);
-            GeneralErrorMessage = "Appointment scheduled successfully!";
+            GeneralErrorMessage = "Success: Appointment scheduled successfully!";
             return true;
         }
 
@@ -330,19 +322,19 @@ namespace HealthCareSync.ViewModels
         {
             if (string.IsNullOrEmpty(PatientSearchName))
             {
-                SearchMessage = "Please enter a patient name to search.";
+                SearchMessage = "Error: Please enter a patient name to search.";
                 return;
             }
 
             var appointments = appointmentDAL.GetAppointmentsByPatientName(PatientSearchName);
             if (!appointments.Any())
             {
-                SearchMessage = "No appointments found.";
+                SearchMessage = "Error: No appointments found.";
                 return;
             }
 
             Appointments = new ObservableCollection<Appointment>(appointments);
-            SearchMessage = $"{appointments.Count} appointments found.";
+            SearchMessage = $"Success: {appointments.Count} appointments found.";
         }
 
         /**
@@ -352,13 +344,9 @@ namespace HealthCareSync.ViewModels
          */
         public void EditAppointment()
         {
-            if (!IsAppointmentSelected() || !ValidateFields()) return;
+            if (!canEditAppointment() || !IsAppointmentSelected() || !ValidateFields()) return;
 
-            if (!TryGetNewAppointmentDetails(out int doctorId, out DateTime appointmentDateTime, out int newAvailabilityId))
-            {
-                GeneralErrorMessage = "Invalid time slot.";
-                return;
-            }
+            if (!TryGetNewAppointmentDetails(out int doctorId, out DateTime appointmentDateTime, out int newAvailabilityId)) return;
 
             int previousAvailabilityId = appointmentDAL.GetAvailabilityId(SelectedAppointment!.DoctorId, SelectedAppointment.DateTime);
             UpdateAppointment(doctorId, appointmentDateTime, newAvailabilityId);
@@ -384,6 +372,16 @@ namespace HealthCareSync.ViewModels
             appointmentDAL.UpdateAppointment(updatedAppointment, newAvailabilityId, previousAvailabilityId);
         }
 
+        private bool canEditAppointment()
+        {
+            if (SelectedAppointment?.DateTime > DateTime.Today)
+            {
+                GeneralErrorMessage = "Error: Can not edit appointment on the appointment day";
+                return false;
+            }
+            return true;
+        }
+
         private bool TryGetNewAppointmentDetails(out int doctorId, out DateTime appointmentDateTime, out int newAvailabilityId)
         {
             doctorId = 0;
@@ -392,14 +390,14 @@ namespace HealthCareSync.ViewModels
 
             if (string.IsNullOrEmpty(SelectedTimeSlot))
             {
-                GeneralErrorMessage = "Please select a time slot.";
+                GeneralErrorMessage = "Error: Please select a time slot.";
                 return false;
             }
 
             var timeSlotParts = SelectedTimeSlot.Split('|');
             if (timeSlotParts.Length != 2)
             {
-                GeneralErrorMessage = "Invalid time slot format.";
+                GeneralErrorMessage = "Error: Invalid time slot format.";
                 return false;
             }
 
@@ -409,7 +407,7 @@ namespace HealthCareSync.ViewModels
             doctorId = appointmentDAL.GetDoctorIdByName(doctorName);
             if (doctorId == 0)
             {
-                GeneralErrorMessage = "Doctor not found.";
+                GeneralErrorMessage = "Error: Doctor not found.";
                 return false;
             }
 
@@ -425,7 +423,7 @@ namespace HealthCareSync.ViewModels
             newAvailabilityId = appointmentDAL.GetAvailabilityId(doctorId, appointmentDateTime);
             if (newAvailabilityId == 0)
             {
-                GeneralErrorMessage = "Time slot not available.";
+                GeneralErrorMessage = "Error: Time slot not available.";
                 return false;
             }
 
@@ -483,19 +481,19 @@ namespace HealthCareSync.ViewModels
 
             if (string.IsNullOrWhiteSpace(PatientName))
             {
-                PatientNameErrorMessage = "Patient name is required.";
+                PatientNameErrorMessage = "Error: Patient name is required.";
                 isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(Reason))
             {
-                ReasonErrorMessage = "Reason for appointment is required.";
+                ReasonErrorMessage = "Error: Reason for appointment is required.";
                 isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(SelectedTimeSlot))
             {
-                GeneralErrorMessage = "Please select a time slot.";
+                GeneralErrorMessage = "Error: Please select a time slot.";
                 isValid = false;
             }
 
@@ -543,13 +541,13 @@ namespace HealthCareSync.ViewModels
             availabilityId = appointmentDAL.GetAvailabilityId(doctorId, appointmentDateTime);
             if (availabilityId == 0)
             {
-                GeneralErrorMessage = "Time slot not available.";
+                GeneralErrorMessage = "Error: Time slot not available.";
                 return false;
             }
 
             if (!appointmentDAL.IsTimeSlotAvailable(patientId, doctorId, appointmentDateTime))
             {
-                GeneralErrorMessage = "Time slot already booked.";
+                GeneralErrorMessage = "Error: Time slot already booked.";
                 return false;
             }
 
@@ -578,7 +576,7 @@ namespace HealthCareSync.ViewModels
         {
             if (SelectedAppointment == null)
             {
-                GeneralErrorMessage = "Select an appointment to edit.";
+                GeneralErrorMessage = "Error: Select an appointment to edit.";
                 return false;
             }
             return true;

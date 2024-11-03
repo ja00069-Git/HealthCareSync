@@ -4,8 +4,6 @@
     {
         bool isCollapsedAd;
         bool isMngVisitCollapsedAd;
-        private readonly Point exitBtnStartingLocation = new Point(514, 7);
-
         public AdminHomePage()
         {
             InitializeComponent();
@@ -29,8 +27,6 @@
             }
 
             this.Size = childForm.Size;
-            this.exitAppBTN.Location = this.exitBtnStartingLocation;
-
             childForm.TopLevel = false;
             childForm.Dock = DockStyle.Fill;
             this.adminMainPanel.Controls.Add(childForm);
@@ -85,19 +81,12 @@
             login.Show();
         }
 
-        private void exitAppBTN_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-            var login = new LoginForm();
-            login.Show();
-        }
-
         private void generateReportBTN_Click(object sender, EventArgs e)
         {
             openChildFormAd(new GenerateReport());
         }
 
-        private void exitAppBTN_Click_1(object sender, EventArgs e)
+        private void exitAppBTN_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }

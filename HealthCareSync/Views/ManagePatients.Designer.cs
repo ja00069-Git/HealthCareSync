@@ -87,10 +87,10 @@
             // patientListBox
             // 
             patientListBox.FormattingEnabled = true;
-            patientListBox.ItemHeight = 15;
+            patientListBox.ItemHeight = 25;
             patientListBox.Location = new Point(699, 20);
             patientListBox.Name = "patientListBox";
-            patientListBox.Size = new Size(277, 469);
+            patientListBox.Size = new Size(277, 454);
             patientListBox.TabIndex = 0;
             patientListBox.SelectedIndexChanged += PatientListBox_SelectedIndexChanged;
             // 
@@ -114,9 +114,9 @@
             firstNameTextBox.BorderStyle = BorderStyle.None;
             firstNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             firstNameTextBox.ForeColor = SystemColors.HotTrack;
-            firstNameTextBox.Location = new Point(141, 20);
+            firstNameTextBox.Location = new Point(179, 20);
             firstNameTextBox.Name = "firstNameTextBox";
-            firstNameTextBox.Size = new Size(195, 17);
+            firstNameTextBox.Size = new Size(157, 26);
             firstNameTextBox.TabIndex = 2;
             // 
             // firstNameLabel
@@ -125,7 +125,7 @@
             firstNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             firstNameLabel.Location = new Point(71, 20);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(64, 15);
+            firstNameLabel.Size = new Size(102, 25);
             firstNameLabel.TabIndex = 3;
             firstNameLabel.Text = "First Name";
             // 
@@ -135,7 +135,7 @@
             lastNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             lastNameLabel.Location = new Point(396, 20);
             lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new Size(63, 15);
+            lastNameLabel.Size = new Size(99, 25);
             lastNameLabel.TabIndex = 4;
             lastNameLabel.Text = "Last Name";
             // 
@@ -145,7 +145,7 @@
             birthDateLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             birthDateLabel.Location = new Point(71, 96);
             birthDateLabel.Name = "birthDateLabel";
-            birthDateLabel.Size = new Size(60, 15);
+            birthDateLabel.Size = new Size(97, 25);
             birthDateLabel.TabIndex = 5;
             birthDateLabel.Text = "Birth Date";
             // 
@@ -155,7 +155,7 @@
             address1Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             address1Label.Location = new Point(71, 237);
             address1Label.Name = "address1Label";
-            address1Label.Size = new Size(57, 15);
+            address1Label.Size = new Size(91, 25);
             address1Label.TabIndex = 6;
             address1Label.Text = "Address 1";
             // 
@@ -165,7 +165,7 @@
             zipcodeLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             zipcodeLabel.Location = new Point(71, 417);
             zipcodeLabel.Name = "zipcodeLabel";
-            zipcodeLabel.Size = new Size(54, 15);
+            zipcodeLabel.Size = new Size(87, 25);
             zipcodeLabel.TabIndex = 7;
             zipcodeLabel.Text = "Zip Code";
             // 
@@ -175,7 +175,7 @@
             stateLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             stateLabel.Location = new Point(396, 356);
             stateLabel.Name = "stateLabel";
-            stateLabel.Size = new Size(34, 15);
+            stateLabel.Size = new Size(54, 25);
             stateLabel.TabIndex = 8;
             stateLabel.Text = "State";
             // 
@@ -184,9 +184,9 @@
             lastNameTextBox.BorderStyle = BorderStyle.None;
             lastNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             lastNameTextBox.ForeColor = SystemColors.HotTrack;
-            lastNameTextBox.Location = new Point(465, 20);
+            lastNameTextBox.Location = new Point(501, 20);
             lastNameTextBox.Name = "lastNameTextBox";
-            lastNameTextBox.Size = new Size(196, 17);
+            lastNameTextBox.Size = new Size(160, 26);
             lastNameTextBox.TabIndex = 9;
             // 
             // cityLabel
@@ -195,7 +195,7 @@
             cityLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             cityLabel.Location = new Point(71, 353);
             cityLabel.Name = "cityLabel";
-            cityLabel.Size = new Size(27, 15);
+            cityLabel.Size = new Size(44, 25);
             cityLabel.TabIndex = 11;
             cityLabel.Text = "City";
             // 
@@ -205,7 +205,7 @@
             address2Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             address2Label.Location = new Point(71, 295);
             address2Label.Name = "address2Label";
-            address2Label.Size = new Size(59, 15);
+            address2Label.Size = new Size(94, 25);
             address2Label.TabIndex = 12;
             address2Label.Text = "Address 2";
             // 
@@ -214,9 +214,9 @@
             address1TextBox.BorderStyle = BorderStyle.None;
             address1TextBox.Font = new Font("Microsoft YaHei UI", 10F);
             address1TextBox.ForeColor = SystemColors.HotTrack;
-            address1TextBox.Location = new Point(134, 236);
+            address1TextBox.Location = new Point(168, 236);
             address1TextBox.Name = "address1TextBox";
-            address1TextBox.Size = new Size(526, 17);
+            address1TextBox.Size = new Size(492, 26);
             address1TextBox.TabIndex = 15;
             // 
             // zipTextBox
@@ -224,9 +224,9 @@
             zipTextBox.BorderStyle = BorderStyle.None;
             zipTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             zipTextBox.ForeColor = SystemColors.HotTrack;
-            zipTextBox.Location = new Point(131, 417);
+            zipTextBox.Location = new Point(164, 417);
             zipTextBox.Name = "zipTextBox";
-            zipTextBox.Size = new Size(205, 17);
+            zipTextBox.Size = new Size(172, 26);
             zipTextBox.TabIndex = 16;
             // 
             // cityTextBox
@@ -234,9 +234,9 @@
             cityTextBox.BorderStyle = BorderStyle.None;
             cityTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             cityTextBox.ForeColor = SystemColors.HotTrack;
-            cityTextBox.Location = new Point(104, 353);
+            cityTextBox.Location = new Point(121, 353);
             cityTextBox.Name = "cityTextBox";
-            cityTextBox.Size = new Size(232, 17);
+            cityTextBox.Size = new Size(215, 26);
             cityTextBox.TabIndex = 17;
             // 
             // address2TextBox
@@ -244,9 +244,9 @@
             address2TextBox.BorderStyle = BorderStyle.None;
             address2TextBox.Font = new Font("Microsoft YaHei UI", 10F);
             address2TextBox.ForeColor = SystemColors.HotTrack;
-            address2TextBox.Location = new Point(136, 297);
+            address2TextBox.Location = new Point(168, 297);
             address2TextBox.Name = "address2TextBox";
-            address2TextBox.Size = new Size(524, 17);
+            address2TextBox.Size = new Size(492, 26);
             address2TextBox.TabIndex = 19;
             // 
             // flagStatusLabel
@@ -255,7 +255,7 @@
             flagStatusLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             flagStatusLabel.Location = new Point(396, 417);
             flagStatusLabel.Name = "flagStatusLabel";
-            flagStatusLabel.Size = new Size(65, 15);
+            flagStatusLabel.Size = new Size(102, 25);
             flagStatusLabel.TabIndex = 20;
             flagStatusLabel.Text = "Flag Status";
             // 
@@ -265,7 +265,7 @@
             idLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             idLabel.Location = new Point(699, 544);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(60, 15);
+            idLabel.Size = new Size(94, 25);
             idLabel.TabIndex = 22;
             idLabel.Text = "Patient_Id";
             // 
@@ -275,7 +275,7 @@
             idTextBox.Location = new Point(799, 544);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
-            idTextBox.Size = new Size(177, 23);
+            idTextBox.Size = new Size(177, 31);
             idTextBox.TabIndex = 23;
             idTextBox.TextAlign = HorizontalAlignment.Center;
             // 
@@ -284,9 +284,9 @@
             phoneNumberTextBox.BorderStyle = BorderStyle.None;
             phoneNumberTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             phoneNumberTextBox.ForeColor = SystemColors.HotTrack;
-            phoneNumberTextBox.Location = new Point(165, 173);
+            phoneNumberTextBox.Location = new Point(216, 173);
             phoneNumberTextBox.Name = "phoneNumberTextBox";
-            phoneNumberTextBox.Size = new Size(171, 17);
+            phoneNumberTextBox.Size = new Size(120, 26);
             phoneNumberTextBox.TabIndex = 24;
             // 
             // phoneNumberLabel
@@ -295,7 +295,7 @@
             phoneNumberLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             phoneNumberLabel.Location = new Point(71, 168);
             phoneNumberLabel.Name = "phoneNumberLabel";
-            phoneNumberLabel.Size = new Size(88, 15);
+            phoneNumberLabel.Size = new Size(139, 25);
             phoneNumberLabel.TabIndex = 25;
             phoneNumberLabel.Text = "Phone Number";
             // 
@@ -305,7 +305,7 @@
             flagStatusComboBox.FormattingEnabled = true;
             flagStatusComboBox.Location = new Point(504, 409);
             flagStatusComboBox.Name = "flagStatusComboBox";
-            flagStatusComboBox.Size = new Size(157, 23);
+            flagStatusComboBox.Size = new Size(157, 33);
             flagStatusComboBox.TabIndex = 26;
             // 
             // errorLabel
@@ -315,7 +315,7 @@
             errorLabel.ForeColor = Color.Red;
             errorLabel.Location = new Point(121, 464);
             errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(0, 30);
+            errorLabel.Size = new Size(0, 45);
             errorLabel.TabIndex = 27;
             // 
             // addButton
@@ -353,16 +353,16 @@
             stateComboBox.FormattingEnabled = true;
             stateComboBox.Location = new Point(456, 356);
             stateComboBox.Name = "stateComboBox";
-            stateComboBox.Size = new Size(205, 23);
+            stateComboBox.Size = new Size(205, 33);
             stateComboBox.TabIndex = 31;
             // 
             // genderComboBox
             // 
             genderComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             genderComboBox.FormattingEnabled = true;
-            genderComboBox.Location = new Point(504, 93);
+            genderComboBox.Location = new Point(476, 93);
             genderComboBox.Name = "genderComboBox";
-            genderComboBox.Size = new Size(156, 23);
+            genderComboBox.Size = new Size(184, 33);
             genderComboBox.TabIndex = 32;
             // 
             // genderLabel
@@ -371,7 +371,7 @@
             genderLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             genderLabel.Location = new Point(396, 101);
             genderLabel.Name = "genderLabel";
-            genderLabel.Size = new Size(45, 15);
+            genderLabel.Size = new Size(74, 25);
             genderLabel.TabIndex = 33;
             genderLabel.Text = "Gender";
             // 
@@ -381,7 +381,7 @@
             birthDateTimePicker.Location = new Point(179, 90);
             birthDateTimePicker.MaxDate = new DateTime(9998, 12, 25, 0, 0, 0, 0);
             birthDateTimePicker.Name = "birthDateTimePicker";
-            birthDateTimePicker.Size = new Size(156, 23);
+            birthDateTimePicker.Size = new Size(156, 31);
             birthDateTimePicker.TabIndex = 34;
             birthDateTimePicker.Value = new DateTime(2024, 10, 9, 0, 0, 0, 0);
             // 
@@ -390,9 +390,9 @@
             searchLastNameTextBox.BorderStyle = BorderStyle.None;
             searchLastNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             searchLastNameTextBox.ForeColor = SystemColors.HotTrack;
-            searchLastNameTextBox.Location = new Point(1066, 316);
+            searchLastNameTextBox.Location = new Point(1101, 316);
             searchLastNameTextBox.Name = "searchLastNameTextBox";
-            searchLastNameTextBox.Size = new Size(174, 17);
+            searchLastNameTextBox.Size = new Size(139, 26);
             searchLastNameTextBox.TabIndex = 35;
             // 
             // searchBirthDatePicker
@@ -400,7 +400,7 @@
             searchBirthDatePicker.Format = DateTimePickerFormat.Short;
             searchBirthDatePicker.Location = new Point(996, 103);
             searchBirthDatePicker.Name = "searchBirthDatePicker";
-            searchBirthDatePicker.Size = new Size(207, 23);
+            searchBirthDatePicker.Size = new Size(207, 31);
             searchBirthDatePicker.TabIndex = 36;
             // 
             // searchFirstNameTextBox
@@ -408,9 +408,9 @@
             searchFirstNameTextBox.BorderStyle = BorderStyle.None;
             searchFirstNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             searchFirstNameTextBox.ForeColor = SystemColors.HotTrack;
-            searchFirstNameTextBox.Location = new Point(1066, 236);
+            searchFirstNameTextBox.Location = new Point(1104, 236);
             searchFirstNameTextBox.Name = "searchFirstNameTextBox";
-            searchFirstNameTextBox.Size = new Size(174, 17);
+            searchFirstNameTextBox.Size = new Size(136, 26);
             searchFirstNameTextBox.TabIndex = 39;
             // 
             // label1
@@ -419,7 +419,7 @@
             label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             label1.Location = new Point(996, 236);
             label1.Name = "label1";
-            label1.Size = new Size(64, 15);
+            label1.Size = new Size(102, 25);
             label1.TabIndex = 40;
             label1.Text = "First Name";
             // 
@@ -429,7 +429,7 @@
             label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             label2.Location = new Point(996, 316);
             label2.Name = "label2";
-            label2.Size = new Size(63, 15);
+            label2.Size = new Size(99, 25);
             label2.TabIndex = 41;
             label2.Text = "Last Name";
             // 
@@ -439,7 +439,7 @@
             searchByBirthDateCheckBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             searchByBirthDateCheckBox.Location = new Point(996, 59);
             searchByBirthDateCheckBox.Name = "searchByBirthDateCheckBox";
-            searchByBirthDateCheckBox.Size = new Size(134, 19);
+            searchByBirthDateCheckBox.Size = new Size(207, 29);
             searchByBirthDateCheckBox.TabIndex = 42;
             searchByBirthDateCheckBox.Text = "Search by Birth Date";
             searchByBirthDateCheckBox.UseVisualStyleBackColor = true;
@@ -450,7 +450,7 @@
             searchByNameCheckBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             searchByNameCheckBox.Location = new Point(996, 177);
             searchByNameCheckBox.Name = "searchByNameCheckBox";
-            searchByNameCheckBox.Size = new Size(113, 19);
+            searchByNameCheckBox.Size = new Size(171, 29);
             searchByNameCheckBox.TabIndex = 43;
             searchByNameCheckBox.Text = "Search by Name";
             searchByNameCheckBox.UseVisualStyleBackColor = true;

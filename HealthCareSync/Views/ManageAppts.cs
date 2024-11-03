@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 using HealthCareSync.Models;
 using HealthCareSync.ViewModels;
 
@@ -37,12 +35,10 @@ namespace HealthCareSync.Views
             // ListBox data source bindings
             this.appointmentsListBox.DataSource = viewModel.Appointments;
             this.appointmentsListBox.DisplayMember = "DisplayInfo";
-            this.appointmentsListBox.ClearSelected();
+            this.appointmentsListBox.SelectedIndex = -1;
             this.docsTimesListBox.DataSource = viewModel.AvailableTimeSlots;
-
-            // Set initial colors
-            SetLabelColors();
         }
+
 
         private void SubscribeToViewModelEvents()
         {
@@ -56,6 +52,7 @@ namespace HealthCareSync.Views
                 appointmentsListBox.DataSource = null;
                 appointmentsListBox.DataSource = viewModel.Appointments;
                 appointmentsListBox.DisplayMember = "DisplayInfo";
+                appointmentsListBox.SelectedIndex = -1;
 
                 docsTimesListBox.DataSource = null;
                 docsTimesListBox.DataSource = viewModel.AvailableTimeSlots;
@@ -65,11 +62,16 @@ namespace HealthCareSync.Views
 
         private void SetLabelColors()
         {
-            generalErrorlLabel.ForeColor = string.IsNullOrEmpty(viewModel.GeneralErrorMessage) ? Color.Red : Color.Green;
-            searchLabel.ForeColor = string.IsNullOrEmpty(viewModel.SearchMessage) ? Color.Red : Color.Green;
-            patentNameErrorLabel.ForeColor = string.IsNullOrEmpty(viewModel.PatientNameErrorMessage) ? Color.Red : Color.Green;
-            reasonErrorLabel.ForeColor = string.IsNullOrEmpty(viewModel.ReasonErrorMessage) ? Color.Red : Color.Green;
+            SetLabelColor(generalErrorlLabel, viewModel.GeneralErrorMessage);
+            SetLabelColor(patentNameErrorLabel, viewModel.PatientNameErrorMessage);
+            SetLabelColor(reasonErrorLabel, viewModel.ReasonErrorMessage);
+            SetLabelColor(searchLabel, viewModel.SearchMessage);
         }
+
+        private void SetLabelColor(Label label, string message)
+        {
+            label.ForeColor = message.Contains("Error") ? Color.Red : Color.Green;
+        }   
 
         private void exitAppBTN_Click(object sender, EventArgs e)
         {
@@ -102,6 +104,17 @@ namespace HealthCareSync.Views
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
             viewModel.SelectedDate = monthCalendar.SelectionRange.Start;
+            viewModel.LoadAppointments();
+            viewModel.LoadAvailableTimeSlots();
+
+            if (viewModel.Appointments.Count == 0)
+            {
+                appointmentsListBox.DataSource = null;
+            }
+            if (viewModel.AvailableTimeSlots.Count == 0)
+            {
+                docsTimesListBox.DataSource = null;
+            }
         }
 
         private void docsTimesListBox_SelectedIndexChanged(object sender, EventArgs e)

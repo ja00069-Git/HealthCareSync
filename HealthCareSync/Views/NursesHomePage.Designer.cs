@@ -239,11 +239,11 @@
             // 
             logedInUserTextBox.BackColor = Color.White;
             logedInUserTextBox.BorderStyle = BorderStyle.None;
-            logedInUserTextBox.Location = new Point(3, 82);
+            logedInUserTextBox.Location = new Point(3, 70);
             logedInUserTextBox.Multiline = true;
             logedInUserTextBox.Name = "logedInUserTextBox";
             logedInUserTextBox.ReadOnly = true;
-            logedInUserTextBox.Size = new Size(200, 38);
+            logedInUserTextBox.Size = new Size(200, 57);
             logedInUserTextBox.TabIndex = 3;
             // 
             // userPictureBox
@@ -251,7 +251,7 @@
             userPictureBox.Image = (Image)resources.GetObject("userPictureBox.Image");
             userPictureBox.Location = new Point(3, 13);
             userPictureBox.Name = "userPictureBox";
-            userPictureBox.Size = new Size(69, 63);
+            userPictureBox.Size = new Size(69, 51);
             userPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             userPictureBox.TabIndex = 0;
             userPictureBox.TabStop = false;

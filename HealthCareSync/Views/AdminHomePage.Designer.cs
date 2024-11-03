@@ -61,11 +61,11 @@
             // 
             logedInUserTextBox.BackColor = Color.White;
             logedInUserTextBox.BorderStyle = BorderStyle.None;
-            logedInUserTextBox.Location = new Point(3, 97);
+            logedInUserTextBox.Location = new Point(3, 80);
             logedInUserTextBox.Multiline = true;
             logedInUserTextBox.Name = "logedInUserTextBox";
             logedInUserTextBox.ReadOnly = true;
-            logedInUserTextBox.Size = new Size(191, 44);
+            logedInUserTextBox.Size = new Size(191, 61);
             logedInUserTextBox.TabIndex = 3;
             // 
             // adminLogoutBTN
@@ -74,7 +74,7 @@
             adminLogoutBTN.FlatAppearance.BorderSize = 0;
             adminLogoutBTN.FlatStyle = FlatStyle.Flat;
             adminLogoutBTN.ForeColor = Color.White;
-            adminLogoutBTN.Location = new Point(84, 35);
+            adminLogoutBTN.Location = new Point(94, 20);
             adminLogoutBTN.Name = "adminLogoutBTN";
             adminLogoutBTN.Size = new Size(106, 49);
             adminLogoutBTN.TabIndex = 2;
@@ -85,7 +85,7 @@
             // adminUserPictureBox
             // 
             adminUserPictureBox.Image = Properties.Resources.blue_user_icon;
-            adminUserPictureBox.Location = new Point(3, 20);
+            adminUserPictureBox.Location = new Point(9, 3);
             adminUserPictureBox.Name = "adminUserPictureBox";
             adminUserPictureBox.Size = new Size(75, 71);
             adminUserPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
@@ -241,6 +241,7 @@
             // 
             // exitAppBTN
             // 
+            exitAppBTN.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             exitAppBTN.BackgroundImage = Properties.Resources.close_form_icon;
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
@@ -250,7 +251,7 @@
             exitAppBTN.Size = new Size(54, 54);
             exitAppBTN.TabIndex = 7;
             exitAppBTN.UseVisualStyleBackColor = true;
-            exitAppBTN.Click += exitAppBTN_Click_1;
+            exitAppBTN.Click += exitAppBTN_Click;
             // 
             // AdminHomePage
             // 
