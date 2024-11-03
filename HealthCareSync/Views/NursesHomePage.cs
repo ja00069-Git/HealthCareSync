@@ -149,5 +149,10 @@ namespace HealthCareSync
             var login = new LoginForm();
             login.Show();
         }
+
+        private void exitAppBTN_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
