@@ -66,6 +66,7 @@
             panel11 = new Panel();
             label14 = new Label();
             systolicTextBox = new TextBox();
+            successLabel = new Label();
             SuspendLayout();
             // 
             // label1
@@ -73,7 +74,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 16F, FontStyle.Bold);
             label1.ForeColor = Color.IndianRed;
-            label1.Location = new Point(96, 6);
+            label1.Location = new Point(252, 341);
             label1.Name = "label1";
             label1.Size = new Size(65, 30);
             label1.TabIndex = 3;
@@ -83,9 +84,9 @@
             // 
             visitsListBox.FormattingEnabled = true;
             visitsListBox.ItemHeight = 15;
-            visitsListBox.Location = new Point(57, 39);
+            visitsListBox.Location = new Point(165, 374);
             visitsListBox.Name = "visitsListBox";
-            visitsListBox.Size = new Size(139, 169);
+            visitsListBox.Size = new Size(239, 169);
             visitsListBox.TabIndex = 2;
             visitsListBox.SelectedIndexChanged += visitsListBox_SelectedIndexChanged;
             // 
@@ -94,7 +95,7 @@
             visitDateTimePicker.CustomFormat = "MM/dd/yyyy   hh:mm tt";
             visitDateTimePicker.Enabled = false;
             visitDateTimePicker.Format = DateTimePickerFormat.Custom;
-            visitDateTimePicker.Location = new Point(301, 62);
+            visitDateTimePicker.Location = new Point(199, 94);
             visitDateTimePicker.Name = "visitDateTimePicker";
             visitDateTimePicker.Size = new Size(154, 23);
             visitDateTimePicker.TabIndex = 4;
@@ -105,7 +106,7 @@
             saveButton.FlatStyle = FlatStyle.Flat;
             saveButton.Font = new Font("Showcard Gothic", 9F);
             saveButton.ForeColor = Color.White;
-            saveButton.Location = new Point(313, 246);
+            saveButton.Location = new Point(211, 278);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(75, 35);
             saveButton.TabIndex = 5;
@@ -118,7 +119,7 @@
             bpmTextBox.BorderStyle = BorderStyle.None;
             bpmTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             bpmTextBox.ForeColor = SystemColors.HotTrack;
-            bpmTextBox.Location = new Point(301, 178);
+            bpmTextBox.Location = new Point(199, 210);
             bpmTextBox.Name = "bpmTextBox";
             bpmTextBox.Size = new Size(57, 17);
             bpmTextBox.TabIndex = 8;
@@ -130,7 +131,7 @@
             clearButton.FlatStyle = FlatStyle.Flat;
             clearButton.Font = new Font("Showcard Gothic", 9F);
             clearButton.ForeColor = Color.White;
-            clearButton.Location = new Point(217, 246);
+            clearButton.Location = new Point(115, 278);
             clearButton.Name = "clearButton";
             clearButton.Size = new Size(75, 35);
             clearButton.TabIndex = 9;
@@ -143,7 +144,7 @@
             weightTextBox.BorderStyle = BorderStyle.None;
             weightTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             weightTextBox.ForeColor = SystemColors.HotTrack;
-            weightTextBox.Location = new Point(396, 131);
+            weightTextBox.Location = new Point(294, 163);
             weightTextBox.Name = "weightTextBox";
             weightTextBox.Size = new Size(53, 17);
             weightTextBox.TabIndex = 10;
@@ -154,7 +155,7 @@
             temperatureTextBox.BorderStyle = BorderStyle.None;
             temperatureTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             temperatureTextBox.ForeColor = SystemColors.HotTrack;
-            temperatureTextBox.Location = new Point(298, 131);
+            temperatureTextBox.Location = new Point(196, 163);
             temperatureTextBox.Name = "temperatureTextBox";
             temperatureTextBox.Size = new Size(57, 17);
             temperatureTextBox.TabIndex = 11;
@@ -165,7 +166,7 @@
             symptomsTextBox.BorderStyle = BorderStyle.None;
             symptomsTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             symptomsTextBox.ForeColor = SystemColors.HotTrack;
-            symptomsTextBox.Location = new Point(412, 180);
+            symptomsTextBox.Location = new Point(310, 212);
             symptomsTextBox.Multiline = true;
             symptomsTextBox.Name = "symptomsTextBox";
             symptomsTextBox.Size = new Size(125, 101);
@@ -175,7 +176,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label2.Location = new Point(219, 105);
+            label2.Location = new Point(117, 137);
             label2.Name = "label2";
             label2.Size = new Size(48, 15);
             label2.TabIndex = 13;
@@ -184,7 +185,7 @@
             // appointmentIdTextBox
             // 
             appointmentIdTextBox.Enabled = false;
-            appointmentIdTextBox.Location = new Point(78, 240);
+            appointmentIdTextBox.Location = new Point(234, 575);
             appointmentIdTextBox.Name = "appointmentIdTextBox";
             appointmentIdTextBox.Size = new Size(100, 23);
             appointmentIdTextBox.TabIndex = 14;
@@ -195,7 +196,7 @@
             diastolicTextBox.BorderStyle = BorderStyle.None;
             diastolicTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             diastolicTextBox.ForeColor = SystemColors.HotTrack;
-            diastolicTextBox.Location = new Point(217, 178);
+            diastolicTextBox.Location = new Point(115, 210);
             diastolicTextBox.Name = "diastolicTextBox";
             diastolicTextBox.Size = new Size(50, 17);
             diastolicTextBox.TabIndex = 15;
@@ -205,7 +206,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label3.Location = new Point(217, 162);
+            label3.Location = new Point(115, 194);
             label3.Name = "label3";
             label3.Size = new Size(53, 15);
             label3.TabIndex = 16;
@@ -215,7 +216,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label4.Location = new Point(291, 105);
+            label4.Location = new Point(189, 137);
             label4.Name = "label4";
             label4.Size = new Size(74, 15);
             label4.TabIndex = 17;
@@ -226,7 +227,7 @@
             heightTextBox.BorderStyle = BorderStyle.None;
             heightTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             heightTextBox.ForeColor = SystemColors.HotTrack;
-            heightTextBox.Location = new Point(485, 131);
+            heightTextBox.Location = new Point(383, 163);
             heightTextBox.Name = "heightTextBox";
             heightTextBox.Size = new Size(52, 17);
             heightTextBox.TabIndex = 18;
@@ -236,7 +237,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label5.Location = new Point(81, 223);
+            label5.Location = new Point(237, 558);
             label5.Name = "label5";
             label5.Size = new Size(92, 15);
             label5.TabIndex = 19;
@@ -246,7 +247,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label6.Location = new Point(310, 163);
+            label6.Location = new Point(208, 195);
             label6.Name = "label6";
             label6.Size = new Size(32, 15);
             label6.TabIndex = 20;
@@ -256,7 +257,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label7.Location = new Point(489, 105);
+            label7.Location = new Point(387, 137);
             label7.Name = "label7";
             label7.Size = new Size(43, 15);
             label7.TabIndex = 21;
@@ -266,7 +267,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label8.Location = new Point(441, 162);
+            label8.Location = new Point(339, 194);
             label8.Name = "label8";
             label8.Size = new Size(65, 15);
             label8.TabIndex = 23;
@@ -276,7 +277,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label9.Location = new Point(396, 105);
+            label9.Location = new Point(294, 137);
             label9.Name = "label9";
             label9.Size = new Size(46, 15);
             label9.TabIndex = 24;
@@ -285,7 +286,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(538, 131);
+            label10.Location = new Point(436, 163);
             label10.Name = "label10";
             label10.Size = new Size(17, 15);
             label10.TabIndex = 25;
@@ -294,7 +295,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(447, 131);
+            label11.Location = new Point(345, 163);
             label11.Name = "label11";
             label11.Size = new Size(17, 15);
             label11.TabIndex = 26;
@@ -305,7 +306,7 @@
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI Semibold", 16F, FontStyle.Bold);
             label12.ForeColor = Color.IndianRed;
-            label12.Location = new Point(290, 6);
+            label12.Location = new Point(181, 40);
             label12.Name = "label12";
             label12.Size = new Size(184, 30);
             label12.TabIndex = 27;
@@ -315,7 +316,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label13.Location = new Point(361, 44);
+            label13.Location = new Point(259, 76);
             label13.Name = "label13";
             label13.Size = new Size(32, 15);
             label13.TabIndex = 28;
@@ -324,7 +325,7 @@
             // panel15
             // 
             panel15.BackColor = Color.IndianRed;
-            panel15.Location = new Point(217, 152);
+            panel15.Location = new Point(115, 184);
             panel15.Name = "panel15";
             panel15.Size = new Size(50, 1);
             panel15.TabIndex = 57;
@@ -332,7 +333,7 @@
             // panel1
             // 
             panel1.BackColor = Color.IndianRed;
-            panel1.Location = new Point(298, 152);
+            panel1.Location = new Point(196, 184);
             panel1.Name = "panel1";
             panel1.Size = new Size(60, 1);
             panel1.TabIndex = 58;
@@ -340,7 +341,7 @@
             // panel2
             // 
             panel2.BackColor = Color.IndianRed;
-            panel2.Location = new Point(390, 153);
+            panel2.Location = new Point(288, 185);
             panel2.Name = "panel2";
             panel2.Size = new Size(60, 1);
             panel2.TabIndex = 59;
@@ -348,7 +349,7 @@
             // panel3
             // 
             panel3.BackColor = Color.IndianRed;
-            panel3.Location = new Point(481, 153);
+            panel3.Location = new Point(379, 185);
             panel3.Name = "panel3";
             panel3.Size = new Size(60, 1);
             panel3.TabIndex = 60;
@@ -356,7 +357,7 @@
             // panel4
             // 
             panel4.BackColor = Color.IndianRed;
-            panel4.Location = new Point(298, 201);
+            panel4.Location = new Point(196, 233);
             panel4.Name = "panel4";
             panel4.Size = new Size(60, 1);
             panel4.TabIndex = 61;
@@ -364,7 +365,7 @@
             // panel5
             // 
             panel5.BackColor = Color.IndianRed;
-            panel5.Location = new Point(412, 180);
+            panel5.Location = new Point(310, 212);
             panel5.Name = "panel5";
             panel5.Size = new Size(125, 1);
             panel5.TabIndex = 62;
@@ -372,7 +373,7 @@
             // panel6
             // 
             panel6.BackColor = Color.IndianRed;
-            panel6.Location = new Point(412, 280);
+            panel6.Location = new Point(310, 312);
             panel6.Name = "panel6";
             panel6.Size = new Size(125, 1);
             panel6.TabIndex = 63;
@@ -380,7 +381,7 @@
             // panel7
             // 
             panel7.BackColor = Color.IndianRed;
-            panel7.Location = new Point(412, 181);
+            panel7.Location = new Point(310, 213);
             panel7.Name = "panel7";
             panel7.Size = new Size(1, 101);
             panel7.TabIndex = 64;
@@ -388,7 +389,7 @@
             // panel8
             // 
             panel8.BackColor = Color.IndianRed;
-            panel8.Location = new Point(536, 179);
+            panel8.Location = new Point(434, 211);
             panel8.Name = "panel8";
             panel8.Size = new Size(1, 101);
             panel8.TabIndex = 65;
@@ -396,7 +397,7 @@
             // panel9
             // 
             panel9.BackColor = Color.IndianRed;
-            panel9.Location = new Point(217, 201);
+            panel9.Location = new Point(115, 233);
             panel9.Name = "panel9";
             panel9.Size = new Size(50, 1);
             panel9.TabIndex = 59;
@@ -404,7 +405,7 @@
             // panel10
             // 
             panel10.BackColor = Color.IndianRed;
-            panel10.Location = new Point(217, 152);
+            panel10.Location = new Point(115, 184);
             panel10.Name = "panel10";
             panel10.Size = new Size(50, 1);
             panel10.TabIndex = 57;
@@ -412,7 +413,7 @@
             // panel11
             // 
             panel11.BackColor = Color.IndianRed;
-            panel11.Location = new Point(217, 201);
+            panel11.Location = new Point(115, 233);
             panel11.Name = "panel11";
             panel11.Size = new Size(50, 1);
             panel11.TabIndex = 59;
@@ -420,7 +421,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(358, 131);
+            label14.Location = new Point(256, 163);
             label14.Name = "label14";
             label14.Size = new Size(18, 15);
             label14.TabIndex = 66;
@@ -431,18 +432,30 @@
             systolicTextBox.BorderStyle = BorderStyle.None;
             systolicTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             systolicTextBox.ForeColor = SystemColors.HotTrack;
-            systolicTextBox.Location = new Point(217, 131);
+            systolicTextBox.Location = new Point(115, 163);
             systolicTextBox.Name = "systolicTextBox";
             systolicTextBox.Size = new Size(50, 17);
             systolicTextBox.TabIndex = 67;
             systolicTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
+            // successLabel
+            // 
+            successLabel.AutoSize = true;
+            successLabel.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
+            successLabel.ForeColor = Color.FromArgb(0, 192, 0);
+            successLabel.Location = new Point(113, 8);
+            successLabel.Name = "successLabel";
+            successLabel.Size = new Size(315, 25);
+            successLabel.TabIndex = 68;
+            successLabel.Text = "Successfully entered routine checks";
             // 
             // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(570, 305);
+            ClientSize = new Size(560, 615);
+            Controls.Add(successLabel);
             Controls.Add(systolicTextBox);
             Controls.Add(label14);
             Controls.Add(panel11);
@@ -529,5 +542,6 @@
         private Panel panel11;
         private Label label14;
         private TextBox systolicTextBox;
+        private Label successLabel;
     }
 }

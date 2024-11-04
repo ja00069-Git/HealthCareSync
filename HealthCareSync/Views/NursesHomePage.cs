@@ -37,11 +37,9 @@ namespace HealthCareSync
             }
 
             childForm.TopLevel = false;
-           
-            this.Size= childForm.Size;
-            this.exitAppBTN.Location = this.exitBtnStartingLocation;
-            
 
+            this.Size = childForm.Size;
+            
             childForm.Dock = DockStyle.Fill;
             this.mainPanel.Controls.Add(childForm);
             this.mainPanel.Tag = childForm;

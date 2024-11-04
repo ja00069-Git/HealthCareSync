@@ -1,4 +1,5 @@
 ﻿using HealthCareSync.Enums;
+using HealthCareSync.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -9,128 +10,135 @@ using System.Threading.Tasks;
 
 namespace HealthCareSync.DAL
 {
+    /// <summary>
+    /// Data access layer for the routine_checks table
+    /// </summary>
     public class RoutineChecksDAL
     {
-        private AddressDAL addressDAL;
 
-        private readonly string connectionString = "server=cs-dblab01.uwg.westga.edu;uid=cs3230f24c;" +
-             "pwd=ZIEbXBxGYTIGdXa>RbSJ;database=cs3230f24c;";
-        public RoutineChecksDAL() { this.addressDAL = new AddressDAL(); }
+        
+        public RoutineChecksDAL() { }
 
-        public int SaveRoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM,
-            string symptoms, decimal weight, decimal height)
-        {
-            using var connection = new MySqlConnection(connectionString);
-
-            connection.Open();
-
-            MySqlTransaction transaction = connection.BeginTransaction();
-
-            var query = string.Empty;
-            int address_id = 0;
-            int id = 0;
-
-            using var command = new MySqlCommand(query, connection);
-            command.Transaction = transaction;
-
-            try
-            {
-                
-                command.Parameters.Add("@appointment_id", MySqlDbType.Int32).Value = appointmentId;
-                command.Parameters.Add("@systolic_reading", MySqlDbType.Int32).Value = systolicReading;
-                command.Parameters.Add("@diastolic_reading", MySqlDbType.Int32).Value = address_id;
-                command.Parameters.Add("@body_temperature", MySqlDbType.Int32).Value = bodyTemperature;
-                command.Parameters.Add("@pulse_bpm", MySqlDbType.Int32).Value = pulseBPM;
-                command.Parameters.Add("@symptoms", MySqlDbType.VarChar).Value = symptoms;
-                command.Parameters.Add("@weight", MySqlDbType.Decimal).Value = weight;
-                command.Parameters.Add("@height", MySqlDbType.Decimal).Value = height;
-                
-                
-
-                command.ExecuteNonQuery();
-
-                var retrieveQuery = @"select LAST_INSERT_ID()";
-
-                using var retrieveIdCommand = new MySqlCommand(retrieveQuery, connection);
-                retrieveIdCommand.Transaction = transaction;
-                using var retrieveIdReader = retrieveIdCommand.ExecuteReader();
-                int idOrdinal = retrieveIdReader.GetOrdinal("LAST_INSERT_ID()");
-
-                while (retrieveIdReader.Read())
-                {
-                    ulong tempId = retrieveIdReader.GetFieldValueCheckNull<UInt64>(idOrdinal);
-
-                    if (tempId <= Int32.MaxValue)
-                    {
-                        id = (int)tempId;
-                    }
-                }
-
-                transaction.Commit();
-            }
-            catch (Exception ex)
-            {
-                try
-                {
-                    transaction.Rollback();
-                }
-                catch (Exception rollbackEx)
-                {
-                    Debug.WriteLine("Rollback failed: " + rollbackEx.Message);
-                }
-            }
-
-
-            return id;
-        }
-
-        public void SaveEditedRoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM,
-            string symptoms, decimal weight, decimal height)
+        /// <summary>
+        /// Saves the routine checks.
+        /// </summary>
+        /// <param name="appointmentId">The appointment identifier.</param>
+        /// <param name="systolicReading">The systolic reading.</param>
+        /// <param name="diastolicReading">The diastolic reading.</param>
+        /// <param name="bodyTemperature">The body temperature.</param>
+        /// <param name="pulseBPM">The pulse BPM.</param>
+        /// <param name="symptoms">The symptoms.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="height">The height.</param>
+        public void SaveRoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM,
+            string symptoms, double weight, double height)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
             connection.Open();
 
-            MySqlTransaction transaction = connection.BeginTransaction();
+            var query = @"INSERT into routine_checks
+                          VALUES
+                          (@appointmentId, @systolic, @diastolic, @temp, @bpm, @symptoms, @weight, @height);";
 
-            var query = @"update routine_checks 
-                        set  systolic_reading = @systolic_reading, diastolic_reading = @diastolic_reading,
-                        body_temperature = @body_temperature, pulse_bpm = @pulse_bpm, symptoms = @symptoms, weight = @weight, height = @height
-                        where appointmentId = @appointment_id";
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@appointmentId", MySqlDbType.Int32).Value = appointmentId;
+            command.Parameters.Add("@systolic", MySqlDbType.Int32).Value = systolicReading;
+            command.Parameters.Add("@diastolic", MySqlDbType.Int32).Value = diastolicReading;
+            command.Parameters.Add("@temp", MySqlDbType.Int32).Value = bodyTemperature;
+            command.Parameters.Add("@bpm", MySqlDbType.Int32).Value = pulseBPM;
+            command.Parameters.Add("@symptoms", MySqlDbType.VarChar).Value = symptoms;
+            command.Parameters.Add("@weight", MySqlDbType.Decimal).Value = weight;
+            command.Parameters.Add("@height", MySqlDbType.Decimal).Value = height;
+
+            command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Edits the routine checks.
+        /// </summary>
+        /// <param name="appointmentId">The appointment identifier.</param>
+        /// <param name="systolicReading">The systolic reading.</param>
+        /// <param name="diastolicReading">The diastolic reading.</param>
+        /// <param name="bodyTemperature">The body temperature.</param>
+        /// <param name="pulseBPM">The pulse BPM.</param>
+        /// <param name="symptoms">The symptoms.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="height">The height.</param>
+        public void EditRoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM,
+            string symptoms, double weight, double height)
+        {
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"UPDATE routine_checks 
+                        SET systolic_reading = @systolic, diastolic_reading = @diastolic,
+                        body_temperature = @temp, pulse_bpm = @bpm, symptoms = @symptoms, 
+                        weight = @weight, height = @height
+                        where appointment_id = @appointmentId";
 
 
             using var command = new MySqlCommand(query, connection);
-            command.Transaction = transaction;
 
-            try
+            command.Parameters.Add("@appointmentId", MySqlDbType.Int32).Value = appointmentId;
+            command.Parameters.Add("@systolic", MySqlDbType.Int32).Value = systolicReading;
+            command.Parameters.Add("@diastolic", MySqlDbType.Int32).Value = diastolicReading;
+            command.Parameters.Add("@temp", MySqlDbType.Int32).Value = bodyTemperature;
+            command.Parameters.Add("@bpm", MySqlDbType.Int32).Value = pulseBPM;
+            command.Parameters.Add("@symptoms", MySqlDbType.VarChar).Value = symptoms;
+            command.Parameters.Add("@weight", MySqlDbType.Decimal).Value = weight;
+            command.Parameters.Add("@height", MySqlDbType.Decimal).Value = height;
+
+            command.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Gets the routine checks.
+        /// </summary>
+        /// <param name="appointmentId">The appointment identifier.</param>
+        /// <returns></returns>
+        public RoutineChecks? GetRoutineChecks(int appointmentId)
+        {
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"SELECT R.systolic_reading, R.diastolic_reading, R.body_temperature, R.pulse_bpm, R.symptoms, R.weight, R.height
+                          FROM routine_checks R     
+                          WHERE R.appointment_id = @appointmentId";
+
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@appointmentId", MySqlDbType.Int32).Value = appointmentId;
+
+            using var reader = command.ExecuteReader();
+
+            var systolicOrdinal = reader.GetOrdinal("systolic_reading");
+            var diastolicOrdinal = reader.GetOrdinal("diastolic_reading");
+            var bodyTempOrdinal = reader.GetOrdinal("body_temperature");
+            var bpmOrdinal = reader.GetOrdinal("pulse_bpm");
+            var symptomsOrdinal = reader.GetOrdinal("symptoms");
+            var weightOrdinal = reader.GetOrdinal("weight");
+            var heightOrdinal = reader.GetOrdinal("height");
+
+            RoutineChecks? routineChecks = null;
+
+            while (reader.Read())
             {
+                var systolic = reader.GetFieldValueCheckNull<int>(systolicOrdinal);
+                var diastolic = reader.GetFieldValueCheckNull<int>(diastolicOrdinal);
+                var bodyTemp = reader.GetFieldValueCheckNull<int>(bodyTempOrdinal);
+                var bpm = reader.GetFieldValueCheckNull<int>(bpmOrdinal);
+                var symptoms = reader.GetFieldValueCheckNull<string>(symptomsOrdinal);
+                var weight = reader.GetFieldValueCheckNull<decimal>(weightOrdinal);
+                var height = reader.GetFieldValueCheckNull<decimal>(heightOrdinal);
 
-                command.Parameters.Add("@systolic_reading", MySqlDbType.Int32).Value = systolicReading;
-                command.Parameters.Add("@diastolic_reading", MySqlDbType.Int32).Value = diastolicReading;
-                command.Parameters.Add("@body_temperature", MySqlDbType.Int32).Value = bodyTemperature;
-                command.Parameters.Add("@pulse_bpm", MySqlDbType.Int32).Value = pulseBPM;
-                command.Parameters.Add("@symptoms", MySqlDbType.VarChar).Value = symptoms;
-                command.Parameters.Add("@weight", MySqlDbType.Decimal).Value = weight;
-                command.Parameters.Add("@height", MySqlDbType.Decimal).Value = height;
-                command.Parameters.Add("@appointment_id", MySqlDbType.Int32).Value = appointmentId;
-
-                command.ExecuteNonQuery();
-
-                this.addressDAL.DeleteUnreferencedAddresses(connection, transaction);
-
-                transaction.Commit();
+                routineChecks = new RoutineChecks(appointmentId, systolic, diastolic, bodyTemp, bpm, symptoms, decimal.ToDouble(weight), decimal.ToDouble(height));
             }
-            catch (Exception ex)
-            {
-                try
-                {
-                    transaction.Rollback();
-                }
-                catch (Exception rollbackEx)
-                {
-                    Debug.WriteLine("Rollback failed: " + rollbackEx.Message);
-                }
-            }
+
+            return routineChecks;
         }
     }
 }

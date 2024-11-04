@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using HealthCareSync.DAL;
 using HealthCareSync.Enums;
 using HealthCareSync.Models;
@@ -15,36 +16,112 @@ namespace HealthCareSync.ViewModels
     {
 
         private Appointment selectedVisit;
-        private RoutineChecks selectedVisitRoutineChecks;
+        private RoutineChecks? selectedVisitRoutineChecks;
         private RoutineChecksDAL routineChecksDal;
         private AppointmentDAL appointmentDal;
 
+        /// <summary>
+        /// Gets a value indicating whether [visit has routine checks entered].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [visit has routine checks entered]; otherwise, <c>false</c>.
+        /// </value>
         public bool VisitHasRoutineChecksEntered => selectedVisitRoutineChecks != null;
 
+        /// <summary>
+        /// Gets the appointment identifier.
+        /// </summary>
+        /// <value>
+        /// The appointment identifier.
+        /// </value>
         public int? AppointmentId => selectedVisit?.AppointmentId;
 
+        /// <summary>
+        /// Gets the visit date.
+        /// </summary>
+        /// <value>
+        /// The visit date.
+        /// </value>
         public DateTime? VisitDate => selectedVisit?.DateTime;
 
+        /// <summary>
+        /// Gets the systolic reading.
+        /// </summary>
+        /// <value>
+        /// The systolic reading.
+        /// </value>
         public int? SystolicReading => selectedVisitRoutineChecks?.SystolicReading;
 
+        /// <summary>
+        /// Gets the diastolic reading.
+        /// </summary>
+        /// <value>
+        /// The diastolic reading.
+        /// </value>
         public int? DiastolicReading => selectedVisitRoutineChecks?.DiastolicReading;
 
+        /// <summary>
+        /// Gets the body temperature.
+        /// </summary>
+        /// <value>
+        /// The body temperature.
+        /// </value>
         public int? BodyTemperature => selectedVisitRoutineChecks?.BodyTemperature;
 
+        /// <summary>
+        /// Gets the BPM.
+        /// </summary>
+        /// <value>
+        /// The BPM.
+        /// </value>
         public int? BPM => selectedVisitRoutineChecks?.BPM;
 
+        /// <summary>
+        /// Gets the symptoms.
+        /// </summary>
+        /// <value>
+        /// The symptoms.
+        /// </value>
         public string? Symptoms => selectedVisitRoutineChecks?.Symptoms;
 
-        public double? Weight => selectedVisitRoutineChecks?.Weight;    
+        /// <summary>
+        /// Gets the weight.
+        /// </summary>
+        /// <value>
+        /// The weight.
+        /// </value>
+        public double? Weight => selectedVisitRoutineChecks?.Weight;
 
+        /// <summary>
+        /// Gets the height.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
         public double? Height => selectedVisitRoutineChecks?.Height;
 
+        /// <summary>
+        /// Gets the selected visit routine checks.
+        /// </summary>
+        /// <value>
+        /// The selected visit routine checks.
+        /// </value>
+        public RoutineChecks? SelectedVisitRoutineChecks { get { return this.selectedVisitRoutineChecks; } }
+
+        /// <summary>
+        /// Gets or sets the selected visit.
+        /// </summary>
+        /// <value>
+        /// The selected visit.
+        /// </value>
+        /// <exception cref="ArgumentNullException">value</exception>
         public Appointment SelectedVisit
         {
             get { return selectedVisit; }
             set
             {
-               selectedVisit = value ?? throw new ArgumentNullException(nameof(value));
+                selectedVisit = value ?? throw new ArgumentNullException(nameof(value));
+                this.selectedVisitRoutineChecks = this.routineChecksDal.GetRoutineChecks((int)this.AppointmentId!);
                 OnPropertyChanged(nameof(SelectedVisit));
                 OnPropertyChanged(nameof(AppointmentId));
                 OnPropertyChanged(nameof(VisitDate));
@@ -58,8 +135,17 @@ namespace HealthCareSync.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets or sets the visits.
+        /// </summary>
+        /// <value>
+        /// The visits.
+        /// </value>
         public ObservableCollection<Appointment> Visits { get; set; }
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -67,33 +153,69 @@ namespace HealthCareSync.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManageVisitsViewModel"/> class.
+        /// </summary>
         public ManageVisitsViewModel()
         {
             this.routineChecksDal = new RoutineChecksDAL();
             this.appointmentDal = new AppointmentDAL();
 
-            this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());
-            //this.selectedVisitRoutineChecks = this.routineChecksDal.GetRoutineChecks(this.AppointmentId);
+            this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());   
         }
-        public void Save (int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM, string symptoms, decimal weight, decimal height)
+
+        /// <summary>
+        /// Saves the specified systolic reading.
+        /// </summary>
+        /// <param name="systolicReading">The systolic reading.</param>
+        /// <param name="diastolicReading">The diastolic reading.</param>
+        /// <param name="bodyTemperature">The body temperature.</param>
+        /// <param name="pulseBPM">The pulse BPM.</param>
+        /// <param name="symptoms">The symptoms.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="height">The height.</param>
+        public void Save(string systolicReading, string diastolicReading, string bodyTemperature, string pulseBPM, string symptoms, string weight, string height)
         {
-                this.routineChecksDal.SaveEditedRoutineChecks(this.selectedVisitRoutineChecks.AppointmentId, systolicReading, diastolicReading, bodyTemperature, pulseBPM, symptoms, weight, height);
+            var aptId = (int)this.AppointmentId!;
+            var systolicInt = int.Parse(systolicReading);
+            var diastolicInt = int.Parse(diastolicReading);
+            var bodyTemperatureInt = int.Parse(bodyTemperature);
+            var pulseBPMInt = int.Parse(pulseBPM);
+            var weightDouble = double.Parse(weight);
+            var heightDouble = double.Parse(height);
 
-                this.selectedVisitRoutineChecks.AppointmentId = appointmentId;
-                this.selectedVisitRoutineChecks.SystolicReading = systolicReading;
-                this.selectedVisitRoutineChecks.DiastolicReading = diastolicReading;
-                this.selectedVisitRoutineChecks.BodyTemperature = bodyTemperature;
-                this.selectedVisitRoutineChecks.BPM = pulseBPM;
-                this.selectedVisitRoutineChecks.Symptoms = symptoms;
-                this.selectedVisitRoutineChecks.Weight = Convert.ToDouble(weight);
-                this.selectedVisitRoutineChecks.Height = Convert.ToDouble(height);
+            this.routineChecksDal.SaveRoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
 
+            this.selectedVisitRoutineChecks = new RoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
 
-                
+            OnPropertyChanged(nameof(selectedVisitRoutineChecks));
+        }
 
-                OnPropertyChanged(nameof(selectedVisitRoutineChecks));
-                
-            
+        /// <summary>
+        /// Edits the specified systolic reading.
+        /// </summary>
+        /// <param name="systolicReading">The systolic reading.</param>
+        /// <param name="diastolicReading">The diastolic reading.</param>
+        /// <param name="bodyTemperature">The body temperature.</param>
+        /// <param name="pulseBPM">The pulse BPM.</param>
+        /// <param name="symptoms">The symptoms.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="height">The height.</param>
+        public void Edit(string systolicReading, string diastolicReading, string bodyTemperature, string pulseBPM, string symptoms, string weight, string height)
+        {
+            var aptId = (int)this.AppointmentId!;
+            var systolicInt = int.Parse(systolicReading);
+            var diastolicInt = int.Parse(diastolicReading);
+            var bodyTemperatureInt = int.Parse(bodyTemperature);
+            var pulseBPMInt = int.Parse(pulseBPM);
+            var weightDouble = double.Parse(weight);
+            var heightDouble = double.Parse(height);
+
+            this.routineChecksDal.EditRoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
+
+            this.selectedVisitRoutineChecks = new RoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
+
+            OnPropertyChanged(nameof(selectedVisitRoutineChecks));
         }
     }
 }
