@@ -254,10 +254,5 @@ namespace HealthCareSync.Views
             this.ClearAllBoxes();
             this.errorLabel.Text = string.Empty;
         }
-
-        private void ManageNurses_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
