@@ -55,6 +55,7 @@
             manageNursePanel.SuspendLayout();
             manageDoctorPanel.SuspendLayout();
             generateReportPnl.SuspendLayout();
+            adminMainPanel.SuspendLayout();
             SuspendLayout();
             // 
             // logedInUserTextBox
@@ -246,11 +247,12 @@
             // 
             // adminMainPanel
             // 
+            adminMainPanel.Controls.Add(exitAppBTN);
             adminMainPanel.Dock = DockStyle.Fill;
             adminMainPanel.Location = new Point(0, 0);
             adminMainPanel.Margin = new Padding(2);
             adminMainPanel.Name = "adminMainPanel";
-            adminMainPanel.Size = new Size(916, 369);
+            adminMainPanel.Size = new Size(1350, 615);
             adminMainPanel.TabIndex = 8;
             // 
             // exitAppBTN
@@ -259,10 +261,10 @@
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
-            exitAppBTN.Location = new Point(869, 7);
+            exitAppBTN.Location = new Point(1284, 12);
             exitAppBTN.Margin = new Padding(2);
             exitAppBTN.Name = "exitAppBTN";
-            exitAppBTN.Size = new Size(38, 32);
+            exitAppBTN.Size = new Size(54, 54);
             exitAppBTN.TabIndex = 7;
             exitAppBTN.UseVisualStyleBackColor = true;
             exitAppBTN.Click += exitAppBTN_Click_1;
@@ -272,8 +274,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(916, 369);
-            Controls.Add(exitAppBTN);
+            ClientSize = new Size(1350, 615);
             Controls.Add(sidebar);
             Controls.Add(adminMainPanel);
             FormBorderStyle = FormBorderStyle.None;
@@ -291,6 +292,7 @@
             manageNursePanel.ResumeLayout(false);
             manageDoctorPanel.ResumeLayout(false);
             generateReportPnl.ResumeLayout(false);
+            adminMainPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
