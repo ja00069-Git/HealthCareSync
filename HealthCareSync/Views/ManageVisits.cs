@@ -28,7 +28,6 @@ namespace HealthCareSync.Views
         {
             InitializeComponent();
             this.viewModel = new ManageVisitsViewModel();
-            this.visitsListBox.SelectedItem = -1;
             this.bindToViewModel();
         }
 
@@ -117,9 +116,9 @@ namespace HealthCareSync.Views
                     this.bindTextBox(this.heightTextBox, this.viewModel, "Height");
                     this.bindTextBox(this.bpmTextBox, this.viewModel, "BPM");
                     this.bindTextBox(this.symptomsTextBox, this.viewModel, "Symptoms");
-                    
+
                 }
-               
+
             }
             else
             {
@@ -210,6 +209,15 @@ namespace HealthCareSync.Views
             }
 
             return !isErrors;
+        }
+
+        private void ManageVisits_Load(object sender, EventArgs e)
+        {
+            this.visitsListBox.SelectedIndexChanged -= this.visitsListBox_SelectedIndexChanged;
+            this.visitDateTimePicker.Value = DateTime.Now;
+            this.visitsListBox.SelectedIndex = -1;
+            this.disableBoxes();
+            this.visitsListBox.SelectedIndexChanged += this.visitsListBox_SelectedIndexChanged;
         }
     }
 }

@@ -498,6 +498,7 @@
             Margin = new Padding(2);
             Name = "ManageVisits";
             Text = "ManageVisits";
+            Load += ManageVisits_Load;
             ResumeLayout(false);
             PerformLayout();
         }
