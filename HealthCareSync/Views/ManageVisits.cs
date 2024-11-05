@@ -9,12 +9,12 @@ namespace HealthCareSync.Views
     {
         private readonly string NUMBER_REGEX = @"^\d{1,3}$";
         private readonly string DECIMAL_NUMBER_REGEX = @"^\d{1,3}(\.\d{1,2})?$";
-        private readonly string ERROR_SYSTOLIC = "Systolic must be a number up to 3 digits.";
-        private readonly string ERROR_DIASTOLIC = "Diastolic must be a number up to 3 digits.";
-        private readonly string ERROR_TEMP = "Temperature must be a number up to 3 digits.";
-        private readonly string ERROR_WEIGHT = "Weight must be a number up to 3 digits with at most 2 decimals.";
-        private readonly string ERROR_HEIGHT = "Height must be a number up to 3 digits with at most 2 decimals.";
-        private readonly string ERROR_BPM = "BPM must be a number up to 3 digits";
+        private readonly string ERROR_SYSTOLIC = "Systolic must be a integer number less than 1000.";
+        private readonly string ERROR_DIASTOLIC = "Diastolic must be a integer number less than 1000.";
+        private readonly string ERROR_TEMP = "Temperature must be a integer number less than 1000.";
+        private readonly string ERROR_WEIGHT = "Weight must be a number les than 1000 with at most 2 decimals.";
+        private readonly string ERROR_HEIGHT = "Height must be a number less than 1000 with at most 2 decimals.";
+        private readonly string ERROR_BPM = "BPM must be a integer number less than 1000";
         private readonly string ERROR_SYMPTOMS = "Symptoms cannot be empty";
 
         private string errorMessages = string.Empty;
@@ -29,6 +29,21 @@ namespace HealthCareSync.Views
             InitializeComponent();
             this.viewModel = new ManageVisitsViewModel();
             this.bindToViewModel();
+            this.bindSearchElements();
+        }
+
+        private void updateButtonState(object sender, EventArgs e)
+        {
+            this.searchButton.Enabled = this.searchByNameCheckBox.Checked;
+            this.resetSearchButton.Enabled = this.searchByNameCheckBox.Checked;
+        }
+
+        private void bindSearchElements()
+        {
+            this.searchFirstNameTextBox.DataBindings.Add("Enabled", this.searchByNameCheckBox, "Checked", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.searchLastNameTextBox.DataBindings.Add("Enabled", this.searchByNameCheckBox, "Checked", true, DataSourceUpdateMode.OnPropertyChanged);
+
+            this.searchByNameCheckBox.CheckedChanged += this.updateButtonState!;
         }
 
         private void clearAllBoxes()
@@ -40,6 +55,9 @@ namespace HealthCareSync.Views
             this.heightTextBox.Clear();
             this.bpmTextBox.Clear();
             this.symptomsTextBox.Clear();
+            this.searchFirstNameTextBox.Clear();
+            this.searchLastNameTextBox.Clear();
+            this.searchByNameCheckBox.Checked = false;
         }
 
         private void disableBoxes()
@@ -71,7 +89,7 @@ namespace HealthCareSync.Views
         private void bindToViewModel()
         {
             this.visitsListBox.DataSource = this.viewModel.Visits;
-            this.visitsListBox.DisplayMember = "PatientName";
+            this.visitsListBox.DisplayMember = "AppointmentInformation";
         }
 
         private void bindTextBox(TextBox textBox, object dataSource, string dataMember)
@@ -83,6 +101,34 @@ namespace HealthCareSync.Views
         private void exitAppBTN_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void resetSearchButton_Click(object sender, EventArgs e)
+        {
+            this.viewModel.SearchByName(string.Empty, string.Empty);
+            this.visitsListBox.DataSource = this.viewModel.Visits;
+            this.visitsListBox.DisplayMember = "AppointmentInformation";
+
+            this.visitsListBox.SelectedIndex = -1;
+            this.clearAllBoxes();
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            bool nameChecked = this.searchByNameCheckBox.Checked;
+
+            if (nameChecked)
+            {
+                if (this.viewModel.SearchByName(this.searchFirstNameTextBox.Text, this.searchLastNameTextBox.Text))
+                {
+                    this.visitsListBox.DataSource = this.viewModel.Visits;
+                    this.visitsListBox.DisplayMember = "AppointmentInformation";
+                }
+                else
+                {
+                    MessageBox.Show("Could not find any appointments with the given name", "Appointment(s) not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void visitsListBox_SelectedIndexChanged(object sender, EventArgs e)

@@ -19,6 +19,7 @@ namespace HealthCareSync.ViewModels
         private RoutineChecks? selectedVisitRoutineChecks;
         private RoutineChecksDAL routineChecksDal;
         private AppointmentDAL appointmentDal;
+        private PatientDAL patientDal;
 
         /// <summary>
         /// Gets a value indicating whether [visit has routine checks entered].
@@ -160,6 +161,7 @@ namespace HealthCareSync.ViewModels
         {
             this.routineChecksDal = new RoutineChecksDAL();
             this.appointmentDal = new AppointmentDAL();
+            this.patientDal = new PatientDAL();
 
             this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());   
         }
@@ -217,5 +219,61 @@ namespace HealthCareSync.ViewModels
 
             OnPropertyChanged(nameof(selectedVisitRoutineChecks));
         }
+
+        /// <summary>
+        /// Updates the patient list with those with the given name and returns true if there exists a patient with the name, false if not.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <returns>true if there is patient with name, false otherwise</returns>
+        public bool SearchByName(string firstName, string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastName))
+            {
+                this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());
+                OnPropertyChanged(nameof(Visits));
+                return true;
+            }
+            else if (string.IsNullOrWhiteSpace(firstName))
+            {
+                var list = this.appointmentDal.GetAppointmentsWithLastName(lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointmentsWithLastName(lastName));
+                    OnPropertyChanged(nameof(Visits));
+                    return true;
+                }
+
+                return false;
+            }
+            else if (string.IsNullOrWhiteSpace(lastName))
+            {
+                var list = this.appointmentDal.GetAppointmentsWithFirstName(firstName);
+
+                if (list.Count != 0)
+                {
+                    this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointmentsWithFirstName(firstName));
+                    OnPropertyChanged(nameof(Visits));
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                var list = this.appointmentDal.GetAppointmentsByPatientName(firstName + " " + lastName);
+
+                if (list.Count != 0)
+                {
+                    this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointmentsByPatientName(firstName + " " + lastName));
+                    OnPropertyChanged(nameof(Visits));
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
     }
 }

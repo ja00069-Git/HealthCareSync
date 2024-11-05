@@ -1,7 +1,11 @@
-﻿namespace HealthCareSync.Models
+﻿using HealthCareSync.DAL;
+
+namespace HealthCareSync.Models
 {
     public class Appointment
     {
+        private PatientDAL patientDAL;
+
         /**
          * AppointmentId: The unique identifier for the appointment.
          */
@@ -37,7 +41,20 @@
          */
         public string? PatientName { get; set; }
 
+        /// <summary>
+        /// Gets the appointment information.
+        /// </summary>
+        /// <value>
+        /// The appointment information.
+        /// </value>
+        public string AppointmentInformation => $"{PatientName} {this.getPatientDOB()} | {DoctorName}";
+
         private string DisplayInfo => $"{DateTime:MM/dd/yyyy HH:mm} with {DoctorName} | {PatientName}";
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Appointment"/> class.
+        /// </summary>
+        public Appointment() { this.patientDAL = new PatientDAL(); }
 
         /**
          * ToString: Returns the string representation of the appointment.
@@ -45,6 +62,11 @@
         public override string ToString()
         {
             return DisplayInfo;
+        }
+
+        private string getPatientDOB()
+        {
+            return this.patientDAL.GetPatientWithId(PatientId).FormattedBirthDate;
         }
     }
 }
