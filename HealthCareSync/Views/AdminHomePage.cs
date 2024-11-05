@@ -27,7 +27,6 @@
             }
 
             this.Size = childForm.Size;
-
             childForm.TopLevel = false;
             childForm.Dock = DockStyle.Fill;
             this.adminMainPanel.Controls.Add(childForm);

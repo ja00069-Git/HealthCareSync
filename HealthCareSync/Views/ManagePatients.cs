@@ -71,7 +71,7 @@ namespace HealthCareSync.Views
             this.searchByNameCheckBox.CheckedChanged += this.UpdateButtonState!;
         }
 
-        private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
+        private void bindTextBox(TextBox textBox, object dataSource, string dataMember)
         {
             textBox.DataBindings.Clear();
             textBox.DataBindings.Add("Text", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
@@ -99,7 +99,6 @@ namespace HealthCareSync.Views
 
         private void PatientListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.errorLabel.Text = string.Empty;
 
             if (this.patientListBox.SelectedItem is Patient)
             {
@@ -108,20 +107,20 @@ namespace HealthCareSync.Views
                 this.flagStatusComboBox.Enabled = true;
                 this.viewModel.SelectedPatient = (Patient)this.patientListBox.SelectedItem;
 
-                this.BindTextBox(this.firstNameTextBox, this.viewModel, "FirstName");
-                this.BindTextBox(this.lastNameTextBox, this.viewModel, "LastName");
+                this.bindTextBox(this.firstNameTextBox, this.viewModel, "FirstName");
+                this.bindTextBox(this.lastNameTextBox, this.viewModel, "LastName");
                 this.birthDateTimePicker.DataBindings.Clear();
                 this.birthDateTimePicker.DataBindings.Add("Value", this.viewModel, "BirthDate", true, DataSourceUpdateMode.OnPropertyChanged);
-                this.BindTextBox(this.phoneNumberTextBox, this.viewModel, "PhoneNumber");
-                this.BindTextBox(this.idTextBox, this.viewModel, "Patient_Id");
+                this.bindTextBox(this.phoneNumberTextBox, this.viewModel, "PhoneNumber");
+                this.bindTextBox(this.idTextBox, this.viewModel, "Patient_Id");
                 this.flagStatusComboBox.DataBindings.Clear();
                 this.flagStatusComboBox.DataBindings.Add("SelectedItem", this.viewModel, "FlagStatus", true, DataSourceUpdateMode.OnPropertyChanged);
-                this.BindTextBox(this.address1TextBox, this.viewModel, "Address_1");
-                this.BindTextBox(this.zipTextBox, this.viewModel, "Zip");
-                this.BindTextBox(this.cityTextBox, this.viewModel, "City");
+                this.bindTextBox(this.address1TextBox, this.viewModel, "Address_1");
+                this.bindTextBox(this.zipTextBox, this.viewModel, "Zip");
+                this.bindTextBox(this.cityTextBox, this.viewModel, "City");
                 this.stateComboBox.DataBindings.Clear();
                 this.stateComboBox.DataBindings.Add("SelectedItem", this.viewModel, "State", true, DataSourceUpdateMode.OnPropertyChanged);
-                this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
+                this.bindTextBox(this.address2TextBox, this.viewModel, "Address_2");
                 this.genderComboBox.DataBindings.Clear();
                 this.genderComboBox.DataBindings.Add("SelectedItem", this.viewModel, "Gender", true, DataSourceUpdateMode.OnPropertyChanged);
 

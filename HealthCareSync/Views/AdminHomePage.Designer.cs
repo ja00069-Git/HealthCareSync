@@ -61,12 +61,11 @@
             // 
             logedInUserTextBox.BackColor = Color.White;
             logedInUserTextBox.BorderStyle = BorderStyle.None;
-            logedInUserTextBox.Location = new Point(2, 96);
-            logedInUserTextBox.Margin = new Padding(2, 4, 2, 4);
+            logedInUserTextBox.Location = new Point(3, 80);
             logedInUserTextBox.Multiline = true;
             logedInUserTextBox.Name = "logedInUserTextBox";
             logedInUserTextBox.ReadOnly = true;
-            logedInUserTextBox.Size = new Size(191, 44);
+            logedInUserTextBox.Size = new Size(191, 61);
             logedInUserTextBox.TabIndex = 3;
             // 
             // adminLogoutBTN
@@ -75,8 +74,7 @@
             adminLogoutBTN.FlatAppearance.BorderSize = 0;
             adminLogoutBTN.FlatStyle = FlatStyle.Flat;
             adminLogoutBTN.ForeColor = Color.White;
-            adminLogoutBTN.Location = new Point(84, 35);
-            adminLogoutBTN.Margin = new Padding(2, 4, 2, 4);
+            adminLogoutBTN.Location = new Point(94, 20);
             adminLogoutBTN.Name = "adminLogoutBTN";
             adminLogoutBTN.Size = new Size(106, 49);
             adminLogoutBTN.TabIndex = 2;
@@ -87,8 +85,7 @@
             // adminUserPictureBox
             // 
             adminUserPictureBox.Image = Properties.Resources.blue_user_icon;
-            adminUserPictureBox.Location = new Point(2, 20);
-            adminUserPictureBox.Margin = new Padding(2, 4, 2, 4);
+            adminUserPictureBox.Location = new Point(9, 3);
             adminUserPictureBox.Name = "adminUserPictureBox";
             adminUserPictureBox.Size = new Size(74, 71);
             adminUserPictureBox.SizeMode = PictureBoxSizeMode.Zoom;

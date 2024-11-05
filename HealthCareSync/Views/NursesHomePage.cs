@@ -4,8 +4,10 @@ namespace HealthCareSync
 {
     public partial class NursesHomePage : Form
     {
+        private readonly Point exitBtnStartingLocation = new Point(514, 7);
         bool isCollapsed;
         bool isMngVisitCollapsed;
+
         public NursesHomePage()
         {
             InitializeComponent();
@@ -36,6 +38,8 @@ namespace HealthCareSync
 
             childForm.TopLevel = false;
 
+            this.Size = childForm.Size;
+            
             childForm.Dock = DockStyle.Fill;
             this.mainPanel.Controls.Add(childForm);
             this.mainPanel.Tag = childForm;
@@ -122,9 +126,9 @@ namespace HealthCareSync
         private void LoadManageAppointments()
         {
             ManageAppts manageAppts = new ManageAppts();
-            manageAppts.Dock = DockStyle.None; 
-            mainPanel.Controls.Clear();
-            mainPanel.Controls.Add(manageAppts);
+            manageAppts.Dock = DockStyle.None; // Ensure it doesn't dock to fill the panel
+            mainPanel.Controls.Clear(); // Clear previous controls if necessary
+            mainPanel.Controls.Add(manageAppts); // Add the UserControl to the main panel
         }
 
         private void visitsBTN_Click(object sender, EventArgs e)
