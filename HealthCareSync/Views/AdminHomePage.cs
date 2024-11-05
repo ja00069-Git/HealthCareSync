@@ -86,6 +86,7 @@
             openChildFormAd(new GenerateReport());
         }
 
+
         private void exitAppBTN_Click(object sender, EventArgs e)
         {
             Application.Exit();

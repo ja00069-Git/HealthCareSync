@@ -14,6 +14,8 @@ namespace HealthCareSync.Views
             viewModel = new AppointmentViewModel();
             BindControls();
             SubscribeToViewModelEvents();
+            ClearSelectionsAndResetFields();
+
         }
 
         private void BindControls()
@@ -35,7 +37,6 @@ namespace HealthCareSync.Views
             // ListBox data source bindings
             this.appointmentsListBox.DataSource = viewModel.Appointments;
             this.appointmentsListBox.DisplayMember = "DisplayInfo";
-            this.appointmentsListBox.SelectedIndex = -1;
             this.docsTimesListBox.DataSource = viewModel.AvailableTimeSlots;
         }
 
@@ -52,7 +53,6 @@ namespace HealthCareSync.Views
                 appointmentsListBox.DataSource = null;
                 appointmentsListBox.DataSource = viewModel.Appointments;
                 appointmentsListBox.DisplayMember = "DisplayInfo";
-                appointmentsListBox.SelectedIndex = -1;
 
                 docsTimesListBox.DataSource = null;
                 docsTimesListBox.DataSource = viewModel.AvailableTimeSlots;
@@ -60,6 +60,12 @@ namespace HealthCareSync.Views
             SetLabelColors();
         }
 
+        private void ClearSelectionsAndResetFields()
+        {
+            appointmentsListBox.ClearSelected();
+            docsTimesListBox.ClearSelected();
+            viewModel.ClearInputFields();
+        }
         private void SetLabelColors()
         {
             SetLabelColor(generalErrorlLabel, viewModel.GeneralErrorMessage);

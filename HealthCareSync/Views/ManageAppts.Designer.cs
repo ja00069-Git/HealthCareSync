@@ -252,9 +252,9 @@
             appointmentsListBox.BorderStyle = BorderStyle.FixedSingle;
             appointmentsListBox.FormattingEnabled = true;
             appointmentsListBox.ItemHeight = 25;
-            appointmentsListBox.Location = new Point(940, 40);
+            appointmentsListBox.Location = new Point(908, 48);
             appointmentsListBox.Name = "appointmentsListBox";
-            appointmentsListBox.Size = new Size(326, 402);
+            appointmentsListBox.Size = new Size(385, 402);
             appointmentsListBox.TabIndex = 20;
             appointmentsListBox.SelectedIndexChanged += appointmentsListBox_SelectedIndexChanged;
             // 
@@ -308,7 +308,7 @@
             appointmentLabel.BackColor = SystemColors.Control;
             appointmentLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             appointmentLabel.ForeColor = SystemColors.ActiveCaptionText;
-            appointmentLabel.Location = new Point(940, 12);
+            appointmentLabel.Location = new Point(908, 20);
             appointmentLabel.Name = "appointmentLabel";
             appointmentLabel.Size = new Size(136, 25);
             appointmentLabel.TabIndex = 25;
