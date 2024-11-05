@@ -76,7 +76,7 @@
             adminLogoutBTN.ForeColor = Color.White;
             adminLogoutBTN.Location = new Point(94, 20);
             adminLogoutBTN.Name = "adminLogoutBTN";
-            adminLogoutBTN.Size = new Size(106, 49);
+            adminLogoutBTN.Size = new Size(85, 39);
             adminLogoutBTN.TabIndex = 2;
             adminLogoutBTN.Text = "Log Out";
             adminLogoutBTN.UseVisualStyleBackColor = false;
@@ -87,7 +87,7 @@
             adminUserPictureBox.Image = Properties.Resources.blue_user_icon;
             adminUserPictureBox.Location = new Point(9, 3);
             adminUserPictureBox.Name = "adminUserPictureBox";
-            adminUserPictureBox.Size = new Size(74, 71);
+            adminUserPictureBox.Size = new Size(59, 57);
             adminUserPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
             adminUserPictureBox.TabIndex = 0;
             adminUserPictureBox.TabStop = false;
@@ -97,20 +97,20 @@
             logoutPanel.Controls.Add(adminUserPictureBox);
             logoutPanel.Controls.Add(adminLogoutBTN);
             logoutPanel.Controls.Add(logedInUserTextBox);
-            logoutPanel.Location = new Point(2, 376);
-            logoutPanel.Margin = new Padding(2, 4, 2, 4);
+            logoutPanel.Location = new Point(2, 299);
+            logoutPanel.Margin = new Padding(2, 3, 2, 3);
             logoutPanel.Name = "logoutPanel";
-            logoutPanel.Size = new Size(202, 144);
+            logoutPanel.Size = new Size(162, 115);
             logoutPanel.TabIndex = 5;
             // 
             // adminMenuLabel
             // 
             adminMenuLabel.AutoSize = true;
             adminMenuLabel.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            adminMenuLabel.Location = new Point(66, 26);
+            adminMenuLabel.Location = new Point(53, 21);
             adminMenuLabel.Margin = new Padding(2, 0, 2, 0);
             adminMenuLabel.Name = "adminMenuLabel";
-            adminMenuLabel.Size = new Size(93, 38);
+            adminMenuLabel.Size = new Size(80, 32);
             adminMenuLabel.TabIndex = 1;
             adminMenuLabel.Text = "Menu";
             // 
@@ -118,20 +118,19 @@
             // 
             adminMenuPanel.Controls.Add(menuBTN);
             adminMenuPanel.Controls.Add(adminMenuLabel);
-            adminMenuPanel.Location = new Point(2, 4);
-            adminMenuPanel.Margin = new Padding(2, 4, 2, 4);
+            adminMenuPanel.Location = new Point(2, 3);
+            adminMenuPanel.Margin = new Padding(2, 3, 2, 3);
             adminMenuPanel.Name = "adminMenuPanel";
-            adminMenuPanel.Size = new Size(208, 85);
+            adminMenuPanel.Size = new Size(166, 68);
             adminMenuPanel.TabIndex = 0;
             // 
             // menuBTN
             // 
             menuBTN.Cursor = Cursors.Hand;
             menuBTN.Image = (Image)resources.GetObject("menuBTN.Image");
-            menuBTN.Location = new Point(4, 21);
-            menuBTN.Margin = new Padding(4);
+            menuBTN.Location = new Point(3, 17);
             menuBTN.Name = "menuBTN";
-            menuBTN.Size = new Size(54, 49);
+            menuBTN.Size = new Size(43, 39);
             menuBTN.SizeMode = PictureBoxSizeMode.Zoom;
             menuBTN.TabIndex = 2;
             menuBTN.TabStop = false;
@@ -147,22 +146,22 @@
             sidebar.Controls.Add(logoutPanel);
             sidebar.Dock = DockStyle.Left;
             sidebar.Location = new Point(0, 0);
-            sidebar.Margin = new Padding(2, 4, 2, 4);
-            sidebar.MaximumSize = new Size(210, 615);
-            sidebar.MinimumSize = new Size(70, 450);
+            sidebar.Margin = new Padding(2, 3, 2, 3);
+            sidebar.MaximumSize = new Size(168, 492);
+            sidebar.MinimumSize = new Size(56, 360);
             sidebar.Name = "sidebar";
-            sidebar.Size = new Size(210, 615);
+            sidebar.Size = new Size(168, 492);
             sidebar.TabIndex = 4;
             // 
             // manageNursePanel
             // 
             manageNursePanel.Controls.Add(manageNurseButton);
-            manageNursePanel.Location = new Point(2, 97);
-            manageNursePanel.Margin = new Padding(2, 4, 2, 4);
-            manageNursePanel.MaximumSize = new Size(208, 151);
-            manageNursePanel.MinimumSize = new Size(208, 59);
+            manageNursePanel.Location = new Point(2, 77);
+            manageNursePanel.Margin = new Padding(2, 3, 2, 3);
+            manageNursePanel.MaximumSize = new Size(166, 121);
+            manageNursePanel.MinimumSize = new Size(166, 47);
             manageNursePanel.Name = "manageNursePanel";
-            manageNursePanel.Size = new Size(208, 85);
+            manageNursePanel.Size = new Size(166, 68);
             manageNursePanel.TabIndex = 4;
             // 
             // manageNurseButton
@@ -173,11 +172,11 @@
             manageNurseButton.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             manageNurseButton.Image = Properties.Resources.doc_stethoscope;
             manageNurseButton.ImageAlign = ContentAlignment.MiddleLeft;
-            manageNurseButton.Location = new Point(6, 4);
-            manageNurseButton.Margin = new Padding(2, 4, 2, 4);
+            manageNurseButton.Location = new Point(5, 3);
+            manageNurseButton.Margin = new Padding(2, 3, 2, 3);
             manageNurseButton.Name = "manageNurseButton";
-            manageNurseButton.Padding = new Padding(9, 0, 0, 0);
-            manageNurseButton.Size = new Size(199, 79);
+            manageNurseButton.Padding = new Padding(7, 0, 0, 0);
+            manageNurseButton.Size = new Size(159, 63);
             manageNurseButton.TabIndex = 1;
             manageNurseButton.Text = "       Manage Nurse";
             manageNurseButton.UseVisualStyleBackColor = true;
@@ -186,10 +185,10 @@
             // manageDoctorPanel
             // 
             manageDoctorPanel.Controls.Add(manageDoctorBTN);
-            manageDoctorPanel.Location = new Point(2, 190);
-            manageDoctorPanel.Margin = new Padding(2, 4, 2, 4);
+            manageDoctorPanel.Location = new Point(2, 151);
+            manageDoctorPanel.Margin = new Padding(2, 3, 2, 3);
             manageDoctorPanel.Name = "manageDoctorPanel";
-            manageDoctorPanel.Size = new Size(208, 85);
+            manageDoctorPanel.Size = new Size(166, 68);
             manageDoctorPanel.TabIndex = 6;
             // 
             // manageDoctorBTN
@@ -200,39 +199,39 @@
             manageDoctorBTN.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             manageDoctorBTN.Image = Properties.Resources.nurse_icon;
             manageDoctorBTN.ImageAlign = ContentAlignment.MiddleLeft;
-            manageDoctorBTN.Location = new Point(6, 4);
-            manageDoctorBTN.Margin = new Padding(2, 4, 2, 4);
+            manageDoctorBTN.Location = new Point(5, 3);
+            manageDoctorBTN.Margin = new Padding(2, 3, 2, 3);
             manageDoctorBTN.Name = "manageDoctorBTN";
             manageDoctorBTN.Padding = new Padding(2, 0, 0, 0);
-            manageDoctorBTN.Size = new Size(199, 79);
+            manageDoctorBTN.Size = new Size(159, 63);
             manageDoctorBTN.TabIndex = 0;
-            manageDoctorBTN.Text = "          Manage Doctor";
+            manageDoctorBTN.Text = "         Manage Doctor";
             manageDoctorBTN.UseVisualStyleBackColor = true;
             manageDoctorBTN.Click += manageDoctorBTN_Click;
             // 
             // generateReportPnl
             // 
             generateReportPnl.Controls.Add(generateReportBTN);
-            generateReportPnl.Location = new Point(2, 283);
-            generateReportPnl.Margin = new Padding(2, 4, 2, 4);
+            generateReportPnl.Location = new Point(2, 225);
+            generateReportPnl.Margin = new Padding(2, 3, 2, 3);
             generateReportPnl.Name = "generateReportPnl";
-            generateReportPnl.Size = new Size(204, 85);
+            generateReportPnl.Size = new Size(163, 68);
             generateReportPnl.TabIndex = 0;
             // 
             // generateReportBTN
             // 
             generateReportBTN.FlatAppearance.BorderSize = 0;
             generateReportBTN.FlatStyle = FlatStyle.Flat;
-            generateReportBTN.Font = new Font("Segoe UI", 7F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            generateReportBTN.Font = new Font("Segoe UI", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             generateReportBTN.Image = Properties.Resources.books_icon;
             generateReportBTN.ImageAlign = ContentAlignment.MiddleLeft;
-            generateReportBTN.Location = new Point(4, 4);
-            generateReportBTN.Margin = new Padding(2, 4, 2, 4);
+            generateReportBTN.Location = new Point(3, 3);
+            generateReportBTN.Margin = new Padding(2, 3, 2, 3);
             generateReportBTN.Name = "generateReportBTN";
-            generateReportBTN.Padding = new Padding(8, 0, 0, 0);
-            generateReportBTN.Size = new Size(199, 79);
+            generateReportBTN.Padding = new Padding(6, 0, 0, 0);
+            generateReportBTN.Size = new Size(159, 63);
             generateReportBTN.TabIndex = 1;
-            generateReportBTN.Text = "            Generate Reports";
+            generateReportBTN.Text = "       Generate Reports";
             generateReportBTN.UseVisualStyleBackColor = true;
             generateReportBTN.Click += generateReportBTN_Click;
             // 
@@ -245,9 +244,9 @@
             // 
             adminMainPanel.Dock = DockStyle.Fill;
             adminMainPanel.Location = new Point(0, 0);
-            adminMainPanel.Margin = new Padding(2, 4, 2, 4);
+            adminMainPanel.Margin = new Padding(2, 3, 2, 3);
             adminMainPanel.Name = "adminMainPanel";
-            adminMainPanel.Size = new Size(1350, 615);
+            adminMainPanel.Size = new Size(1080, 492);
             adminMainPanel.TabIndex = 8;
             // 
             // exitAppBTN
@@ -257,24 +256,24 @@
             exitAppBTN.BackgroundImageLayout = ImageLayout.Zoom;
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
-            exitAppBTN.Location = new Point(1284, 12);
+            exitAppBTN.Location = new Point(1027, 10);
+            exitAppBTN.Margin = new Padding(2, 2, 2, 2);
             exitAppBTN.Name = "exitAppBTN";
-            exitAppBTN.Size = new Size(54, 54);
+            exitAppBTN.Size = new Size(43, 43);
             exitAppBTN.TabIndex = 8;
             exitAppBTN.UseVisualStyleBackColor = true;
             exitAppBTN.Click += exitAppBTN_Click;
             // 
             // AdminHomePage
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1350, 615);
+            ClientSize = new Size(1080, 492);
             Controls.Add(exitAppBTN);
             Controls.Add(sidebar);
             Controls.Add(adminMainPanel);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4);
             Name = "AdminHomePage";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "y";
