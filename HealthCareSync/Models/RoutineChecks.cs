@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace HealthCareSync.Models
 {
+    /// <summary>
+    /// Class representing the routine checks performed at the beginning of a visit
+    /// </summary>
     public class RoutineChecks
     {
+        private int nurseId;
         private int appointmentId;
         private int systolicReading;
         private int diastolicReading;
@@ -17,12 +21,39 @@ namespace HealthCareSync.Models
         private double weight;
         private double height;
 
+        /// <summary>
+        /// Gets or sets the nurse identifier.
+        /// </summary>
+        /// <value>
+        /// The nurse identifier.
+        /// </value>
+        /// <exception cref="ArgumentException">NurseId must be above 0</exception>
+        public int NurseId
+        {
+            get { return nurseId; }
 
-        public int AppointmentId 
-        { 
-          get { return appointmentId; } 
-            
-          set
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("NurseId must be above 0");
+                }
+
+                nurseId = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the appointment identifier.
+        /// </summary>
+        /// <value>
+        /// The appointment identifier.
+        /// </value>
+        public int AppointmentId
+        {
+            get { return appointmentId; }
+
+            set
             {
                 if (value <= 0)
                 {
@@ -33,6 +64,12 @@ namespace HealthCareSync.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets the systolic reading.
+        /// </summary>
+        /// <value>
+        /// The systolic reading.
+        /// </value>
         public int SystolicReading
         {
             get { return systolicReading; }
@@ -48,6 +85,12 @@ namespace HealthCareSync.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets the diastolic reading.
+        /// </summary>
+        /// <value>
+        /// The diastolic reading.
+        /// </value>
         public int DiastolicReading
         {
             get { return diastolicReading; }
@@ -63,6 +106,12 @@ namespace HealthCareSync.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets the body temperature.
+        /// </summary>
+        /// <value>
+        /// The body temperature.
+        /// </value>
         public int BodyTemperature
         {
             get { return bodyTemperature; }
@@ -78,6 +127,12 @@ namespace HealthCareSync.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets the BPM.
+        /// </summary>
+        /// <value>
+        /// The BPM.
+        /// </value>
         public int BPM
         {
             get { return bpm; }
@@ -93,6 +148,12 @@ namespace HealthCareSync.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets the symptoms.
+        /// </summary>
+        /// <value>
+        /// The symptoms.
+        /// </value>
         public string Symptoms
         {
             get { return symptoms; }
@@ -107,6 +168,13 @@ namespace HealthCareSync.Models
                 symptoms = value;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the weight.
+        /// </summary>
+        /// <value>
+        /// The weight.
+        /// </value>
         public double Weight
         {
             get { return weight; }
@@ -122,6 +190,12 @@ namespace HealthCareSync.Models
             }
         }
 
+        /// <summary>
+        /// Gets or sets the height.
+        /// </summary>
+        /// <value>
+        /// The height.
+        /// </value>
         public double Height
         {
             get { return height; }
@@ -137,7 +211,18 @@ namespace HealthCareSync.Models
             }
         }
 
-        public RoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int bpm, string symptoms, double weight, double height)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoutineChecks" /> class.
+        /// </summary>
+        /// <param name="appointmentId">The appointment identifier.</param>
+        /// <param name="systolicReading">The systolic reading.</param>
+        /// <param name="diastolicReading">The diastolic reading.</param>
+        /// <param name="bodyTemperature">The body temperature.</param>
+        /// <param name="bpm">The BPM.</param>
+        /// <param name="symptoms">The symptoms.</param>
+        /// <param name="weight">The weight.</param>
+        /// <param name="height">The height.</param>
+        public RoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int bpm, string symptoms, double weight, double height, int nurseId)
         {
             this.AppointmentId = appointmentId;
             this.SystolicReading = systolicReading;
@@ -147,6 +232,7 @@ namespace HealthCareSync.Models
             this.Symptoms = symptoms;
             this.Weight = weight;
             this.Height = height;
-        }  
+            this.NurseId = nurseId;
+        }
     }
 }

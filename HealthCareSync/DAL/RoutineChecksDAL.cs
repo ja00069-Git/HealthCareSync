@@ -31,7 +31,7 @@ namespace HealthCareSync.DAL
         /// <param name="weight">The weight.</param>
         /// <param name="height">The height.</param>
         public void SaveRoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM,
-            string symptoms, double weight, double height)
+            string symptoms, double weight, double height, int nurseId)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
@@ -39,7 +39,7 @@ namespace HealthCareSync.DAL
 
             var query = @"INSERT into routine_checks
                           VALUES
-                          (@appointmentId, @systolic, @diastolic, @temp, @bpm, @symptoms, @weight, @height);";
+                          (@appointmentId, @systolic, @diastolic, @temp, @bpm, @symptoms, @weight, @height, @nurse_id);";
 
             using var command = new MySqlCommand(query, connection);
 
@@ -51,6 +51,7 @@ namespace HealthCareSync.DAL
             command.Parameters.Add("@symptoms", MySqlDbType.VarChar).Value = symptoms;
             command.Parameters.Add("@weight", MySqlDbType.Decimal).Value = weight;
             command.Parameters.Add("@height", MySqlDbType.Decimal).Value = height;
+            command.Parameters.Add("@nurse_id", MySqlDbType.Int32).Value = nurseId;
 
             command.ExecuteNonQuery();
         }
@@ -67,7 +68,7 @@ namespace HealthCareSync.DAL
         /// <param name="weight">The weight.</param>
         /// <param name="height">The height.</param>
         public void EditRoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int pulseBPM,
-            string symptoms, double weight, double height)
+            string symptoms, double weight, double height, int nurseId)
         {
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
@@ -76,7 +77,7 @@ namespace HealthCareSync.DAL
             var query = @"UPDATE routine_checks 
                         SET systolic_reading = @systolic, diastolic_reading = @diastolic,
                         body_temperature = @temp, pulse_bpm = @bpm, symptoms = @symptoms, 
-                        weight = @weight, height = @height
+                        weight = @weight, height = @height, nurse_id = @nurse_id
                         where appointment_id = @appointmentId";
 
 
@@ -90,6 +91,7 @@ namespace HealthCareSync.DAL
             command.Parameters.Add("@symptoms", MySqlDbType.VarChar).Value = symptoms;
             command.Parameters.Add("@weight", MySqlDbType.Decimal).Value = weight;
             command.Parameters.Add("@height", MySqlDbType.Decimal).Value = height;
+            command.Parameters.Add("@nurse_id", MySqlDbType.Int32).Value = nurseId;
 
             command.ExecuteNonQuery();
         }
@@ -105,7 +107,7 @@ namespace HealthCareSync.DAL
 
             connection.Open();
 
-            var query = @"SELECT R.systolic_reading, R.diastolic_reading, R.body_temperature, R.pulse_bpm, R.symptoms, R.weight, R.height
+            var query = @"SELECT R.systolic_reading, R.diastolic_reading, R.body_temperature, R.pulse_bpm, R.symptoms, R.weight, R.height, R.nurse_id
                           FROM routine_checks R     
                           WHERE R.appointment_id = @appointmentId";
 
@@ -122,6 +124,7 @@ namespace HealthCareSync.DAL
             var symptomsOrdinal = reader.GetOrdinal("symptoms");
             var weightOrdinal = reader.GetOrdinal("weight");
             var heightOrdinal = reader.GetOrdinal("height");
+            var nurseIdOrdinal = reader.GetOrdinal("nurse_id");
 
             RoutineChecks? routineChecks = null;
 
@@ -134,8 +137,9 @@ namespace HealthCareSync.DAL
                 var symptoms = reader.GetFieldValueCheckNull<string>(symptomsOrdinal);
                 var weight = reader.GetFieldValueCheckNull<decimal>(weightOrdinal);
                 var height = reader.GetFieldValueCheckNull<decimal>(heightOrdinal);
+                var nurseId = reader.GetFieldValueCheckNull<int>(nurseIdOrdinal);
 
-                routineChecks = new RoutineChecks(appointmentId, systolic, diastolic, bodyTemp, bpm, symptoms, decimal.ToDouble(weight), decimal.ToDouble(height));
+                routineChecks = new RoutineChecks(appointmentId, systolic, diastolic, bodyTemp, bpm, symptoms, decimal.ToDouble(weight), decimal.ToDouble(height), nurseId);
             }
 
             return routineChecks;

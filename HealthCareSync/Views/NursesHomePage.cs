@@ -5,6 +5,7 @@ namespace HealthCareSync
     public partial class NursesHomePage : Form
     {
         private readonly Point exitBtnStartingLocation = new Point(514, 7);
+        private readonly string loggedInUserName = string.Empty;
         bool isCollapsed;
         bool isMngVisitCollapsed;
 
@@ -26,6 +27,7 @@ namespace HealthCareSync
             this.sidebarTimer.Start();
             this.mngVisitTimer.Start();
             this.logedInUserTextBox.Text = "Welcome, " + logedInUser;
+            this.loggedInUserName = (logedInUser.IndexOf(" (") >= 0) ? logedInUser.Substring(0, logedInUser.IndexOf(" (")) : logedInUser;
             this.openChildForm(new Manage_Patients());
         }
 
@@ -133,7 +135,7 @@ namespace HealthCareSync
 
         private void visitsBTN_Click(object sender, EventArgs e)
         {
-            openChildForm(new ManageVisits());
+            openChildForm(new ManageVisits(this.loggedInUserName));
         }
 
         private void testsBTN_Click(object sender, EventArgs e)

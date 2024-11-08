@@ -23,6 +23,126 @@ namespace HealthCareSync.DAL
         public NurseDAL() { this.addressDAL = new AddressDAL(); this.userDAL = new UserDAL(); }
 
         /// <summary>
+        /// Gets the nurse with username.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        public Nurse? GetNurseWithUsername(string username)
+        {
+            Nurse nurse = null;
+
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"select 
+                            N.id as NurseId, 
+                            A.id as AddressId, 
+                            fname, 
+                            lname, 
+                            birth_date, 
+                            phone_num,  
+                            username,
+                            address_1,
+                            zip, 
+                            state, 
+                            city, 
+                            address_2
+                          from nurse N
+                          left join address A on N.address_id = A.id
+                          where (N.address_id = A.id OR N.address_id IS NULL)
+                                AND N.username = @username";
+
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
+
+            using var reader = command.ExecuteReader();
+
+            var idOrdinal = reader.GetOrdinal("NurseId");
+            var addressIdOrdinal = reader.GetOrdinal("AddressId");
+            var fnameOrdinal = reader.GetOrdinal("fname");
+            var lnameOrdinal = reader.GetOrdinal("lname");
+            var bdateOrdinal = reader.GetOrdinal("birth_date"); ;
+            var phoneOrdinal = reader.GetOrdinal("phone_num");
+            var usernameOrdinal = reader.GetOrdinal("username");
+            var address1Ordinal = reader.GetOrdinal("address_1");
+            var zipOrdinal = reader.GetOrdinal("zip");
+            var stateOrdinal = reader.GetOrdinal("state");
+            var cityOrdinal = reader.GetOrdinal("city");
+            var address2Ordinal = reader.GetOrdinal("address_2");
+
+            while (reader.Read())
+            {
+                nurse = CreateNurse(reader, idOrdinal, addressIdOrdinal, fnameOrdinal,
+                    lnameOrdinal, bdateOrdinal, phoneOrdinal, usernameOrdinal, address1Ordinal,
+                    zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal);
+            }
+
+            return nurse;
+        }
+
+        /// <summary>
+        /// Gets the nurse with identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns></returns>
+        public Nurse? GetNurseWithId(int? id)
+        {
+            Nurse nurse = null;
+
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"select 
+                            N.id as NurseId, 
+                            A.id as AddressId, 
+                            fname, 
+                            lname, 
+                            birth_date, 
+                            phone_num,  
+                            username,
+                            address_1,
+                            zip, 
+                            state, 
+                            city, 
+                            address_2
+                          from nurse N
+                          left join address A on N.address_id = A.id
+                          where (N.address_id = A.id OR N.address_id IS NULL)
+                                AND N.id = @id";
+
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+
+            using var reader = command.ExecuteReader();
+
+            var idOrdinal = reader.GetOrdinal("NurseId");
+            var addressIdOrdinal = reader.GetOrdinal("AddressId");
+            var fnameOrdinal = reader.GetOrdinal("fname");
+            var lnameOrdinal = reader.GetOrdinal("lname");
+            var bdateOrdinal = reader.GetOrdinal("birth_date");;
+            var phoneOrdinal = reader.GetOrdinal("phone_num");
+            var usernameOrdinal = reader.GetOrdinal("username");
+            var address1Ordinal = reader.GetOrdinal("address_1");
+            var zipOrdinal = reader.GetOrdinal("zip");
+            var stateOrdinal = reader.GetOrdinal("state");
+            var cityOrdinal = reader.GetOrdinal("city");
+            var address2Ordinal = reader.GetOrdinal("address_2");
+
+            while (reader.Read())
+            {
+                nurse = CreateNurse(reader, idOrdinal, addressIdOrdinal, fnameOrdinal,
+                    lnameOrdinal, bdateOrdinal, phoneOrdinal, usernameOrdinal, address1Ordinal,
+                    zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal);
+            }
+
+            return nurse;
+        }
+
+        /// <summary>
         /// Adds the nurse.
         /// </summary>
         /// <param name="fname">The fname.</param>
@@ -241,33 +361,27 @@ namespace HealthCareSync.DAL
             int phoneOrdinal, int usernameOrdinal, int address1Ordinal, int zipOrdinal, int stateOrdinal,
             int cityOrdinal, int address2Ordinal)
         {
-             
+            var address1 = reader.GetFieldValueCheckNull<string?>(address1Ordinal);
+            var zip = reader.GetFieldValueCheckNull<string?>(zipOrdinal);
+
+            var address = new Address(
+                reader.GetFieldValueCheckNull<Int32>(addressIdOrdinal),
+                address1,
+                zip,
+                reader.GetFieldValueCheckNull<string?>(cityOrdinal),
+                Enum.Parse<State>(reader.GetFieldValueCheckNull<string?>(stateOrdinal).ToUpper()),
+                reader.GetFieldValueCheckNull<string?>(address2Ordinal)
+            );
+
             var nurse = new Nurse(
                 reader.GetFieldValueCheckNull<int>(idOrdinal),
                 reader.GetFieldValueCheckNull<string>(fnameOrdinal),
                 reader.GetFieldValueCheckNull<string>(lnameOrdinal),
                 reader.GetFieldValueCheckNull<DateTime>(bdateOrdinal),
                 reader.GetFieldValueCheckNull<string?>(phoneOrdinal),
-                null,
+                address,
                 reader.GetFieldValueCheckNull<string?>(usernameOrdinal)
             );
-
-            var address1 = reader.GetFieldValueCheckNull<string?>(address1Ordinal);
-            var zip = reader.GetFieldValueCheckNull<string?>(zipOrdinal);
-
-            if (address1 != null && zip != null) // Address isn't null
-            {
-                var address = new Address(
-                    reader.GetFieldValueCheckNull<Int32>(addressIdOrdinal),
-                    address1,
-                    zip,
-                    reader.GetFieldValueCheckNull<string?>(cityOrdinal),
-                    Enum.Parse<State>(reader.GetFieldValueCheckNull<string?>(stateOrdinal).ToUpper()),
-                    reader.GetFieldValueCheckNull<string?>(address2Ordinal)
-                );
-
-                nurse.Address = address;
-            }
 
             return nurse;
         }

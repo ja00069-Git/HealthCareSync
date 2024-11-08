@@ -78,6 +78,9 @@
             searchFirstNameTextBox = new TextBox();
             searchLastNameTextBox = new TextBox();
             panel7 = new Panel();
+            label17 = new Label();
+            panel8 = new Panel();
+            nurseNameTextBox = new TextBox();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -580,12 +583,46 @@
             panel7.Size = new Size(1, 329);
             panel7.TabIndex = 70;
             // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.Location = new Point(840, 24);
+            label17.Name = "label17";
+            label17.Size = new Size(103, 19);
+            label17.TabIndex = 79;
+            label17.Text = "Performed By";
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.IndianRed;
+            panel8.Location = new Point(805, 70);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(167, 1);
+            panel8.TabIndex = 80;
+            // 
+            // nurseNameTextBox
+            // 
+            nurseNameTextBox.BorderStyle = BorderStyle.None;
+            nurseNameTextBox.Enabled = false;
+            nurseNameTextBox.Font = new Font("Microsoft YaHei UI", 12F);
+            nurseNameTextBox.ForeColor = SystemColors.HotTrack;
+            nurseNameTextBox.Location = new Point(805, 46);
+            nurseNameTextBox.Name = "nurseNameTextBox";
+            nurseNameTextBox.ReadOnly = true;
+            nurseNameTextBox.Size = new Size(167, 21);
+            nurseNameTextBox.TabIndex = 81;
+            nurseNameTextBox.TextAlign = HorizontalAlignment.Center;
+            // 
             // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1469, 369);
+            Controls.Add(nurseNameTextBox);
+            Controls.Add(panel8);
+            Controls.Add(label17);
             Controls.Add(panel7);
             Controls.Add(panel5);
             Controls.Add(panel6);
@@ -697,5 +734,8 @@
         private TextBox searchFirstNameTextBox;
         private TextBox searchLastNameTextBox;
         private Panel panel7;
+        private Label label17;
+        private Panel panel8;
+        private TextBox nurseNameTextBox;
     }
 }

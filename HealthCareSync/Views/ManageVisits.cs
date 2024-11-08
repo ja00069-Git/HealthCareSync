@@ -16,18 +16,21 @@ namespace HealthCareSync.Views
         private readonly string ERROR_HEIGHT = "Height must be a number less than 1000 with at most 2 decimals.";
         private readonly string ERROR_BPM = "BPM must be a integer number less than 1000";
         private readonly string ERROR_SYMPTOMS = "Symptoms cannot be empty";
+        private readonly string nurseUserName = string.Empty;
 
         private string errorMessages = string.Empty;
+
 
         private ManageVisitsViewModel viewModel;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManageVisits"/> class.
         /// </summary>
-        public ManageVisits()
+        public ManageVisits(string loggedInUserName)
         {
             InitializeComponent();
             this.viewModel = new ManageVisitsViewModel();
+            this.nurseUserName = loggedInUserName;
             this.bindToViewModel();
             this.bindSearchElements();
         }
@@ -133,6 +136,8 @@ namespace HealthCareSync.Views
 
         private void visitsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.nurseNameTextBox.Clear();
+
             if (visitsListBox.SelectedItem is Appointment)
             {
                 this.viewModel.SelectedVisit = (Appointment)visitsListBox.SelectedItem;
@@ -162,7 +167,7 @@ namespace HealthCareSync.Views
                     this.bindTextBox(this.heightTextBox, this.viewModel, "Height");
                     this.bindTextBox(this.bpmTextBox, this.viewModel, "BPM");
                     this.bindTextBox(this.symptomsTextBox, this.viewModel, "Symptoms");
-
+                    this.bindTextBox(this.nurseNameTextBox, this.viewModel, "PerformingNurseName");
                 }
 
             }
@@ -197,12 +202,12 @@ namespace HealthCareSync.Views
 
                     if (isEditing)
                     {
-                        this.viewModel.Edit(systolic, diastolic, temp, bpm, symptoms, weight, height);
+                        this.viewModel.Edit(systolic, diastolic, temp, bpm, symptoms, weight, height, this.nurseUserName);
                         this.successLabel.Text = "Successfully edited Routine Checks";
                     }
                     else
                     {
-                        this.viewModel.Save(systolic, diastolic, temp, bpm, symptoms, weight, height);
+                        this.viewModel.Save(systolic, diastolic, temp, bpm, symptoms, weight, height, this.nurseUserName);
                         this.successLabel.Text = "Successfully entered Routine Checks";
                     }
                 }

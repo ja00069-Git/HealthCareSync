@@ -11,8 +11,8 @@ namespace HealthCareSync.Models
         private string firstName;
         private string lastName;
         private DateTime birthDate;
-        private string? phoneNumber;
-        private Address? address;
+        private string phoneNumber;
+        private Address address;
         private string username;
 
         /// <summary>
@@ -100,12 +100,17 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The phone number.
         /// </value>
-        public string? PhoneNumber
+        public string PhoneNumber
         {
             get => this.phoneNumber;
             set
             {
-                this.phoneNumber = value?.Trim();
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentNullException(nameof(value), $"{nameof(value)} cannot be null or empty");
+                }
+
+                this.phoneNumber = value.Trim();
             }
         }
 
@@ -115,7 +120,7 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The address identifier.
         /// </value>
-        public int? AddressId => this.Address?.Id;
+        public int AddressId => this.Address.Id;
 
         /// <summary>
         ///     Gets the address.
@@ -123,11 +128,16 @@ namespace HealthCareSync.Models
         /// <value>
         ///     The address.
         /// </value>
-        public Address? Address
+        public Address Address
         {
             get => this.address;
             set
             {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value), $"{nameof(value)} cannot be null");
+                }
+
                 this.address = value;
             }
         }
@@ -162,18 +172,10 @@ namespace HealthCareSync.Models
         /// or
         /// lname
         /// </exception>
-        public Nurse(int id, string fname, string lname, DateTime birthDate, string? phoneNum, Address? address, string? username) {
+        public Nurse(int id, string fname, string lname, DateTime birthDate, string phoneNum, Address address, string username) {
             if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(id), $"{nameof(id)} has to be more than 0");
-            }
-            if (string.IsNullOrWhiteSpace(fname))
-            {
-                throw new ArgumentNullException(nameof(fname), $"{nameof(fname)} cannot be null or empty");
-            }
-            if (string.IsNullOrWhiteSpace(lname))
-            {
-                throw new ArgumentNullException(nameof(lname), $"{nameof(lname)} cannot be null or empty");
             }
             
             this.Id = id;
@@ -200,16 +202,6 @@ namespace HealthCareSync.Models
         /// </exception>
         public Nurse(string fname, string lname, DateTime birthDate, string? phoneNum, Address? address, string? username)
         {
-            if (string.IsNullOrWhiteSpace(fname))
-            {
-                throw new ArgumentNullException(nameof(fname), $"{nameof(fname)} cannot be null or empty");
-            }
-            if (string.IsNullOrWhiteSpace(lname))
-            {
-                throw new ArgumentNullException(nameof(lname), $"{nameof(lname)} cannot be null or empty");
-            }
-            
-            
             this.FirstName = fname;
             this.LastName = lname;
             this.BirthDate = birthDate;

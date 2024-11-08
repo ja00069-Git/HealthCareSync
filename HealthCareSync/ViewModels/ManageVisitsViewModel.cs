@@ -17,9 +17,11 @@ namespace HealthCareSync.ViewModels
 
         private Appointment selectedVisit;
         private RoutineChecks? selectedVisitRoutineChecks;
+        private Nurse? performingNurse;
         private RoutineChecksDAL routineChecksDal;
         private AppointmentDAL appointmentDal;
         private PatientDAL patientDal;
+        private NurseDAL nurseDal;
 
         /// <summary>
         /// Gets a value indicating whether [visit has routine checks entered].
@@ -28,6 +30,8 @@ namespace HealthCareSync.ViewModels
         ///   <c>true</c> if [visit has routine checks entered]; otherwise, <c>false</c>.
         /// </value>
         public bool VisitHasRoutineChecksEntered => selectedVisitRoutineChecks != null;
+
+        public string? PerformingNurseName { get { return this.performingNurse!.FullName; } }
 
         /// <summary>
         /// Gets the appointment identifier.
@@ -123,6 +127,7 @@ namespace HealthCareSync.ViewModels
             {
                 selectedVisit = value ?? throw new ArgumentNullException(nameof(value));
                 this.selectedVisitRoutineChecks = this.routineChecksDal.GetRoutineChecks((int)this.AppointmentId!);
+                this.performingNurse = this.nurseDal.GetNurseWithId(this.selectedVisitRoutineChecks?.NurseId);
                 OnPropertyChanged(nameof(SelectedVisit));
                 OnPropertyChanged(nameof(AppointmentId));
                 OnPropertyChanged(nameof(VisitDate));
@@ -162,6 +167,7 @@ namespace HealthCareSync.ViewModels
             this.routineChecksDal = new RoutineChecksDAL();
             this.appointmentDal = new AppointmentDAL();
             this.patientDal = new PatientDAL();
+            this.nurseDal = new NurseDAL();
 
             this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());   
         }
@@ -176,7 +182,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="symptoms">The symptoms.</param>
         /// <param name="weight">The weight.</param>
         /// <param name="height">The height.</param>
-        public void Save(string systolicReading, string diastolicReading, string bodyTemperature, string pulseBPM, string symptoms, string weight, string height)
+        public void Save(string systolicReading, string diastolicReading, string bodyTemperature, string pulseBPM, string symptoms, string weight, string height, string nurseUserName)
         {
             var aptId = (int)this.AppointmentId!;
             var systolicInt = int.Parse(systolicReading);
@@ -186,11 +192,14 @@ namespace HealthCareSync.ViewModels
             var weightDouble = double.Parse(weight);
             var heightDouble = double.Parse(height);
 
-            this.routineChecksDal.SaveRoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
+            this.performingNurse = this.nurseDal.GetNurseWithUsername(nurseUserName);
 
-            this.selectedVisitRoutineChecks = new RoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
+            this.routineChecksDal.SaveRoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble, this.performingNurse!.Id);
+
+            this.selectedVisitRoutineChecks = new RoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble, this.performingNurse!.Id);
 
             OnPropertyChanged(nameof(selectedVisitRoutineChecks));
+            OnPropertyChanged(nameof(PerformingNurseName));
         }
 
         /// <summary>
@@ -203,7 +212,7 @@ namespace HealthCareSync.ViewModels
         /// <param name="symptoms">The symptoms.</param>
         /// <param name="weight">The weight.</param>
         /// <param name="height">The height.</param>
-        public void Edit(string systolicReading, string diastolicReading, string bodyTemperature, string pulseBPM, string symptoms, string weight, string height)
+        public void Edit(string systolicReading, string diastolicReading, string bodyTemperature, string pulseBPM, string symptoms, string weight, string height, string nurseUserName)
         {
             var aptId = (int)this.AppointmentId!;
             var systolicInt = int.Parse(systolicReading);
@@ -213,11 +222,14 @@ namespace HealthCareSync.ViewModels
             var weightDouble = double.Parse(weight);
             var heightDouble = double.Parse(height);
 
-            this.routineChecksDal.EditRoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
+            this.performingNurse = this.nurseDal.GetNurseWithUsername(nurseUserName);
 
-            this.selectedVisitRoutineChecks = new RoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble);
+            this.routineChecksDal.EditRoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble, this.performingNurse!.Id);
+
+            this.selectedVisitRoutineChecks = new RoutineChecks(aptId, systolicInt, diastolicInt, bodyTemperatureInt, pulseBPMInt, symptoms, weightDouble, heightDouble, this.performingNurse!.Id);
 
             OnPropertyChanged(nameof(selectedVisitRoutineChecks));
+            OnPropertyChanged(nameof(PerformingNurseName));
         }
 
         /// <summary>
