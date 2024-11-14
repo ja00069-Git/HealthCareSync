@@ -24,6 +24,40 @@ namespace HealthCareSync.DAL
         /// </summary>
         public PatientDAL() { this.addressDAL = new AddressDAL(); }
 
+        /**
+        * Cancel an appointment for a patient
+        * @precondition The appointmentId must be valid
+        * @postcondition The appointment is removed from the database
+        * @param appointmentId The ID of the appointment to cancel
+        * @param availabilityId The ID of the availability slot
+        */
+        public int GetPatientIdByName(string patientName)
+        {
+            int patientId = 0;
+
+            string query = @"
+                SELECT id 
+                FROM patient 
+                WHERE CONCAT(fname, ' ', lname) = @patientName";
+
+            using (var connection = new MySqlConnection(Connection.ConnectionString()))
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@patientName", patientName);
+
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        patientId = reader.GetInt32("id");
+                    }
+                }
+            }
+
+            return patientId;
+        }
+
         /// <summary>
         /// Gets the patients with the given name and birth date.
         /// </summary>
