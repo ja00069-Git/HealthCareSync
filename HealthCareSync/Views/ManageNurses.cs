@@ -254,5 +254,6 @@ namespace HealthCareSync.Views
             this.ClearAllBoxes();
             this.errorLabel.Text = string.Empty;
         }
+
     }
 }
