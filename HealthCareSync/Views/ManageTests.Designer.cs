@@ -35,20 +35,22 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(508, 254);
+            label1.Location = new Point(356, 152);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(185, 38);
+            label1.Size = new Size(126, 25);
             label1.TabIndex = 0;
             label1.Text = "Manage Tests";
             // 
             // ManageTests
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1308, 615);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "ManageTests";
             Text = "ManageTests";
             ResumeLayout(false);
