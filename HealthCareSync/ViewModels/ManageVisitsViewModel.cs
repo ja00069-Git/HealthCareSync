@@ -31,7 +31,23 @@ namespace HealthCareSync.ViewModels
         /// </value>
         public bool VisitHasRoutineChecksEntered => selectedVisitRoutineChecks != null;
 
-        public string? PerformingNurseName { get { return this.performingNurse!.FullName; } }
+        /// <summary>
+        /// Gets the name of the performing nurse.
+        /// </summary>
+        /// <value>
+        /// The name of the performing nurse.
+        /// </value>
+        public string? PerformingNurseName 
+        { 
+            get 
+            {
+                if (this.performingNurse == null)
+                {
+                    return string.Empty;
+                }
+                return this.performingNurse!.FullName; 
+            } 
+        }
 
         /// <summary>
         /// Gets the appointment identifier.
