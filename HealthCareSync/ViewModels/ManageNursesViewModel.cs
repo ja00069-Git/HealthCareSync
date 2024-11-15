@@ -19,6 +19,14 @@ namespace HealthCareSync.ViewModels
         private UserDAL userDAL;
 
         /// <summary>
+        /// Gets the flag flagStatus.
+        /// </summary>
+        /// <value>
+        /// The flag flagStatus.
+        /// </value>
+        public FlagStatus? FlagStatus => SelectedNurse?.FlagStatus;
+
+        /// <summary>
         /// Gets the first name.
         /// </summary>
         /// <value>
@@ -109,6 +117,14 @@ namespace HealthCareSync.ViewModels
         public string? Address_2 => SelectedNurse?.Address?.Address_2;
 
         /// <summary>
+        ///     Gets the flag statuses.
+        /// </summary>
+        /// <value>
+        ///     The flag statuses.
+        /// </value>
+        public List<FlagStatus> FlagStatuses => Enum.GetValues(typeof(FlagStatus)).Cast<FlagStatus>().ToList();
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -136,6 +152,7 @@ namespace HealthCareSync.ViewModels
                     OnPropertyChanged(nameof(Nurse_Id));
                     OnPropertyChanged(nameof(Username));
                     OnPropertyChanged(nameof(Password));
+                    OnPropertyChanged(nameof(FlagStatus));
                     OnPropertyChanged(nameof(Address_1));
                     OnPropertyChanged(nameof(Zip));
                     OnPropertyChanged(nameof(City));
@@ -190,11 +207,11 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="username">The username.</param>
-        public void Add(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password)
+        public void Add(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password, FlagStatus flag)
         {
             int nurseId = this.nurseDAL.AddNurse(fname, lname, bDate, address1,
-               zip, city, state, address2, phoneNum, username, password);
-            var newNurse = new Nurse(nurseId, fname, lname, bDate, phoneNum, null, username);
+               zip, city, state, address2, phoneNum, username, password, flag);
+            var newNurse = new Nurse(nurseId, fname, lname, bDate, phoneNum, null, username, flag);
 
             var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
             newNurse.Address = address;
@@ -220,13 +237,13 @@ namespace HealthCareSync.ViewModels
         /// <param name="state">The state.</param>
         /// <param name="address2">The address2.</param>
         /// <param name="username">The username.</param>
-        public void Save(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password)
+        public void Save(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password, FlagStatus flag)
         {
             var prevUsername = Username;
             bool didUsernameChange = !prevUsername!.ToUpper().Equals(username.ToUpper());
 
             this.nurseDAL.SaveEditedPatient(this.selectedNurse.Id, fname, lname, bDate, address1,
-            zip, city, state, address2, phoneNum, username, password, didUsernameChange);
+            zip, city, state, address2, phoneNum, username, password, flag, didUsernameChange);
 
             this.selectedNurse.FirstName = fname;
             this.selectedNurse.LastName = lname;
@@ -235,6 +252,7 @@ namespace HealthCareSync.ViewModels
             this.selectedNurse.Username = username;
             this.selectedNurseAsUser.Username = username;
             this.selectedNurseAsUser.Password = password;
+            this.selectedNurse.FlagStatus = flag;
 
             this.selectedNurse.Address!.Address_1 = address1;
             this.selectedNurse.Address.Zip = zip;

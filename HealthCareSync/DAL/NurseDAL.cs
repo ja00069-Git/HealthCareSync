@@ -43,6 +43,7 @@ namespace HealthCareSync.DAL
                             birth_date, 
                             phone_num,  
                             username,
+                            status,
                             address_1,
                             zip, 
                             state, 
@@ -71,11 +72,12 @@ namespace HealthCareSync.DAL
             var stateOrdinal = reader.GetOrdinal("state");
             var cityOrdinal = reader.GetOrdinal("city");
             var address2Ordinal = reader.GetOrdinal("address_2");
+            var statusOrdinal = reader.GetOrdinal("status");
 
             while (reader.Read())
             {
                 nurse = CreateNurse(reader, idOrdinal, addressIdOrdinal, fnameOrdinal,
-                    lnameOrdinal, bdateOrdinal, phoneOrdinal, usernameOrdinal, address1Ordinal,
+                    lnameOrdinal, bdateOrdinal, phoneOrdinal, usernameOrdinal, statusOrdinal, address1Ordinal,
                     zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal);
             }
 
@@ -103,6 +105,7 @@ namespace HealthCareSync.DAL
                             birth_date, 
                             phone_num,  
                             username,
+                            status,
                             address_1,
                             zip, 
                             state, 
@@ -131,11 +134,12 @@ namespace HealthCareSync.DAL
             var stateOrdinal = reader.GetOrdinal("state");
             var cityOrdinal = reader.GetOrdinal("city");
             var address2Ordinal = reader.GetOrdinal("address_2");
+            var statusOrdinal = reader.GetOrdinal("status");
 
             while (reader.Read())
             {
                 nurse = CreateNurse(reader, idOrdinal, addressIdOrdinal, fnameOrdinal,
-                    lnameOrdinal, bdateOrdinal, phoneOrdinal, usernameOrdinal, address1Ordinal,
+                    lnameOrdinal, bdateOrdinal, phoneOrdinal, usernameOrdinal, statusOrdinal, address1Ordinal,
                     zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal);
             }
 
@@ -158,7 +162,7 @@ namespace HealthCareSync.DAL
         /// <param name="password">The password</param>
         /// <returns></returns>
         public int AddNurse(string fname, string lname, DateTime bdate, string address_1,
-            string zip, string city, string state, string? address_2, string phone_num, string username, string password)
+            string zip, string city, string state, string? address_2, string phone_num, string username, string password, FlagStatus flag)
         {
             using var connection = new MySqlConnection(connectionString);
 
@@ -166,8 +170,8 @@ namespace HealthCareSync.DAL
 
             MySqlTransaction transaction = connection.BeginTransaction();
 
-            var query = @"insert into nurse (fname, lname, birth_date, phone_num, address_id, username)
-                          values (@fname, @lname, @bdate, @phone_num, @address, @username)";
+            var query = @"insert into nurse (fname, lname, birth_date, phone_num, address_id, username, status)
+                          values (@fname, @lname, @bdate, @phone_num, @address, @username, @status)";
 
             using var command = new MySqlCommand(query, connection);
             command.Transaction = transaction;
@@ -187,6 +191,7 @@ namespace HealthCareSync.DAL
                 command.Parameters.Add("@bdate", MySqlDbType.Date).Value = bdate;
                 command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
                 command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
+                command.Parameters.Add("@status", MySqlDbType.VarChar).Value = flag.ToString().ToUpper();
 
                 command.ExecuteNonQuery();
 
@@ -252,7 +257,7 @@ namespace HealthCareSync.DAL
         /// <param name="password">The password</param>
         /// <param name="didUsernameChange">The bool of if the username was changed</param>
         public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, string address_1,
-            string zip, string city, string state, string? address_2, string phone_num, string username, string password, bool didUsernameChange)
+            string zip, string city, string state, string? address_2, string phone_num, string username, string password, FlagStatus flag, bool didUsernameChange)
         {
             using var connection = new MySqlConnection(connectionString);
 
@@ -262,7 +267,7 @@ namespace HealthCareSync.DAL
 
             var query = @"update nurse 
                         set fname = @fname, lname = @lname, address_id = @address_id,
-                        birth_date = @bdate, phone_num = @phone_num, username = @username
+                        birth_date = @bdate, phone_num = @phone_num, username = @username, status = @status
                         where id = @id";
 
             using var command = new MySqlCommand(query, connection);
@@ -281,6 +286,7 @@ namespace HealthCareSync.DAL
                 command.Parameters.Add("@phone_num", MySqlDbType.VarChar).Value = phone_num;
                 command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
                 command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
+                command.Parameters.Add("@status", MySqlDbType.VarChar).Value = flag.ToString().ToUpper();
 
                 command.ExecuteNonQuery();
 
@@ -321,6 +327,7 @@ namespace HealthCareSync.DAL
                             birth_date, 
                             phone_num, 
                             username, 
+                            status,
                             address_1, 
                             zip, 
                             state, 
@@ -345,11 +352,12 @@ namespace HealthCareSync.DAL
             var stateOrdinal = reader.GetOrdinal("state");
             var cityOrdinal = reader.GetOrdinal("city");
             var address2Ordinal = reader.GetOrdinal("address_2");
+            var statusOrdinal = reader.GetOrdinal("status");
 
             while (reader.Read())
             {
                 nurseList.Add(CreateNurse(reader, idOrdinal, addressIdOrdinal, fnameOrdinal, lnameOrdinal, bdateOrdinal,
-                    phoneOrdinal, usernameOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
+                    phoneOrdinal, usernameOrdinal, statusOrdinal, address1Ordinal, zipOrdinal, stateOrdinal, cityOrdinal, address2Ordinal));
             }
 
             connection.Close();
@@ -358,7 +366,7 @@ namespace HealthCareSync.DAL
         }
 
         private static Nurse CreateNurse(MySqlDataReader reader, int idOrdinal, int addressIdOrdinal, int fnameOrdinal, int lnameOrdinal, int bdateOrdinal,
-            int phoneOrdinal, int usernameOrdinal, int address1Ordinal, int zipOrdinal, int stateOrdinal,
+            int phoneOrdinal, int usernameOrdinal, int statusOrdinal, int address1Ordinal, int zipOrdinal, int stateOrdinal,
             int cityOrdinal, int address2Ordinal)
         {
             var address1 = reader.GetFieldValueCheckNull<string?>(address1Ordinal);
@@ -380,7 +388,8 @@ namespace HealthCareSync.DAL
                 reader.GetFieldValueCheckNull<DateTime>(bdateOrdinal),
                 reader.GetFieldValueCheckNull<string?>(phoneOrdinal),
                 address,
-                reader.GetFieldValueCheckNull<string?>(usernameOrdinal)
+                reader.GetFieldValueCheckNull<string?>(usernameOrdinal),
+                Enum.Parse<FlagStatus>(reader.GetFieldValueCheckNull<string>(statusOrdinal).ToUpper())
             );
 
             return nurse;

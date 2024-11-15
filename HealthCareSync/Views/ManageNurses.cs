@@ -45,6 +45,7 @@ namespace HealthCareSync.Views
             this.bindToViewModel();
             this.ClearAllBoxes();
             this.nurseListBox.SelectedIndex = -1;
+            this.statusComboBox.Enabled = false;
         }
 
         private void bindToViewModel()
@@ -53,6 +54,7 @@ namespace HealthCareSync.Views
             this.nurseListBox.DisplayMember = "FullName";
 
             this.stateComboBoxForNurse.DataSource = this.viewModel.States;
+            this.statusComboBox.DataSource = this.viewModel.FlagStatuses;
 
         }
         private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
@@ -93,6 +95,7 @@ namespace HealthCareSync.Views
             if (this.nurseListBox.SelectedItem is Nurse)
             {
                 this.unselectNurseButton.Enabled = true;
+                this.statusComboBox.Enabled = true;
                 this.saveNurseButton.Enabled = true;
                 this.viewModel.SelectedNurse = (Nurse)this.nurseListBox.SelectedItem;
 
@@ -107,10 +110,19 @@ namespace HealthCareSync.Views
                 this.BindTextBox(this.zipTextBox, this.viewModel, "Zip");
                 this.BindTextBox(this.cityTextBox, this.viewModel, "City");
                 this.BindComboBox(this.stateComboBoxForNurse, this.viewModel, "State");
+                this.BindComboBox(this.statusComboBox, this.viewModel, "FlagStatus");
                 this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
+
+
+                if (this.viewModel.FlagStatus == null)
+                {
+                    this.statusComboBox.SelectedItem = null;
+                }
+        
             }
             else
             {
+                this.statusComboBox.DataBindings.Clear();
                 this.unselectNurseButton.Enabled = false;
                 this.saveNurseButton.Enabled = false;
                 this.viewModel.SelectedNurse = null!;
@@ -132,10 +144,11 @@ namespace HealthCareSync.Views
             var state = this.stateComboBoxForNurse.Text;
             var address2 = this.address2TextBox.Text;
             var isEditing = this.viewModel.SelectedNurse.Username.Equals(username);
+            FlagStatus flag = (FlagStatus)this.statusComboBox.SelectedItem!;
 
             if (this.inputsValid(fname, lname, phoneNum, address1, city, zip, username, password, isEditing))
             {
-                this.viewModel.Save(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password);
+                this.viewModel.Save(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password, flag);
                 this.refreshListBox();
                 this.errorLabel.ForeColor = Color.Green;
                 this.errorLabel.Text = "Successfully edited nurse";
@@ -168,11 +181,11 @@ namespace HealthCareSync.Views
             var city = this.cityTextBox.Text;
             var state = this.stateComboBoxForNurse.Text;
             var address2 = this.address2TextBox.Text;
-
+            FlagStatus flag = (FlagStatus)this.statusComboBox.SelectedItem!;
 
             if (this.inputsValid(fname, lname, phoneNum, address1, city, zip, username, password, false))
             {
-                this.viewModel.Add(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password);
+                this.viewModel.Add(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password, flag);
                 this.refreshListBox();
                 this.nurseListBox.SelectedItem = this.viewModel.Nurses.Last();
                 this.errorLabel.ForeColor = Color.Green;
@@ -253,6 +266,8 @@ namespace HealthCareSync.Views
             this.nurseListBox.SelectedIndex = -1;
             this.ClearAllBoxes();
             this.errorLabel.Text = string.Empty;
+            this.statusComboBox.SelectedIndex = 0;
+            this.statusComboBox.Enabled = false;
         }
     }
 }

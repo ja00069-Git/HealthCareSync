@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HealthCareSync.Enums;
 
 namespace HealthCareSync.Models
 {
@@ -14,6 +15,22 @@ namespace HealthCareSync.Models
         private string phoneNumber;
         private Address address;
         private string username;
+        private FlagStatus status;
+
+        /// <summary>
+        ///     Gets the flag flagStatus.
+        /// </summary>
+        /// <value>
+        ///     The flag flagStatus.
+        /// </value>
+        public FlagStatus FlagStatus
+        {
+            get => this.status;
+            set
+            {
+                this.status = value;
+            }
+        }
 
         /// <summary>
         ///     Gets the Patient's Patient_Id.
@@ -172,7 +189,7 @@ namespace HealthCareSync.Models
         /// or
         /// lname
         /// </exception>
-        public Nurse(int id, string fname, string lname, DateTime birthDate, string phoneNum, Address address, string username) {
+        public Nurse(int id, string fname, string lname, DateTime birthDate, string phoneNum, Address address, string username, FlagStatus status) {
             if (id <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(id), $"{nameof(id)} has to be more than 0");
@@ -185,6 +202,7 @@ namespace HealthCareSync.Models
             this.PhoneNumber = phoneNum;
             this.address = address;
             this.Username = username;
+            this.FlagStatus = status;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="Nurse"/> class.
@@ -200,7 +218,7 @@ namespace HealthCareSync.Models
         /// or
         /// lname
         /// </exception>
-        public Nurse(string fname, string lname, DateTime birthDate, string? phoneNum, Address? address, string? username)
+        public Nurse(string fname, string lname, DateTime birthDate, string? phoneNum, Address? address, string? username, FlagStatus status)
         {
             this.FirstName = fname;
             this.LastName = lname;
@@ -208,6 +226,7 @@ namespace HealthCareSync.Models
             this.PhoneNumber = phoneNum;
             this.Address = address;
             this.Username = username;
+            this.FlagStatus = status;
         }
     }
 }
