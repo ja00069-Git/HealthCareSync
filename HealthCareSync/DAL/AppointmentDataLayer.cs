@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using HealthCareSync.Models;
+using System.Data;
 
 namespace HealthCareSync.DAL
 {
@@ -7,51 +8,56 @@ namespace HealthCareSync.DAL
     {
         public List<string> GetAvailableDoctors(DateTime date)
         {
-            var doctors = new List<string>();
-            string query = "SELECT DISTINCT d.fname, d.lname FROM doctor_availability da " +
-                           "JOIN doctor d ON da.doctor_id = d.id WHERE da.available_date = @date AND da.isAvailable = 1";
-            using (var connection = new MySqlConnection(Connection.ConnectionString()))
-            using (var command = new MySqlCommand(query, connection))
+            List<string> doctors = new List<string>();
+
+            using (MySqlConnection conn = new MySqlConnection(Connection.ConnectionString()))
             {
-                command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand("GetAvailableDoctorsByDate", conn))
                 {
-                    while (reader.Read())
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("appointment_date", date);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        string doctorName = $"{reader.GetString("fname")} {reader.GetString("lname")}";
-                        doctors.Add(doctorName);
+                        while (reader.Read())
+                        {
+                            string fullName = $"{reader["fname"]} {reader["lname"]}";
+                            doctors.Add(fullName);
+                        }
                     }
                 }
             }
+
             return doctors;
         }
 
+
         public List<string> GetAvailableTimeSlots(DateTime date, string doctorName)
-        {
-            var timeSlots = new List<string>();
-            string query = "SELECT da.start_time, da.end_time FROM doctor_availability da " +
-                           "JOIN doctor d ON da.doctor_id = d.id WHERE da.available_date = @date AND da.isAvailable = 1 " +
-                           "AND CONCAT(d.fname, ' ', d.lname) = @doctorName";
-            using (var connection = new MySqlConnection(Connection.ConnectionString()))
-            using (var command = new MySqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-                command.Parameters.AddWithValue("@doctorName", doctorName);
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                var timeSlots = new List<string>();
+                string query = "SELECT da.start_time, da.end_time FROM doctor_availability da " +
+                               "JOIN doctor d ON da.doctor_id = d.id WHERE da.available_date = @date AND da.isAvailable = 1 " +
+                               "AND CONCAT(d.fname, ' ', d.lname) = @doctorName";
+                using (var connection = new MySqlConnection(Connection.ConnectionString()))
+                using (var command = new MySqlCommand(query, connection))
                 {
-                    while (reader.Read())
+                    command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@doctorName", doctorName);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
                     {
-                        string timeSlot = $"{date.ToString("yyyy-MM-dd")} | " +
-                            $"{reader.GetTimeSpan("start_time").ToString(@"hh\:mm")} " +
-                            $"- {reader.GetTimeSpan("end_time").ToString(@"hh\:mm")}";
-                        timeSlots.Add(timeSlot);
+                        while (reader.Read())
+                        {
+                            string timeSlot = $"{date.ToString("yyyy-MM-dd")} | " +
+                                $"{reader.GetTimeSpan("start_time").ToString(@"hh\:mm")} " +
+                                $"- {reader.GetTimeSpan("end_time").ToString(@"hh\:mm")}";
+                            timeSlots.Add(timeSlot);
+                        }
                     }
                 }
+                return timeSlots;
             }
-            return timeSlots;
-        }
 
 
         /**
@@ -134,7 +140,6 @@ namespace HealthCareSync.DAL
                 }
             }
         }
-
 
         /**
          * Get a doctor's name by lookup the available time
