@@ -1,13 +1,8 @@
 ﻿using HealthCareSync.DAL;
 using HealthCareSync.Enums;
 using HealthCareSync.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthCareSync.ViewModels
 {
@@ -18,123 +13,139 @@ namespace HealthCareSync.ViewModels
         private NurseDAL nurseDAL;
         private UserDAL userDAL;
 
-        /// <summary>
-        /// Gets the flag flagStatus.
-        /// </summary>
-        /// <value>
-        /// The flag flagStatus.
-        /// </value>
+
+        /**
+         * Gets the flag status.
+         * @precondition The selected nurse is not null.
+         * @postcondition The flag status is returned.
+         * @return The flag status.
+         */
         public FlagStatus? FlagStatus => SelectedNurse?.FlagStatus;
 
-        /// <summary>
-        /// Gets the first name.
-        /// </summary>
-        /// <value>
-        /// The first name.
-        /// </value>
+
+        /**
+         * Gets the first name.
+         * @precondition The selected nurse is not null.
+         * @postcondition The first name is returned.
+         * @return The first name.
+         */
         public string? FirstName => SelectedNurse?.FirstName;
 
-        /// <summary>
-        /// Gets the last name.
-        /// </summary>
-        /// <value>
-        /// The last name.
-        /// </value>
+
+        /**
+         * Gets the last name.
+         * @precondition The selected nurse is not null.
+         * @postcondition The last name is returned.
+         * @return The last name.
+         */
         public string? LastName => SelectedNurse?.LastName;
 
-        /// <summary>
-        /// Gets the formatted birth date.
-        /// </summary>
-        /// <value>
-        /// The formatted birth date.
-        /// </value>
+
+        /**
+         * Gets the formatted birth date.
+         * @precondition The selected nurse is not null.
+         * @postcondition The formatted birth date is returned.
+         * @return The formatted birth date.
+         */
         public string? FormattedBirthDate => SelectedNurse?.FormattedBirthDate;
 
-        /// <summary>
-        /// Gets the phone number.
-        /// </summary>
-        /// <value>
-        /// The phone number.
-        /// </value>
+
+        /**
+         * Gets the phone number.
+         * @precondition The selected nurse is not null.
+         * @postcondition The phone number is returned.
+         * @return The phone number.
+         */
         public string? PhoneNumber => SelectedNurse?.PhoneNumber;
 
-        /// <summary>
-        /// Gets the patient id.
-        /// </summary>
-        /// <value>
-        /// The patient id.
-        /// </value>
-        public int? Nurse_Id => SelectedNurse?.Id;
 
-        /// <summary>
-        /// Gets the username.
-        /// </summary>
-        /// <value>
-        /// The username.
-        /// </value>
+        /**
+         * Gets the nurse identifier.
+         * @precondition The selected nurse is not null.
+         * @postcondition The nurse identifier is returned.
+         * @return The nurse identifier.
+         */
+        public int Nurse_Id => SelectedNurse?.Id ?? 0;
+
+
+        /**
+         * Gets the username.
+         * @precondition The selected nurse is not null.
+         * @postcondition The username is returned.
+         * @return The username.
+         */
         public string? Username => SelectedNurse?.Username;
 
         public string? Password => selectedNurseAsUser?.Password;
 
-        /// <summary>
-        /// Gets the address 1.
-        /// </summary>
-        /// <value>
-        /// The address 1.
-        /// </value>
+
+        /**
+         * Gets the address1.
+         * @precondition The selected nurse is not null.
+         * @postcondition The address1 is returned.
+         * @return The address1.
+         */
         public string? Address_1 => SelectedNurse?.Address?.Address_1;
 
-        /// <summary>
-        /// Gets the zip.
-        /// </summary>
-        /// <value>
-        /// The zip.
-        /// </value>
+        /**
+         * Gets the zip.
+         * @precondition The selected nurse is not null.
+         * @postcondition The zip is returned.
+         * @return The zip.
+         */
         public string? Zip => SelectedNurse?.Address?.Zip;
 
-        /// <summary>
-        /// Gets the city.
-        /// </summary>
-        /// <value>
-        /// The city.
-        /// </value>
+
+        /**
+         * Gets the city.
+         * @precondition The selected nurse is not null.
+         * @postcondition The city is returned.
+         * @return The city.
+         */
         public string? City => SelectedNurse?.Address?.City;
 
-        /// <summary>
-        /// Gets the state.
-        /// </summary>
-        /// <value>
-        /// The state.
-        /// </value>
+
+        /**
+         * Gets the state.
+         * @precondition The selected nurse is not null.
+         * @postcondition The state is returned.
+         * @return The state.
+         */
         public State? State => SelectedNurse?.Address?.State;
 
-        /// <summary>
-        /// Gets the address 2.
-        /// </summary>
-        /// <value>
-        /// The address 2.
-        /// </value>
+
+        /**
+         * Gets the address2.
+         * @precondition The selected nurse is not null.
+         * @postcondition The address2 is returned.
+         * @return The address2.
+         */
         public string? Address_2 => SelectedNurse?.Address?.Address_2;
 
-        /// <summary>
-        ///     Gets the flag statuses.
-        /// </summary>
-        /// <value>
-        ///     The flag statuses.
-        /// </value>
+
+        /**
+         * Gets the flag statuses.
+         * @postcondition The flag statuses are returned.
+         * @return The flag statuses.
+         */
         public List<FlagStatus> FlagStatuses => Enum.GetValues(typeof(FlagStatus)).Cast<FlagStatus>().ToList();
 
-        /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
+
+        /**
+         * Gets the selected nurse as user.
+         * @precondition The selected nurse is not null.
+         * @postcondition The selected nurse as user is returned.
+         * @return The selected nurse as user.
+         */
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        /// <summary>
-        /// Gets or sets the selected nurse.
-        /// </summary>
-        /// <value>
-        /// The selected nurse.
-        /// </value>
+
+        /**
+         * Gets the selected nurse.
+         * @precondition The selected nurse is not null.
+         * @postcondition The selected nurse is returned.
+         * @return The selected nurse.
+         */
         public Nurse SelectedNurse
         {
             get { return selectedNurse; }
@@ -162,30 +173,33 @@ namespace HealthCareSync.ViewModels
             }
         }
 
-        /// <summary>
-        ///     Gets the Nurses.
-        /// </summary>
-        /// <value>
-        ///     The Nurses.
-        /// </value>
+
+        /**
+         * Gets the selected nurse as user.
+         * @precondition The selected nurse is not null.
+         * @postcondition The selected nurse as user is returned.
+         * @return The selected nurse as user.
+         */
         public ObservableCollection<Nurse> Nurses { get; }
 
-        /// <summary>
-        /// Gets the states.
-        /// </summary>
-        /// <value>
-        /// The states.
-        /// </value>
+        /**
+         * Gets the states.
+         * @postcondition The states are returned.
+         * @return The states.
+         */
         public List<State> States => Enum.GetValues(typeof(State)).Cast<State>().ToList();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ManagePatientsViewModel"/> class.
-        /// </summary>
+
+        /**
+         * Gets the selected nurse as user.
+         * @precondition The selected nurse is not null.
+         * @postcondition The selected nurse as user is returned.
+         * @return The selected nurse as user.
+         */
         public ManageNursesViewModel()
         {
             this.nurseDAL = new NurseDAL();
             this.userDAL = new UserDAL();
-
             this.Nurses = new ObservableCollection<Nurse>(this.nurseDAL.GetNurses());
         }
 
@@ -194,19 +208,24 @@ namespace HealthCareSync.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>
-        /// Adds the nurse to the database and collection.
-        /// </summary>
-        /// <param name="fname">The fname.</param>
-        /// <param name="lname">The lname.</param>
-        /// <param name="bDate">The b date.</param>
-        /// <param name="phoneNum">The phone number.</param>
-        /// <param name="address1">The address1.</param>
-        /// <param name="zip">The zip.</param>
-        /// <param name="city">The city.</param>
-        /// <param name="state">The state.</param>
-        /// <param name="address2">The address2.</param>
-        /// <param name="username">The username.</param>
+
+        /**
+         * Adds a nurse to the database
+         * @param fname The first name.
+         * @param lname The last name.
+         * @param bDate The birth date.
+         * @param phoneNum The phone number.
+         * @param address1 The address1.
+         * @param zip The zip.
+         * @param city The city.
+         * @param state The state.
+         * @param address2 The address2.
+         * @param username The username.
+         * @param password The password.
+         * @param flag The flag status.
+         * @pecondition The username is available and the password is valid.
+         * @postcondition The nurse is added to the database
+         */
         public void Add(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password, FlagStatus flag)
         {
             int nurseId = this.nurseDAL.AddNurse(fname, lname, bDate, address1,
@@ -224,25 +243,31 @@ namespace HealthCareSync.ViewModels
             OnPropertyChanged(nameof(selectedNurseAsUser));
         }
 
-        /// <summary>
-        /// Saves the patient to the database and connection.
-        /// </summary>
-        /// <param name="fname">The fname.</param>
-        /// <param name="lname">The lname.</param>
-        /// <param name="bDate">The b date.</param>
-        /// <param name="phoneNum">The phone number.</param>
-        /// <param name="address1">The address1.</param>
-        /// <param name="zip">The zip.</param>
-        /// <param name="city">The city.</param>
-        /// <param name="state">The state.</param>
-        /// <param name="address2">The address2.</param>
-        /// <param name="username">The username.</param>
-        public void Save(string fname, string lname, DateTime bDate, string phoneNum, string address1, string zip, string city, string state, string? address2, string username, string password, FlagStatus flag)
+
+        /**
+         * Saves the nurse to the database and collection.
+         * @param fname The first name.
+         * @param lname The last name.
+         * @param bDate The birth date.
+         * @param phoneNum The phone number.
+         * @param address1 The address1.
+         * @param zip The zip.
+         * @param city The city.
+         * @param state The state.
+         * @param address2 The address2.
+         * @param username The username.
+         * @param password The password.
+         * @param flag The flag status.
+         * @param didUsernameChange If the username changed.
+         * @return The nurse.
+         */
+        public void Save(string fname, string lname, DateTime bDate, string phoneNum, string address1, 
+            string zip, string city, string state, string? address2, string username, string password, FlagStatus flag)
         {
             var prevUsername = Username;
             bool didUsernameChange = !prevUsername!.ToUpper().Equals(username.ToUpper());
 
-            this.nurseDAL.SaveEditedPatient(this.selectedNurse.Id, fname, lname, bDate, address1,
+            this.nurseDAL.SaveEditedNurse(this.selectedNurse.Id, fname, lname, bDate, address1,
             zip, city, state, address2, phoneNum, username, password, flag, didUsernameChange);
 
             this.selectedNurse.FirstName = fname;
@@ -268,17 +293,41 @@ namespace HealthCareSync.ViewModels
             OnPropertyChanged(nameof(Nurses));
         }
 
-        /// <summary>
-        /// Deletes the patient from the database and collection.
-        /// </summary>
-        public void Delete()
-        {
-            this.nurseDAL.DeleteNurse(this.selectedNurse.Id);
 
-            this.Nurses.Remove(this.selectedNurse);
-            OnPropertyChanged(nameof(Nurses));
+        /**
+         * Deletes the nurse from the database and collection.
+         * @return true if the nurse was deleted.
+         */
+        public bool DeleteNurse()
+        {
+            if (this.nurseDAL.DeleteNurse(Nurse_Id))
+            {
+                OnPropertyChanged(nameof(Nurses));
+                return true;
+            }
+            return false;
         }
 
+        /**
+         * Deactivates the nurse.
+         * @return true if the nurse was deactivated.
+         */
+        public bool DeactivateNurse()
+        {
+            if (this.nurseDAL.DeactivateNurse(Nurse_Id))
+            {
+                OnPropertyChanged(nameof(SelectedNurse.FlagStatus));
+                OnPropertyChanged(nameof(Nurses));
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * Checks if the username is available.
+         * @param username The username.
+         * @return True if the username is available.
+         */
         public bool IsUsernameAvailable(string username)
         {
             return this.userDAL.IsUsernameAvailable(username);

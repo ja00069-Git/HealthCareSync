@@ -46,13 +46,12 @@
             lastNameLabel = new Label();
             firstNameLabel = new Label();
             firstNameTextBox = new TextBox();
-            saveNurseButton = new Button();
+            editNurseButton = new Button();
             nurseListBox = new ListBox();
             phoneNumLabel = new Label();
             phoneNumTextBox = new TextBox();
             addNurseButton = new Button();
             unselectNurseButton = new Button();
-            errorLabel = new Label();
             dateTimePickerForNurse = new DateTimePicker();
             stateComboBoxForNurse = new ComboBox();
             passwordTextBox = new TextBox();
@@ -73,15 +72,17 @@
             panel13 = new Panel();
             statusComboBox = new ComboBox();
             label2 = new Label();
+            deleteNurseBTN = new Button();
             SuspendLayout();
             // 
             // idTextBox
             // 
             idTextBox.Enabled = false;
-            idTextBox.Location = new Point(773, 329);
+            idTextBox.Location = new Point(1104, 548);
+            idTextBox.Margin = new Padding(4, 5, 4, 5);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
-            idTextBox.Size = new Size(123, 23);
+            idTextBox.Size = new Size(174, 31);
             idTextBox.TabIndex = 67;
             idTextBox.TextAlign = HorizontalAlignment.Center;
             // 
@@ -90,19 +91,21 @@
             idLabel.AutoSize = true;
             idLabel.BackColor = Color.LightGray;
             idLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            idLabel.Location = new Point(696, 329);
+            idLabel.Location = new Point(994, 548);
+            idLabel.Margin = new Padding(4, 0, 4, 0);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(52, 15);
+            idLabel.Size = new Size(83, 25);
             idLabel.TabIndex = 66;
             idLabel.Text = "Nurse Id";
             // 
             // usernameTextBox
             // 
             usernameTextBox.BorderStyle = BorderStyle.None;
-            usernameTextBox.Location = new Point(479, 60);
+            usernameTextBox.Location = new Point(684, 100);
+            usernameTextBox.Margin = new Padding(4, 5, 4, 5);
             usernameTextBox.Multiline = true;
             usernameTextBox.Name = "usernameTextBox";
-            usernameTextBox.Size = new Size(167, 15);
+            usernameTextBox.Size = new Size(239, 25);
             usernameTextBox.TabIndex = 65;
             // 
             // usernameLabel
@@ -110,46 +113,51 @@
             usernameLabel.AutoSize = true;
             usernameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             usernameLabel.ForeColor = SystemColors.MenuHighlight;
-            usernameLabel.Location = new Point(398, 60);
+            usernameLabel.Location = new Point(569, 100);
+            usernameLabel.Margin = new Padding(4, 0, 4, 0);
             usernameLabel.Name = "usernameLabel";
-            usernameLabel.Size = new Size(64, 15);
+            usernameLabel.Size = new Size(97, 25);
             usernameLabel.TabIndex = 64;
             usernameLabel.Text = "Username";
             // 
             // address2TextBox
             // 
             address2TextBox.BorderStyle = BorderStyle.None;
-            address2TextBox.Location = new Point(152, 199);
+            address2TextBox.Location = new Point(217, 332);
+            address2TextBox.Margin = new Padding(4, 5, 4, 5);
             address2TextBox.Multiline = true;
             address2TextBox.Name = "address2TextBox";
-            address2TextBox.Size = new Size(503, 15);
+            address2TextBox.Size = new Size(719, 25);
             address2TextBox.TabIndex = 63;
             // 
             // cityTextBox
             // 
             cityTextBox.BorderStyle = BorderStyle.None;
-            cityTextBox.Location = new Point(117, 251);
+            cityTextBox.Location = new Point(167, 418);
+            cityTextBox.Margin = new Padding(4, 5, 4, 5);
             cityTextBox.Multiline = true;
             cityTextBox.Name = "cityTextBox";
-            cityTextBox.Size = new Size(232, 15);
+            cityTextBox.Size = new Size(331, 25);
             cityTextBox.TabIndex = 61;
             // 
             // zipTextBox
             // 
             zipTextBox.BorderStyle = BorderStyle.None;
-            zipTextBox.Location = new Point(147, 286);
+            zipTextBox.Location = new Point(210, 477);
+            zipTextBox.Margin = new Padding(4, 5, 4, 5);
             zipTextBox.Multiline = true;
             zipTextBox.Name = "zipTextBox";
-            zipTextBox.Size = new Size(199, 19);
+            zipTextBox.Size = new Size(284, 32);
             zipTextBox.TabIndex = 60;
             // 
             // address1TextBox
             // 
             address1TextBox.BorderStyle = BorderStyle.None;
-            address1TextBox.Location = new Point(151, 153);
+            address1TextBox.Location = new Point(216, 255);
+            address1TextBox.Margin = new Padding(4, 5, 4, 5);
             address1TextBox.Multiline = true;
             address1TextBox.Name = "address1TextBox";
-            address1TextBox.Size = new Size(498, 15);
+            address1TextBox.Size = new Size(711, 25);
             address1TextBox.TabIndex = 59;
             // 
             // address2Label
@@ -157,9 +165,10 @@
             address2Label.AutoSize = true;
             address2Label.BackColor = Color.LightGray;
             address2Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            address2Label.Location = new Point(80, 202);
+            address2Label.Location = new Point(114, 337);
+            address2Label.Margin = new Padding(4, 0, 4, 0);
             address2Label.Name = "address2Label";
-            address2Label.Size = new Size(59, 15);
+            address2Label.Size = new Size(94, 25);
             address2Label.TabIndex = 58;
             address2Label.Text = "Address 2";
             // 
@@ -168,28 +177,31 @@
             cityLabel.AutoSize = true;
             cityLabel.BackColor = Color.LightGray;
             cityLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            cityLabel.Location = new Point(80, 250);
+            cityLabel.Location = new Point(114, 417);
+            cityLabel.Margin = new Padding(4, 0, 4, 0);
             cityLabel.Name = "cityLabel";
-            cityLabel.Size = new Size(27, 15);
+            cityLabel.Size = new Size(44, 25);
             cityLabel.TabIndex = 57;
             cityLabel.Text = "City";
             // 
             // lastNameTextBox
             // 
             lastNameTextBox.BorderStyle = BorderStyle.None;
-            lastNameTextBox.Location = new Point(466, 16);
+            lastNameTextBox.Location = new Point(666, 27);
+            lastNameTextBox.Margin = new Padding(4, 5, 4, 5);
             lastNameTextBox.Multiline = true;
             lastNameTextBox.Name = "lastNameTextBox";
-            lastNameTextBox.Size = new Size(196, 15);
+            lastNameTextBox.Size = new Size(280, 25);
             lastNameTextBox.TabIndex = 55;
             // 
             // stateLabel
             // 
             stateLabel.AutoSize = true;
             stateLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            stateLabel.Location = new Point(395, 244);
+            stateLabel.Location = new Point(564, 407);
+            stateLabel.Margin = new Padding(4, 0, 4, 0);
             stateLabel.Name = "stateLabel";
-            stateLabel.Size = new Size(34, 15);
+            stateLabel.Size = new Size(54, 25);
             stateLabel.TabIndex = 54;
             stateLabel.Text = "State";
             // 
@@ -198,9 +210,10 @@
             zipcodeLabel.AutoSize = true;
             zipcodeLabel.BackColor = Color.LightGray;
             zipcodeLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            zipcodeLabel.Location = new Point(80, 286);
+            zipcodeLabel.Location = new Point(114, 477);
+            zipcodeLabel.Margin = new Padding(4, 0, 4, 0);
             zipcodeLabel.Name = "zipcodeLabel";
-            zipcodeLabel.Size = new Size(54, 15);
+            zipcodeLabel.Size = new Size(87, 25);
             zipcodeLabel.TabIndex = 53;
             zipcodeLabel.Text = "Zip Code";
             // 
@@ -209,9 +222,10 @@
             address1Label.AutoSize = true;
             address1Label.BackColor = Color.LightGray;
             address1Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            address1Label.Location = new Point(82, 153);
+            address1Label.Location = new Point(117, 255);
+            address1Label.Margin = new Padding(4, 0, 4, 0);
             address1Label.Name = "address1Label";
-            address1Label.Size = new Size(57, 15);
+            address1Label.Size = new Size(91, 25);
             address1Label.TabIndex = 52;
             address1Label.Text = "Address 1";
             // 
@@ -220,9 +234,10 @@
             birthDateLabel.AutoSize = true;
             birthDateLabel.BackColor = Color.LightGray;
             birthDateLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            birthDateLabel.Location = new Point(80, 57);
+            birthDateLabel.Location = new Point(114, 95);
+            birthDateLabel.Margin = new Padding(4, 0, 4, 0);
             birthDateLabel.Name = "birthDateLabel";
-            birthDateLabel.Size = new Size(60, 15);
+            birthDateLabel.Size = new Size(97, 25);
             birthDateLabel.TabIndex = 51;
             birthDateLabel.Text = "Birth Date";
             // 
@@ -231,9 +246,10 @@
             lastNameLabel.AutoSize = true;
             lastNameLabel.BackColor = Color.LightGray;
             lastNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lastNameLabel.Location = new Point(398, 16);
+            lastNameLabel.Location = new Point(569, 27);
+            lastNameLabel.Margin = new Padding(4, 0, 4, 0);
             lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new Size(63, 15);
+            lastNameLabel.Size = new Size(99, 25);
             lastNameLabel.TabIndex = 50;
             lastNameLabel.Text = "Last Name";
             // 
@@ -242,43 +258,47 @@
             firstNameLabel.AutoSize = true;
             firstNameLabel.BackColor = Color.LightGray;
             firstNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            firstNameLabel.Location = new Point(79, 16);
+            firstNameLabel.Location = new Point(113, 27);
+            firstNameLabel.Margin = new Padding(4, 0, 4, 0);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(64, 15);
+            firstNameLabel.Size = new Size(102, 25);
             firstNameLabel.TabIndex = 49;
             firstNameLabel.Text = "First Name";
             // 
             // firstNameTextBox
             // 
             firstNameTextBox.BorderStyle = BorderStyle.None;
-            firstNameTextBox.Location = new Point(154, 16);
+            firstNameTextBox.Location = new Point(220, 27);
+            firstNameTextBox.Margin = new Padding(4, 5, 4, 5);
             firstNameTextBox.Multiline = true;
             firstNameTextBox.Name = "firstNameTextBox";
-            firstNameTextBox.Size = new Size(188, 15);
+            firstNameTextBox.Size = new Size(269, 25);
             firstNameTextBox.TabIndex = 48;
             // 
-            // saveNurseButton
+            // editNurseButton
             // 
-            saveNurseButton.BackColor = Color.RoyalBlue;
-            saveNurseButton.FlatAppearance.BorderSize = 0;
-            saveNurseButton.FlatStyle = FlatStyle.Flat;
-            saveNurseButton.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            saveNurseButton.ForeColor = Color.White;
-            saveNurseButton.Location = new Point(327, 329);
-            saveNurseButton.Name = "saveNurseButton";
-            saveNurseButton.Size = new Size(113, 31);
-            saveNurseButton.TabIndex = 47;
-            saveNurseButton.Text = "Save";
-            saveNurseButton.UseVisualStyleBackColor = false;
-            saveNurseButton.Click += saveButton_Click;
+            editNurseButton.BackColor = Color.RoyalBlue;
+            editNurseButton.FlatAppearance.BorderSize = 0;
+            editNurseButton.FlatStyle = FlatStyle.Flat;
+            editNurseButton.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            editNurseButton.ForeColor = Color.White;
+            editNurseButton.Location = new Point(384, 564);
+            editNurseButton.Margin = new Padding(4, 5, 4, 5);
+            editNurseButton.Name = "editNurseButton";
+            editNurseButton.Size = new Size(110, 37);
+            editNurseButton.TabIndex = 47;
+            editNurseButton.Text = "Edit";
+            editNurseButton.UseVisualStyleBackColor = false;
+            editNurseButton.Click += editNurseButton_Click;
             // 
             // nurseListBox
             // 
             nurseListBox.FormattingEnabled = true;
-            nurseListBox.ItemHeight = 15;
-            nurseListBox.Location = new Point(703, 38);
+            nurseListBox.ItemHeight = 25;
+            nurseListBox.Location = new Point(1004, 63);
+            nurseListBox.Margin = new Padding(4, 5, 4, 5);
             nurseListBox.Name = "nurseListBox";
-            nurseListBox.Size = new Size(193, 274);
+            nurseListBox.Size = new Size(274, 454);
             nurseListBox.TabIndex = 46;
             nurseListBox.SelectedIndexChanged += NurseListBox_SelectedIndexChanged;
             // 
@@ -287,19 +307,21 @@
             phoneNumLabel.AutoSize = true;
             phoneNumLabel.BackColor = Color.LightGray;
             phoneNumLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            phoneNumLabel.Location = new Point(82, 104);
+            phoneNumLabel.Location = new Point(117, 173);
+            phoneNumLabel.Margin = new Padding(4, 0, 4, 0);
             phoneNumLabel.Name = "phoneNumLabel";
-            phoneNumLabel.Size = new Size(88, 15);
+            phoneNumLabel.Size = new Size(139, 25);
             phoneNumLabel.TabIndex = 69;
             phoneNumLabel.Text = "Phone Number";
             // 
             // phoneNumTextBox
             // 
             phoneNumTextBox.BorderStyle = BorderStyle.None;
-            phoneNumTextBox.Location = new Point(182, 106);
+            phoneNumTextBox.Location = new Point(260, 177);
+            phoneNumTextBox.Margin = new Padding(4, 5, 4, 5);
             phoneNumTextBox.Multiline = true;
             phoneNumTextBox.Name = "phoneNumTextBox";
-            phoneNumTextBox.Size = new Size(155, 15);
+            phoneNumTextBox.Size = new Size(221, 25);
             phoneNumTextBox.TabIndex = 68;
             // 
             // addNurseButton
@@ -309,9 +331,10 @@
             addNurseButton.FlatStyle = FlatStyle.Flat;
             addNurseButton.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             addNurseButton.ForeColor = Color.White;
-            addNurseButton.Location = new Point(170, 329);
+            addNurseButton.Location = new Point(210, 564);
+            addNurseButton.Margin = new Padding(4, 5, 4, 5);
             addNurseButton.Name = "addNurseButton";
-            addNurseButton.Size = new Size(119, 31);
+            addNurseButton.Size = new Size(115, 37);
             addNurseButton.TabIndex = 70;
             addNurseButton.Text = "Add";
             addNurseButton.UseVisualStyleBackColor = false;
@@ -324,46 +347,42 @@
             unselectNurseButton.FlatStyle = FlatStyle.Flat;
             unselectNurseButton.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             unselectNurseButton.ForeColor = Color.White;
-            unselectNurseButton.Location = new Point(483, 329);
+            unselectNurseButton.Location = new Point(722, 564);
+            unselectNurseButton.Margin = new Padding(4, 5, 4, 5);
             unselectNurseButton.Name = "unselectNurseButton";
-            unselectNurseButton.Size = new Size(109, 31);
+            unselectNurseButton.Size = new Size(156, 37);
             unselectNurseButton.TabIndex = 71;
             unselectNurseButton.Text = "Clear Fields";
             unselectNurseButton.UseVisualStyleBackColor = false;
             unselectNurseButton.Click += unselectNurseButton_Click;
             // 
-            // errorLabel
-            // 
-            errorLabel.AutoSize = true;
-            errorLabel.Location = new Point(50, 279);
-            errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(0, 15);
-            errorLabel.TabIndex = 73;
-            // 
             // dateTimePickerForNurse
             // 
             dateTimePickerForNurse.Format = DateTimePickerFormat.Short;
-            dateTimePickerForNurse.Location = new Point(154, 57);
+            dateTimePickerForNurse.Location = new Point(220, 95);
+            dateTimePickerForNurse.Margin = new Padding(4, 5, 4, 5);
             dateTimePickerForNurse.Name = "dateTimePickerForNurse";
-            dateTimePickerForNurse.Size = new Size(197, 23);
+            dateTimePickerForNurse.Size = new Size(280, 31);
             dateTimePickerForNurse.TabIndex = 74;
             // 
             // stateComboBoxForNurse
             // 
             stateComboBoxForNurse.DropDownStyle = ComboBoxStyle.DropDownList;
             stateComboBoxForNurse.FormattingEnabled = true;
-            stateComboBoxForNurse.Location = new Point(438, 242);
+            stateComboBoxForNurse.Location = new Point(626, 403);
+            stateComboBoxForNurse.Margin = new Padding(4, 5, 4, 5);
             stateComboBoxForNurse.Name = "stateComboBoxForNurse";
-            stateComboBoxForNurse.Size = new Size(222, 23);
+            stateComboBoxForNurse.Size = new Size(315, 33);
             stateComboBoxForNurse.TabIndex = 75;
             // 
             // passwordTextBox
             // 
             passwordTextBox.BorderStyle = BorderStyle.None;
-            passwordTextBox.Location = new Point(488, 106);
+            passwordTextBox.Location = new Point(697, 177);
+            passwordTextBox.Margin = new Padding(4, 5, 4, 5);
             passwordTextBox.Multiline = true;
             passwordTextBox.Name = "passwordTextBox";
-            passwordTextBox.Size = new Size(166, 15);
+            passwordTextBox.Size = new Size(237, 25);
             passwordTextBox.TabIndex = 76;
             // 
             // passwordLabel
@@ -371,152 +390,184 @@
             passwordLabel.AutoSize = true;
             passwordLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             passwordLabel.ForeColor = SystemColors.ActiveCaption;
-            passwordLabel.Location = new Point(398, 106);
+            passwordLabel.Location = new Point(569, 177);
+            passwordLabel.Margin = new Padding(4, 0, 4, 0);
             passwordLabel.Name = "passwordLabel";
-            passwordLabel.Size = new Size(59, 15);
+            passwordLabel.Size = new Size(92, 25);
             passwordLabel.TabIndex = 77;
             passwordLabel.Text = "Password";
             // 
             // panel3
             // 
             panel3.BackColor = Color.Blue;
-            panel3.Location = new Point(398, 37);
+            panel3.Location = new Point(569, 62);
+            panel3.Margin = new Padding(4, 5, 4, 5);
             panel3.Name = "panel3";
-            panel3.Size = new Size(264, 1);
+            panel3.Size = new Size(377, 2);
             panel3.TabIndex = 78;
             // 
             // panel1
             // 
             panel1.BackColor = Color.Blue;
-            panel1.Location = new Point(79, 37);
+            panel1.Location = new Point(113, 62);
+            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(264, 1);
+            panel1.Size = new Size(377, 2);
             panel1.TabIndex = 79;
             // 
             // panel2
             // 
             panel2.BackColor = Color.Blue;
-            panel2.Location = new Point(79, 82);
+            panel2.Location = new Point(113, 137);
+            panel2.Margin = new Padding(4, 5, 4, 5);
             panel2.Name = "panel2";
-            panel2.Size = new Size(271, 1);
+            panel2.Size = new Size(387, 2);
             panel2.TabIndex = 79;
             // 
             // panel4
             // 
             panel4.BackColor = Color.Blue;
-            panel4.Location = new Point(80, 127);
+            panel4.Location = new Point(114, 212);
+            panel4.Margin = new Padding(4, 5, 4, 5);
             panel4.Name = "panel4";
-            panel4.Size = new Size(264, 1);
+            panel4.Size = new Size(377, 2);
             panel4.TabIndex = 80;
             // 
             // panel5
             // 
             panel5.BackColor = Color.Blue;
-            panel5.Location = new Point(395, 127);
+            panel5.Location = new Point(564, 212);
+            panel5.Margin = new Padding(4, 5, 4, 5);
             panel5.Name = "panel5";
-            panel5.Size = new Size(264, 1);
+            panel5.Size = new Size(377, 2);
             panel5.TabIndex = 81;
             // 
             // panel6
             // 
             panel6.BackColor = Color.Blue;
-            panel6.Location = new Point(82, 174);
+            panel6.Location = new Point(117, 290);
+            panel6.Margin = new Padding(4, 5, 4, 5);
             panel6.Name = "panel6";
-            panel6.Size = new Size(580, 1);
+            panel6.Size = new Size(829, 2);
             panel6.TabIndex = 82;
             // 
             // panel7
             // 
             panel7.BackColor = Color.Blue;
-            panel7.Location = new Point(82, 220);
+            panel7.Location = new Point(117, 367);
+            panel7.Margin = new Padding(4, 5, 4, 5);
             panel7.Name = "panel7";
-            panel7.Size = new Size(580, 1);
+            panel7.Size = new Size(829, 2);
             panel7.TabIndex = 83;
             // 
             // panel8
             // 
             panel8.BackColor = Color.Blue;
-            panel8.Location = new Point(82, 268);
+            panel8.Location = new Point(117, 447);
+            panel8.Margin = new Padding(4, 5, 4, 5);
             panel8.Name = "panel8";
-            panel8.Size = new Size(264, 1);
+            panel8.Size = new Size(377, 2);
             panel8.TabIndex = 81;
             // 
             // panel9
             // 
             panel9.BackColor = Color.Blue;
-            panel9.Location = new Point(80, 310);
+            panel9.Location = new Point(114, 517);
+            panel9.Margin = new Padding(4, 5, 4, 5);
             panel9.Name = "panel9";
-            panel9.Size = new Size(264, 1);
+            panel9.Size = new Size(377, 2);
             panel9.TabIndex = 81;
             // 
             // panel10
             // 
             panel10.BackColor = Color.Blue;
-            panel10.Location = new Point(395, 268);
+            panel10.Location = new Point(564, 447);
+            panel10.Margin = new Padding(4, 5, 4, 5);
             panel10.Name = "panel10";
-            panel10.Size = new Size(264, 1);
+            panel10.Size = new Size(377, 2);
             panel10.TabIndex = 84;
             // 
             // panel11
             // 
             panel11.BackColor = Color.Blue;
-            panel11.Location = new Point(670, 10);
+            panel11.Location = new Point(957, 17);
+            panel11.Margin = new Padding(4, 5, 4, 5);
             panel11.Name = "panel11";
-            panel11.Size = new Size(1, 344);
+            panel11.Size = new Size(1, 573);
             panel11.TabIndex = 84;
             // 
             // panel12
             // 
             panel12.BackColor = Color.Blue;
-            panel12.Location = new Point(703, 354);
+            panel12.Location = new Point(1004, 590);
+            panel12.Margin = new Padding(4, 5, 4, 5);
             panel12.Name = "panel12";
-            panel12.Size = new Size(192, 1);
+            panel12.Size = new Size(274, 2);
             panel12.TabIndex = 80;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.LightGray;
-            label1.Location = new Point(703, 16);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(1004, 27);
             label1.Name = "label1";
-            label1.Size = new Size(46, 15);
+            label1.Size = new Size(70, 25);
             label1.TabIndex = 85;
             label1.Text = "Nurses:";
             // 
             // panel13
             // 
             panel13.BackColor = Color.Blue;
-            panel13.Location = new Point(395, 310);
+            panel13.Location = new Point(564, 517);
+            panel13.Margin = new Padding(4, 5, 4, 5);
             panel13.Name = "panel13";
-            panel13.Size = new Size(264, 1);
+            panel13.Size = new Size(377, 2);
             panel13.TabIndex = 88;
             // 
             // statusComboBox
             // 
             statusComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             statusComboBox.FormattingEnabled = true;
-            statusComboBox.Location = new Point(438, 282);
+            statusComboBox.Location = new Point(626, 470);
+            statusComboBox.Margin = new Padding(4, 5, 4, 5);
             statusComboBox.Name = "statusComboBox";
-            statusComboBox.Size = new Size(222, 23);
+            statusComboBox.Size = new Size(315, 33);
             statusComboBox.TabIndex = 87;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(395, 284);
+            label2.Location = new Point(564, 473);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(40, 15);
+            label2.Size = new Size(63, 25);
             label2.TabIndex = 86;
             label2.Text = "Status";
             // 
+            // deleteNurseBTN
+            // 
+            deleteNurseBTN.BackColor = Color.RoyalBlue;
+            deleteNurseBTN.FlatAppearance.BorderSize = 0;
+            deleteNurseBTN.FlatStyle = FlatStyle.Flat;
+            deleteNurseBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            deleteNurseBTN.ForeColor = Color.White;
+            deleteNurseBTN.Location = new Point(556, 564);
+            deleteNurseBTN.Margin = new Padding(4, 5, 4, 5);
+            deleteNurseBTN.Name = "deleteNurseBTN";
+            deleteNurseBTN.Size = new Size(110, 37);
+            deleteNurseBTN.TabIndex = 89;
+            deleteNurseBTN.Text = "Delete";
+            deleteNurseBTN.UseVisualStyleBackColor = false;
+            deleteNurseBTN.Click += deleteNurseBTN_Click;
+            // 
             // ManageNurses
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(945, 369);
+            ClientSize = new Size(1350, 615);
+            Controls.Add(deleteNurseBTN);
             Controls.Add(panel13);
             Controls.Add(statusComboBox);
             Controls.Add(label2);
@@ -537,7 +588,6 @@
             Controls.Add(passwordTextBox);
             Controls.Add(stateComboBoxForNurse);
             Controls.Add(dateTimePickerForNurse);
-            Controls.Add(errorLabel);
             Controls.Add(unselectNurseButton);
             Controls.Add(addNurseButton);
             Controls.Add(phoneNumLabel);
@@ -560,9 +610,10 @@
             Controls.Add(lastNameLabel);
             Controls.Add(firstNameLabel);
             Controls.Add(firstNameTextBox);
-            Controls.Add(saveNurseButton);
+            Controls.Add(editNurseButton);
             Controls.Add(nurseListBox);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 5, 4, 5);
             Name = "ManageNurses";
             Text = "ManageNurses";
             ResumeLayout(false);
@@ -589,13 +640,12 @@
         private Label lastNameLabel;
         private Label firstNameLabel;
         private TextBox firstNameTextBox;
-        private Button saveNurseButton;
+        private Button editNurseButton;
         private ListBox nurseListBox;
         private Label phoneNumLabel;
         private TextBox phoneNumTextBox;
         private Button addNurseButton;
         private Button unselectNurseButton;
-        private Label errorLabel;
         private DateTimePicker dateTimePickerForNurse;
         private ComboBox stateComboBoxForNurse;
         private TextBox passwordTextBox;
@@ -616,5 +666,6 @@
         private Panel panel13;
         private ComboBox statusComboBox;
         private Label label2;
+        private Button deleteNurseBTN;
     }
 }
