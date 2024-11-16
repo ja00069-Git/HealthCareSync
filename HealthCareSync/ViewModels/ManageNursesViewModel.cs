@@ -180,7 +180,7 @@ namespace HealthCareSync.ViewModels
          * @postcondition The selected nurse as user is returned.
          * @return The selected nurse as user.
          */
-        public ObservableCollection<Nurse> Nurses { get; }
+        public ObservableCollection<Nurse> Nurses { get; private set; }
 
         /**
          * Gets the states.
@@ -200,12 +200,23 @@ namespace HealthCareSync.ViewModels
         {
             this.nurseDAL = new NurseDAL();
             this.userDAL = new UserDAL();
-            this.Nurses = new ObservableCollection<Nurse>(this.nurseDAL.GetNurses());
+            //this.Nurses = new ObservableCollection<Nurse>(this.nurseDAL.GetNurses());
+            LoadNursesFromDatabase();
+
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void LoadNursesFromDatabase()
+        {
+            // Logic to load nurses from the database
+            // This is just a placeholder. Replace it with actual database fetching logic.
+            var nursesFromDb = nurseDAL.GetNurses();
+            Nurses = new ObservableCollection<Nurse>(nursesFromDb);
+            OnPropertyChanged(nameof(Nurses));
         }
 
 
@@ -316,8 +327,7 @@ namespace HealthCareSync.ViewModels
         {
             if (this.nurseDAL.DeactivateNurse(Nurse_Id))
             {
-                OnPropertyChanged(nameof(SelectedNurse.FlagStatus));
-                OnPropertyChanged(nameof(Nurses));
+                OnPropertyChanged(nameof(SelectedNurse));
                 return true;
             }
             return false;

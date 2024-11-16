@@ -171,12 +171,13 @@ namespace HealthCareSync.Views
             }
             else
             {
-                MessageBox.Show("An Error Occured While Editing Nurse's Information", "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void refreshListBox()
         {
+            this.viewModel.LoadNursesFromDatabase();
             this.nurseListBox.DataSource = null;
             this.nurseListBox.DataSource = this.viewModel.Nurses;
             this.nurseListBox.DisplayMember = "FullName";
@@ -206,7 +207,7 @@ namespace HealthCareSync.Views
             }
             else
             {
-                MessageBox.Show("An Error Occured While Adding Nurse To The System", "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -296,8 +297,6 @@ namespace HealthCareSync.Views
             {
                 if (this.viewModel.DeleteNurse())
                 {
-                    this.refreshListBox();
-                    this.ClearAllBoxes();
                     MessageBox.Show($"Nurse {viewModel.SelectedNurse.FullName} Was Deleted Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (this.viewModel.SelectedNurse.FlagStatus == FlagStatus.INACTIVE)
@@ -308,12 +307,12 @@ namespace HealthCareSync.Views
                 {
                     if (this.viewModel.DeactivateNurse())
                     {
-                        this.refreshListBox();
-                        this.ClearAllBoxes();
                         MessageBox.Show($"Can't Delete Nurse {viewModel.SelectedNurse.FullName}, Nurse Marked As INACTIVE Instead", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
+
+            this.refreshListBox();
         }
     }
 }

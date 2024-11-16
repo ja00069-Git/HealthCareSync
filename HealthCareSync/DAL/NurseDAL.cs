@@ -32,7 +32,7 @@ namespace HealthCareSync.DAL
          */
         public Nurse? GetNurseWithUsername(string username)
         {
-            Nurse nurse = null;
+            Nurse? nurse = null;
 
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
@@ -83,7 +83,7 @@ namespace HealthCareSync.DAL
          */
         public Nurse? GetNurseWithId(int? id)
         {
-            Nurse nurse = null;
+            Nurse? nurse = null;
 
             using var connection = new MySqlConnection(Connection.ConnectionString());
 
@@ -187,7 +187,7 @@ namespace HealthCareSync.DAL
 
                 transaction.Commit();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 try
                 {
@@ -262,7 +262,7 @@ namespace HealthCareSync.DAL
 
                 transaction.Commit();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 try
                 {
