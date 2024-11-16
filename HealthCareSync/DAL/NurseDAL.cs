@@ -1,12 +1,7 @@
 ﻿using HealthCareSync.Enums;
 using HealthCareSync.Models;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthCareSync.DAL
 {
@@ -17,16 +12,24 @@ namespace HealthCareSync.DAL
 
         private readonly string connectionString = Connection.ConnectionString();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PatientDAL"/> class.
-        /// </summary>
+        /**
+         * Initializes a new instance of the Nurse data layer class.
+         * @param addressDAL The address data layer.
+         * @param userDAL The user data layer.
+         * @pre addressDAL != null && userDAL != null
+         * @post none
+         * @return A new instance of the Nurse data layer class.
+         */
         public NurseDAL() { this.addressDAL = new AddressDAL(); this.userDAL = new UserDAL(); }
 
-        /// <summary>
-        /// Gets the nurse with username.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <returns></returns>
+
+        /**
+         * Gets the nurse with the specified username.
+         * @param username The username.
+         * @pre username != null
+         * @post none
+         * @return The nurse with the specified username.
+         */
         public Nurse? GetNurseWithUsername(string username)
         {
             Nurse nurse = null;
@@ -35,24 +38,11 @@ namespace HealthCareSync.DAL
 
             connection.Open();
 
-            var query = @"select 
-                            N.id as NurseId, 
-                            A.id as AddressId, 
-                            fname, 
-                            lname, 
-                            birth_date, 
-                            phone_num,  
-                            username,
-                            status,
-                            address_1,
-                            zip, 
-                            state, 
-                            city, 
-                            address_2
+            var query = @"select  N.id as NurseId, A.id as AddressId, fname, lname, birth_date, phone_num, username, status,
+                                  address_1, zip, state, city, address_2
                           from nurse N
                           left join address A on N.address_id = A.id
-                          where (N.address_id = A.id OR N.address_id IS NULL)
-                                AND N.username = @username";
+                          where (N.address_id = A.id OR N.address_id IS NULL) AND N.username = @username";
 
             using var command = new MySqlCommand(query, connection);
 
@@ -84,11 +74,13 @@ namespace HealthCareSync.DAL
             return nurse;
         }
 
-        /// <summary>
-        /// Gets the nurse with identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns></returns>
+        /**
+         * Gets the nurse with the specified id.
+         * @param id The id.
+         * @pre id != null
+         * @post none
+         * @return The nurse with the specified id.
+         */
         public Nurse? GetNurseWithId(int? id)
         {
             Nurse nurse = null;
@@ -97,24 +89,11 @@ namespace HealthCareSync.DAL
 
             connection.Open();
 
-            var query = @"select 
-                            N.id as NurseId, 
-                            A.id as AddressId, 
-                            fname, 
-                            lname, 
-                            birth_date, 
-                            phone_num,  
-                            username,
-                            status,
-                            address_1,
-                            zip, 
-                            state, 
-                            city, 
-                            address_2
+            var query = @"select N.id as NurseId, A.id as AddressId, fname, lname, birth_date, phone_num, username, status,
+                                 address_1, zip, state, city, address_2
                           from nurse N
                           left join address A on N.address_id = A.id
-                          where (N.address_id = A.id OR N.address_id IS NULL)
-                                AND N.id = @id";
+                          where (N.address_id = A.id OR N.address_id IS NULL) AND N.id = @id";
 
             using var command = new MySqlCommand(query, connection);
 
@@ -126,7 +105,7 @@ namespace HealthCareSync.DAL
             var addressIdOrdinal = reader.GetOrdinal("AddressId");
             var fnameOrdinal = reader.GetOrdinal("fname");
             var lnameOrdinal = reader.GetOrdinal("lname");
-            var bdateOrdinal = reader.GetOrdinal("birth_date");;
+            var bdateOrdinal = reader.GetOrdinal("birth_date"); ;
             var phoneOrdinal = reader.GetOrdinal("phone_num");
             var usernameOrdinal = reader.GetOrdinal("username");
             var address1Ordinal = reader.GetOrdinal("address_1");
@@ -146,21 +125,24 @@ namespace HealthCareSync.DAL
             return nurse;
         }
 
-        /// <summary>
-        /// Adds the nurse.
-        /// </summary>
-        /// <param name="fname">The fname.</param>
-        /// <param name="lname">The lname.</param>
-        /// <param name="bdate">The bdate.</param>
-        /// <param name="address_1">The address 1.</param>
-        /// <param name="zip">The zip.</param>
-        /// <param name="city">The city.</param>
-        /// <param name="state">The state.</param>
-        /// <param name="address_2">The address 2.</param>
-        /// <param name="phone_num">The phone number.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password</param>
-        /// <returns></returns>
+        /**
+         * Adds a nurse to the database.
+         * @param fname The first name.
+         * @param lname The last name.
+         * @param bdate The birth date.
+         * @param address_1 The first address.
+         * @param zip The zip code.
+         * @param city The city.
+         * @param state The state.
+         * @param address_2 The second address.
+         * @param phone_num The phone number.
+         * @param username The username.
+         * @param password The password.
+         * @param flag The flag status.
+         * @pre fname != null && lname != null && bdate != null && address_1 != null && zip != null && city != null && state != null && phone_num != null && username != null && password != null && flag != null
+         * @post none
+         * @return The id of the nurse.
+         */
         public int AddNurse(string fname, string lname, DateTime bdate, string address_1,
             string zip, string city, string state, string? address_2, string phone_num, string username, string password, FlagStatus flag)
         {
@@ -221,42 +203,27 @@ namespace HealthCareSync.DAL
             return id;
         }
 
-        /// <summary>
-        /// Deletes the nurse.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        public void DeleteNurse(int id)
-        {
-            using var connection = new MySqlConnection(connectionString);
-
-            connection.Open();
-
-            var query = @"delete from nurse where id = @id";
-
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.Add("@id", MySqlDbType.Int32).Value = id;
-
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        /// <summary>
-        /// Saves the edited nurse.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <param name="fname">The fname.</param>
-        /// <param name="lname">The lname.</param>
-        /// <param name="bdate">The bdate.</param>
-        /// <param name="address_1">The address 1.</param>
-        /// <param name="zip">The zip.</param>
-        /// <param name="city">The city.</param>
-        /// <param name="state">The state.</param>
-        /// <param name="address_2">The address 2.</param>
-        /// <param name="phone_num">The phone number.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password</param>
-        /// <param name="didUsernameChange">The bool of if the username was changed</param>
-        public void SaveEditedPatient(int id, string fname, string lname, DateTime bdate, string address_1,
+        /**
+         * Saves the edited patient.
+         * @param id The id.
+         * @param fname The first name.
+         * @param lname The last name.
+         * @param bdate The birth date.
+         * @param address_1 The first address.
+         * @param zip The zip code.
+         * @param city The city.
+         * @param state The state.
+         * @param address_2 The second address.
+         * @param phone_num The phone number.
+         * @param username The username.
+         * @param password The password.
+         * @param flag The flag status.
+         * @param didUsernameChange If the username changed.
+         * @pre id != null && fname != null && lname != null && bdate != null && address_1 != null && zip != null && city != null && state != null && phone_num != null && username != null && password != null && flag != null
+         * @post none
+         * @return none
+         */
+        public void SaveEditedNurse(int id, string fname, string lname, DateTime bdate, string address_1,
             string zip, string city, string state, string? address_2, string phone_num, string username, string password, FlagStatus flag, bool didUsernameChange)
         {
             using var connection = new MySqlConnection(connectionString);
@@ -308,10 +275,13 @@ namespace HealthCareSync.DAL
             }
         }
 
-        /// <summary>
-        /// Gets the patients.
-        /// </summary>
-        /// <returns></returns>
+        /**
+         * Gets the nurse with the specified id.
+         * @param id The id.
+         * @pre id != null
+         * @post none
+         * @return The nurse with the specified id.
+         */
         public List<Nurse> GetNurses()
         {
             var nurseList = new List<Nurse>();
@@ -319,20 +289,8 @@ namespace HealthCareSync.DAL
 
             connection.Open();
 
-            var query = @"select 
-                            N.id as NurseId, 
-                            A.id as AddressId, 
-                            fname, 
-                            lname, 
-                            birth_date, 
-                            phone_num, 
-                            username, 
-                            status,
-                            address_1, 
-                            zip, 
-                            state, 
-                            city, 
-                            address_2
+            var query = @"select N.id as NurseId, A.id as AddressId, fname, lname, birth_date, phone_num, username, status, 
+                                 address_1, zip, state, city, address_2
                           from nurse N
                           left join address A on N.address_id = A.id
                           where N.address_id = A.id OR N.address_id IS NULL";
@@ -365,6 +323,26 @@ namespace HealthCareSync.DAL
 
         }
 
+        /**
+         * Creates a nurse from the specified reader.
+         * @param reader The reader.
+         * @param idOrdinal The id ordinal.
+         * @param addressIdOrdinal The address id ordinal.
+         * @param fnameOrdinal The first name ordinal.
+         * @param lnameOrdinal The last name ordinal.
+         * @param bdateOrdinal The birth date ordinal.
+         * @param phoneOrdinal The phone number ordinal.
+         * @param usernameOrdinal The username ordinal.
+         * @param statusOrdinal The status ordinal.
+         * @param address1Ordinal The first address ordinal.
+         * @param zipOrdinal The zip ordinal.
+         * @param stateOrdinal The state ordinal.
+         * @param cityOrdinal The city ordinal.
+         * @param address2Ordinal The second address ordinal.
+         * @pre reader != null && idOrdinal != null && addressIdOrdinal != null && fnameOrdinal != null && lnameOrdinal != null && bdateOrdinal != null && phoneOrdinal != null && usernameOrdinal != null && statusOrdinal != null && address1Ordinal != null && zipOrdinal != null && stateOrdinal != null && cityOrdinal != null && address2Ordinal != null
+         * @post none
+         * @return The nurse.
+         */
         private static Nurse CreateNurse(MySqlDataReader reader, int idOrdinal, int addressIdOrdinal, int fnameOrdinal, int lnameOrdinal, int bdateOrdinal,
             int phoneOrdinal, int usernameOrdinal, int statusOrdinal, int address1Ordinal, int zipOrdinal, int stateOrdinal,
             int cityOrdinal, int address2Ordinal)
@@ -393,6 +371,93 @@ namespace HealthCareSync.DAL
             );
 
             return nurse;
+        }
+
+
+        /**
+        /**
+         * Checks if the nurse with the specified id can be deleted.
+         * @param id The id.
+         * @pre id != null
+         * @post none
+         * @return True if the nurse can be deleted, false otherwise.
+         */
+        public bool CanDeleteNurse(int id)
+        {
+            bool canDelete = false;
+
+            string checkRoutineQuery = @"select count(*) from routine_checks where nurse_id = @id";
+
+            using (var connection = new MySqlConnection(connectionString))
+            using (var checkRoutineCommand = new MySqlCommand(checkRoutineQuery, connection))
+            {
+                checkRoutineCommand.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+                var routineCount = Convert.ToInt32(checkRoutineCommand.ExecuteScalar());
+
+                if (routineCount == 0)
+                {
+                    canDelete = true;
+                }
+            }
+
+            return canDelete;
+        }
+
+        /**
+         * Deletes the nurse with the specified id.
+         * @param id The id.
+         * @pre id != null && CanDeleteNurse(id) == true
+         * @post none
+         * @return True if the nurse was deleted, false otherwise.
+         */
+        public bool DeleteNurse(int id)
+        {
+            bool isDeleted = false;
+
+            if (CanDeleteNurse(id))
+            {
+                string deleteQuery = @"delete from nurse where id = @id";
+
+                using (var connection = new MySqlConnection(connectionString))
+                using (var deleteCommand = new MySqlCommand(deleteQuery, connection))
+                {
+                    deleteCommand.Parameters.AddWithValue("@id", id);
+
+                    connection.Open();
+                    deleteCommand.ExecuteNonQuery();
+                    isDeleted = true;
+                }
+            }
+
+            return isDeleted;
+        }
+
+        /**
+         * Deactivates the nurse with the specified id.
+         * @param id The id.
+         * @pre id != null
+         * @post none
+         * @return True if the nurse was deactivated, false otherwise.
+         */
+        public bool DeactivateNurse(int id)
+        {
+            bool isDeactivated = false;
+
+            string deactivateQuery = @"update nurse set status = 'INACTIVE' where id = @id";
+
+            using (var connection = new MySqlConnection(connectionString))
+            using (var deactivateCommand = new MySqlCommand(deactivateQuery, connection))
+            {
+                deactivateCommand.Parameters.AddWithValue("@id", id);
+
+                connection.Open();
+                deactivateCommand.ExecuteNonQuery();
+                isDeactivated = true;
+            }
+
+            return isDeactivated;
         }
     }
 }

@@ -1,16 +1,8 @@
 ﻿using HealthCareSync.Enums;
 using HealthCareSync.Models;
 using HealthCareSync.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HealthCareSync.Views
 {
@@ -41,11 +33,16 @@ namespace HealthCareSync.Views
         {
             InitializeComponent();
             this.viewModel = new ManageNursesViewModel();
+            this.SubscribeToViewModelEvents();
 
             this.bindToViewModel();
-            this.ClearAllBoxes();
             this.nurseListBox.SelectedIndex = -1;
             this.statusComboBox.Enabled = false;
+
+            // Ensure fields are enabled when the application first runs
+            this.firstNameTextBox.Enabled = true;
+            this.lastNameTextBox.Enabled = true;
+            this.dateTimePickerForNurse.Enabled = true;
         }
 
         private void bindToViewModel()
@@ -55,48 +52,65 @@ namespace HealthCareSync.Views
 
             this.stateComboBoxForNurse.DataSource = this.viewModel.States;
             this.statusComboBox.DataSource = this.viewModel.FlagStatuses;
-
         }
+
         private void BindTextBox(TextBox textBox, object dataSource, string dataMember)
         {
             textBox.DataBindings.Clear();
             textBox.DataBindings.Add("Text", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
         }
+
         private void BindDateTimePicker(DateTimePicker dateTimePicker, object dataSource, string dataMember)
         {
             dateTimePicker.DataBindings.Clear();
             dateTimePicker.DataBindings.Add("Value", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
         }
+
         private void BindComboBox(ComboBox comboBox, object dataSource, string dataMember)
         {
             comboBox.DataBindings.Clear();
             comboBox.DataBindings.Add("SelectedItem", dataSource, dataMember, true, DataSourceUpdateMode.OnPropertyChanged);
         }
 
+        private void SubscribeToViewModelEvents()
+        {
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            this.nurseListBox.DataSource = this.viewModel.Nurses;
+            this.nurseListBox.DisplayMember = "FullName";
+
+            this.stateComboBoxForNurse.DataSource = this.viewModel.States;
+            this.statusComboBox.DataSource = this.viewModel.FlagStatuses;
+        }
 
         private void ClearAllBoxes()
         {
             this.firstNameTextBox.Clear();
             this.lastNameTextBox.Clear();
-            this.dateTimePickerForNurse.Value = DateTime.Now;   //DateTimePicker
+            this.dateTimePickerForNurse.Value = DateTime.Now;
             this.phoneNumTextBox.Clear();
             this.idTextBox.Text = string.Empty;
             this.address1TextBox.Clear();
             this.zipTextBox.Clear();
             this.cityTextBox.Clear();
             this.stateComboBoxForNurse.SelectedIndex = -1;
+            this.statusComboBox.SelectedIndex = -1;
             this.address2TextBox.Clear();
             this.usernameTextBox.Clear();
             this.passwordTextBox.Clear();
         }
+
         private void NurseListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-
             if (this.nurseListBox.SelectedItem is Nurse)
             {
                 this.unselectNurseButton.Enabled = true;
                 this.statusComboBox.Enabled = true;
-                this.saveNurseButton.Enabled = true;
+                this.editNurseButton.Enabled = true;
+                this.deleteNurseBTN.Enabled = true;
                 this.viewModel.SelectedNurse = (Nurse)this.nurseListBox.SelectedItem;
 
                 this.BindTextBox(this.firstNameTextBox, this.viewModel, "FirstName");
@@ -113,24 +127,27 @@ namespace HealthCareSync.Views
                 this.BindComboBox(this.statusComboBox, this.viewModel, "FlagStatus");
                 this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
 
+                // Set edit mode to true and disable fields
+                this.firstNameTextBox.Enabled = false;
+                this.lastNameTextBox.Enabled = false;
+                this.dateTimePickerForNurse.Enabled = false;
 
                 if (this.viewModel.FlagStatus == null)
                 {
                     this.statusComboBox.SelectedItem = null;
                 }
-        
             }
             else
             {
                 this.statusComboBox.DataBindings.Clear();
                 this.unselectNurseButton.Enabled = false;
-                this.saveNurseButton.Enabled = false;
+                this.editNurseButton.Enabled = false;
+                this.deleteNurseBTN.Enabled = false;
                 this.viewModel.SelectedNurse = null!;
-                ClearAllBoxes();
             }
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void editNurseButton_Click(object sender, EventArgs e)
         {
             var fname = this.firstNameTextBox.Text;
             var lname = this.lastNameTextBox.Text;
@@ -150,16 +167,14 @@ namespace HealthCareSync.Views
             {
                 this.viewModel.Save(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password, flag);
                 this.refreshListBox();
-                this.errorLabel.ForeColor = Color.Green;
-                this.errorLabel.Text = "Successfully edited nurse";
+                MessageBox.Show("Nurse's Information Edited Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An Error Occured While Editing Nurse's Information", "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
+
         private void refreshListBox()
         {
             this.nurseListBox.DataSource = null;
@@ -169,7 +184,6 @@ namespace HealthCareSync.Views
 
         private void addNurseButton_Click(object sender, EventArgs e)
         {
-
             var fname = this.firstNameTextBox.Text;
             var lname = this.lastNameTextBox.Text;
             var bDate = this.dateTimePickerForNurse.Value;
@@ -188,18 +202,15 @@ namespace HealthCareSync.Views
                 this.viewModel.Add(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password, flag);
                 this.refreshListBox();
                 this.nurseListBox.SelectedItem = this.viewModel.Nurses.Last();
-                this.errorLabel.ForeColor = Color.Green;
-                this.errorLabel.Text = "Successfully added nurse";
-
+                MessageBox.Show("Nurse Added Successfully In The System", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(this.errorMessages, "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An Error Occured While Adding Nurse To The System", "Errors", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private bool inputsValid(string fname, string lname, string phoneNum, string address1, string city, string zip, string username, string password, bool isEditing)
-
         {
             this.errorMessages = string.Empty;
             bool isErrors = false;
@@ -265,9 +276,44 @@ namespace HealthCareSync.Views
         {
             this.nurseListBox.SelectedIndex = -1;
             this.ClearAllBoxes();
-            this.errorLabel.Text = string.Empty;
             this.statusComboBox.SelectedIndex = 0;
             this.statusComboBox.Enabled = false;
+            this.firstNameTextBox.Enabled = true;
+            this.lastNameTextBox.Enabled = true;
+            this.dateTimePickerForNurse.Enabled = true;
+
+        }
+
+        private void deleteNurseBTN_Click(object sender, EventArgs e)
+        {
+            if (this.nurseListBox.SelectedItem is not Nurse)
+            {
+                MessageBox.Show("Please select a nurse to delete", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (this.viewModel.SelectedNurse != null)
+            {
+                if (this.viewModel.DeleteNurse())
+                {
+                    this.refreshListBox();
+                    this.ClearAllBoxes();
+                    MessageBox.Show($"Nurse {viewModel.SelectedNurse.FullName} Was Deleted Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (this.viewModel.SelectedNurse.FlagStatus == FlagStatus.INACTIVE)
+                {
+                    MessageBox.Show($"Nurse {viewModel.SelectedNurse.FullName} Could Not Be Deleted And Is Already Marked As Inactive", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    if (this.viewModel.DeactivateNurse())
+                    {
+                        this.refreshListBox();
+                        this.ClearAllBoxes();
+                        MessageBox.Show($"Can't Delete Nurse {viewModel.SelectedNurse.FullName}, Nurse Marked As INACTIVE Instead", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
     }
 }
