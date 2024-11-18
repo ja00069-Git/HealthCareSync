@@ -89,6 +89,17 @@
             panel20 = new Panel();
             panel19 = new Panel();
             panel12 = new Panel();
+            allergy_test_checkBox = new CheckBox();
+            blood_test_checkBox = new CheckBox();
+            c_b_c_test_checkBox = new CheckBox();
+            glucose_test_checkBox = new CheckBox();
+            hormone_panel_checkBox = new CheckBox();
+            lipid_panel_checkBox = new CheckBox();
+            liver_function_test_checkBox = new CheckBox();
+            thyroid_test_checkBox = new CheckBox();
+            urine_test_checkBox = new CheckBox();
+            vitamin_d_test_checkBox = new CheckBox();
+            label18 = new Label();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -627,7 +638,7 @@
             oeder_test_button.BackColor = Color.IndianRed;
             oeder_test_button.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             oeder_test_button.ForeColor = Color.Cornsilk;
-            oeder_test_button.Location = new Point(1278, 527);
+            oeder_test_button.Location = new Point(1028, 630);
             oeder_test_button.Name = "oeder_test_button";
             oeder_test_button.Size = new Size(117, 79);
             oeder_test_button.TabIndex = 95;
@@ -696,12 +707,155 @@
             panel12.Size = new Size(1300, 1);
             panel12.TabIndex = 89;
             // 
+            // allergy_test_checkBox
+            // 
+            allergy_test_checkBox.AutoSize = true;
+            allergy_test_checkBox.BackColor = Color.IndianRed;
+            allergy_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            allergy_test_checkBox.Location = new Point(795, 480);
+            allergy_test_checkBox.Name = "allergy_test_checkBox";
+            allergy_test_checkBox.Size = new Size(133, 19);
+            allergy_test_checkBox.TabIndex = 96;
+            allergy_test_checkBox.Text = "Allergy Test [AT008]";
+            allergy_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // blood_test_checkBox
+            // 
+            blood_test_checkBox.AutoSize = true;
+            blood_test_checkBox.BackColor = Color.IndianRed;
+            blood_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            blood_test_checkBox.Location = new Point(795, 505);
+            blood_test_checkBox.Name = "blood_test_checkBox";
+            blood_test_checkBox.Size = new Size(125, 19);
+            blood_test_checkBox.TabIndex = 97;
+            blood_test_checkBox.Text = "Blood Test [BT001]";
+            blood_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // c_b_c_test_checkBox
+            // 
+            c_b_c_test_checkBox.AutoSize = true;
+            c_b_c_test_checkBox.BackColor = Color.IndianRed;
+            c_b_c_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            c_b_c_test_checkBox.Location = new Point(797, 530);
+            c_b_c_test_checkBox.Name = "c_b_c_test_checkBox";
+            c_b_c_test_checkBox.Size = new Size(116, 19);
+            c_b_c_test_checkBox.TabIndex = 98;
+            c_b_c_test_checkBox.Text = "CBC Test [CB007]";
+            c_b_c_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // glucose_test_checkBox
+            // 
+            glucose_test_checkBox.AutoSize = true;
+            glucose_test_checkBox.BackColor = Color.IndianRed;
+            glucose_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            glucose_test_checkBox.Location = new Point(797, 555);
+            glucose_test_checkBox.Name = "glucose_test_checkBox";
+            glucose_test_checkBox.Size = new Size(137, 19);
+            glucose_test_checkBox.TabIndex = 99;
+            glucose_test_checkBox.Text = "Glucose test [GT003]";
+            glucose_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // hormone_panel_checkBox
+            // 
+            hormone_panel_checkBox.AutoSize = true;
+            hormone_panel_checkBox.BackColor = Color.IndianRed;
+            hormone_panel_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            hormone_panel_checkBox.Location = new Point(797, 580);
+            hormone_panel_checkBox.Name = "hormone_panel_checkBox";
+            hormone_panel_checkBox.Size = new Size(157, 19);
+            hormone_panel_checkBox.TabIndex = 100;
+            hormone_panel_checkBox.Text = "Hormone Panel [HP009]";
+            hormone_panel_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // lipid_panel_checkBox
+            // 
+            lipid_panel_checkBox.AutoSize = true;
+            lipid_panel_checkBox.BackColor = Color.IndianRed;
+            lipid_panel_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lipid_panel_checkBox.Location = new Point(797, 605);
+            lipid_panel_checkBox.Name = "lipid_panel_checkBox";
+            lipid_panel_checkBox.Size = new Size(129, 19);
+            lipid_panel_checkBox.TabIndex = 101;
+            lipid_panel_checkBox.Text = "Lipid Panel [LP004]";
+            lipid_panel_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // liver_function_test_checkBox
+            // 
+            liver_function_test_checkBox.AutoSize = true;
+            liver_function_test_checkBox.BackColor = Color.IndianRed;
+            liver_function_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            liver_function_test_checkBox.Location = new Point(797, 630);
+            liver_function_test_checkBox.Name = "liver_function_test_checkBox";
+            liver_function_test_checkBox.Size = new Size(167, 19);
+            liver_function_test_checkBox.TabIndex = 102;
+            liver_function_test_checkBox.Text = "Liver Function Test [LF010]";
+            liver_function_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // thyroid_test_checkBox
+            // 
+            thyroid_test_checkBox.AutoSize = true;
+            thyroid_test_checkBox.BackColor = Color.IndianRed;
+            thyroid_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            thyroid_test_checkBox.Location = new Point(797, 655);
+            thyroid_test_checkBox.Name = "thyroid_test_checkBox";
+            thyroid_test_checkBox.Size = new Size(137, 19);
+            thyroid_test_checkBox.TabIndex = 103;
+            thyroid_test_checkBox.Text = "Thyroid Test [TT005]";
+            thyroid_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // urine_test_checkBox
+            // 
+            urine_test_checkBox.AutoSize = true;
+            urine_test_checkBox.BackColor = Color.IndianRed;
+            urine_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            urine_test_checkBox.Location = new Point(797, 680);
+            urine_test_checkBox.Name = "urine_test_checkBox";
+            urine_test_checkBox.Size = new Size(125, 19);
+            urine_test_checkBox.TabIndex = 104;
+            urine_test_checkBox.Text = "Urine Test [UT002]";
+            urine_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // vitamin_d_test_checkBox
+            // 
+            vitamin_d_test_checkBox.AutoSize = true;
+            vitamin_d_test_checkBox.BackColor = Color.IndianRed;
+            vitamin_d_test_checkBox.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            vitamin_d_test_checkBox.Location = new Point(797, 705);
+            vitamin_d_test_checkBox.Name = "vitamin_d_test_checkBox";
+            vitamin_d_test_checkBox.Size = new Size(153, 19);
+            vitamin_d_test_checkBox.TabIndex = 105;
+            vitamin_d_test_checkBox.Text = "Vitamin D Test [VD006]";
+            vitamin_d_test_checkBox.UseVisualStyleBackColor = false;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.BackColor = Color.White;
+            label18.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.ForeColor = Color.FromArgb(192, 0, 0);
+            label18.Location = new Point(796, 430);
+            label18.Name = "label18";
+            label18.Size = new Size(131, 21);
+            label18.TabIndex = 106;
+            label18.Text = "Suggested Tests";
+            // 
             // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1469, 764);
+            Controls.Add(label18);
+            Controls.Add(vitamin_d_test_checkBox);
+            Controls.Add(urine_test_checkBox);
+            Controls.Add(thyroid_test_checkBox);
+            Controls.Add(liver_function_test_checkBox);
+            Controls.Add(lipid_panel_checkBox);
+            Controls.Add(hormone_panel_checkBox);
+            Controls.Add(glucose_test_checkBox);
+            Controls.Add(c_b_c_test_checkBox);
+            Controls.Add(blood_test_checkBox);
+            Controls.Add(allergy_test_checkBox);
             Controls.Add(oeder_test_button);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
@@ -835,5 +989,16 @@
         private Panel panel20;
         private Panel panel19;
         private Panel panel12;
+        private CheckBox allergy_test_checkBox;
+        private CheckBox blood_test_checkBox;
+        private CheckBox c_b_c_test_checkBox;
+        private CheckBox glucose_test_checkBox;
+        private CheckBox hormone_panel_checkBox;
+        private CheckBox lipid_panel_checkBox;
+        private CheckBox liver_function_test_checkBox;
+        private CheckBox thyroid_test_checkBox;
+        private CheckBox urine_test_checkBox;
+        private CheckBox vitamin_d_test_checkBox;
+        private Label label18;
     }
 }
