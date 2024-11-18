@@ -81,6 +81,14 @@
             label17 = new Label();
             panel8 = new Panel();
             nurseNameTextBox = new TextBox();
+            oeder_test_button = new Button();
+            textBox2 = new TextBox();
+            textBox1 = new TextBox();
+            final_diagnoses = new Label();
+            initial_diagnoses_label = new Label();
+            panel20 = new Panel();
+            panel19 = new Panel();
+            panel12 = new Panel();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -614,12 +622,94 @@
             nurseNameTextBox.TabIndex = 81;
             nurseNameTextBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // oeder_test_button
+            // 
+            oeder_test_button.BackColor = Color.IndianRed;
+            oeder_test_button.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            oeder_test_button.ForeColor = Color.Cornsilk;
+            oeder_test_button.Location = new Point(1278, 527);
+            oeder_test_button.Name = "oeder_test_button";
+            oeder_test_button.Size = new Size(117, 79);
+            oeder_test_button.TabIndex = 95;
+            oeder_test_button.Text = "Order";
+            oeder_test_button.UseVisualStyleBackColor = false;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(448, 468);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(257, 256);
+            textBox2.TabIndex = 94;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(169, 468);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(220, 256);
+            textBox1.TabIndex = 93;
+            // 
+            // final_diagnoses
+            // 
+            final_diagnoses.AutoSize = true;
+            final_diagnoses.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            final_diagnoses.ForeColor = Color.Red;
+            final_diagnoses.Location = new Point(513, 427);
+            final_diagnoses.Name = "final_diagnoses";
+            final_diagnoses.Size = new Size(130, 21);
+            final_diagnoses.TabIndex = 92;
+            final_diagnoses.Text = "Final Diagnoses";
+            // 
+            // initial_diagnoses_label
+            // 
+            initial_diagnoses_label.AutoSize = true;
+            initial_diagnoses_label.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            initial_diagnoses_label.ForeColor = Color.FromArgb(255, 128, 128);
+            initial_diagnoses_label.Location = new Point(217, 427);
+            initial_diagnoses_label.Name = "initial_diagnoses_label";
+            initial_diagnoses_label.Size = new Size(138, 21);
+            initial_diagnoses_label.TabIndex = 91;
+            initial_diagnoses_label.Text = "Initial Diagnoses";
+            // 
+            // panel20
+            // 
+            panel20.BackColor = Color.IndianRed;
+            panel20.Location = new Point(738, 423);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(1, 329);
+            panel20.TabIndex = 90;
+            // 
+            // panel19
+            // 
+            panel19.BackColor = Color.IndianRed;
+            panel19.Location = new Point(422, 423);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(1, 329);
+            panel19.TabIndex = 88;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.IndianRed;
+            panel12.Location = new Point(145, 382);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(1300, 1);
+            panel12.TabIndex = 89;
+            // 
             // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1469, 369);
+            ClientSize = new Size(1469, 764);
+            Controls.Add(oeder_test_button);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
+            Controls.Add(final_diagnoses);
+            Controls.Add(initial_diagnoses_label);
+            Controls.Add(panel20);
+            Controls.Add(panel19);
+            Controls.Add(panel12);
             Controls.Add(nurseNameTextBox);
             Controls.Add(panel8);
             Controls.Add(label17);
@@ -737,5 +827,13 @@
         private Label label17;
         private Panel panel8;
         private TextBox nurseNameTextBox;
+        private Button oeder_test_button;
+        private TextBox textBox2;
+        private TextBox textBox1;
+        private Label final_diagnoses;
+        private Label initial_diagnoses_label;
+        private Panel panel20;
+        private Panel panel19;
+        private Panel panel12;
     }
 }
