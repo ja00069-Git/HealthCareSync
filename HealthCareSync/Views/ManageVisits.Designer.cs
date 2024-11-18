@@ -100,6 +100,8 @@
             urine_test_checkBox = new CheckBox();
             vitamin_d_test_checkBox = new CheckBox();
             label18 = new Label();
+            final_diagnoses_enter_btn = new Button();
+            initial_diagnoses_enter_btn = new Button();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -650,7 +652,7 @@
             textBox2.Location = new Point(448, 468);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(257, 256);
+            textBox2.Size = new Size(257, 193);
             textBox2.TabIndex = 94;
             // 
             // textBox1
@@ -658,7 +660,7 @@
             textBox1.Location = new Point(169, 468);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(220, 256);
+            textBox1.Size = new Size(220, 193);
             textBox1.TabIndex = 93;
             // 
             // final_diagnoses
@@ -839,12 +841,36 @@
             label18.TabIndex = 106;
             label18.Text = "Suggested Tests";
             // 
+            // final_diagnoses_enter_btn
+            // 
+            final_diagnoses_enter_btn.BackColor = Color.IndianRed;
+            final_diagnoses_enter_btn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            final_diagnoses_enter_btn.Location = new Point(529, 676);
+            final_diagnoses_enter_btn.Name = "final_diagnoses_enter_btn";
+            final_diagnoses_enter_btn.Size = new Size(75, 23);
+            final_diagnoses_enter_btn.TabIndex = 107;
+            final_diagnoses_enter_btn.Text = "Enter";
+            final_diagnoses_enter_btn.UseVisualStyleBackColor = false;
+            // 
+            // initial_diagnoses_enter_btn
+            // 
+            initial_diagnoses_enter_btn.BackColor = Color.IndianRed;
+            initial_diagnoses_enter_btn.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            initial_diagnoses_enter_btn.Location = new Point(236, 676);
+            initial_diagnoses_enter_btn.Name = "initial_diagnoses_enter_btn";
+            initial_diagnoses_enter_btn.Size = new Size(75, 23);
+            initial_diagnoses_enter_btn.TabIndex = 108;
+            initial_diagnoses_enter_btn.Text = "Enter";
+            initial_diagnoses_enter_btn.UseVisualStyleBackColor = false;
+            // 
             // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1469, 764);
+            Controls.Add(initial_diagnoses_enter_btn);
+            Controls.Add(final_diagnoses_enter_btn);
             Controls.Add(label18);
             Controls.Add(vitamin_d_test_checkBox);
             Controls.Add(urine_test_checkBox);
@@ -1000,5 +1026,7 @@
         private CheckBox urine_test_checkBox;
         private CheckBox vitamin_d_test_checkBox;
         private Label label18;
+        private Button final_diagnoses_enter_btn;
+        private Button initial_diagnoses_enter_btn;
     }
 }
