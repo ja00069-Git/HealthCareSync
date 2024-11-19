@@ -47,7 +47,7 @@
             // 
             pictureBox1.Image = Properties.Resources.logo_icon;
             pictureBox1.Location = new Point(1, -1);
-            pictureBox1.Margin = new Padding(2, 2, 2, 2);
+            pictureBox1.Margin = new Padding(2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(490, 368);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -58,7 +58,7 @@
             // 
             pictureBox2.Image = Properties.Resources.red_user_icon;
             pictureBox2.Location = new Point(507, 76);
-            pictureBox2.Margin = new Padding(2, 2, 2, 2);
+            pictureBox2.Margin = new Padding(2);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(102, 32);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -70,7 +70,7 @@
             panel1.BackColor = Color.IndianRed;
             panel1.ForeColor = SystemColors.ButtonShadow;
             panel1.Location = new Point(507, 112);
-            panel1.Margin = new Padding(2, 2, 2, 2);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
             panel1.Size = new Size(318, 2);
             panel1.TabIndex = 5;
@@ -79,7 +79,7 @@
             // 
             pictureBox3.Image = Properties.Resources.security_icon;
             pictureBox3.Location = new Point(507, 148);
-            pictureBox3.Margin = new Padding(2, 2, 2, 2);
+            pictureBox3.Margin = new Padding(2);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(102, 32);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
@@ -91,7 +91,7 @@
             panel2.BackColor = Color.IndianRed;
             panel2.ForeColor = SystemColors.ButtonShadow;
             panel2.Location = new Point(507, 184);
-            panel2.Margin = new Padding(2, 2, 2, 2);
+            panel2.Margin = new Padding(2);
             panel2.Name = "panel2";
             panel2.Size = new Size(318, 2);
             panel2.TabIndex = 5;
@@ -104,7 +104,7 @@
             loginBTN.Font = new Font("Showcard Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
             loginBTN.ForeColor = Color.White;
             loginBTN.Location = new Point(569, 196);
-            loginBTN.Margin = new Padding(2, 2, 2, 2);
+            loginBTN.Margin = new Padding(2);
             loginBTN.Name = "loginBTN";
             loginBTN.Size = new Size(178, 34);
             loginBTN.TabIndex = 3;
@@ -119,7 +119,7 @@
             usernameTB.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             usernameTB.ForeColor = SystemColors.HotTrack;
             usernameTB.Location = new Point(620, 76);
-            usernameTB.Margin = new Padding(2, 2, 2, 2);
+            usernameTB.Margin = new Padding(2);
             usernameTB.Multiline = true;
             usernameTB.Name = "usernameTB";
             usernameTB.Size = new Size(205, 32);
@@ -132,12 +132,13 @@
             passwordTB.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             passwordTB.ForeColor = SystemColors.HotTrack;
             passwordTB.Location = new Point(625, 148);
-            passwordTB.Margin = new Padding(2, 2, 2, 2);
+            passwordTB.Margin = new Padding(2);
             passwordTB.Multiline = true;
             passwordTB.Name = "passwordTB";
             passwordTB.PasswordChar = '*';
             passwordTB.Size = new Size(200, 32);
             passwordTB.TabIndex = 2;
+            passwordTB.KeyDown += passwordTB_KeyDown;
             // 
             // sigupLabel
             // 
@@ -159,7 +160,7 @@
             exitAppBTN.FlatAppearance.BorderSize = 0;
             exitAppBTN.FlatStyle = FlatStyle.Flat;
             exitAppBTN.Location = new Point(869, 7);
-            exitAppBTN.Margin = new Padding(2, 2, 2, 2);
+            exitAppBTN.Margin = new Padding(2);
             exitAppBTN.Name = "exitAppBTN";
             exitAppBTN.Size = new Size(38, 32);
             exitAppBTN.TabIndex = 6;
@@ -183,7 +184,7 @@
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LoginForm";
