@@ -81,6 +81,37 @@
             label17 = new Label();
             panel8 = new Panel();
             nurseNameTextBox = new TextBox();
+            order_test_button = new Button();
+            finalDiagnosesTextBox = new TextBox();
+            initialDiagnosesTextBox = new TextBox();
+            final_diagnoses = new Label();
+            initial_diagnoses_label = new Label();
+            panel20 = new Panel();
+            panel19 = new Panel();
+            panel12 = new Panel();
+            label18 = new Label();
+            initial_diagnoses_enter_btn = new Button();
+            final_diagnosis_enter_btn = new Button();
+            orderTestDatePicker = new DateTimePicker();
+            orderTestTimePicker = new DateTimePicker();
+            label19 = new Label();
+            label20 = new Label();
+            label21 = new Label();
+            vitaminDTestRadioBtn = new RadioButton();
+            thyroidTestRadioBtn = new RadioButton();
+            urineTestRadioBtn = new RadioButton();
+            lipidPanelRadioBtn = new RadioButton();
+            glucoseTestBtn = new RadioButton();
+            liverFunctionTestRadioBtn = new RadioButton();
+            cbcTestRadioBtn = new RadioButton();
+            hormonePanelRadioBtn = new RadioButton();
+            allergyTestRadioBtn = new RadioButton();
+            bloodTestRadioBtn = new RadioButton();
+            unselectTestsButton = new Button();
+            label22 = new Label();
+            testsOrderedListBox = new ListBox();
+            testsOrderedDatePicker = new DateTimePicker();
+            testsOrderedTimePicker = new DateTimePicker();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -181,7 +212,7 @@
             // symptomsTextBox
             // 
             symptomsTextBox.BorderStyle = BorderStyle.FixedSingle;
-            symptomsTextBox.Font = new Font("Microsoft YaHei UI", 14F);
+            symptomsTextBox.Font = new Font("Microsoft YaHei UI", 12F);
             symptomsTextBox.ForeColor = SystemColors.HotTrack;
             symptomsTextBox.Location = new Point(1078, 213);
             symptomsTextBox.Multiline = true;
@@ -560,9 +591,9 @@
             searchFirstNameTextBox.BorderStyle = BorderStyle.None;
             searchFirstNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             searchFirstNameTextBox.ForeColor = SystemColors.HotTrack;
-            searchFirstNameTextBox.Location = new Point(254, 99);
+            searchFirstNameTextBox.Location = new Point(218, 99);
             searchFirstNameTextBox.Name = "searchFirstNameTextBox";
-            searchFirstNameTextBox.Size = new Size(136, 17);
+            searchFirstNameTextBox.Size = new Size(172, 17);
             searchFirstNameTextBox.TabIndex = 71;
             // 
             // searchLastNameTextBox
@@ -570,9 +601,9 @@
             searchLastNameTextBox.BorderStyle = BorderStyle.None;
             searchLastNameTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             searchLastNameTextBox.ForeColor = SystemColors.HotTrack;
-            searchLastNameTextBox.Location = new Point(251, 179);
+            searchLastNameTextBox.Location = new Point(215, 179);
             searchLastNameTextBox.Name = "searchLastNameTextBox";
-            searchLastNameTextBox.Size = new Size(139, 17);
+            searchLastNameTextBox.Size = new Size(175, 17);
             searchLastNameTextBox.TabIndex = 70;
             // 
             // panel7
@@ -614,12 +645,399 @@
             nurseNameTextBox.TabIndex = 81;
             nurseNameTextBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // order_test_button
+            // 
+            order_test_button.BackColor = Color.IndianRed;
+            order_test_button.Enabled = false;
+            order_test_button.FlatStyle = FlatStyle.Flat;
+            order_test_button.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            order_test_button.ForeColor = Color.White;
+            order_test_button.Location = new Point(907, 428);
+            order_test_button.Name = "order_test_button";
+            order_test_button.Size = new Size(83, 36);
+            order_test_button.TabIndex = 95;
+            order_test_button.Text = "Order";
+            order_test_button.UseVisualStyleBackColor = false;
+            order_test_button.Click += order_test_button_Click;
+            // 
+            // finalDiagnosesTextBox
+            // 
+            finalDiagnosesTextBox.Enabled = false;
+            finalDiagnosesTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            finalDiagnosesTextBox.ForeColor = SystemColors.HotTrack;
+            finalDiagnosesTextBox.Location = new Point(170, 625);
+            finalDiagnosesTextBox.Multiline = true;
+            finalDiagnosesTextBox.Name = "finalDiagnosesTextBox";
+            finalDiagnosesTextBox.Size = new Size(220, 108);
+            finalDiagnosesTextBox.TabIndex = 94;
+            // 
+            // initialDiagnosesTextBox
+            // 
+            initialDiagnosesTextBox.Enabled = false;
+            initialDiagnosesTextBox.Font = new Font("Microsoft YaHei UI", 10F);
+            initialDiagnosesTextBox.ForeColor = SystemColors.HotTrack;
+            initialDiagnosesTextBox.Location = new Point(170, 435);
+            initialDiagnosesTextBox.Multiline = true;
+            initialDiagnosesTextBox.Name = "initialDiagnosesTextBox";
+            initialDiagnosesTextBox.Size = new Size(220, 108);
+            initialDiagnosesTextBox.TabIndex = 93;
+            // 
+            // final_diagnoses
+            // 
+            final_diagnoses.AutoSize = true;
+            final_diagnoses.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            final_diagnoses.ForeColor = Color.IndianRed;
+            final_diagnoses.Location = new Point(204, 597);
+            final_diagnoses.Name = "final_diagnoses";
+            final_diagnoses.Size = new Size(150, 25);
+            final_diagnoses.TabIndex = 92;
+            final_diagnoses.Text = "Final Diagnoses";
+            // 
+            // initial_diagnoses_label
+            // 
+            initial_diagnoses_label.AutoSize = true;
+            initial_diagnoses_label.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            initial_diagnoses_label.ForeColor = Color.IndianRed;
+            initial_diagnoses_label.Location = new Point(204, 404);
+            initial_diagnoses_label.Name = "initial_diagnoses_label";
+            initial_diagnoses_label.Size = new Size(158, 25);
+            initial_diagnoses_label.TabIndex = 91;
+            initial_diagnoses_label.Text = "Initial Diagnoses";
+            // 
+            // panel20
+            // 
+            panel20.BackColor = Color.IndianRed;
+            panel20.Location = new Point(1183, 423);
+            panel20.Name = "panel20";
+            panel20.Size = new Size(1, 350);
+            panel20.TabIndex = 90;
+            // 
+            // panel19
+            // 
+            panel19.BackColor = Color.IndianRed;
+            panel19.Location = new Point(422, 423);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(1, 350);
+            panel19.TabIndex = 88;
+            // 
+            // panel12
+            // 
+            panel12.BackColor = Color.IndianRed;
+            panel12.Location = new Point(145, 382);
+            panel12.Name = "panel12";
+            panel12.Size = new Size(1335, 1);
+            panel12.TabIndex = 89;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.BackColor = Color.White;
+            label18.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label18.ForeColor = Color.IndianRed;
+            label18.Location = new Point(724, 397);
+            label18.Name = "label18";
+            label18.Size = new Size(111, 25);
+            label18.TabIndex = 106;
+            label18.Text = "Order Tests";
+            // 
+            // initial_diagnoses_enter_btn
+            // 
+            initial_diagnoses_enter_btn.BackColor = Color.IndianRed;
+            initial_diagnoses_enter_btn.FlatStyle = FlatStyle.Flat;
+            initial_diagnoses_enter_btn.Font = new Font("Showcard Gothic", 12F);
+            initial_diagnoses_enter_btn.ForeColor = Color.White;
+            initial_diagnoses_enter_btn.Location = new Point(236, 549);
+            initial_diagnoses_enter_btn.Name = "initial_diagnoses_enter_btn";
+            initial_diagnoses_enter_btn.Size = new Size(75, 33);
+            initial_diagnoses_enter_btn.TabIndex = 108;
+            initial_diagnoses_enter_btn.Text = "Enter";
+            initial_diagnoses_enter_btn.UseVisualStyleBackColor = false;
+            initial_diagnoses_enter_btn.Click += initial_diagnoses_enter_btn_Click;
+            // 
+            // final_diagnosis_enter_btn
+            // 
+            final_diagnosis_enter_btn.BackColor = Color.IndianRed;
+            final_diagnosis_enter_btn.FlatStyle = FlatStyle.Flat;
+            final_diagnosis_enter_btn.Font = new Font("Showcard Gothic", 12F);
+            final_diagnosis_enter_btn.ForeColor = Color.White;
+            final_diagnosis_enter_btn.Location = new Point(236, 739);
+            final_diagnosis_enter_btn.Name = "final_diagnosis_enter_btn";
+            final_diagnosis_enter_btn.Size = new Size(75, 33);
+            final_diagnosis_enter_btn.TabIndex = 109;
+            final_diagnosis_enter_btn.Text = "Enter";
+            final_diagnosis_enter_btn.UseVisualStyleBackColor = false;
+            final_diagnosis_enter_btn.Click += final_diagnosis_enter_btn_Click;
+            // 
+            // orderTestDatePicker
+            // 
+            orderTestDatePicker.CustomFormat = "";
+            orderTestDatePicker.Font = new Font("Segoe UI", 12F);
+            orderTestDatePicker.Location = new Point(502, 435);
+            orderTestDatePicker.Name = "orderTestDatePicker";
+            orderTestDatePicker.Size = new Size(267, 29);
+            orderTestDatePicker.TabIndex = 110;
+            // 
+            // orderTestTimePicker
+            // 
+            orderTestTimePicker.CustomFormat = "hh:mm tt";
+            orderTestTimePicker.Font = new Font("Segoe UI", 12F);
+            orderTestTimePicker.Format = DateTimePickerFormat.Custom;
+            orderTestTimePicker.Location = new Point(784, 435);
+            orderTestTimePicker.Name = "orderTestTimePicker";
+            orderTestTimePicker.ShowUpDown = true;
+            orderTestTimePicker.Size = new Size(89, 29);
+            orderTestTimePicker.TabIndex = 111;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label19.ForeColor = Color.IndianRed;
+            label19.Location = new Point(443, 435);
+            label19.Name = "label19";
+            label19.Size = new Size(53, 25);
+            label19.TabIndex = 112;
+            label19.Text = "Date";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label20.ForeColor = Color.IndianRed;
+            label20.Location = new Point(470, 330);
+            label20.Name = "label20";
+            label20.Size = new Size(267, 19);
+            label20.TabIndex = 113;
+            label20.Text = "{Patient Name} {DOB} | {Doctor Name}";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            label21.ForeColor = Color.Black;
+            label21.Location = new Point(572, 309);
+            label21.Name = "label21";
+            label21.Size = new Size(60, 20);
+            label21.TabIndex = 114;
+            label21.Text = "Format";
+            // 
+            // vitaminDTestRadioBtn
+            // 
+            vitaminDTestRadioBtn.AutoSize = true;
+            vitaminDTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            vitaminDTestRadioBtn.Location = new Point(454, 748);
+            vitaminDTestRadioBtn.Name = "vitaminDTestRadioBtn";
+            vitaminDTestRadioBtn.Size = new Size(658, 24);
+            vitaminDTestRadioBtn.TabIndex = 117;
+            vitaminDTestRadioBtn.TabStop = true;
+            vitaminDTestRadioBtn.Text = "Vitamin D Test [VD006] - Measures vitamin D levels to evaluate bone health and deficiencies.";
+            vitaminDTestRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // thyroidTestRadioBtn
+            // 
+            thyroidTestRadioBtn.AutoSize = true;
+            thyroidTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            thyroidTestRadioBtn.Location = new Point(454, 718);
+            thyroidTestRadioBtn.Name = "thyroidTestRadioBtn";
+            thyroidTestRadioBtn.Size = new Size(699, 24);
+            thyroidTestRadioBtn.TabIndex = 118;
+            thyroidTestRadioBtn.TabStop = true;
+            thyroidTestRadioBtn.Text = "Thyroid Test [TT005] - Assesses thyroid gland performance by measuring TSH and other hormones.";
+            thyroidTestRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // urineTestRadioBtn
+            // 
+            urineTestRadioBtn.AutoSize = true;
+            urineTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            urineTestRadioBtn.Location = new Point(455, 688);
+            urineTestRadioBtn.Name = "urineTestRadioBtn";
+            urineTestRadioBtn.Size = new Size(634, 24);
+            urineTestRadioBtn.TabIndex = 119;
+            urineTestRadioBtn.TabStop = true;
+            urineTestRadioBtn.Text = "Urine Test [UT002] - Examines urine for infections, kidney issues, or metabolic conditions.";
+            urineTestRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // lipidPanelRadioBtn
+            // 
+            lipidPanelRadioBtn.AutoSize = true;
+            lipidPanelRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            lipidPanelRadioBtn.Location = new Point(455, 628);
+            lipidPanelRadioBtn.Name = "lipidPanelRadioBtn";
+            lipidPanelRadioBtn.Size = new Size(586, 24);
+            lipidPanelRadioBtn.TabIndex = 120;
+            lipidPanelRadioBtn.TabStop = true;
+            lipidPanelRadioBtn.Text = "Lipid Panel [LP004] - Measures cholesterol and triglycerides to assess heart health.";
+            lipidPanelRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // glucoseTestBtn
+            // 
+            glucoseTestBtn.AutoSize = true;
+            glucoseTestBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            glucoseTestBtn.Location = new Point(455, 568);
+            glucoseTestBtn.Name = "glucoseTestBtn";
+            glucoseTestBtn.Size = new Size(529, 24);
+            glucoseTestBtn.TabIndex = 121;
+            glucoseTestBtn.TabStop = true;
+            glucoseTestBtn.Text = "Glucose Test [GT003] - Measures blood sugar levels to assess diabetes risk.";
+            glucoseTestBtn.UseVisualStyleBackColor = true;
+            // 
+            // liverFunctionTestRadioBtn
+            // 
+            liverFunctionTestRadioBtn.AutoSize = true;
+            liverFunctionTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            liverFunctionTestRadioBtn.Location = new Point(455, 658);
+            liverFunctionTestRadioBtn.Name = "liverFunctionTestRadioBtn";
+            liverFunctionTestRadioBtn.Size = new Size(619, 24);
+            liverFunctionTestRadioBtn.TabIndex = 122;
+            liverFunctionTestRadioBtn.TabStop = true;
+            liverFunctionTestRadioBtn.Text = "Liver Function Test [LF010] - Checks enzymes and proteins for liver health and function.";
+            liverFunctionTestRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // cbcTestRadioBtn
+            // 
+            cbcTestRadioBtn.AutoSize = true;
+            cbcTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            cbcTestRadioBtn.Location = new Point(455, 538);
+            cbcTestRadioBtn.Name = "cbcTestRadioBtn";
+            cbcTestRadioBtn.Size = new Size(636, 24);
+            cbcTestRadioBtn.TabIndex = 123;
+            cbcTestRadioBtn.TabStop = true;
+            cbcTestRadioBtn.Text = "CBC Test [CB007] - A complete blood count measuring red/white blood cells and platelets.";
+            cbcTestRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // hormonePanelRadioBtn
+            // 
+            hormonePanelRadioBtn.AutoSize = true;
+            hormonePanelRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            hormonePanelRadioBtn.Location = new Point(455, 598);
+            hormonePanelRadioBtn.Name = "hormonePanelRadioBtn";
+            hormonePanelRadioBtn.Size = new Size(664, 24);
+            hormonePanelRadioBtn.TabIndex = 124;
+            hormonePanelRadioBtn.TabStop = true;
+            hormonePanelRadioBtn.Text = "Hormone Panel [HP009] - Evaluates hormone levels for issues like thyroid function or fertility.";
+            hormonePanelRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // allergyTestRadioBtn
+            // 
+            allergyTestRadioBtn.AutoSize = true;
+            allergyTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            allergyTestRadioBtn.Location = new Point(455, 484);
+            allergyTestRadioBtn.Name = "allergyTestRadioBtn";
+            allergyTestRadioBtn.Size = new Size(548, 24);
+            allergyTestRadioBtn.TabIndex = 125;
+            allergyTestRadioBtn.TabStop = true;
+            allergyTestRadioBtn.Text = "Allergy Test [AT008] - Identifies potential allergens causing allergic reactions.";
+            allergyTestRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // bloodTestRadioBtn
+            // 
+            bloodTestRadioBtn.AutoSize = true;
+            bloodTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            bloodTestRadioBtn.Location = new Point(455, 512);
+            bloodTestRadioBtn.Name = "bloodTestRadioBtn";
+            bloodTestRadioBtn.Size = new Size(722, 24);
+            bloodTestRadioBtn.TabIndex = 126;
+            bloodTestRadioBtn.TabStop = true;
+            bloodTestRadioBtn.Text = "Blood Test [BT001] - General term for tests analyzing blood components like hemoglobin and platelets.";
+            bloodTestRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // unselectTestsButton
+            // 
+            unselectTestsButton.BackColor = Color.IndianRed;
+            unselectTestsButton.Enabled = false;
+            unselectTestsButton.FlatStyle = FlatStyle.Flat;
+            unselectTestsButton.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            unselectTestsButton.ForeColor = Color.White;
+            unselectTestsButton.Location = new Point(1008, 429);
+            unselectTestsButton.Name = "unselectTestsButton";
+            unselectTestsButton.Size = new Size(104, 35);
+            unselectTestsButton.TabIndex = 127;
+            unselectTestsButton.Text = "UNSELECT";
+            unselectTestsButton.UseVisualStyleBackColor = false;
+            unselectTestsButton.Click += unselectTestsButton_Click;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.BackColor = Color.White;
+            label22.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label22.ForeColor = Color.IndianRed;
+            label22.Location = new Point(1286, 397);
+            label22.Name = "label22";
+            label22.Size = new Size(133, 25);
+            label22.TabIndex = 128;
+            label22.Text = "Tests Ordered";
+            // 
+            // testsOrderedListBox
+            // 
+            testsOrderedListBox.Font = new Font("Segoe UI", 11F);
+            testsOrderedListBox.FormattingEnabled = true;
+            testsOrderedListBox.ItemHeight = 20;
+            testsOrderedListBox.Location = new Point(1213, 435);
+            testsOrderedListBox.Name = "testsOrderedListBox";
+            testsOrderedListBox.Size = new Size(267, 224);
+            testsOrderedListBox.TabIndex = 129;
+            testsOrderedListBox.SelectedIndexChanged += testsOrderedListBox_SelectedIndexChanged;
+            // 
+            // testsOrderedDatePicker
+            // 
+            testsOrderedDatePicker.CustomFormat = "";
+            testsOrderedDatePicker.Enabled = false;
+            testsOrderedDatePicker.Font = new Font("Segoe UI", 12F);
+            testsOrderedDatePicker.Location = new Point(1213, 683);
+            testsOrderedDatePicker.Name = "testsOrderedDatePicker";
+            testsOrderedDatePicker.Size = new Size(267, 29);
+            testsOrderedDatePicker.TabIndex = 130;
+            // 
+            // testsOrderedTimePicker
+            // 
+            testsOrderedTimePicker.CustomFormat = "hh:mm tt";
+            testsOrderedTimePicker.Enabled = false;
+            testsOrderedTimePicker.Font = new Font("Segoe UI", 12F);
+            testsOrderedTimePicker.Format = DateTimePickerFormat.Custom;
+            testsOrderedTimePicker.Location = new Point(1307, 718);
+            testsOrderedTimePicker.Name = "testsOrderedTimePicker";
+            testsOrderedTimePicker.ShowUpDown = true;
+            testsOrderedTimePicker.Size = new Size(89, 29);
+            testsOrderedTimePicker.TabIndex = 131;
+            // 
             // ManageVisits
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1469, 369);
+            ClientSize = new Size(1508, 796);
+            Controls.Add(testsOrderedTimePicker);
+            Controls.Add(testsOrderedDatePicker);
+            Controls.Add(testsOrderedListBox);
+            Controls.Add(label22);
+            Controls.Add(unselectTestsButton);
+            Controls.Add(bloodTestRadioBtn);
+            Controls.Add(allergyTestRadioBtn);
+            Controls.Add(hormonePanelRadioBtn);
+            Controls.Add(cbcTestRadioBtn);
+            Controls.Add(liverFunctionTestRadioBtn);
+            Controls.Add(glucoseTestBtn);
+            Controls.Add(lipidPanelRadioBtn);
+            Controls.Add(urineTestRadioBtn);
+            Controls.Add(thyroidTestRadioBtn);
+            Controls.Add(vitaminDTestRadioBtn);
+            Controls.Add(label21);
+            Controls.Add(label20);
+            Controls.Add(label19);
+            Controls.Add(orderTestTimePicker);
+            Controls.Add(orderTestDatePicker);
+            Controls.Add(final_diagnosis_enter_btn);
+            Controls.Add(initial_diagnoses_enter_btn);
+            Controls.Add(label18);
+            Controls.Add(order_test_button);
+            Controls.Add(finalDiagnosesTextBox);
+            Controls.Add(initialDiagnosesTextBox);
+            Controls.Add(final_diagnoses);
+            Controls.Add(initial_diagnoses_label);
+            Controls.Add(panel20);
+            Controls.Add(panel19);
+            Controls.Add(panel12);
             Controls.Add(nurseNameTextBox);
             Controls.Add(panel8);
             Controls.Add(label17);
@@ -737,5 +1155,44 @@
         private Label label17;
         private Panel panel8;
         private TextBox nurseNameTextBox;
+        private Button order_test_button;
+        private TextBox finalDiagnosesTextBox;
+        private TextBox initialDiagnosesTextBox;
+        private Label final_diagnoses;
+        private Label initial_diagnoses_label;
+        private Panel panel20;
+        private Panel panel19;
+        private Panel panel12;
+        private CheckBox hormone_panel_checkBox;
+        private CheckBox lipid_panel_checkBox;
+        private CheckBox liver_function_test_checkBox;
+        private CheckBox thyroid_test_checkBox;
+        private CheckBox urine_test_checkBox;
+        private CheckBox vitamin_d_test_checkBox;
+        private Label label18;
+        private Button initial_diagnoses_enter_btn;
+        private Button final_diagnosis_enter_btn;
+        private DateTimePicker orderTestDatePicker;
+        private DateTimePicker orderTestTimePicker;
+        private Label label19;
+        private Label label20;
+        private Label label21;
+        private RadioButton radioButton1;
+        private RadioButton radioButton2;
+        private RadioButton vitaminDTestRadioBtn;
+        private RadioButton thyroidTestRadioBtn;
+        private RadioButton urineTestRadioBtn;
+        private RadioButton lipidPanelRadioBtn;
+        private RadioButton glucoseTestBtn;
+        private RadioButton liverFunctionTestRadioBtn;
+        private RadioButton cbcTestRadioBtn;
+        private RadioButton hormonePanelRadioBtn;
+        private RadioButton allergyTestRadioBtn;
+        private RadioButton bloodTestRadioBtn;
+        private Button unselectTestsButton;
+        private Label label22;
+        private ListBox testsOrderedListBox;
+        private DateTimePicker testsOrderedDatePicker;
+        private DateTimePicker testsOrderedTimePicker;
     }
 }
