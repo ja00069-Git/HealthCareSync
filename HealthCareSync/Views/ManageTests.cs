@@ -4,7 +4,7 @@ namespace HealthCareSync.Views
 {
     public partial class ManageTests : Form
     {
-        private readonly ManageTestViewModel viewModel;
+        //private readonly ManageTestViewModel viewModel;
         public ManageTests()
         {
             InitializeComponent();
