@@ -30,6 +30,8 @@ namespace HealthCareSync.Views
         {
             InitializeComponent();
             this.viewmodel = new GenerateReportViewModel();
+            this.resultDataGridView.Visible = false;
+            this.resultLabel.Visible = false;
             this.setupDataGridView();
             this.initializeControlsYDifference();
         }
@@ -64,6 +66,9 @@ namespace HealthCareSync.Views
             }
             else
             {
+
+                this.resultDataGridView.Visible = true;
+                this.resultLabel.Visible = true;
                 this.resultDataGridView.DataSource = tuple.Item1;
                 this.AdjustFormAndDataGridViewSize();
                 this.moveTextBoxY(this.resultDataGridView.Bottom + 50);
@@ -84,6 +89,8 @@ namespace HealthCareSync.Views
 
             var table = this.viewmodel.ViewReport(fromDate, toDate);
 
+            this.resultDataGridView.Visible = true;
+            this.resultLabel.Visible = true;
             this.resultDataGridView.DataSource = table;
             this.AdjustFormAndDataGridViewSize();
             this.moveTextBoxY(this.resultDataGridView.Bottom + 50);
