@@ -66,7 +66,7 @@ namespace HealthCareSync.Models
 
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Lab test name cannot be null or empty");
                 }

@@ -452,7 +452,7 @@ namespace HealthCareSync.ViewModels
          */
         public void SearchAppointments()
         {
-            if (string.IsNullOrEmpty(SearchPatientApptsByName))
+            if (string.IsNullOrWhiteSpace(SearchPatientApptsByName))
             {
                 SearchPatientApptsMessage = "Error: Please enter a patient name to search.";
                 return;
@@ -492,7 +492,7 @@ namespace HealthCareSync.ViewModels
             appointmentDateTime = DateTime.MinValue;
             newAvailabilityId = 0;
 
-            if (string.IsNullOrEmpty(SelectedDoctor) || string.IsNullOrEmpty(SelectedTimeSlot) || SelectedDate == default)
+            if (string.IsNullOrWhiteSpace(SelectedDoctor) || string.IsNullOrWhiteSpace(SelectedTimeSlot) || SelectedDate == default)
             {
                 GeneralErrorMessage = "Please select a doctor, date, and time slot.";
                 return false;
@@ -620,7 +620,7 @@ namespace HealthCareSync.ViewModels
          */
         public void PopulateFieldsFromSelectedDocAndTimeSlot()
         {
-            if (string.IsNullOrEmpty(SelectedDoctor) || string.IsNullOrEmpty(SelectedTimeSlot)) return;
+            if (string.IsNullOrWhiteSpace(SelectedDoctor) || string.IsNullOrWhiteSpace(SelectedTimeSlot)) return;
             var doctorId = appointmentDAL.GetDoctorIdByName(SelectedDoctor);
             var timeSlotParts = SelectedTimeSlot.Split('|');
             var timePart = timeSlotParts[1].Split('-')[0].Trim();

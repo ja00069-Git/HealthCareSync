@@ -210,7 +210,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The final diagnoses is entered.
         /// </value>
-        public bool FinalDiagnosesIsEntered => !string.IsNullOrEmpty(SelectedVisitDiagnoses?.FinalDiagnoses);
+        public bool FinalDiagnosesIsEntered => !string.IsNullOrWhiteSpace(SelectedVisitDiagnoses?.FinalDiagnoses);
 
         /// <summary>
         /// Gets or sets the selected visit.
@@ -310,7 +310,7 @@ namespace HealthCareSync.ViewModels
         /// <returns></returns>
         public bool DeleteOrderedTest(LabTestOperation labTestOperation)
         {
-            if (string.IsNullOrEmpty(labTestOperation.Result))
+            if (string.IsNullOrWhiteSpace(labTestOperation.Result))
             {
                 this.labTestOperationDAL.DeleteLabTestOperation(labTestOperation);
                 return true;
