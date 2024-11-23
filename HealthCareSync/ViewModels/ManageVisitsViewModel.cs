@@ -42,16 +42,16 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The name of the performing nurse.
         /// </value>
-        public string? PerformingNurseName 
-        { 
-            get 
+        public string? PerformingNurseName
+        {
+            get
             {
                 if (this.performingNurse == null)
                 {
                     return string.Empty;
                 }
-                return this.performingNurse!.FullName; 
-            } 
+                return this.performingNurse!.FullName;
+            }
         }
 
         public string? SelectedLabTestOperationName => selectedLabTestOperation?.LabTestName;
@@ -110,7 +110,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The body temperature.
         /// </value>
-        public int? BodyTemperature => selectedVisitRoutineChecks?.BodyTemperature;
+        public double? BodyTemperature => selectedVisitRoutineChecks?.BodyTemperature;
 
         /// <summary>
         /// Gets the BPM.
@@ -160,7 +160,7 @@ namespace HealthCareSync.ViewModels
         /// </value>
         public LabTestOperation? SelectedLabTestOperation
         {
-            get { return this.selectedLabTestOperation; } 
+            get { return this.selectedLabTestOperation; }
             set
             {
                 selectedLabTestOperation = value;
@@ -289,7 +289,7 @@ namespace HealthCareSync.ViewModels
             this.labTestOperationDAL = new LabTestOperationDAL();
             this.diagnosesDAL = new DiagnosesDAL();
 
-            this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments()); 
+            this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());
             this.setupLabTests();
         }
 
@@ -304,20 +304,44 @@ namespace HealthCareSync.ViewModels
         }
 
         /// <summary>
-        /// Orders the test.
+        /// Deletes the ordered test.
         /// </summary>
-        /// <param name="labTest">The lab test.</param>
-        /// <param name="dateTime">The date time.</param>
+        /// <param name="labTestOperation">The lab test operation.</param>
         /// <returns></returns>
-        public bool OrderTest(LabTest labTest, DateTime dateTime)
+        public bool DeleteOrderedTest(LabTestOperation labTestOperation)
         {
-            if (this.labTestOperationDAL.OrderLabTest(dateTime, (int)this.AppointmentId!, labTest))
+            if (string.IsNullOrEmpty(labTestOperation.Result))
             {
-                this.OrderedTests.Add(new LabTestOperation(dateTime, (int)AppointmentId!, labTest.Name, null, null));
+                this.labTestOperationDAL.DeleteLabTestOperation(labTestOperation);
                 return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Orders the test.
+        /// </summary>
+        /// <param name="labTestCheckBoxes">The lab test checkboxes.</param>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns></returns>
+        public bool OrderTest(IEnumerable<CheckBox> labTestCheckBoxes, DateTime dateTime)
+        {
+            foreach (CheckBox cb in labTestCheckBoxes)
+            {
+                LabTest labTest = (LabTest)cb.Tag;
+
+                if (!this.labTestOperationDAL.OrderLabTest(dateTime, (int)this.AppointmentId!, labTest))
+                {
+                    return false;
+                }
+                else
+                {
+                    this.OrderedTests.Add(new LabTestOperation(dateTime, (int)AppointmentId!, labTest.Name, null, null));
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -335,7 +359,7 @@ namespace HealthCareSync.ViewModels
             var aptId = (int)this.AppointmentId!;
             var systolicInt = int.Parse(systolicReading);
             var diastolicInt = int.Parse(diastolicReading);
-            var bodyTemperatureInt = int.Parse(bodyTemperature);
+            var bodyTemperatureInt = double.Parse(bodyTemperature);
             var pulseBPMInt = int.Parse(pulseBPM);
             var weightDouble = double.Parse(weight);
             var heightDouble = double.Parse(height);
@@ -365,7 +389,7 @@ namespace HealthCareSync.ViewModels
             var aptId = (int)this.AppointmentId!;
             var systolicInt = int.Parse(systolicReading);
             var diastolicInt = int.Parse(diastolicReading);
-            var bodyTemperatureInt = int.Parse(bodyTemperature);
+            var bodyTemperatureInt = double.Parse(bodyTemperature);
             var pulseBPMInt = int.Parse(pulseBPM);
             var weightDouble = double.Parse(weight);
             var heightDouble = double.Parse(height);
@@ -449,5 +473,16 @@ namespace HealthCareSync.ViewModels
         {
             this.LabTests = this.labTestDAL.GetLabTests();
         }
+
+        /// <summary>
+        /// Gets the nurse with username.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        public string GetNurseWithUsername(string username)
+        {
+            return this.nurseDal.GetNurseWithUsername(username).FullName;
+        }
+
     }
 }

@@ -38,12 +38,10 @@
             temperatureTextBox = new TextBox();
             symptomsTextBox = new TextBox();
             label2 = new Label();
-            appointmentIdTextBox = new TextBox();
             diastolicTextBox = new TextBox();
             label3 = new Label();
             label4 = new Label();
             heightTextBox = new TextBox();
-            label5 = new Label();
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
@@ -97,21 +95,21 @@
             label19 = new Label();
             label20 = new Label();
             label21 = new Label();
-            vitaminDTestRadioBtn = new RadioButton();
-            thyroidTestRadioBtn = new RadioButton();
-            urineTestRadioBtn = new RadioButton();
-            lipidPanelRadioBtn = new RadioButton();
-            glucoseTestBtn = new RadioButton();
-            liverFunctionTestRadioBtn = new RadioButton();
-            cbcTestRadioBtn = new RadioButton();
-            hormonePanelRadioBtn = new RadioButton();
-            allergyTestRadioBtn = new RadioButton();
-            bloodTestRadioBtn = new RadioButton();
-            unselectTestsButton = new Button();
             label22 = new Label();
             testsOrderedListBox = new ListBox();
             testsOrderedDatePicker = new DateTimePicker();
             testsOrderedTimePicker = new DateTimePicker();
+            allergyTestCheckBox = new CheckBox();
+            bloodTestCheckBox = new CheckBox();
+            cbcTestCheckBox = new CheckBox();
+            glucoseTestCheckBox = new CheckBox();
+            hormonePanelCheckBox = new CheckBox();
+            lipidPanelCheckBox = new CheckBox();
+            liverFunctionTestCheckBox = new CheckBox();
+            urineTestCheckBox = new CheckBox();
+            thyroidTestCheckBox = new CheckBox();
+            vitaminDTestCheckBox = new CheckBox();
+            deleteButton = new Button();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -131,9 +129,9 @@
             visitsListBox.Font = new Font("Segoe UI", 9F);
             visitsListBox.FormattingEnabled = true;
             visitsListBox.ItemHeight = 15;
-            visitsListBox.Location = new Point(470, 40);
+            visitsListBox.Location = new Point(464, 99);
             visitsListBox.Name = "visitsListBox";
-            visitsListBox.Size = new Size(270, 184);
+            visitsListBox.Size = new Size(270, 244);
             visitsListBox.TabIndex = 2;
             visitsListBox.SelectedIndexChanged += visitsListBox_SelectedIndexChanged;
             // 
@@ -230,16 +228,6 @@
             label2.TabIndex = 13;
             label2.Text = "Systolic";
             // 
-            // appointmentIdTextBox
-            // 
-            appointmentIdTextBox.Enabled = false;
-            appointmentIdTextBox.Font = new Font("Segoe UI Semibold", 12F);
-            appointmentIdTextBox.Location = new Point(552, 256);
-            appointmentIdTextBox.Name = "appointmentIdTextBox";
-            appointmentIdTextBox.Size = new Size(100, 29);
-            appointmentIdTextBox.TabIndex = 14;
-            appointmentIdTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
             // diastolicTextBox
             // 
             diastolicTextBox.BorderStyle = BorderStyle.None;
@@ -281,16 +269,6 @@
             heightTextBox.Size = new Size(60, 24);
             heightTextBox.TabIndex = 18;
             heightTextBox.TextAlign = HorizontalAlignment.Center;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(545, 236);
-            label5.Name = "label5";
-            label5.Size = new Size(114, 19);
-            label5.TabIndex = 19;
-            label5.Text = "Appointment Id";
             // 
             // label6
             // 
@@ -804,7 +782,7 @@
             label20.AutoSize = true;
             label20.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             label20.ForeColor = Color.IndianRed;
-            label20.Location = new Point(470, 330);
+            label20.Location = new Point(467, 77);
             label20.Name = "label20";
             label20.Size = new Size(267, 19);
             label20.TabIndex = 113;
@@ -815,146 +793,11 @@
             label21.AutoSize = true;
             label21.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             label21.ForeColor = Color.Black;
-            label21.Location = new Point(572, 309);
+            label21.Location = new Point(569, 56);
             label21.Name = "label21";
             label21.Size = new Size(60, 20);
             label21.TabIndex = 114;
             label21.Text = "Format";
-            // 
-            // vitaminDTestRadioBtn
-            // 
-            vitaminDTestRadioBtn.AutoSize = true;
-            vitaminDTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            vitaminDTestRadioBtn.Location = new Point(454, 748);
-            vitaminDTestRadioBtn.Name = "vitaminDTestRadioBtn";
-            vitaminDTestRadioBtn.Size = new Size(658, 24);
-            vitaminDTestRadioBtn.TabIndex = 117;
-            vitaminDTestRadioBtn.TabStop = true;
-            vitaminDTestRadioBtn.Text = "Vitamin D Test [VD006] - Measures vitamin D levels to evaluate bone health and deficiencies.";
-            vitaminDTestRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // thyroidTestRadioBtn
-            // 
-            thyroidTestRadioBtn.AutoSize = true;
-            thyroidTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            thyroidTestRadioBtn.Location = new Point(454, 718);
-            thyroidTestRadioBtn.Name = "thyroidTestRadioBtn";
-            thyroidTestRadioBtn.Size = new Size(699, 24);
-            thyroidTestRadioBtn.TabIndex = 118;
-            thyroidTestRadioBtn.TabStop = true;
-            thyroidTestRadioBtn.Text = "Thyroid Test [TT005] - Assesses thyroid gland performance by measuring TSH and other hormones.";
-            thyroidTestRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // urineTestRadioBtn
-            // 
-            urineTestRadioBtn.AutoSize = true;
-            urineTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            urineTestRadioBtn.Location = new Point(455, 688);
-            urineTestRadioBtn.Name = "urineTestRadioBtn";
-            urineTestRadioBtn.Size = new Size(634, 24);
-            urineTestRadioBtn.TabIndex = 119;
-            urineTestRadioBtn.TabStop = true;
-            urineTestRadioBtn.Text = "Urine Test [UT002] - Examines urine for infections, kidney issues, or metabolic conditions.";
-            urineTestRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // lipidPanelRadioBtn
-            // 
-            lipidPanelRadioBtn.AutoSize = true;
-            lipidPanelRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            lipidPanelRadioBtn.Location = new Point(455, 628);
-            lipidPanelRadioBtn.Name = "lipidPanelRadioBtn";
-            lipidPanelRadioBtn.Size = new Size(586, 24);
-            lipidPanelRadioBtn.TabIndex = 120;
-            lipidPanelRadioBtn.TabStop = true;
-            lipidPanelRadioBtn.Text = "Lipid Panel [LP004] - Measures cholesterol and triglycerides to assess heart health.";
-            lipidPanelRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // glucoseTestBtn
-            // 
-            glucoseTestBtn.AutoSize = true;
-            glucoseTestBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            glucoseTestBtn.Location = new Point(455, 568);
-            glucoseTestBtn.Name = "glucoseTestBtn";
-            glucoseTestBtn.Size = new Size(529, 24);
-            glucoseTestBtn.TabIndex = 121;
-            glucoseTestBtn.TabStop = true;
-            glucoseTestBtn.Text = "Glucose Test [GT003] - Measures blood sugar levels to assess diabetes risk.";
-            glucoseTestBtn.UseVisualStyleBackColor = true;
-            // 
-            // liverFunctionTestRadioBtn
-            // 
-            liverFunctionTestRadioBtn.AutoSize = true;
-            liverFunctionTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            liverFunctionTestRadioBtn.Location = new Point(455, 658);
-            liverFunctionTestRadioBtn.Name = "liverFunctionTestRadioBtn";
-            liverFunctionTestRadioBtn.Size = new Size(619, 24);
-            liverFunctionTestRadioBtn.TabIndex = 122;
-            liverFunctionTestRadioBtn.TabStop = true;
-            liverFunctionTestRadioBtn.Text = "Liver Function Test [LF010] - Checks enzymes and proteins for liver health and function.";
-            liverFunctionTestRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // cbcTestRadioBtn
-            // 
-            cbcTestRadioBtn.AutoSize = true;
-            cbcTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            cbcTestRadioBtn.Location = new Point(455, 538);
-            cbcTestRadioBtn.Name = "cbcTestRadioBtn";
-            cbcTestRadioBtn.Size = new Size(636, 24);
-            cbcTestRadioBtn.TabIndex = 123;
-            cbcTestRadioBtn.TabStop = true;
-            cbcTestRadioBtn.Text = "CBC Test [CB007] - A complete blood count measuring red/white blood cells and platelets.";
-            cbcTestRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // hormonePanelRadioBtn
-            // 
-            hormonePanelRadioBtn.AutoSize = true;
-            hormonePanelRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            hormonePanelRadioBtn.Location = new Point(455, 598);
-            hormonePanelRadioBtn.Name = "hormonePanelRadioBtn";
-            hormonePanelRadioBtn.Size = new Size(664, 24);
-            hormonePanelRadioBtn.TabIndex = 124;
-            hormonePanelRadioBtn.TabStop = true;
-            hormonePanelRadioBtn.Text = "Hormone Panel [HP009] - Evaluates hormone levels for issues like thyroid function or fertility.";
-            hormonePanelRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // allergyTestRadioBtn
-            // 
-            allergyTestRadioBtn.AutoSize = true;
-            allergyTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            allergyTestRadioBtn.Location = new Point(455, 484);
-            allergyTestRadioBtn.Name = "allergyTestRadioBtn";
-            allergyTestRadioBtn.Size = new Size(548, 24);
-            allergyTestRadioBtn.TabIndex = 125;
-            allergyTestRadioBtn.TabStop = true;
-            allergyTestRadioBtn.Text = "Allergy Test [AT008] - Identifies potential allergens causing allergic reactions.";
-            allergyTestRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // bloodTestRadioBtn
-            // 
-            bloodTestRadioBtn.AutoSize = true;
-            bloodTestRadioBtn.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
-            bloodTestRadioBtn.Location = new Point(455, 512);
-            bloodTestRadioBtn.Name = "bloodTestRadioBtn";
-            bloodTestRadioBtn.Size = new Size(722, 24);
-            bloodTestRadioBtn.TabIndex = 126;
-            bloodTestRadioBtn.TabStop = true;
-            bloodTestRadioBtn.Text = "Blood Test [BT001] - General term for tests analyzing blood components like hemoglobin and platelets.";
-            bloodTestRadioBtn.UseVisualStyleBackColor = true;
-            // 
-            // unselectTestsButton
-            // 
-            unselectTestsButton.BackColor = Color.IndianRed;
-            unselectTestsButton.Enabled = false;
-            unselectTestsButton.FlatStyle = FlatStyle.Flat;
-            unselectTestsButton.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            unselectTestsButton.ForeColor = Color.White;
-            unselectTestsButton.Location = new Point(1008, 429);
-            unselectTestsButton.Name = "unselectTestsButton";
-            unselectTestsButton.Size = new Size(104, 35);
-            unselectTestsButton.TabIndex = 127;
-            unselectTestsButton.Text = "UNSELECT";
-            unselectTestsButton.UseVisualStyleBackColor = false;
-            unselectTestsButton.Click += unselectTestsButton_Click;
             // 
             // label22
             // 
@@ -975,7 +818,7 @@
             testsOrderedListBox.ItemHeight = 20;
             testsOrderedListBox.Location = new Point(1213, 435);
             testsOrderedListBox.Name = "testsOrderedListBox";
-            testsOrderedListBox.Size = new Size(267, 224);
+            testsOrderedListBox.Size = new Size(267, 204);
             testsOrderedListBox.TabIndex = 129;
             testsOrderedListBox.SelectedIndexChanged += testsOrderedListBox_SelectedIndexChanged;
             // 
@@ -984,7 +827,7 @@
             testsOrderedDatePicker.CustomFormat = "";
             testsOrderedDatePicker.Enabled = false;
             testsOrderedDatePicker.Font = new Font("Segoe UI", 12F);
-            testsOrderedDatePicker.Location = new Point(1213, 683);
+            testsOrderedDatePicker.Location = new Point(1213, 653);
             testsOrderedDatePicker.Name = "testsOrderedDatePicker";
             testsOrderedDatePicker.Size = new Size(267, 29);
             testsOrderedDatePicker.TabIndex = 130;
@@ -995,11 +838,136 @@
             testsOrderedTimePicker.Enabled = false;
             testsOrderedTimePicker.Font = new Font("Segoe UI", 12F);
             testsOrderedTimePicker.Format = DateTimePickerFormat.Custom;
-            testsOrderedTimePicker.Location = new Point(1307, 718);
+            testsOrderedTimePicker.Location = new Point(1307, 688);
             testsOrderedTimePicker.Name = "testsOrderedTimePicker";
             testsOrderedTimePicker.ShowUpDown = true;
             testsOrderedTimePicker.Size = new Size(89, 29);
             testsOrderedTimePicker.TabIndex = 131;
+            // 
+            // allergyTestCheckBox
+            // 
+            allergyTestCheckBox.AutoSize = true;
+            allergyTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            allergyTestCheckBox.Location = new Point(444, 481);
+            allergyTestCheckBox.Name = "allergyTestCheckBox";
+            allergyTestCheckBox.Size = new Size(549, 24);
+            allergyTestCheckBox.TabIndex = 132;
+            allergyTestCheckBox.Text = "Allergy Test [AT008] - Identifies potential allergens causing allergic reactions.";
+            allergyTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // bloodTestCheckBox
+            // 
+            bloodTestCheckBox.AutoSize = true;
+            bloodTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            bloodTestCheckBox.Location = new Point(444, 511);
+            bloodTestCheckBox.Name = "bloodTestCheckBox";
+            bloodTestCheckBox.Size = new Size(723, 24);
+            bloodTestCheckBox.TabIndex = 133;
+            bloodTestCheckBox.Text = "Blood Test [BT001] - General term for tests analyzing blood components like hemoglobin and platelets.";
+            bloodTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // cbcTestCheckBox
+            // 
+            cbcTestCheckBox.AutoSize = true;
+            cbcTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            cbcTestCheckBox.Location = new Point(444, 541);
+            cbcTestCheckBox.Name = "cbcTestCheckBox";
+            cbcTestCheckBox.Size = new Size(637, 24);
+            cbcTestCheckBox.TabIndex = 134;
+            cbcTestCheckBox.Text = "CBC Test [CB007] - A complete blood count measuring red/white blood cells and platelets.";
+            cbcTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // glucoseTestCheckBox
+            // 
+            glucoseTestCheckBox.AutoSize = true;
+            glucoseTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            glucoseTestCheckBox.Location = new Point(444, 569);
+            glucoseTestCheckBox.Name = "glucoseTestCheckBox";
+            glucoseTestCheckBox.Size = new Size(530, 24);
+            glucoseTestCheckBox.TabIndex = 135;
+            glucoseTestCheckBox.Text = "Glucose Test [GT003] - Measures blood sugar levels to assess diabetes risk.";
+            glucoseTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // hormonePanelCheckBox
+            // 
+            hormonePanelCheckBox.AutoSize = true;
+            hormonePanelCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            hormonePanelCheckBox.Location = new Point(444, 599);
+            hormonePanelCheckBox.Name = "hormonePanelCheckBox";
+            hormonePanelCheckBox.Size = new Size(665, 24);
+            hormonePanelCheckBox.TabIndex = 136;
+            hormonePanelCheckBox.Text = "Hormone Panel [HP009] - Evaluates hormone levels for issues like thyroid function or fertility.";
+            hormonePanelCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // lipidPanelCheckBox
+            // 
+            lipidPanelCheckBox.AutoSize = true;
+            lipidPanelCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            lipidPanelCheckBox.Location = new Point(444, 629);
+            lipidPanelCheckBox.Name = "lipidPanelCheckBox";
+            lipidPanelCheckBox.Size = new Size(587, 24);
+            lipidPanelCheckBox.TabIndex = 137;
+            lipidPanelCheckBox.Text = "Lipid Panel [LP004] - Measures cholesterol and triglycerides to assess heart health.";
+            lipidPanelCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // liverFunctionTestCheckBox
+            // 
+            liverFunctionTestCheckBox.AutoSize = true;
+            liverFunctionTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            liverFunctionTestCheckBox.Location = new Point(444, 659);
+            liverFunctionTestCheckBox.Name = "liverFunctionTestCheckBox";
+            liverFunctionTestCheckBox.Size = new Size(620, 24);
+            liverFunctionTestCheckBox.TabIndex = 138;
+            liverFunctionTestCheckBox.Text = "Liver Function Test [LF010] - Checks enzymes and proteins for liver health and function.";
+            liverFunctionTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // urineTestCheckBox
+            // 
+            urineTestCheckBox.AutoSize = true;
+            urineTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            urineTestCheckBox.Location = new Point(444, 689);
+            urineTestCheckBox.Name = "urineTestCheckBox";
+            urineTestCheckBox.Size = new Size(635, 24);
+            urineTestCheckBox.TabIndex = 139;
+            urineTestCheckBox.Text = "Urine Test [UT002] - Examines urine for infections, kidney issues, or metabolic conditions.";
+            urineTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // thyroidTestCheckBox
+            // 
+            thyroidTestCheckBox.AutoSize = true;
+            thyroidTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            thyroidTestCheckBox.Location = new Point(444, 750);
+            thyroidTestCheckBox.Name = "thyroidTestCheckBox";
+            thyroidTestCheckBox.Size = new Size(700, 24);
+            thyroidTestCheckBox.TabIndex = 140;
+            thyroidTestCheckBox.Text = "Thyroid Test [TT005] - Assesses thyroid gland performance by measuring TSH and other hormones.";
+            thyroidTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // vitaminDTestCheckBox
+            // 
+            vitaminDTestCheckBox.AutoSize = true;
+            vitaminDTestCheckBox.Font = new Font("Segoe UI Semibold", 11F, FontStyle.Bold);
+            vitaminDTestCheckBox.Location = new Point(444, 720);
+            vitaminDTestCheckBox.Name = "vitaminDTestCheckBox";
+            vitaminDTestCheckBox.Size = new Size(659, 24);
+            vitaminDTestCheckBox.TabIndex = 141;
+            vitaminDTestCheckBox.Text = "Vitamin D Test [VD006] - Measures vitamin D levels to evaluate bone health and deficiencies.";
+            vitaminDTestCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // deleteButton
+            // 
+            deleteButton.BackColor = Color.IndianRed;
+            deleteButton.Enabled = false;
+            deleteButton.FlatStyle = FlatStyle.Flat;
+            deleteButton.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            deleteButton.ForeColor = Color.White;
+            deleteButton.Location = new Point(1300, 736);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(101, 36);
+            deleteButton.TabIndex = 142;
+            deleteButton.Text = "Delete";
+            deleteButton.UseVisualStyleBackColor = false;
+            deleteButton.Click += deleteButton_Click;
             // 
             // ManageVisits
             // 
@@ -1007,21 +975,21 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1508, 796);
+            Controls.Add(deleteButton);
+            Controls.Add(vitaminDTestCheckBox);
+            Controls.Add(thyroidTestCheckBox);
+            Controls.Add(urineTestCheckBox);
+            Controls.Add(liverFunctionTestCheckBox);
+            Controls.Add(lipidPanelCheckBox);
+            Controls.Add(hormonePanelCheckBox);
+            Controls.Add(glucoseTestCheckBox);
+            Controls.Add(cbcTestCheckBox);
+            Controls.Add(bloodTestCheckBox);
+            Controls.Add(allergyTestCheckBox);
             Controls.Add(testsOrderedTimePicker);
             Controls.Add(testsOrderedDatePicker);
             Controls.Add(testsOrderedListBox);
             Controls.Add(label22);
-            Controls.Add(unselectTestsButton);
-            Controls.Add(bloodTestRadioBtn);
-            Controls.Add(allergyTestRadioBtn);
-            Controls.Add(hormonePanelRadioBtn);
-            Controls.Add(cbcTestRadioBtn);
-            Controls.Add(liverFunctionTestRadioBtn);
-            Controls.Add(glucoseTestBtn);
-            Controls.Add(lipidPanelRadioBtn);
-            Controls.Add(urineTestRadioBtn);
-            Controls.Add(thyroidTestRadioBtn);
-            Controls.Add(vitaminDTestRadioBtn);
             Controls.Add(label21);
             Controls.Add(label20);
             Controls.Add(label19);
@@ -1074,12 +1042,10 @@
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
-            Controls.Add(label5);
             Controls.Add(heightTextBox);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(diastolicTextBox);
-            Controls.Add(appointmentIdTextBox);
             Controls.Add(label2);
             Controls.Add(symptomsTextBox);
             Controls.Add(weightTextBox);
@@ -1111,12 +1077,10 @@
         private TextBox temperatureTextBox;
         private TextBox symptomsTextBox;
         private Label label2;
-        private TextBox appointmentIdTextBox;
         private TextBox diastolicTextBox;
         private Label label3;
         private Label label4;
         private TextBox heightTextBox;
-        private Label label5;
         private Label label6;
         private Label label7;
         private Label label8;
@@ -1179,20 +1143,20 @@
         private Label label21;
         private RadioButton radioButton1;
         private RadioButton radioButton2;
-        private RadioButton vitaminDTestRadioBtn;
-        private RadioButton thyroidTestRadioBtn;
-        private RadioButton urineTestRadioBtn;
-        private RadioButton lipidPanelRadioBtn;
-        private RadioButton glucoseTestBtn;
-        private RadioButton liverFunctionTestRadioBtn;
-        private RadioButton cbcTestRadioBtn;
-        private RadioButton hormonePanelRadioBtn;
-        private RadioButton allergyTestRadioBtn;
-        private RadioButton bloodTestRadioBtn;
-        private Button unselectTestsButton;
         private Label label22;
         private ListBox testsOrderedListBox;
         private DateTimePicker testsOrderedDatePicker;
         private DateTimePicker testsOrderedTimePicker;
+        private CheckBox allergyTestCheckBox;
+        private CheckBox bloodTestCheckBox;
+        private CheckBox cbcTestCheckBox;
+        private CheckBox glucoseTestCheckBox;
+        private CheckBox hormonePanelCheckBox;
+        private CheckBox lipidPanelCheckBox;
+        private CheckBox liverFunctionTestCheckBox;
+        private CheckBox urineTestCheckBox;
+        private CheckBox thyroidTestCheckBox;
+        private CheckBox vitaminDTestCheckBox;
+        private Button deleteButton;
     }
 }

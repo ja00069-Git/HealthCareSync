@@ -15,7 +15,7 @@ namespace HealthCareSync.Models
         private int appointmentId;
         private int systolicReading;
         private int diastolicReading;
-        private int bodyTemperature;
+        private double bodyTemperature;
         private int bpm;
         private string symptoms = string.Empty;
         private double weight;
@@ -112,7 +112,7 @@ namespace HealthCareSync.Models
         /// <value>
         /// The body temperature.
         /// </value>
-        public int BodyTemperature
+        public double BodyTemperature
         {
             get { return bodyTemperature; }
 
@@ -222,7 +222,7 @@ namespace HealthCareSync.Models
         /// <param name="symptoms">The symptoms.</param>
         /// <param name="weight">The weight.</param>
         /// <param name="height">The height.</param>
-        public RoutineChecks(int appointmentId, int systolicReading, int diastolicReading, int bodyTemperature, int bpm, string symptoms, double weight, double height, int nurseId)
+        public RoutineChecks(int appointmentId, int systolicReading, int diastolicReading, double bodyTemperature, int bpm, string symptoms, double weight, double height, int nurseId)
         {
             this.AppointmentId = appointmentId;
             this.SystolicReading = systolicReading;

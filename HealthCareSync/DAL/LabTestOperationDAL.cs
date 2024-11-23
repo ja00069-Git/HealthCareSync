@@ -18,6 +18,28 @@ namespace HealthCareSync.DAL
         public LabTestOperationDAL() { }
 
         /// <summary>
+        /// Deletes the lab test operation.
+        /// </summary>
+        /// <param name="labTestOperation">The lab test operation.</param>
+        public void DeleteLabTestOperation(LabTestOperation labTestOperation)
+        {
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            connection.Open();
+
+            var query = @"DELETE from lab_test_operation 
+                          WHERE date_time = @dateTime AND appointment_id = @appointmentId AND name = @name";
+
+            using var command = new MySqlCommand(query, connection);
+
+            command.Parameters.Add("@dateTime", MySqlDbType.DateTime).Value = labTestOperation.DateTime;
+            command.Parameters.Add("@appointmentId", MySqlDbType.Int32).Value = labTestOperation.AppointmentId;
+            command.Parameters.Add("@name", MySqlDbType.VarChar).Value = labTestOperation.LabTestName;
+
+            command.ExecuteNonQuery();
+        } 
+
+        /// <summary>
         /// Orders the lab test.
         /// </summary>
         /// <param name="dateTime">The date time.</param>
@@ -26,12 +48,13 @@ namespace HealthCareSync.DAL
         /// <returns>true if possible to order the lab test, false otherwise</returns>
         public bool OrderLabTest(DateTime dateTime, int appointmentId, LabTest labTest)
         {
-            using var connection = new MySqlConnection(Connection.ConnectionString());
 
-            connection.Open();
-
-            if (this.IsDateTimeAvailable(dateTime, appointmentId, connection))
+            try
             {
+                using var connection = new MySqlConnection(Connection.ConnectionString());
+
+                connection.Open();
+
                 var query = @"INSERT into lab_test_operation(date_time, appointment_id, name)
                           VALUES
                           (@dateTime, @appointmentId, @name)";
@@ -42,13 +65,21 @@ namespace HealthCareSync.DAL
                 command.Parameters.Add("@appointmentId", MySqlDbType.Int32).Value = appointmentId;
                 command.Parameters.Add("@name", MySqlDbType.VarChar).Value = labTest.Name;
 
-                command.ExecuteNonQuery();
-                return true;
+                var result = command.ExecuteNonQuery();
+                return result == 1;
             }
-
-            return false;
+            catch (MySqlException ex)
+            {
+                // Duplicate entry
+                return false;
+            }
         }
 
+        /// <summary>
+        /// Gets the lab test operations.
+        /// </summary>
+        /// <param name="appointmentId">The appointment identifier.</param>
+        /// <returns></returns>
         public List<LabTestOperation> GetLabTestOperations(int appointmentId)
         {
             var list = new List<LabTestOperation>();
@@ -74,16 +105,16 @@ namespace HealthCareSync.DAL
 
             while (reader.Read())
             {
-                list.Add(CreateLabTestOperation(reader,dateTimeOrdinal, appointmentId, nameOrdinal, resultsOrdinal, normalOrdinal));
+                list.Add(CreateLabTestOperation(reader, dateTimeOrdinal, appointmentId, nameOrdinal, resultsOrdinal, normalOrdinal));
             }
 
             return list;
-                
+
         }
 
         private LabTestOperation CreateLabTestOperation(MySqlDataReader reader, int dateTimeOrdinal, int appointmentId, int nameOrdinal, int resultsOrdinal, int normalOrdinal)
         {
-   
+
             return new LabTestOperation(
                 reader.GetFieldValueCheckNull<DateTime>(dateTimeOrdinal),
                 appointmentId,
@@ -93,22 +124,5 @@ namespace HealthCareSync.DAL
             );
         }
 
-        private bool IsDateTimeAvailable(DateTime dateTime, int appointmentId, MySqlConnection connection)
-        {
-            var query = @"SELECT
-                        NOT EXISTS (
-                            SELECT 1 
-                            FROM lab_test_operation
-                            WHERE appointment_id = @appointmentId AND ABS(TIMESTAMPDIFF(SECOND, date_time, @dateTime)) <= 900
-                        )";
-
-            using var command = new MySqlCommand( query, connection);
-            
-            command.Parameters.Add("@dateTime", MySqlDbType.DateTime).Value= dateTime;
-            command.Parameters.Add("@appointmentId", MySqlDbType.Int32).Value = appointmentId;
-
-            var result = Convert.ToInt32(command.ExecuteScalar());
-            return result == 1;
-        }
     }
 }

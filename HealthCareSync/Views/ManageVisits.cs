@@ -13,15 +13,16 @@ namespace HealthCareSync.Views
         private readonly string DECIMAL_NUMBER_REGEX = @"^\d{1,3}(\.\d{1,2})?$";
         private readonly string ERROR_SYSTOLIC = "Systolic must be a integer number less than 1000.";
         private readonly string ERROR_DIASTOLIC = "Diastolic must be a integer number less than 1000.";
-        private readonly string ERROR_TEMP = "Temperature must be a integer number less than 1000.";
+        private readonly string ERROR_TEMP = "Temperature must be a number less than 1000 with at most 2 decimals.";
         private readonly string ERROR_WEIGHT = "Weight must be a number les than 1000 with at most 2 decimals.";
         private readonly string ERROR_HEIGHT = "Height must be a number less than 1000 with at most 2 decimals.";
         private readonly string ERROR_BPM = "BPM must be a integer number less than 1000";
         private readonly string ERROR_SYMPTOMS = "Symptoms cannot be empty";
-        private readonly string ERROR_TEST = "Cannot order test within 15 minute time frame of another test, Please pick a new time.";
+        private readonly string ERROR_TEST = "Cannot order same test on the same date and time, Please pick a new time.";
         private readonly string ERROR_TEST_DATE = "Order date cannot be before current date.";
         private readonly string ERROR_INITIAL_DIAGNOSES = "Initial Diagnoses cannot be empty.";
         private readonly string ERROR_FINAL_DIAGNOSES = "Final Diagnoses cannot be empty.";
+        private readonly string ERROR_ORDERED_TEST = "Cannot delete ordered tests where results are already appended.";
         private readonly string nurseUserName = string.Empty;
 
         private string errorMessages = string.Empty;
@@ -41,6 +42,19 @@ namespace HealthCareSync.Views
             this.bindSearchElements();
             this.assignTests();
             this.setDefaultRadioBtnCheckedChanged();
+            this.disableTextFieldValidations();
+            this.AutoValidate = AutoValidate.EnableAllowFocusChange;
+        }
+
+        private void disableTextFieldValidations()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control is TextBox tb)
+                {
+                    tb.CausesValidation = false;
+                }
+            }
         }
 
         private void enableLabTestBoxes()
@@ -48,9 +62,9 @@ namespace HealthCareSync.Views
 
             foreach (Control control in this.Controls)
             {
-                if (control is RadioButton btn && btn.Tag is LabTest)
+                if (control is CheckBox cb && cb.Tag is LabTest)
                 {
-                    btn.Enabled = true;
+                    cb.Enabled = true;
                 }
             }
 
@@ -63,9 +77,9 @@ namespace HealthCareSync.Views
 
             foreach (Control control in this.Controls)
             {
-                if (control is RadioButton btn && btn.Tag is LabTest)
+                if (control is CheckBox cb && cb.Tag is LabTest)
                 {
-                    btn.Enabled = false;
+                    cb.Enabled = false;
                 }
             }
 
@@ -77,9 +91,9 @@ namespace HealthCareSync.Views
         {
             foreach (Control control in this.Controls)
             {
-                if (control is RadioButton btn && btn.Tag is LabTest)
+                if (control is CheckBox cb && cb.Tag is LabTest)
                 {
-                    btn.CheckedChanged += (s, e) => bindAllOrderButton();
+                    cb.CheckedChanged += (s, e) => bindAllOrderButton();
                 }
             }
         }
@@ -90,7 +104,7 @@ namespace HealthCareSync.Views
 
             foreach (Control control in this.Controls)
             {
-                if (control is RadioButton btn && btn.Tag is LabTest && btn.Checked)
+                if (control is CheckBox cb && cb.Tag is LabTest && cb.Checked)
                 {
                     anyChecked = true;
                     break;
@@ -98,7 +112,6 @@ namespace HealthCareSync.Views
             }
 
             this.order_test_button.Enabled = anyChecked;
-            this.unselectTestsButton.Enabled = anyChecked;
         }
 
         private void updateSearchButtonState(object sender, EventArgs e)
@@ -126,6 +139,7 @@ namespace HealthCareSync.Views
             this.symptomsTextBox.Clear();
             this.searchFirstNameTextBox.Clear();
             this.searchLastNameTextBox.Clear();
+            this.nurseNameTextBox.Clear();
             this.searchByNameCheckBox.Checked = false;
         }
 
@@ -202,6 +216,8 @@ namespace HealthCareSync.Views
 
         private void testsOrderedListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            this.deleteButton.Enabled = true;
+
             if (this.testsOrderedListBox.SelectedItem is LabTestOperation)
             {
                 this.viewModel.SelectedLabTestOperation = (LabTestOperation)this.testsOrderedListBox.SelectedItem;
@@ -222,12 +238,16 @@ namespace HealthCareSync.Views
             {
                 this.viewModel.SelectedVisit = (Appointment)visitsListBox.SelectedItem;
 
+                this.nurseNameTextBox.Text = this.viewModel.GetNurseWithUsername(this.nurseUserName);
                 this.testsOrderedListBox.DataSource = this.viewModel.OrderedTests;
                 this.testsOrderedListBox.DisplayMember = "LabTestName";
+                if (this.testsOrderedListBox.SelectedItem == null)
+                {
+                    this.deleteButton.Enabled = false;
+                }
                 this.successLabel.Text = string.Empty;
                 this.visitDateTimePicker.DataBindings.Clear();
                 this.visitDateTimePicker.DataBindings.Add("Value", this.viewModel, "VisitDate", true, DataSourceUpdateMode.OnPropertyChanged);
-                this.bindTextBox(this.appointmentIdTextBox, this.viewModel, "AppointmentId");
 
                 bool isDuringVisit = Math.Abs((this.visitDateTimePicker.Value - DateTime.Now).TotalMinutes) <= 30;
 
@@ -321,7 +341,7 @@ namespace HealthCareSync.Views
             else
             {
                 DialogResult result = MessageBox.Show("Are you sure you want to enter the Final Diagnoses?\nOnce entered all visit information associated with the patient is read-only, therefore cannot be changed", "Confirm Final Diagnoses", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (result == DialogResult.Yes)
                 {
                     this.viewModel.EnterDiagnoses(initialDiagnosesTextBox.Text.Trim(), finalDiagnosesTextBox.Text.Trim());
@@ -332,7 +352,7 @@ namespace HealthCareSync.Views
                     this.initialDiagnosesTextBox.Enabled = false;
                     MessageBox.Show("Final Diagnoses successfully entered.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                
+
             }
         }
 
@@ -387,7 +407,7 @@ namespace HealthCareSync.Views
                 this.errorMessages += $"\n {ERROR_DIASTOLIC}";
                 isErrors = true;
             }
-            if (!Regex.IsMatch(temp, NUMBER_REGEX))
+            if (!Regex.IsMatch(temp, DECIMAL_NUMBER_REGEX))
             {
                 this.errorMessages += $"\n {ERROR_TEMP}";
                 isErrors = true;
@@ -428,6 +448,7 @@ namespace HealthCareSync.Views
             this.initialDiagnosesTextBox.Enabled = false;
             this.finalDiagnosesTextBox.Enabled = false;
             this.final_diagnosis_enter_btn.Enabled = false;
+            this.clearAllBoxes();
             this.visitsListBox.SelectedIndexChanged += this.visitsListBox_SelectedIndexChanged;
         }
 
@@ -435,12 +456,12 @@ namespace HealthCareSync.Views
         {
             foreach (Control control in this.Controls)
             {
-                if (control is RadioButton btn)
+                if (control is CheckBox cb)
                 {
-                    if (btn.Text.Contains("Test") || btn.Text.Contains("Panel"))
+                    if (cb.Text.Contains("Test") || cb.Text.Contains("Panel"))
                     {
-                        string labTestName = btn.Text.Substring(0, btn.Text.IndexOf("[")).Trim();
-                        btn.Tag = this.viewModel.GetLabTest(labTestName);
+                        string labTestName = cb.Text.Substring(0, cb.Text.IndexOf("[")).Trim();
+                        cb.Tag = this.viewModel.GetLabTest(labTestName);
                     }
 
                 }
@@ -459,11 +480,11 @@ namespace HealthCareSync.Views
                     return;
                 }
 
-                var selectedTest = (LabTest)(this.Controls.Cast<Control>().ToList()).First(control => control is RadioButton btn && btn.Tag is LabTest && btn.Checked).Tag!;
+                var selectedTests = (this.Controls.Cast<Control>().ToList()).Where(control => control is CheckBox cb && cb.Tag is LabTest && cb.Checked).Cast<CheckBox>();
                 var selectedDate = this.orderTestDatePicker.Value.Date;
                 var selectedTime = this.orderTestTimePicker.Value.TimeOfDay;
                 var selectedDateTime = selectedDate + selectedTime;
-                bool isSuccessful = this.viewModel.OrderTest(selectedTest, selectedDateTime);
+                bool isSuccessful = this.viewModel.OrderTest(selectedTests, selectedDateTime);
                 if (isSuccessful)
                 {
                     this.visitsListBox_SelectedIndexChanged(this.visitsListBox, EventArgs.Empty);
@@ -485,14 +506,25 @@ namespace HealthCareSync.Views
             return dt < DateTime.Now;
         }
 
-        private void unselectTestsButton_Click(object sender, EventArgs e)
+        private void deleteButton_Click(object sender, EventArgs e)
         {
-            foreach (Control control in this.Controls)
+            DialogResult result = MessageBox.Show("Are you sure you want to delete the ordered test?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                if (control is RadioButton btn && btn.Tag is LabTest && btn.Checked)
+                if (this.viewModel.DeleteOrderedTest((LabTestOperation)this.testsOrderedListBox.SelectedItem!))
                 {
-                    btn.Checked = false;
+                    this.visitsListBox_SelectedIndexChanged(this.visitsListBox, EventArgs.Empty);
+                    MessageBox.Show("Successfully deleted ordered test.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else
+                {
+                    MessageBox.Show(this.ERROR_ORDERED_TEST, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Deletion cancelled.", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
