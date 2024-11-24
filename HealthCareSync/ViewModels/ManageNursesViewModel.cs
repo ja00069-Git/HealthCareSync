@@ -6,10 +6,15 @@ using System.ComponentModel;
 
 namespace HealthCareSync.ViewModels
 {
+    /**
+     * The view model for managing nurses
+     * @author Jabesi, Ahmad, Md
+     * @version Fall 2024
+     */
     public class ManageNursesViewModel : INotifyPropertyChanged
     {
-        private Nurse selectedNurse;
-        private User selectedNurseAsUser;
+        private Nurse? selectedNurse;
+        private User? selectedNurseAsUser;
         private NurseDAL nurseDAL;
         private UserDAL userDAL;
 
@@ -77,6 +82,7 @@ namespace HealthCareSync.ViewModels
         public string? Username => SelectedNurse?.Username;
 
         public string? Password => selectedNurseAsUser?.Password;
+
 
 
         /**
@@ -148,7 +154,7 @@ namespace HealthCareSync.ViewModels
          */
         public Nurse SelectedNurse
         {
-            get { return selectedNurse; }
+            get { return selectedNurse!; }
             set
             {
                 if (selectedNurse != value)
@@ -180,7 +186,7 @@ namespace HealthCareSync.ViewModels
          * @postcondition The selected nurse as user is returned.
          * @return The selected nurse as user.
          */
-        public ObservableCollection<Nurse> Nurses { get; private set; }
+        public ObservableCollection<Nurse?> Nurses { get; private set; } = new ();
 
         /**
          * Gets the states.
@@ -200,7 +206,6 @@ namespace HealthCareSync.ViewModels
         {
             this.nurseDAL = new NurseDAL();
             this.userDAL = new UserDAL();
-            //this.Nurses = new ObservableCollection<Nurse>(this.nurseDAL.GetNurses());
             LoadNursesFromDatabase();
 
         }
@@ -212,10 +217,8 @@ namespace HealthCareSync.ViewModels
 
         public void LoadNursesFromDatabase()
         {
-            // Logic to load nurses from the database
-            // This is just a placeholder. Replace it with actual database fetching logic.
             var nursesFromDb = nurseDAL.GetNurses();
-            Nurses = new ObservableCollection<Nurse>(nursesFromDb);
+            Nurses = new ObservableCollection<Nurse?>(nursesFromDb!);
             OnPropertyChanged(nameof(Nurses));
         }
 
@@ -241,7 +244,7 @@ namespace HealthCareSync.ViewModels
         {
             int nurseId = this.nurseDAL.AddNurse(fname, lname, bDate, address1,
                zip, city, state, address2, phoneNum, username, password, flag);
-            var newNurse = new Nurse(nurseId, fname, lname, bDate, phoneNum, null, username, flag);
+            var newNurse = new Nurse(nurseId, fname, lname, bDate, phoneNum, new Address(), username, flag);
 
             var address = new Address(address1, zip, city, Enum.Parse<State>(state.ToUpper()), address2);
             newNurse.Address = address;
@@ -278,7 +281,7 @@ namespace HealthCareSync.ViewModels
             var prevUsername = Username;
             bool didUsernameChange = !prevUsername!.ToUpper().Equals(username.ToUpper());
 
-            this.nurseDAL.SaveEditedNurse(this.selectedNurse.Id, fname, lname, bDate, address1,
+            this.nurseDAL.SaveEditedNurse(this.selectedNurse!.Id, fname, lname, bDate, address1,
             zip, city, state, address2, phoneNum, username, password, flag, didUsernameChange);
 
             this.selectedNurse.FirstName = fname;
@@ -286,7 +289,7 @@ namespace HealthCareSync.ViewModels
             this.selectedNurse.BirthDate = bDate;
             this.selectedNurse.PhoneNumber = phoneNum;
             this.selectedNurse.Username = username;
-            this.selectedNurseAsUser.Username = username;
+            this.selectedNurseAsUser!.Username = username;
             this.selectedNurseAsUser.Password = password;
             this.selectedNurse.FlagStatus = flag;
 

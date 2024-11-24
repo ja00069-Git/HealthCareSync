@@ -206,5 +206,9 @@ namespace HealthCareSync.Models
             this.state = state;
             this.address_2 = address_2?.Trim();
         }
+
+        public Address()
+        {
+        }
     }
 }
