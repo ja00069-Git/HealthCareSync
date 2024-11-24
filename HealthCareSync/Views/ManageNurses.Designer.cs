@@ -356,7 +356,7 @@
             unselectNurseButton.UseVisualStyleBackColor = false;
             unselectNurseButton.Click += unselectNurseButton_Click;
             // 
-            // dateTimePickerForNurse
+            // dateTimePicker
             // 
             dateTimePickerForNurse.Format = DateTimePickerFormat.Short;
             dateTimePickerForNurse.Location = new Point(220, 95);
@@ -365,7 +365,7 @@
             dateTimePickerForNurse.Size = new Size(280, 31);
             dateTimePickerForNurse.TabIndex = 74;
             // 
-            // stateComboBoxForNurse
+            // stateComboBox
             // 
             stateComboBoxForNurse.DropDownStyle = ComboBoxStyle.DropDownList;
             stateComboBoxForNurse.FormattingEnabled = true;

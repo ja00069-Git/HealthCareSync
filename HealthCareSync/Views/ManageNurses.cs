@@ -8,23 +8,6 @@ namespace HealthCareSync.Views
 {
     public partial class ManageNurses : Form
     {
-        private readonly string PHONE_NUMBER_REGEX_PATTERN = @"^(?:\+?(\d{1,3})[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}$";
-        private readonly string ZIP_REGEX_PATTERN = @"^\d{5}$";
-        private readonly string BIRTH_DATE_REGEX_PATTERN = @"^(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/([0-9]{4})$";
-        private readonly string PASSWORD_REGEX_PATTERN = @"^[A-Za-z0-9]{6,}$";
-        private readonly string ERROR_FIRST_NAME = "First name cannot be blank.";
-        private readonly string ERROR_LAST_NAME = "Last name cannot be blank.";
-        private readonly string ERROR_BIRTH_DATE = "Birth date must be in the format MM/dd/yyyy";
-        private readonly string ERROR_PHONE_NUMBER = "Phone number must be 10 digits";
-        private readonly string ERROR_PHONE_NUMBER_DASH = "Phone number must be 10 digits without dash";
-        private readonly string ERROR_ADDRESS_1 = "Address 1 cannot be blank";
-        private readonly string ERROR_ZIP = "Zip must be 5 digits";
-        private readonly string ERROR_CITY = "Enter a city";
-        private readonly string ERROR_STATE = "Select a state";
-        private readonly string ERROR_USERNAME = "Username cannot be blank";
-        private readonly string ERROR_USERNAME_TAKEN = "Username is already taken";
-        private readonly string ERROR_PASSWORD = "Password must be more than 5 characters, letters and digits only";
-
         private string errorMessages = string.Empty;
 
         private ManageNursesViewModel viewModel;
@@ -43,6 +26,11 @@ namespace HealthCareSync.Views
             this.firstNameTextBox.Enabled = true;
             this.lastNameTextBox.Enabled = true;
             this.dateTimePickerForNurse.Enabled = true;
+
+            // Disable buttons when the application first runs
+            this.unselectNurseButton.Enabled = false;
+            this.editNurseButton.Enabled = false;
+            this.deleteNurseBTN.Enabled = false;
         }
 
         private void bindToViewModel()
@@ -128,8 +116,6 @@ namespace HealthCareSync.Views
                 this.BindTextBox(this.address2TextBox, this.viewModel, "Address_2");
 
                 // Set edit mode to true and disable fields
-                this.firstNameTextBox.Enabled = false;
-                this.lastNameTextBox.Enabled = false;
                 this.dateTimePickerForNurse.Enabled = false;
 
                 if (this.viewModel.FlagStatus == null)
@@ -218,55 +204,55 @@ namespace HealthCareSync.Views
 
             if (string.IsNullOrWhiteSpace(fname))
             {
-                this.errorMessages += $"\n {ERROR_FIRST_NAME}";
+                this.errorMessages += $"\n {Constants.ERROR_FIRST_NAME}";
                 isErrors = true;
             }
             if (string.IsNullOrWhiteSpace(lname))
             {
-                this.errorMessages += $"\n {ERROR_LAST_NAME}";
+                this.errorMessages += $"\n {Constants.ERROR_LAST_NAME}";
                 isErrors = true;
             }
-            if (!Regex.IsMatch(phoneNum, PHONE_NUMBER_REGEX_PATTERN))
+            if (!Regex.IsMatch(phoneNum, Constants.PHONE_NUMBER_REGEX_PATTERN))
             {
-                this.errorMessages += $"\n {ERROR_PHONE_NUMBER}";
+                this.errorMessages += $"\n {Constants.ERROR_PHONE_NUMBER}";
                 isErrors = true;
             }
             if (string.IsNullOrWhiteSpace(address1))
             {
-                this.errorMessages += $"\n {ERROR_ADDRESS_1}";
+                this.errorMessages += $"\n {Constants.ERROR_ADDRESS_1}";
                 isErrors = true;
             }
             if (string.IsNullOrWhiteSpace(city))
             {
-                this.errorMessages += $"\n {ERROR_CITY}";
+                this.errorMessages += $"\n {Constants.ERROR_CITY}";
                 isErrors = true;
             }
             if (this.stateComboBoxForNurse.SelectedItem == null)
             {
-                this.errorMessages += $"\n {ERROR_STATE}";
+                this.errorMessages += $"\n {Constants.ERROR_STATE}";
                 isErrors = true;
             }
-            if (!Regex.IsMatch(zip, ZIP_REGEX_PATTERN))
+            if (!Regex.IsMatch(zip, Constants.ZIP_REGEX_PATTERN))
             {
-                this.errorMessages += $"\n {ERROR_ZIP}";
+                this.errorMessages += $"\n {Constants.ERROR_ZIP}";
                 isErrors = true;
             }
             if (string.IsNullOrWhiteSpace(username))
             {
-                this.errorMessages += $"\n {ERROR_USERNAME}";
+                this.errorMessages += $"\n {Constants.ERROR_USERNAME}";
                 isErrors = true;
             }
             if (!isEditing)
             {
                 if (!this.viewModel.IsUsernameAvailable(username))
                 {
-                    this.errorMessages += $"\n {ERROR_USERNAME_TAKEN}";
+                    this.errorMessages += $"\n {Constants.ERROR_USERNAME_TAKEN}";
                     isErrors = true;
                 }
             }
-            if (!Regex.IsMatch(password, PASSWORD_REGEX_PATTERN))
+            if (!Regex.IsMatch(password, Constants.PASSWORD_REGEX_PATTERN))
             {
-                this.errorMessages += $"\n {ERROR_PASSWORD}";
+                this.errorMessages += $"\n {Constants.ERROR_PASSWORD}";
                 isErrors = true;
             }
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
+﻿
 using HealthCareSync.Models;
 using MySql.Data.MySqlClient;
 
@@ -28,14 +23,13 @@ namespace HealthCareSync.DAL
                 return false;
             }
 
-            var query = @"INSERT INTO user 
-                          VALUES
-                          (@username, @password);";
+            string hashedPassword = BC.EnhancedHashPassword(password, 13);
+
+            var query = @"INSERT INTO user (username, password) VALUES (@username, @password);";
 
             using var command = new MySqlCommand(query, connection);
-
-            command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
-            command.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
+            command.Parameters.AddWithValue("@username", username);
+            command.Parameters.AddWithValue("@password", hashedPassword);
 
             command.ExecuteNonQuery();
 
@@ -62,6 +56,7 @@ namespace HealthCareSync.DAL
                 }
             }
             
+            string hashedPassword = BC.EnhancedHashPassword(password, 13);
 
             var query = @"UPDATE user
                           SET password = @password
@@ -70,7 +65,7 @@ namespace HealthCareSync.DAL
             using var command = new MySqlCommand(query, connection);
 
             command.Parameters.Add("@username", MySqlDbType.VarChar).Value = username;
-            command.Parameters.Add("@password", MySqlDbType.VarChar).Value = password;
+            command.Parameters.Add("@password", MySqlDbType.VarChar).Value = hashedPassword;
 
             command.Transaction = transaction;
 
