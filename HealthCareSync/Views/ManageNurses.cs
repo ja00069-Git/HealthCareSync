@@ -107,7 +107,6 @@ namespace HealthCareSync.Views
                 this.BindTextBox(this.phoneNumTextBox, this.viewModel, "PhoneNumber");
                 this.BindTextBox(this.idTextBox, this.viewModel, "Nurse_Id");
                 this.BindTextBox(this.usernameTextBox, this.viewModel, "Username");
-                this.BindTextBox(this.passwordTextBox, this.viewModel, "Password");
                 this.BindTextBox(this.address1TextBox, this.viewModel, "Address_1");
                 this.BindTextBox(this.zipTextBox, this.viewModel, "Zip");
                 this.BindTextBox(this.cityTextBox, this.viewModel, "City");
@@ -153,6 +152,7 @@ namespace HealthCareSync.Views
             {
                 this.viewModel.Save(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password, flag);
                 this.refreshListBox();
+                this.passwordTextBox.Clear();
                 MessageBox.Show("Nurse's Information Edited Successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -189,6 +189,7 @@ namespace HealthCareSync.Views
                 this.viewModel.Add(fname, lname, bDate, phoneNum, address1, zip, city, state, address2, username, password, flag);
                 this.refreshListBox();
                 this.nurseListBox.SelectedItem = this.viewModel.Nurses.Last();
+                this.passwordTextBox.Clear();
                 MessageBox.Show("Nurse Added Successfully In The System", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
