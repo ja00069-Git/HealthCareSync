@@ -20,15 +20,6 @@ namespace HealthCareSync.Views
 
         private void BindControls()
         {
-            // Error message bindings
-            this.generalErrorlLabel.DataBindings.Add(new Binding("Text", viewModel, "GeneralErrorMessage"));
-            this.searchPatientApptsLabel.DataBindings.Add(new Binding("Text", viewModel, "SearchPatientApptsMessage"));
-            this.patentNameErrorLabel.DataBindings.Add(new Binding("Text", viewModel, "PatientNameErrorMessage"));
-            this.reasonErrorLabel.DataBindings.Add(new Binding("Text", viewModel, "ReasonErrorMessage"));
-            this.searchPatientErrorLabel.DataBindings.Add(new Binding("Text", viewModel, "SearchPatientMessage"));
-            this.doctorsNameErrorLabel.DataBindings.Add(new Binding("Text", viewModel, "DoctorNameErrorMessage"));
-            this.appointmentTimeErrorLabel.DataBindings.Add(new Binding("Text", viewModel, "AppointmentTimeErrorMessage"));
-
             // Field bindings
             this.patientNameTextBox.DataBindings.Add(new Binding("Text", viewModel, "PatientName", true, DataSourceUpdateMode.OnPropertyChanged));
             this.searchPatientTextBox.DataBindings.Add(new Binding("Text", viewModel, "SearchPatient", true, DataSourceUpdateMode.OnPropertyChanged));
@@ -55,7 +46,19 @@ namespace HealthCareSync.Views
 
         private void SubscribeToViewModelEvents()
         {
+            viewModel.ErrorMessageRaised += ViewModel_ErrorMessageRaised;
+            viewModel.SuccessMessageRaised += ViewModel_SuccessMessageRaised;
             viewModel.PropertyChanged += ViewModel_PropertyChanged;
+        }
+
+        private void ViewModel_ErrorMessageRaised(object? sender, string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ViewModel_SuccessMessageRaised(object? sender, string message)
+        {
+            MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -79,7 +82,6 @@ namespace HealthCareSync.Views
                     availableDocsComboBox.SelectedIndex = -1;
                     break;
             }
-            SetLabelColors();
         }
 
         private void ClearSelectionsAndResetFields()
@@ -87,19 +89,7 @@ namespace HealthCareSync.Views
             appointmentsListBox.ClearSelected();
             availableTimesComboBox.SelectedIndex = -1;
             availableDocsComboBox.SelectedIndex = -1;
-            this.patientNameErrorLabel.Text = string.Empty;
             viewModel.ClearInputFields();
-        }
-
-        private void SetLabelColors()
-        {
-            SetLabelColor(generalErrorlLabel, viewModel.GeneralErrorMessage);
-            SetLabelColor(patentNameErrorLabel, viewModel.PatientNameErrorMessage);
-            SetLabelColor(reasonErrorLabel, viewModel.ReasonErrorMessage);
-            SetLabelColor(searchPatientApptsLabel, viewModel.SearchPatientApptsMessage);
-            SetLabelColor(doctorsNameErrorLabel, viewModel.DoctorNameErrorMessage);
-            SetLabelColor(appointmentTimeErrorLabel, viewModel.AppointmentTimeErrorMessage);
-            SetLabelColor(searchPatientErrorLabel, viewModel.SearchPatientMessage);
         }
 
         private void SetLabelColor(Label label, string message)
@@ -131,7 +121,6 @@ namespace HealthCareSync.Views
             viewModel.LoadAvailableDoctors();
             viewModel.PatientName = string.Empty;
             viewModel.Reason = string.Empty;
-            patientNameErrorLabel.Text = string.Empty;  
         }
 
         private void clearBTN_Click(object sender, EventArgs e)
@@ -215,12 +204,6 @@ namespace HealthCareSync.Views
             {
                 viewModel.SearchForAPatient();
                 this.searchPatientTextBox.Text = string.Empty;
-            }
-            else
-            {
-                this.patientNameErrorLabel.Text = "You can not eddit the patient name";
-                this.searchPatientTextBox.Text = string.Empty;
-                this.patientNameErrorLabel.ForeColor = Color.Red;
             }
         }
     
