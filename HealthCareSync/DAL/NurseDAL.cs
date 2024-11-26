@@ -352,10 +352,10 @@ namespace HealthCareSync.DAL
 
             var address = new Address(
                 reader.GetFieldValueCheckNull<Int32>(addressIdOrdinal),
-                address1,
-                zip,
-                reader.GetFieldValueCheckNull<string?>(cityOrdinal),
-                Enum.Parse<State>(reader.GetFieldValueCheckNull<string?>(stateOrdinal).ToUpper()),
+                address1!,
+                zip!,
+                reader.GetFieldValueCheckNull<string?>(cityOrdinal)!,
+                Enum.Parse<State>(reader.GetFieldValueCheckNull<string?>(stateOrdinal)!.ToUpper()),
                 reader.GetFieldValueCheckNull<string?>(address2Ordinal)
             );
 
@@ -364,9 +364,9 @@ namespace HealthCareSync.DAL
                 reader.GetFieldValueCheckNull<string>(fnameOrdinal),
                 reader.GetFieldValueCheckNull<string>(lnameOrdinal),
                 reader.GetFieldValueCheckNull<DateTime>(bdateOrdinal),
-                reader.GetFieldValueCheckNull<string?>(phoneOrdinal),
+                reader.GetFieldValueCheckNull<string?>(phoneOrdinal)!,
                 address,
-                reader.GetFieldValueCheckNull<string?>(usernameOrdinal),
+                reader.GetFieldValueCheckNull<string?>(usernameOrdinal)!,
                 Enum.Parse<FlagStatus>(reader.GetFieldValueCheckNull<string>(statusOrdinal).ToUpper())
             );
 
@@ -376,58 +376,54 @@ namespace HealthCareSync.DAL
 
         /**
         /**
-         * Checks if the nurse with the specified id can be deleted.
+         * Checks if the nurse with the specified id can be deleted and deletes the nurse.
          * @param id The id.
          * @pre id != null
          * @post none
-         * @return True if the nurse can be deleted, false otherwise.
-         */
-        public bool CanDeleteNurse(int id)
-        {
-            bool canDelete = false;
-
-            string checkRoutineQuery = @"select count(*) from routine_checks where nurse_id = @id";
-
-            using (var connection = new MySqlConnection(connectionString))
-            using (var checkRoutineCommand = new MySqlCommand(checkRoutineQuery, connection))
-            {
-                checkRoutineCommand.Parameters.AddWithValue("@id", id);
-
-                connection.Open();
-                var routineCount = Convert.ToInt32(checkRoutineCommand.ExecuteScalar());
-
-                if (routineCount == 0)
-                {
-                    canDelete = true;
-                }
-            }
-
-            return canDelete;
-        }
-
-        /**
-         * Deletes the nurse with the specified id.
-         * @param id The id.
-         * @pre id != null && CanDeleteNurse(id) == true
-         * @post none
          * @return True if the nurse was deleted, false otherwise.
          */
-        public bool DeleteNurse(int id)
+        public bool CanDeleteAndDeleteNurse(int id)
         {
             bool isDeleted = false;
 
-            if (CanDeleteNurse(id))
+            using (var connection = new MySqlConnection(connectionString))
             {
-                string deleteQuery = @"delete from nurse where id = @id";
-
-                using (var connection = new MySqlConnection(connectionString))
-                using (var deleteCommand = new MySqlCommand(deleteQuery, connection))
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
                 {
-                    deleteCommand.Parameters.AddWithValue("@id", id);
+                    try
+                    {
+                        string checkRoutineQuery = @"select count(*) from routine_checks where nurse_id = @id";
+                        using (var checkRoutineCommand = new MySqlCommand(checkRoutineQuery, connection, transaction))
+                        {
+                            checkRoutineCommand.Parameters.AddWithValue("@id", id);
+                            var routineCount = Convert.ToInt32(checkRoutineCommand.ExecuteScalar());
 
-                    connection.Open();
-                    deleteCommand.ExecuteNonQuery();
-                    isDeleted = true;
+                            if (routineCount == 0)
+                            {
+                                string deleteQuery = @"delete from nurse where id = @id";
+                                using (var deleteCommand = new MySqlCommand(deleteQuery, connection, transaction))
+                                {
+                                    deleteCommand.Parameters.AddWithValue("@id", id);
+                                    deleteCommand.ExecuteNonQuery();
+                                    isDeleted = true;
+                                }
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            transaction.Rollback();
+                        }
+                        catch (Exception rollbackEx)
+                        {
+                            Debug.WriteLine("Rollback failed: " + rollbackEx.Message);
+                        }
+                    }
                 }
             }
 

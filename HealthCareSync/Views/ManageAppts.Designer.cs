@@ -47,27 +47,24 @@
             searchPatientApptsTextBox = new TextBox();
             panel5 = new Panel();
             searchBTN = new Button();
-            searchPatientApptsLabel = new Label();
             appointmentLabel = new Label();
             avalableTimesLabel = new Label();
             panel6 = new Panel();
             panel7 = new Panel();
             clearSearchBTN = new Button();
-            patentNameErrorLabel = new Label();
-            reasonErrorLabel = new Label();
-            patientNameErrorLabel = new Label();
-            generalErrorlLabel = new Label();
             cancelApptBTN = new Button();
             searchPatientBTN = new Button();
             searchPatientTextBox = new TextBox();
             panel8 = new Panel();
             availableDocsComboBox = new ComboBox();
             label1 = new Label();
-            searchPatientErrorLabel = new Label();
             label2 = new Label();
             availableTimesComboBox = new ComboBox();
-            doctorsNameErrorLabel = new Label();
-            appointmentTimeErrorLabel = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            label7 = new Label();
             SuspendLayout();
             // 
             // monthCalendar
@@ -92,6 +89,8 @@
             patientNameTextBox.Location = new Point(587, 62);
             patientNameTextBox.Multiline = true;
             patientNameTextBox.Name = "patientNameTextBox";
+            patientNameTextBox.PlaceholderText = "Auto Populated Field";
+            patientNameTextBox.ReadOnly = true;
             patientNameTextBox.Size = new Size(246, 28);
             patientNameTextBox.TabIndex = 6;
             // 
@@ -137,6 +136,8 @@
             doctorsNameTextBox.Location = new Point(591, 163);
             doctorsNameTextBox.Multiline = true;
             doctorsNameTextBox.Name = "doctorsNameTextBox";
+            doctorsNameTextBox.PlaceholderText = "Auto Populated Field";
+            doctorsNameTextBox.ReadOnly = true;
             doctorsNameTextBox.Size = new Size(246, 31);
             doctorsNameTextBox.TabIndex = 9;
             // 
@@ -170,6 +171,8 @@
             appointmentTimeTextBox.Location = new Point(559, 260);
             appointmentTimeTextBox.Multiline = true;
             appointmentTimeTextBox.Name = "appointmentTimeTextBox";
+            appointmentTimeTextBox.PlaceholderText = "Auto Populated Field";
+            appointmentTimeTextBox.ReadOnly = true;
             appointmentTimeTextBox.Size = new Size(274, 33);
             appointmentTimeTextBox.TabIndex = 12;
             // 
@@ -292,14 +295,6 @@
             searchBTN.UseVisualStyleBackColor = false;
             searchBTN.Click += searchBTN_Click;
             // 
-            // searchPatientApptsLabel
-            // 
-            searchPatientApptsLabel.AutoSize = true;
-            searchPatientApptsLabel.Location = new Point(940, 476);
-            searchPatientApptsLabel.Name = "searchPatientApptsLabel";
-            searchPatientApptsLabel.Size = new Size(0, 25);
-            searchPatientApptsLabel.TabIndex = 24;
-            // 
             // appointmentLabel
             // 
             appointmentLabel.AutoSize = true;
@@ -318,11 +313,11 @@
             avalableTimesLabel.BackColor = SystemColors.Control;
             avalableTimesLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             avalableTimesLabel.ForeColor = SystemColors.ActiveCaptionText;
-            avalableTimesLabel.Location = new Point(71, 287);
+            avalableTimesLabel.Location = new Point(71, 308);
             avalableTimesLabel.Name = "avalableTimesLabel";
-            avalableTimesLabel.Size = new Size(134, 25);
+            avalableTimesLabel.Size = new Size(166, 25);
             avalableTimesLabel.TabIndex = 26;
-            avalableTimesLabel.Text = "Search Patient:";
+            avalableTimesLabel.Text = "Search For Patient:";
             // 
             // panel6
             // 
@@ -355,38 +350,6 @@
             clearSearchBTN.UseVisualStyleBackColor = false;
             clearSearchBTN.Click += clearBTN_Click;
             // 
-            // patentNameErrorLabel
-            // 
-            patentNameErrorLabel.AutoSize = true;
-            patentNameErrorLabel.Location = new Point(446, 103);
-            patentNameErrorLabel.Name = "patentNameErrorLabel";
-            patentNameErrorLabel.Size = new Size(0, 25);
-            patentNameErrorLabel.TabIndex = 30;
-            // 
-            // reasonErrorLabel
-            // 
-            reasonErrorLabel.AutoSize = true;
-            reasonErrorLabel.Location = new Point(446, 412);
-            reasonErrorLabel.Name = "reasonErrorLabel";
-            reasonErrorLabel.Size = new Size(0, 25);
-            reasonErrorLabel.TabIndex = 31;
-            // 
-            // patientNameErrorLabel
-            // 
-            patientNameErrorLabel.AutoSize = true;
-            patientNameErrorLabel.Location = new Point(446, 103);
-            patientNameErrorLabel.Name = "patientNameErrorLabel";
-            patientNameErrorLabel.Size = new Size(0, 25);
-            patientNameErrorLabel.TabIndex = 32;
-            // 
-            // generalErrorlLabel
-            // 
-            generalErrorlLabel.AutoSize = true;
-            generalErrorlLabel.Location = new Point(446, 476);
-            generalErrorlLabel.Name = "generalErrorlLabel";
-            generalErrorlLabel.Size = new Size(0, 25);
-            generalErrorlLabel.TabIndex = 33;
-            // 
             // cancelApptBTN
             // 
             cancelApptBTN.BackColor = Color.IndianRed;
@@ -408,7 +371,7 @@
             searchPatientBTN.FlatStyle = FlatStyle.Flat;
             searchPatientBTN.Font = new Font("Showcard Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             searchPatientBTN.ForeColor = Color.White;
-            searchPatientBTN.Location = new Point(288, 315);
+            searchPatientBTN.Location = new Point(288, 336);
             searchPatientBTN.Name = "searchPatientBTN";
             searchPatientBTN.Size = new Size(95, 28);
             searchPatientBTN.TabIndex = 37;
@@ -422,7 +385,7 @@
             searchPatientTextBox.BorderStyle = BorderStyle.None;
             searchPatientTextBox.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
             searchPatientTextBox.ForeColor = SystemColors.HotTrack;
-            searchPatientTextBox.Location = new Point(71, 315);
+            searchPatientTextBox.Location = new Point(71, 336);
             searchPatientTextBox.Multiline = true;
             searchPatientTextBox.Name = "searchPatientTextBox";
             searchPatientTextBox.Size = new Size(211, 28);
@@ -433,7 +396,7 @@
             panel8.BackColor = Color.IndianRed;
             panel8.Enabled = false;
             panel8.ForeColor = SystemColors.ButtonShadow;
-            panel8.Location = new Point(71, 349);
+            panel8.Location = new Point(71, 370);
             panel8.Name = "panel8";
             panel8.Size = new Size(312, 1);
             panel8.TabIndex = 36;
@@ -441,7 +404,7 @@
             // availableDocsComboBox
             // 
             availableDocsComboBox.FormattingEnabled = true;
-            availableDocsComboBox.Location = new Point(71, 426);
+            availableDocsComboBox.Location = new Point(71, 436);
             availableDocsComboBox.Name = "availableDocsComboBox";
             availableDocsComboBox.Size = new Size(312, 33);
             availableDocsComboBox.TabIndex = 38;
@@ -453,19 +416,11 @@
             label1.BackColor = SystemColors.Control;
             label1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ActiveCaptionText;
-            label1.Location = new Point(71, 398);
+            label1.Location = new Point(71, 408);
             label1.Name = "label1";
-            label1.Size = new Size(168, 25);
+            label1.Size = new Size(232, 25);
             label1.TabIndex = 39;
-            label1.Text = "Availabe Doctor(s):";
-            // 
-            // searchPatientErrorLabel
-            // 
-            searchPatientErrorLabel.AutoSize = true;
-            searchPatientErrorLabel.Location = new Point(71, 353);
-            searchPatientErrorLabel.Name = "searchPatientErrorLabel";
-            searchPatientErrorLabel.Size = new Size(0, 25);
-            searchPatientErrorLabel.TabIndex = 40;
+            label1.Text = "Select An Availabe Doctor:";
             // 
             // label2
             // 
@@ -473,63 +428,99 @@
             label2.BackColor = SystemColors.Control;
             label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = SystemColors.ActiveCaptionText;
-            label2.Location = new Point(71, 492);
+            label2.Location = new Point(71, 500);
             label2.Name = "label2";
-            label2.Size = new Size(152, 25);
+            label2.Size = new Size(215, 25);
             label2.TabIndex = 42;
-            label2.Text = "Availabe Time(s):";
+            label2.Text = "Select An Availabe Time:";
             // 
             // availableTimesComboBox
             // 
             availableTimesComboBox.FormattingEnabled = true;
-            availableTimesComboBox.Location = new Point(71, 520);
+            availableTimesComboBox.Location = new Point(71, 528);
             availableTimesComboBox.Name = "availableTimesComboBox";
             availableTimesComboBox.Size = new Size(312, 33);
             availableTimesComboBox.TabIndex = 41;
             availableTimesComboBox.SelectedIndexChanged += availableTimesComboBox_SelectedIndexChanged;
             // 
-            // doctorsNameErrorLabel
+            // label3
             // 
-            doctorsNameErrorLabel.AutoSize = true;
-            doctorsNameErrorLabel.Location = new Point(446, 201);
-            doctorsNameErrorLabel.Name = "doctorsNameErrorLabel";
-            doctorsNameErrorLabel.Size = new Size(0, 25);
-            doctorsNameErrorLabel.TabIndex = 44;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.IndianRed;
+            label3.Location = new Point(79, 12);
+            label3.Name = "label3";
+            label3.Size = new Size(304, 28);
+            label3.TabIndex = 43;
+            label3.Text = "To Schecudel Anppointment First:";
             // 
-            // appointmentTimeErrorLabel
+            // label4
             // 
-            appointmentTimeErrorLabel.AutoSize = true;
-            appointmentTimeErrorLabel.Location = new Point(446, 299);
-            appointmentTimeErrorLabel.Name = "appointmentTimeErrorLabel";
-            appointmentTimeErrorLabel.Size = new Size(0, 25);
-            appointmentTimeErrorLabel.TabIndex = 45;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.IndianRed;
+            label4.Location = new Point(79, 275);
+            label4.Name = "label4";
+            label4.Size = new Size(58, 28);
+            label4.TabIndex = 44;
+            label4.Text = "Then:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.IndianRed;
+            label5.Location = new Point(79, 374);
+            label5.Name = "label5";
+            label5.Size = new Size(58, 28);
+            label5.TabIndex = 45;
+            label5.Text = "Then:";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.IndianRed;
+            label6.Location = new Point(79, 472);
+            label6.Name = "label6";
+            label6.Size = new Size(58, 28);
+            label6.TabIndex = 46;
+            label6.Text = "Then:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.IndianRed;
+            label7.Location = new Point(921, 497);
+            label7.Name = "label7";
+            label7.Size = new Size(328, 28);
+            label7.TabIndex = 47;
+            label7.Text = "Search For a Patient Appts By Name:";
             // 
             // ManageAppts
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
-            Controls.Add(appointmentTimeErrorLabel);
-            Controls.Add(doctorsNameErrorLabel);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(availableTimesComboBox);
-            Controls.Add(searchPatientErrorLabel);
             Controls.Add(label1);
             Controls.Add(availableDocsComboBox);
             Controls.Add(searchPatientBTN);
             Controls.Add(searchPatientTextBox);
             Controls.Add(panel8);
             Controls.Add(cancelApptBTN);
-            Controls.Add(generalErrorlLabel);
-            Controls.Add(patientNameErrorLabel);
-            Controls.Add(reasonErrorLabel);
-            Controls.Add(patentNameErrorLabel);
             Controls.Add(clearSearchBTN);
             Controls.Add(panel7);
             Controls.Add(panel6);
             Controls.Add(avalableTimesLabel);
             Controls.Add(appointmentLabel);
-            Controls.Add(searchPatientApptsLabel);
             Controls.Add(searchBTN);
             Controls.Add(searchPatientApptsTextBox);
             Controls.Add(panel5);
@@ -575,26 +566,23 @@
         private TextBox searchPatientApptsTextBox;
         private Panel panel5;
         private Button searchBTN;
-        private Label searchPatientApptsLabel;
         private Label appointmentLabel;
         private Label avalableTimesLabel;
         private Panel panel6;
         private Panel panel7;
         private Button clearSearchBTN;
-        private Label patentNameErrorLabel;
-        private Label reasonErrorLabel;
-        private Label patientNameErrorLabel;
-        private Label generalErrorlLabel;
         private Button cancelApptBTN;
         private Button searchPatientBTN;
         private TextBox searchPatientTextBox;
         private Panel panel8;
         private ComboBox availableDocsComboBox;
         private Label label1;
-        private Label searchPatientErrorLabel;
         private Label label2;
         private ComboBox availableTimesComboBox;
-        private Label doctorsNameErrorLabel;
-        private Label appointmentTimeErrorLabel;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Label label7;
     }
 }

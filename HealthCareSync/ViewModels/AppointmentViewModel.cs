@@ -12,104 +12,17 @@ namespace HealthCareSync.ViewModels
         private readonly AppointmentDAL appointmentDAL = new AppointmentDAL();
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        // Error message properties
-        private string generalErrorMessage = string.Empty;
+        public event EventHandler<string>? ErrorMessageRaised;
+        public event EventHandler<string>? SuccessMessageRaised;
 
-        /**
-         * GeneralErrorMessage property
-         * @precondition none
-         * @postcondition none
-         * @return string
-         */
-        public string GeneralErrorMessage
+        protected virtual void OnErrorMessageRaised(string message)
         {
-            get => generalErrorMessage;
-            set { generalErrorMessage = value; OnPropertyChanged(nameof(GeneralErrorMessage)); }
+            ErrorMessageRaised?.Invoke(this, message);
         }
 
-        private string patientNameErrorMessage = string.Empty;
-
-        /**
-         * PatientNameErrorMessage property
-         * @precondition none
-         * @postcondition none
-         * @return string
-         */
-        public string PatientNameErrorMessage
+        protected virtual void OnSuccessMessageRaised(string message)
         {
-            get => patientNameErrorMessage;
-            set { patientNameErrorMessage = value; OnPropertyChanged(nameof(PatientNameErrorMessage)); }
-        }
-
-        private string doctorNameErrorMessage = string.Empty;
-
-        /**
-         * DoctorNameErrorMessage property
-         * @precondition none
-         * @postcondition none
-         * @return string
-         */
-        public string DoctorNameErrorMessage
-        {
-            get => doctorNameErrorMessage;
-            set { doctorNameErrorMessage = value; OnPropertyChanged(nameof(DoctorNameErrorMessage)); }
-        }
-
-        private string appointmentTimeErrorMessage = string.Empty;
-
-        /**
-         * AppointmentTimeErrorMessage property
-         * @precondition none
-         * @postcondition none
-         * @return string
-         */
-
-        public string AppointmentTimeErrorMessage
-        {
-            get => appointmentTimeErrorMessage;
-            set { appointmentTimeErrorMessage = value; OnPropertyChanged(nameof(AppointmentTimeErrorMessage)); }
-        }
-
-        private string reasonErrorMessage = string.Empty;
-
-        /**
-         * ReasonErrorMessage property
-         * @precondition none
-         * @postcondition none
-         * @return string
-         */
-        public string ReasonErrorMessage
-        {
-            get => reasonErrorMessage;
-            set { reasonErrorMessage = value; OnPropertyChanged(nameof(ReasonErrorMessage)); }
-        }
-
-        private string searchPatientApptsMessage = string.Empty;
-
-        /**
-         * SearchPatientApptsMessage property
-         * @precondition none
-         * @postcondition none
-         * @return string
-         */
-        public string SearchPatientApptsMessage
-        {
-            get => searchPatientApptsMessage;
-            set { searchPatientApptsMessage = value; OnPropertyChanged(nameof(SearchPatientApptsMessage)); }
-        }
-
-        private string searchPatientMessage = string.Empty;
-
-        /**
-         * SearchPatientMessage property
-         * @precondition none
-         * @postcondition none
-         * @return string
-         */
-        public string SearchPatientMessage
-        {
-            get => searchPatientMessage;
-            set { searchPatientMessage = value; OnPropertyChanged(nameof(SearchPatientMessage)); }
+            SuccessMessageRaised?.Invoke(this, message);
         }
 
         // Appointment properties
@@ -409,21 +322,16 @@ namespace HealthCareSync.ViewModels
         }
 
         /**
- * Shedules and appointment and update the database
- * @precondition none
- * @postcondition none
- * @return true if the appointment was scheduled successfully, false otherwise
- */
-
+         * Shedules and appointment and update the database
+         * @precondition none
+         * @postcondition none
+         * @return true if the appointment was scheduled successfully, false otherwise
+         */
         public bool ScheduleAppointment()
         {
             if (!canScheduleAppointment()) return false;
 
-            if (!ValidateFields())
-            {
-                GeneralErrorMessage = "Error: Please fill in all required fields.";
-                return false;
-            }
+            if (!ValidateFields()) return false;
 
             int patientId = new PatientDAL().GetPatientIdByName(PatientName);
             int doctorId = appointmentDAL.GetDoctorIdByName(SelectedDoctor);
@@ -434,13 +342,13 @@ namespace HealthCareSync.ViewModels
 
             if (!appointmentDAL.IsTimeSlotAvailable(patientId, doctorId, appointmentDateTime))
             {
-                GeneralErrorMessage = "Error: The selected time slot is not available.";
+                OnErrorMessageRaised("Error: The selected time slot is not available.");
                 return false;
             }
 
             int availabilityId = appointmentDAL.GetAvailabilityId(doctorId, appointmentDateTime);
             CreateAppointment(patientId, doctorId, appointmentDateTime, Reason, availabilityId);
-            GeneralErrorMessage = "Success: Appointment scheduled successfully!";
+            OnSuccessMessageRaised("Success: Appointment scheduled successfully.");
             LoadAppointments();
             return true;
         }
@@ -454,19 +362,19 @@ namespace HealthCareSync.ViewModels
         {
             if (string.IsNullOrWhiteSpace(SearchPatientApptsByName))
             {
-                SearchPatientApptsMessage = "Error: Please enter a patient name to search.";
+                OnSuccessMessageRaised("Error: Please enter a patient name to search.");
                 return;
             }
 
             var appointments = appointmentDAL.GetAppointmentsByPatientName(SearchPatientApptsByName);
             if (!appointments.Any())
             {
-                SearchPatientApptsMessage = "Error: No appointments found.";
+                OnErrorMessageRaised("Error: No appointments found.");
                 return;
             }
 
             Appointments = new ObservableCollection<Appointment>(appointments);
-            SearchPatientApptsMessage = $"Success: {appointments.Count} appointments found.";
+            OnSuccessMessageRaised($"Success: {appointments.Count} appointments found.");
         }
 
         /**
@@ -482,7 +390,7 @@ namespace HealthCareSync.ViewModels
 
             int previousAvailabilityId = appointmentDAL.GetAvailabilityId(SelectedAppointment!.DoctorId, SelectedAppointment.DateTime);
             UpdateAppointment(doctorId, appointmentDateTime, newAvailabilityId);
-            GeneralErrorMessage = "Success: Appointment updated successfully!";
+            OnSuccessMessageRaised("Success: Appointment updated successfully!");
             LoadAppointments();
         }
 
@@ -494,14 +402,14 @@ namespace HealthCareSync.ViewModels
 
             if (string.IsNullOrWhiteSpace(SelectedDoctor) || string.IsNullOrWhiteSpace(SelectedTimeSlot) || SelectedDate == default)
             {
-                GeneralErrorMessage = "Please select a doctor, date, and time slot.";
+                OnErrorMessageRaised("Error: Please select a doctor, date, and time slot.");
                 return false;
             }
 
             doctorId = appointmentDAL.GetDoctorIdByName(SelectedDoctor);
             if (doctorId == 0)
             {
-                GeneralErrorMessage = "Invalid doctor selected.";
+                OnErrorMessageRaised("Error: Invalid doctor selected.");
                 return false;
             }
 
@@ -514,7 +422,7 @@ namespace HealthCareSync.ViewModels
 
             if (newAvailabilityId == 0)
             {
-                GeneralErrorMessage = "Selected time slot is not available.";
+                OnErrorMessageRaised("Error: Selected time slot is not available.");
                 return false;
             }
 
@@ -551,24 +459,23 @@ namespace HealthCareSync.ViewModels
 
                     if (patient == null)
                     {
-                        SearchPatientMessage = "Error: Patient not found.";
+                        OnErrorMessageRaised("Error: Patient not found.");
                         return;
                     }
                     else
                     {
                         PatientName = $"{patient.FirstName} {patient.LastName}";
-                        SearchPatientMessage = string.Empty;
                     }
 
                 }
                 else
                 {
-                    SearchPatientMessage = "Error: Patient not found.";
+                    OnErrorMessageRaised("Error: Patient not found.");
                 }
             }
             catch (Exception ex)
             {
-                GeneralErrorMessage = $"Error: An error occurred: {ex.Message}";
+                OnErrorMessageRaised("Error: An error occurred: " + ex.Message);
             }
         }
 
@@ -576,12 +483,12 @@ namespace HealthCareSync.ViewModels
         {
             if (SelectedAppointment?.DateTime == DateTime.Today)
             {
-                GeneralErrorMessage = "Error: Can not edit appointment on the appointment day";
+                OnErrorMessageRaised("Error: Can not edit appointment on the appointment day");
                 return false;
             }
             else if (SelectedAppointment?.DateTime < DateTime.Today)
             {
-                GeneralErrorMessage = "Error: Can not edit appointment that has already passed";
+                OnErrorMessageRaised("Error: Can not edit appointment that has already passed");
                 return false;
             }
             return true;
@@ -591,7 +498,7 @@ namespace HealthCareSync.ViewModels
         {
             if (SelectedDate < DateTime.Today)
             {
-                GeneralErrorMessage = "Error: Can not schedule appointment on a past date";
+                OnErrorMessageRaised("Error: Can not schedule appointment on a past date");
                 return false;
             }
             return true;
@@ -635,32 +542,35 @@ namespace HealthCareSync.ViewModels
         {
             bool isValid = true;
 
-            GeneralErrorMessage = string.Empty;
-            PatientNameErrorMessage = string.Empty;
-            ReasonErrorMessage = string.Empty;
+            List<string> errorMessages = new List<string>();
 
             if (string.IsNullOrWhiteSpace(PatientName))
             {
-                PatientNameErrorMessage = "Error: Patient name is required.";
+                errorMessages.Add("Error: Patient name is required.");
                 isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(DoctorName))
             {
-                DoctorNameErrorMessage = "Error: Doctor name is required.";
+                errorMessages.Add("Error: Doctor name is required.");
                 isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(AppointmentTime))
             {
-                AppointmentTimeErrorMessage = "Error: Appointment time is required.";
+                errorMessages.Add("Error: Appointment time is required.");
                 isValid = false;
             }
 
             if (string.IsNullOrWhiteSpace(Reason))
             {
-                ReasonErrorMessage = "Error: Reason for appointment is required.";
+                errorMessages.Add("Error: Reason for appointment is required.");
                 isValid = false;
+            }
+
+            if (errorMessages.Any())
+            {
+                OnErrorMessageRaised(string.Join("\n", errorMessages));
             }
 
             return isValid;
@@ -688,7 +598,7 @@ namespace HealthCareSync.ViewModels
         {
             if (SelectedAppointment == null)
             {
-                GeneralErrorMessage = "Error: Select an appointment to edit.";
+                OnErrorMessageRaised("Error: Select an appointment to edit.");
                 return false;
             }
             return true;
@@ -706,10 +616,6 @@ namespace HealthCareSync.ViewModels
             Reason = string.Empty;
             SelectedTimeSlot = string.Empty;
             SelectedAppointment = null;
-            GeneralErrorMessage = string.Empty;
-            PatientNameErrorMessage = string.Empty;
-            ReasonErrorMessage = string.Empty;
-            SearchPatientApptsMessage = string.Empty;
             AppointmentTime = string.Empty;
         }
 
