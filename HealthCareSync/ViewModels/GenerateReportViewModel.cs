@@ -10,14 +10,14 @@ namespace HealthCareSync.ViewModels
 {
     public class GenerateReportViewModel
     {
-        private AdminDAL adminDAL;
+        private AdministratorDatalayer adminDAL;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GenerateReportViewModel"/> class.
         /// </summary>
         public GenerateReportViewModel()
         {
-            this.adminDAL = new AdminDAL();
+            this.adminDAL = new AdministratorDatalayer();
         }
 
         /// <summary>

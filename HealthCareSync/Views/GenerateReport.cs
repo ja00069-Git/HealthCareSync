@@ -15,6 +15,7 @@ namespace HealthCareSync.Views
     {
         private static readonly string ERROR_QUERY = "Cannot execute query.";
         private static readonly string ERROR_DATES = "From date must be before To Date.";
+        private static readonly string NO_VISITS = "There were no visits during the specified timeframe.";
 
         private int DATE_RANGE_LABEL_Y_DIFFERENCE_TO_TEXTBOX;
         private int FROM_LABEL_Y_DIFFERENCE_TO_TEXTBOX;
@@ -23,6 +24,12 @@ namespace HealthCareSync.Views
         private int TO_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX;
         private int VIEW_REPORT_BUTTON_Y_DIFFERENCE_TO_TEXTBOX;
         private int EXECUTE_QUERY_BUTTON_Y_DIFFERENCE_TO_TEXTBOX;
+        private int LEFT_PANEL_Y_DIFFERENCE_TO_TEXTBOX;
+        private int RIGHT_PANEL_Y_DIFFERENCE_TO_TEXTBOX;
+        private int TOP_PANEL_Y_DIFFERENCE_TO_TEXTBOX;
+        private int BOTTOM_PANEL_Y_DIFFERENCE_TO_TEXTBOX;
+        private int ENTER_QUERY_LABEL_Y_DIFFERENCE_TO_TEXTBOX;
+        private int VIEW_REPORT_LABEL_Y_DIFFERENCE_TO_TEXTBOX;
 
         private GenerateReportViewModel viewmodel;
 
@@ -38,14 +45,26 @@ namespace HealthCareSync.Views
 
         private void initializeControlsYDifference()
         {
-            this.DATE_RANGE_LABEL_Y_DIFFERENCE_TO_TEXTBOX = this.queryTextBox.Location.Y - this.dateRangeLabel.Location.Y;
-            this.FROM_LABEL_Y_DIFFERENCE_TO_TEXTBOX = this.queryTextBox.Location.Y - this.fromLabel.Location.Y;
-            this.TO_LABEL_Y_DIFFERENCE_TO_TEXTBOX = this.queryTextBox.Location.Y - this.toLabel.Location.Y;
-            this.FROM_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX = this.queryTextBox.Location.Y - this.fromDateTimePicker.Location.Y;
-            this.TO_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX = this.queryTextBox.Location.Y - this.toDateTimePicker.Location.Y;  
-            this.VIEW_REPORT_BUTTON_Y_DIFFERENCE_TO_TEXTBOX = this.queryTextBox.Location.Y - this.viewReportButton.Location.Y;
-            this.EXECUTE_QUERY_BUTTON_Y_DIFFERENCE_TO_TEXTBOX = this.queryTextBox.Location.Y - this.executeQueryButton.Location.Y;
+            int calculateYDifference(Control targetControl)
+            {
+                return this.queryTextBox.Location.Y - targetControl.Location.Y;
+            }
+
+            this.DATE_RANGE_LABEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.dateRangeLabel);
+            this.FROM_LABEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.fromLabel);
+            this.TO_LABEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.toLabel);
+            this.FROM_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.fromDateTimePicker);
+            this.TO_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.toDateTimePicker);
+            this.VIEW_REPORT_BUTTON_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.viewReportButton);
+            this.EXECUTE_QUERY_BUTTON_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.executeQueryButton);
+            this.LEFT_PANEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.leftPanel);
+            this.RIGHT_PANEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.rightPanel);
+            this.TOP_PANEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.topPanel);
+            this.BOTTOM_PANEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.bottomPanel);
+            this.ENTER_QUERY_LABEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.enterQueryLabel);
+            this.VIEW_REPORT_LABEL_Y_DIFFERENCE_TO_TEXTBOX = calculateYDifference(this.viewReportLabel);
         }
+
 
         private void setupDataGridView()
         {
@@ -89,12 +108,18 @@ namespace HealthCareSync.Views
 
             var table = this.viewmodel.ViewReport(fromDate, toDate);
 
+            if (table.Rows.Count == 0)
+            {
+                MessageBox.Show(NO_VISITS, "Could not find visits", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             this.resultDataGridView.Visible = true;
             this.resultLabel.Visible = true;
             this.resultDataGridView.DataSource = table;
             this.AdjustFormAndDataGridViewSize();
-            this.moveTextBoxY(this.resultDataGridView.Bottom + 50);
-            this.ParentForm!.Height = Math.Max(this.executeQueryButton.Bottom + 50, 400);     
+            this.moveTextBoxY(this.resultDataGridView.Bottom + 250);
+            this.ParentForm!.Height = Math.Max(this.executeQueryButton.Bottom + 50, 400);
             this.queryTextBox.Clear();
         }
 
@@ -103,7 +128,6 @@ namespace HealthCareSync.Views
             int headerHeight = this.resultDataGridView.ColumnHeadersHeight;
             int rowHeight = this.resultDataGridView.RowTemplate.Height;
             int totalRowsHeight = this.resultDataGridView.Rows.Count * rowHeight;
-            int scrollbarHeight = SystemInformation.HorizontalScrollBarHeight;
 
             int calculatedHeight = headerHeight + totalRowsHeight;
 
@@ -134,14 +158,26 @@ namespace HealthCareSync.Views
 
         private void moveTextBoxY(int y)
         {
+            void updateControlY(Control control, int yDifference)
+            {
+                control.Location = new Point(control.Location.X, y - yDifference);
+            }
+
             this.queryTextBox.Location = new Point(this.queryTextBox.Location.X, y);
-            this.executeQueryButton.Location = new Point(this.executeQueryButton.Location.X, y - EXECUTE_QUERY_BUTTON_Y_DIFFERENCE_TO_TEXTBOX);
-            this.dateRangeLabel.Location = new Point(this.dateRangeLabel.Location.X, y - DATE_RANGE_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
-            this.fromLabel.Location = new Point(this.fromLabel.Location.X, y - FROM_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
-            this.toLabel.Location = new Point(this.toLabel.Location.X, y - TO_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
-            this.fromDateTimePicker.Location = new Point(this.fromDateTimePicker.Location.X, y - FROM_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX);
-            this.toDateTimePicker.Location = new Point(this.toDateTimePicker.Location.X, y - TO_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX);
-            this.viewReportButton.Location = new Point(this.viewReportButton.Location.X, y - VIEW_REPORT_BUTTON_Y_DIFFERENCE_TO_TEXTBOX);
-        }
+
+            updateControlY(this.executeQueryButton, EXECUTE_QUERY_BUTTON_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.dateRangeLabel, DATE_RANGE_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.fromLabel, FROM_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.toLabel, TO_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.fromDateTimePicker, FROM_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.toDateTimePicker, TO_DATE_PICKER_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.viewReportButton, VIEW_REPORT_BUTTON_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.topPanel, TOP_PANEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.bottomPanel, BOTTOM_PANEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.leftPanel, LEFT_PANEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.rightPanel, RIGHT_PANEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.enterQueryLabel, ENTER_QUERY_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
+            updateControlY(this.viewReportLabel, VIEW_REPORT_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
+        }      
     }
 }

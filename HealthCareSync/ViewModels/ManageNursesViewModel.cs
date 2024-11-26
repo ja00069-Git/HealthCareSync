@@ -314,7 +314,7 @@ namespace HealthCareSync.ViewModels
          */
         public bool DeleteNurse()
         {
-            if (this.nurseDAL.DeleteNurse(Nurse_Id))
+            if (this.nurseDAL.CanDeleteAndDeleteNurse(Nurse_Id))
             {
                 OnPropertyChanged(nameof(Nurses));
                 return true;

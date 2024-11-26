@@ -1,8 +1,4 @@
-﻿username	password:
-jabesi		mypassword  -- nurse
-ahmad		apassword   -- admin
-
-MySql Stored Procedures
+﻿MySql Stored Procedures
 
 -----------------------
 
@@ -18,3 +14,4 @@ BEGIN
 END;
 
 The above stored procedure will return the list of doctors who are available on the given date.
+
