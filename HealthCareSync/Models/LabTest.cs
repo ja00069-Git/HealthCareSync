@@ -30,7 +30,7 @@ namespace HealthCareSync.Models
 
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("Name cannot be null or empty");
                 }
@@ -52,7 +52,7 @@ namespace HealthCareSync.Models
 
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentNullException("Code cannot be null or empty");
                 }

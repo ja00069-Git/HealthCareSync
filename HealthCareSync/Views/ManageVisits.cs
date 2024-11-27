@@ -9,20 +9,20 @@ namespace HealthCareSync.Views
 {
     public partial class ManageVisits : Form
     {
-        private readonly string NUMBER_REGEX = @"^\d{1,3}$";
-        private readonly string DECIMAL_NUMBER_REGEX = @"^\d{1,3}(\.\d{1,2})?$";
-        private readonly string ERROR_SYSTOLIC = "Systolic must be a integer number less than 1000.";
-        private readonly string ERROR_DIASTOLIC = "Diastolic must be a integer number less than 1000.";
-        private readonly string ERROR_TEMP = "Temperature must be a number less than 1000 with at most 2 decimals.";
-        private readonly string ERROR_WEIGHT = "Weight must be a number les than 1000 with at most 2 decimals.";
-        private readonly string ERROR_HEIGHT = "Height must be a number less than 1000 with at most 2 decimals.";
-        private readonly string ERROR_BPM = "BPM must be a integer number less than 1000";
-        private readonly string ERROR_SYMPTOMS = "Symptoms cannot be empty";
-        private readonly string ERROR_TEST = "Cannot order same test on the same date and time, Please pick a new time.";
-        private readonly string ERROR_TEST_DATE = "Order date cannot be before current date.";
-        private readonly string ERROR_INITIAL_DIAGNOSES = "Initial Diagnoses cannot be empty.";
-        private readonly string ERROR_FINAL_DIAGNOSES = "Final Diagnoses cannot be empty.";
-        private readonly string ERROR_ORDERED_TEST = "Cannot delete ordered tests where results are already appended.";
+        private static readonly string NUMBER_REGEX = @"^\d{1,3}$";
+        private static readonly string DECIMAL_NUMBER_REGEX = @"^\d{1,3}(\.\d{1,2})?$";
+        private static readonly string ERROR_SYSTOLIC = "Systolic must be a integer number less than 1000.";
+        private static readonly string ERROR_DIASTOLIC = "Diastolic must be a integer number less than 1000.";
+        private static readonly string ERROR_TEMP = "Temperature must be a number less than 1000 with at most 2 decimals.";
+        private static readonly string ERROR_WEIGHT = "Weight must be a number les than 1000 with at most 2 decimals.";
+        private static readonly string ERROR_HEIGHT = "Height must be a number less than 1000 with at most 2 decimals.";
+        private static readonly string ERROR_BPM = "BPM must be a integer number less than 1000";
+        private static readonly string ERROR_SYMPTOMS = "Symptoms cannot be empty";
+        private static readonly string ERROR_TEST = "Cannot order same test on the same date and time, Please pick a new time.";
+        private static readonly string ERROR_TEST_DATE = "Order date cannot be before current date.";
+        private static readonly string ERROR_INITIAL_DIAGNOSES = "Initial Diagnoses cannot be empty.";
+        private static readonly string ERROR_FINAL_DIAGNOSES = "Final Diagnoses cannot be empty.";
+        private static readonly string ERROR_ORDERED_TEST = "Cannot delete ordered tests where results are already appended.";
         private readonly string nurseUserName = string.Empty;
 
         private string errorMessages = string.Empty;
@@ -321,9 +321,9 @@ namespace HealthCareSync.Views
 
         private void initial_diagnoses_enter_btn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(initialDiagnosesTextBox.Text))
+            if (string.IsNullOrWhiteSpace(initialDiagnosesTextBox.Text))
             {
-                MessageBox.Show(this.ERROR_INITIAL_DIAGNOSES, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ERROR_INITIAL_DIAGNOSES, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -334,9 +334,9 @@ namespace HealthCareSync.Views
 
         private void final_diagnosis_enter_btn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(finalDiagnosesTextBox.Text))
+            if (string.IsNullOrWhiteSpace(finalDiagnosesTextBox.Text))
             {
-                MessageBox.Show(this.ERROR_FINAL_DIAGNOSES, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ERROR_FINAL_DIAGNOSES, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -476,7 +476,7 @@ namespace HealthCareSync.Views
             {
                 if (this.isDateTimeBeforeCurrent(this.orderTestDatePicker.Value.Date + this.orderTestTimePicker.Value.TimeOfDay))
                 {
-                    MessageBox.Show(this.ERROR_TEST_DATE, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ERROR_TEST_DATE, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -492,7 +492,7 @@ namespace HealthCareSync.Views
                 }
                 else
                 {
-                    MessageBox.Show(this.ERROR_TEST, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ERROR_TEST, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -519,7 +519,7 @@ namespace HealthCareSync.Views
                 }
                 else
                 {
-                    MessageBox.Show(this.ERROR_ORDERED_TEST, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ERROR_ORDERED_TEST, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
