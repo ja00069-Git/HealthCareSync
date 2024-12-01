@@ -162,7 +162,7 @@ namespace HealthCareSync.DAL
                                 LEFT JOIN nurse ON routine_checks.nurse_id = nurse.id
                                 LEFT JOIN lab_test_operation ON appointment.id = lab_test_operation.appointment_id
                                 LEFT JOIN diagnoses ON appointment.id = diagnoses.appointment_id
-                            WHERE  appointment.date_time Between @fromDate AND @toDate
+                            WHERE appointment.date_time BETWEEN @fromDate AND DATE_ADD(@toDate, INTERVAL 1 DAY) - INTERVAL 1 SECOND
                             GROUP BY 
                                 appointment.id, 
                                 `Visit Date`, 

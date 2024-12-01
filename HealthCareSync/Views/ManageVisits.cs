@@ -348,6 +348,9 @@ namespace HealthCareSync.Views
                     this.finalDiagnosesTextBox.Enabled = false;
                     this.final_diagnosis_enter_btn.Enabled = false;
                     this.disableBoxes();
+                    this.order_test_button.Enabled = false;
+                    this.deleteButton.Enabled = false;
+                    this.initial_diagnoses_enter_btn.Enabled = false;
                     this.disableLabTestBoxes();
                     this.initialDiagnosesTextBox.Enabled = false;
                     MessageBox.Show("Final Diagnoses successfully entered.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
