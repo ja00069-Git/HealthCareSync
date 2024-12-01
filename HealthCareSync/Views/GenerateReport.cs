@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HealthCareSync.ViewModels;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace HealthCareSync.Views
 {
@@ -178,6 +179,7 @@ namespace HealthCareSync.Views
             updateControlY(this.rightPanel, RIGHT_PANEL_Y_DIFFERENCE_TO_TEXTBOX);
             updateControlY(this.enterQueryLabel, ENTER_QUERY_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
             updateControlY(this.viewReportLabel, VIEW_REPORT_LABEL_Y_DIFFERENCE_TO_TEXTBOX);
-        }      
+        }
+
     }
 }

@@ -67,6 +67,7 @@
             // 
             // queryTextBox
             // 
+            queryTextBox.AcceptsTab = true;
             queryTextBox.Font = new Font("Microsoft YaHei UI", 10F);
             queryTextBox.ForeColor = SystemColors.HotTrack;
             queryTextBox.Location = new Point(142, 94);
