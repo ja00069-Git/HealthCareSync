@@ -72,6 +72,7 @@
             queryTextBox.Location = new Point(142, 94);
             queryTextBox.Multiline = true;
             queryTextBox.Name = "queryTextBox";
+            queryTextBox.ScrollBars = ScrollBars.Vertical;
             queryTextBox.Size = new Size(352, 162);
             queryTextBox.TabIndex = 6;
             queryTextBox.TextChanged += queryTextBox_TextChanged;
