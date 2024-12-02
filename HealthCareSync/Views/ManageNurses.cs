@@ -301,5 +301,6 @@ namespace HealthCareSync.Views
 
             this.refreshListBox();
         }
+
     }
 }

@@ -82,7 +82,7 @@
             idTextBox.Margin = new Padding(4, 5, 4, 5);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
-            idTextBox.Size = new Size(174, 31);
+            idTextBox.Size = new Size(123, 23);
             idTextBox.TabIndex = 67;
             idTextBox.TextAlign = HorizontalAlignment.Center;
             // 
@@ -94,18 +94,17 @@
             idLabel.Location = new Point(994, 548);
             idLabel.Margin = new Padding(4, 0, 4, 0);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(83, 25);
+            idLabel.Size = new Size(52, 15);
             idLabel.TabIndex = 66;
             idLabel.Text = "Nurse Id";
             // 
             // usernameTextBox
             // 
             usernameTextBox.BorderStyle = BorderStyle.None;
-            usernameTextBox.Location = new Point(684, 100);
-            usernameTextBox.Margin = new Padding(4, 5, 4, 5);
+            usernameTextBox.Location = new Point(479, 60);
             usernameTextBox.Multiline = true;
             usernameTextBox.Name = "usernameTextBox";
-            usernameTextBox.Size = new Size(239, 25);
+            usernameTextBox.Size = new Size(167, 15);
             usernameTextBox.TabIndex = 65;
             // 
             // usernameLabel
@@ -116,7 +115,7 @@
             usernameLabel.Location = new Point(569, 100);
             usernameLabel.Margin = new Padding(4, 0, 4, 0);
             usernameLabel.Name = "usernameLabel";
-            usernameLabel.Size = new Size(97, 25);
+            usernameLabel.Size = new Size(64, 15);
             usernameLabel.TabIndex = 64;
             usernameLabel.Text = "Username";
             // 
@@ -133,11 +132,10 @@
             // cityTextBox
             // 
             cityTextBox.BorderStyle = BorderStyle.None;
-            cityTextBox.Location = new Point(167, 418);
-            cityTextBox.Margin = new Padding(4, 5, 4, 5);
+            cityTextBox.Location = new Point(117, 251);
             cityTextBox.Multiline = true;
             cityTextBox.Name = "cityTextBox";
-            cityTextBox.Size = new Size(331, 25);
+            cityTextBox.Size = new Size(232, 15);
             cityTextBox.TabIndex = 61;
             // 
             // zipTextBox
@@ -153,11 +151,10 @@
             // address1TextBox
             // 
             address1TextBox.BorderStyle = BorderStyle.None;
-            address1TextBox.Location = new Point(216, 255);
-            address1TextBox.Margin = new Padding(4, 5, 4, 5);
+            address1TextBox.Location = new Point(151, 153);
             address1TextBox.Multiline = true;
             address1TextBox.Name = "address1TextBox";
-            address1TextBox.Size = new Size(711, 25);
+            address1TextBox.Size = new Size(498, 15);
             address1TextBox.TabIndex = 59;
             // 
             // address2Label
@@ -168,7 +165,7 @@
             address2Label.Location = new Point(114, 337);
             address2Label.Margin = new Padding(4, 0, 4, 0);
             address2Label.Name = "address2Label";
-            address2Label.Size = new Size(94, 25);
+            address2Label.Size = new Size(59, 15);
             address2Label.TabIndex = 58;
             address2Label.Text = "Address 2";
             // 
@@ -180,7 +177,7 @@
             cityLabel.Location = new Point(114, 417);
             cityLabel.Margin = new Padding(4, 0, 4, 0);
             cityLabel.Name = "cityLabel";
-            cityLabel.Size = new Size(44, 25);
+            cityLabel.Size = new Size(27, 15);
             cityLabel.TabIndex = 57;
             cityLabel.Text = "City";
             // 
@@ -191,7 +188,7 @@
             lastNameTextBox.Margin = new Padding(4, 5, 4, 5);
             lastNameTextBox.Multiline = true;
             lastNameTextBox.Name = "lastNameTextBox";
-            lastNameTextBox.Size = new Size(280, 25);
+            lastNameTextBox.Size = new Size(196, 15);
             lastNameTextBox.TabIndex = 55;
             // 
             // stateLabel
@@ -201,7 +198,7 @@
             stateLabel.Location = new Point(564, 407);
             stateLabel.Margin = new Padding(4, 0, 4, 0);
             stateLabel.Name = "stateLabel";
-            stateLabel.Size = new Size(54, 25);
+            stateLabel.Size = new Size(34, 15);
             stateLabel.TabIndex = 54;
             stateLabel.Text = "State";
             // 
@@ -213,7 +210,7 @@
             zipcodeLabel.Location = new Point(114, 477);
             zipcodeLabel.Margin = new Padding(4, 0, 4, 0);
             zipcodeLabel.Name = "zipcodeLabel";
-            zipcodeLabel.Size = new Size(87, 25);
+            zipcodeLabel.Size = new Size(54, 15);
             zipcodeLabel.TabIndex = 53;
             zipcodeLabel.Text = "Zip Code";
             // 
@@ -222,10 +219,9 @@
             address1Label.AutoSize = true;
             address1Label.BackColor = Color.LightGray;
             address1Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            address1Label.Location = new Point(117, 255);
-            address1Label.Margin = new Padding(4, 0, 4, 0);
+            address1Label.Location = new Point(82, 153);
             address1Label.Name = "address1Label";
-            address1Label.Size = new Size(91, 25);
+            address1Label.Size = new Size(57, 15);
             address1Label.TabIndex = 52;
             address1Label.Text = "Address 1";
             // 
@@ -237,7 +233,7 @@
             birthDateLabel.Location = new Point(114, 95);
             birthDateLabel.Margin = new Padding(4, 0, 4, 0);
             birthDateLabel.Name = "birthDateLabel";
-            birthDateLabel.Size = new Size(97, 25);
+            birthDateLabel.Size = new Size(60, 15);
             birthDateLabel.TabIndex = 51;
             birthDateLabel.Text = "Birth Date";
             // 
@@ -249,7 +245,7 @@
             lastNameLabel.Location = new Point(569, 27);
             lastNameLabel.Margin = new Padding(4, 0, 4, 0);
             lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new Size(99, 25);
+            lastNameLabel.Size = new Size(63, 15);
             lastNameLabel.TabIndex = 50;
             lastNameLabel.Text = "Last Name";
             // 
@@ -261,7 +257,7 @@
             firstNameLabel.Location = new Point(113, 27);
             firstNameLabel.Margin = new Padding(4, 0, 4, 0);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(102, 25);
+            firstNameLabel.Size = new Size(64, 15);
             firstNameLabel.TabIndex = 49;
             firstNameLabel.Text = "First Name";
             // 
@@ -272,7 +268,7 @@
             firstNameTextBox.Margin = new Padding(4, 5, 4, 5);
             firstNameTextBox.Multiline = true;
             firstNameTextBox.Name = "firstNameTextBox";
-            firstNameTextBox.Size = new Size(269, 25);
+            firstNameTextBox.Size = new Size(188, 15);
             firstNameTextBox.TabIndex = 48;
             // 
             // editNurseButton
@@ -294,11 +290,10 @@
             // nurseListBox
             // 
             nurseListBox.FormattingEnabled = true;
-            nurseListBox.ItemHeight = 25;
-            nurseListBox.Location = new Point(1004, 63);
-            nurseListBox.Margin = new Padding(4, 5, 4, 5);
+            nurseListBox.ItemHeight = 15;
+            nurseListBox.Location = new Point(703, 38);
             nurseListBox.Name = "nurseListBox";
-            nurseListBox.Size = new Size(274, 454);
+            nurseListBox.Size = new Size(193, 274);
             nurseListBox.TabIndex = 46;
             nurseListBox.SelectedIndexChanged += NurseListBox_SelectedIndexChanged;
             // 
@@ -310,15 +305,14 @@
             phoneNumLabel.Location = new Point(117, 173);
             phoneNumLabel.Margin = new Padding(4, 0, 4, 0);
             phoneNumLabel.Name = "phoneNumLabel";
-            phoneNumLabel.Size = new Size(139, 25);
+            phoneNumLabel.Size = new Size(88, 15);
             phoneNumLabel.TabIndex = 69;
             phoneNumLabel.Text = "Phone Number";
             // 
             // phoneNumTextBox
             // 
             phoneNumTextBox.BorderStyle = BorderStyle.None;
-            phoneNumTextBox.Location = new Point(260, 177);
-            phoneNumTextBox.Margin = new Padding(4, 5, 4, 5);
+            phoneNumTextBox.Location = new Point(182, 106);
             phoneNumTextBox.Multiline = true;
             phoneNumTextBox.Name = "phoneNumTextBox";
             phoneNumTextBox.Size = new Size(221, 25);
@@ -359,10 +353,9 @@
             // dateTimePicker
             // 
             dateTimePickerForNurse.Format = DateTimePickerFormat.Short;
-            dateTimePickerForNurse.Location = new Point(220, 95);
-            dateTimePickerForNurse.Margin = new Padding(4, 5, 4, 5);
+            dateTimePickerForNurse.Location = new Point(154, 57);
             dateTimePickerForNurse.Name = "dateTimePickerForNurse";
-            dateTimePickerForNurse.Size = new Size(280, 31);
+            dateTimePickerForNurse.Size = new Size(197, 23);
             dateTimePickerForNurse.TabIndex = 74;
             // 
             // stateComboBox
@@ -372,17 +365,16 @@
             stateComboBoxForNurse.Location = new Point(626, 403);
             stateComboBoxForNurse.Margin = new Padding(4, 5, 4, 5);
             stateComboBoxForNurse.Name = "stateComboBoxForNurse";
-            stateComboBoxForNurse.Size = new Size(315, 33);
+            stateComboBoxForNurse.Size = new Size(222, 23);
             stateComboBoxForNurse.TabIndex = 75;
             // 
             // passwordTextBox
             // 
             passwordTextBox.BorderStyle = BorderStyle.None;
-            passwordTextBox.Location = new Point(697, 177);
-            passwordTextBox.Margin = new Padding(4, 5, 4, 5);
+            passwordTextBox.Location = new Point(488, 106);
             passwordTextBox.Multiline = true;
             passwordTextBox.Name = "passwordTextBox";
-            passwordTextBox.Size = new Size(237, 25);
+            passwordTextBox.Size = new Size(166, 15);
             passwordTextBox.TabIndex = 76;
             // 
             // passwordLabel
@@ -393,7 +385,7 @@
             passwordLabel.Location = new Point(569, 177);
             passwordLabel.Margin = new Padding(4, 0, 4, 0);
             passwordLabel.Name = "passwordLabel";
-            passwordLabel.Size = new Size(92, 25);
+            passwordLabel.Size = new Size(59, 15);
             passwordLabel.TabIndex = 77;
             passwordLabel.Text = "Password";
             // 
@@ -403,7 +395,7 @@
             panel3.Location = new Point(569, 62);
             panel3.Margin = new Padding(4, 5, 4, 5);
             panel3.Name = "panel3";
-            panel3.Size = new Size(377, 2);
+            panel3.Size = new Size(264, 1);
             panel3.TabIndex = 78;
             // 
             // panel1
@@ -412,7 +404,7 @@
             panel1.Location = new Point(113, 62);
             panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(377, 2);
+            panel1.Size = new Size(264, 1);
             panel1.TabIndex = 79;
             // 
             // panel2
@@ -421,7 +413,7 @@
             panel2.Location = new Point(113, 137);
             panel2.Margin = new Padding(4, 5, 4, 5);
             panel2.Name = "panel2";
-            panel2.Size = new Size(387, 2);
+            panel2.Size = new Size(271, 1);
             panel2.TabIndex = 79;
             // 
             // panel4
@@ -430,25 +422,23 @@
             panel4.Location = new Point(114, 212);
             panel4.Margin = new Padding(4, 5, 4, 5);
             panel4.Name = "panel4";
-            panel4.Size = new Size(377, 2);
+            panel4.Size = new Size(264, 1);
             panel4.TabIndex = 80;
             // 
             // panel5
             // 
             panel5.BackColor = Color.Blue;
-            panel5.Location = new Point(564, 212);
-            panel5.Margin = new Padding(4, 5, 4, 5);
+            panel5.Location = new Point(395, 127);
             panel5.Name = "panel5";
-            panel5.Size = new Size(377, 2);
+            panel5.Size = new Size(264, 1);
             panel5.TabIndex = 81;
             // 
             // panel6
             // 
             panel6.BackColor = Color.Blue;
-            panel6.Location = new Point(117, 290);
-            panel6.Margin = new Padding(4, 5, 4, 5);
+            panel6.Location = new Point(82, 174);
             panel6.Name = "panel6";
-            panel6.Size = new Size(829, 2);
+            panel6.Size = new Size(580, 1);
             panel6.TabIndex = 82;
             // 
             // panel7
@@ -457,7 +447,7 @@
             panel7.Location = new Point(117, 367);
             panel7.Margin = new Padding(4, 5, 4, 5);
             panel7.Name = "panel7";
-            panel7.Size = new Size(829, 2);
+            panel7.Size = new Size(580, 1);
             panel7.TabIndex = 83;
             // 
             // panel8
@@ -466,7 +456,7 @@
             panel8.Location = new Point(117, 447);
             panel8.Margin = new Padding(4, 5, 4, 5);
             panel8.Name = "panel8";
-            panel8.Size = new Size(377, 2);
+            panel8.Size = new Size(264, 1);
             panel8.TabIndex = 81;
             // 
             // panel9
@@ -475,7 +465,7 @@
             panel9.Location = new Point(114, 517);
             panel9.Margin = new Padding(4, 5, 4, 5);
             panel9.Name = "panel9";
-            panel9.Size = new Size(377, 2);
+            panel9.Size = new Size(264, 1);
             panel9.TabIndex = 81;
             // 
             // panel10
@@ -484,14 +474,13 @@
             panel10.Location = new Point(564, 447);
             panel10.Margin = new Padding(4, 5, 4, 5);
             panel10.Name = "panel10";
-            panel10.Size = new Size(377, 2);
+            panel10.Size = new Size(264, 1);
             panel10.TabIndex = 84;
             // 
             // panel11
             // 
             panel11.BackColor = Color.Blue;
-            panel11.Location = new Point(957, 17);
-            panel11.Margin = new Padding(4, 5, 4, 5);
+            panel11.Location = new Point(670, 10);
             panel11.Name = "panel11";
             panel11.Size = new Size(1, 573);
             panel11.TabIndex = 84;
@@ -499,8 +488,7 @@
             // panel12
             // 
             panel12.BackColor = Color.Blue;
-            panel12.Location = new Point(1004, 590);
-            panel12.Margin = new Padding(4, 5, 4, 5);
+            panel12.Location = new Point(703, 354);
             panel12.Name = "panel12";
             panel12.Size = new Size(274, 2);
             panel12.TabIndex = 80;
@@ -511,7 +499,7 @@
             label1.BackColor = Color.LightGray;
             label1.Location = new Point(1004, 27);
             label1.Name = "label1";
-            label1.Size = new Size(70, 25);
+            label1.Size = new Size(46, 15);
             label1.TabIndex = 85;
             label1.Text = "Nurses:";
             // 
@@ -563,7 +551,7 @@
             // 
             // ManageNurses
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1350, 615);
@@ -613,7 +601,6 @@
             Controls.Add(editNurseButton);
             Controls.Add(nurseListBox);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(4, 5, 4, 5);
             Name = "ManageNurses";
             Text = "ManageNurses";
             ResumeLayout(false);
