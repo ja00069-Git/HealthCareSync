@@ -1,3 +1,5 @@
+using HealthCareSync.Views;
+
 namespace HealthCareSync
 {
     internal static class Program

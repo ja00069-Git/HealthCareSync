@@ -30,74 +30,115 @@ namespace HealthCareSync.ViewModels
          */
         public bool Login()
         {
+            if (!ValidateInputs())
+                return false;
+
+            using var connection = new MySqlConnection(Connection.ConnectionString());
+
+            try
+            {
+                connection.Open();
+                var userDetails = GetUserDetails(connection, User.Username);
+
+                if (userDetails == null)
+                {
+                    ShowErrorMessage("Invalid username or password. Please try again.");
+                    return false;
+                }
+
+                if (!VerifyPassword(User.Password, userDetails.Password))
+                {
+                    ShowErrorMessage("Invalid username or password. Please try again.");
+                    return false;
+                }
+
+                AssignUserRole(userDetails);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"An error occurred while connecting to the database.\nError: {ex.Message}");
+                return false;
+            }
+        }
+
+        private bool ValidateInputs()
+        {
             if (string.IsNullOrWhiteSpace(User.Username))
             {
-                MessageBox.Show("Please enter your username.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Please enter your username.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(User.Password))
             {
-                MessageBox.Show("Please enter your password.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage("Please enter your password.");
                 return false;
             }
 
-            using (MySqlConnection connection = new MySqlConnection(Connection.ConnectionString()))
+            return true;
+        }
+
+        private UserDetails? GetUserDetails(MySqlConnection connection, string username)
+        {
+            string query = @"
+                            SELECT 
+                                COALESCE(a.fname, n.fname) AS fname,
+                                COALESCE(a.lname, n.lname) AS lname,
+                                CASE 
+                                    WHEN a.username IS NOT NULL THEN 'Admin'
+                                    WHEN n.username IS NOT NULL THEN 'Nurse'
+                                END AS role,
+                                u.password
+                            FROM user u
+                            LEFT JOIN administrator a ON u.username = a.username
+                            LEFT JOIN nurse n ON u.username = n.username
+                            WHERE u.username = @username 
+                              AND (n.status = 'Active' OR a.username IS NOT NULL)";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@username", username);
+
+            using var reader = command.ExecuteReader();
+            if (!reader.Read())
+                return null;
+
+            return new UserDetails
             {
-                try
-                {
-                    connection.Open();
+                FirstName = reader["fname"].ToString(),
+                LastName = reader["lname"].ToString(),
+                Role = reader["role"].ToString(),
+                Password = reader["password"].ToString()!
+            };
+        }
 
-                    string query = @"
-                      SELECT 
-                         COALESCE(a.fname, n.fname) AS fname,
-                         COALESCE(a.lname, n.lname) AS lname,
-                         CASE 
-                            WHEN a.username IS NOT NULL THEN 'Admin'
-                            WHEN n.username IS NOT NULL THEN 'Nurse'
-                         END AS role
-                      FROM user u
-                      LEFT JOIN administrator a ON u.username = a.username
-                      LEFT JOIN nurse n ON u.username = n.username
-                      WHERE u.username = @username AND u.password = @password";
+        private bool VerifyPassword(string inputPassword, string storedPasswordHash)
+        {
+            return BC.EnhancedVerify(inputPassword, storedPasswordHash);
+        }
 
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@username", User.Username);
-                        command.Parameters.AddWithValue("@password", User.Password);
+        private void AssignUserRole(UserDetails userDetails)
+        {
+            LoggedInUser = $"{User.Username} ({userDetails.FirstName} {userDetails.LastName})";
+            UserRole = userDetails.Role switch
+            {
+                "Admin" => UserRole.ADMIN,
+                "Nurse" => UserRole.NURSE,
+                _ => UserRole.NONE
+            };
+        }
 
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                string? firstName = reader["fname"].ToString();
-                                string? lastName = reader["lname"].ToString();
-                                LoggedInUser = $"{User.Username} ({firstName} {lastName})";
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
-                                string? roleString = reader["role"] as string;
-                                UserRole = roleString switch
-                                {
-                                    "Admin" => UserRole.ADMIN,
-                                    "Nurse" => UserRole.NURSE,
-                                    _ => UserRole.NONE
-                                };
-
-                                return true;
-                            }
-                            else
-                            {
-                                MessageBox.Show("Invalid username or password. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return false;
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred while connecting to the database. Please check your connection settings.\nError: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
+        private class UserDetails
+        {
+            public string? FirstName { get; set; }
+            public string? LastName { get; set; }
+            public string? Role { get; set; }
+            public string Password { get; set; } = string.Empty;
         }
     }
 }

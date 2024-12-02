@@ -17,11 +17,16 @@ namespace HealthCareSync.ViewModels
 
         private Appointment selectedVisit;
         private RoutineChecks? selectedVisitRoutineChecks;
+        private LabTestOperation? selectedLabTestOperation;
+        private Diagnoses? selectedVisitDiagnoses;
         private Nurse? performingNurse;
         private RoutineChecksDAL routineChecksDal;
         private AppointmentDAL appointmentDal;
         private PatientDAL patientDal;
         private NurseDAL nurseDal;
+        private LabTestDAL labTestDAL;
+        private LabTestOperationDAL labTestOperationDAL;
+        private DiagnosesDAL diagnosesDAL;
 
         /// <summary>
         /// Gets a value indicating whether [visit has routine checks entered].
@@ -31,7 +36,41 @@ namespace HealthCareSync.ViewModels
         /// </value>
         public bool VisitHasRoutineChecksEntered => selectedVisitRoutineChecks != null;
 
-        public string? PerformingNurseName { get { return this.performingNurse!.FullName; } }
+        /// <summary>
+        /// Gets the name of the performing nurse.
+        /// </summary>
+        /// <value>
+        /// The name of the performing nurse.
+        /// </value>
+        public string? PerformingNurseName
+        {
+            get
+            {
+                if (this.performingNurse == null)
+                {
+                    return string.Empty;
+                }
+                return this.performingNurse!.FullName;
+            }
+        }
+
+        public string? SelectedLabTestOperationName => selectedLabTestOperation?.LabTestName;
+
+        /// <summary>
+        /// Gets the selected lab test operation date.
+        /// </summary>
+        /// <value>
+        /// The selected lab test operation date.
+        /// </value>
+        public DateTime? SelectedLabTestOperationDateTime => selectedLabTestOperation?.DateTime;
+
+        /// <summary>
+        /// Gets the selected lab test operation time.
+        /// </summary>
+        /// <value>
+        /// The selected lab test operation time.
+        /// </value>
+        public TimeSpan? SelectedLabTestOperationTime => selectedLabTestOperation?.DateTime.TimeOfDay;
 
         /// <summary>
         /// Gets the appointment identifier.
@@ -71,7 +110,7 @@ namespace HealthCareSync.ViewModels
         /// <value>
         /// The body temperature.
         /// </value>
-        public int? BodyTemperature => selectedVisitRoutineChecks?.BodyTemperature;
+        public double? BodyTemperature => selectedVisitRoutineChecks?.BodyTemperature;
 
         /// <summary>
         /// Gets the BPM.
@@ -114,6 +153,66 @@ namespace HealthCareSync.ViewModels
         public RoutineChecks? SelectedVisitRoutineChecks { get { return this.selectedVisitRoutineChecks; } }
 
         /// <summary>
+        /// Gets the selected lab test operation.
+        /// </summary>
+        /// <value>
+        /// The selected lab test operation.
+        /// </value>
+        public LabTestOperation? SelectedLabTestOperation
+        {
+            get { return this.selectedLabTestOperation; }
+            set
+            {
+                selectedLabTestOperation = value;
+                OnPropertyChanged(nameof(SelectedLabTestOperation));
+                OnPropertyChanged(nameof(SelectedLabTestOperationTime));
+                OnPropertyChanged(nameof(SelectedLabTestOperationName));
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected visit diagnoses.
+        /// </summary>
+        /// <value>
+        /// The selected visit diagnoses.
+        /// </value>
+        public Diagnoses? SelectedVisitDiagnoses
+        {
+            get { return selectedVisitDiagnoses; }
+            set
+            {
+                selectedVisitDiagnoses = value;
+                OnPropertyChanged(nameof(FinalDiagnosesIsEntered));
+                OnPropertyChanged(nameof(SelectedVisitInitialDiagnoses));
+                OnPropertyChanged(nameof(SelectedVisitFinalDiagnoses));
+            }
+        }
+
+        /// <summary>
+        /// Gets the selected visit initial diagnoses.
+        /// </summary>
+        /// <value>
+        /// The selected visit initial diagnoses.
+        /// </value>
+        public string? SelectedVisitInitialDiagnoses => SelectedVisitDiagnoses?.InitialDiagnoses;
+
+        /// <summary>
+        /// Gets the selected visit final diagnoses.
+        /// </summary>
+        /// <value>
+        /// The selected visit final diagnoses.
+        /// </value>
+        public string? SelectedVisitFinalDiagnoses => SelectedVisitDiagnoses?.FinalDiagnoses;
+
+        /// <summary>
+        /// Gets or sets the final diagnoses is entered.
+        /// </summary>
+        /// <value>
+        /// The final diagnoses is entered.
+        /// </value>
+        public bool FinalDiagnosesIsEntered => !string.IsNullOrWhiteSpace(SelectedVisitDiagnoses?.FinalDiagnoses);
+
+        /// <summary>
         /// Gets or sets the selected visit.
         /// </summary>
         /// <value>
@@ -128,6 +227,8 @@ namespace HealthCareSync.ViewModels
                 selectedVisit = value ?? throw new ArgumentNullException(nameof(value));
                 this.selectedVisitRoutineChecks = this.routineChecksDal.GetRoutineChecks((int)this.AppointmentId!);
                 this.performingNurse = this.nurseDal.GetNurseWithId(this.selectedVisitRoutineChecks?.NurseId);
+                this.OrderedTests = this.labTestOperationDAL.GetLabTestOperations((int)this.AppointmentId!);
+                this.selectedVisitDiagnoses = this.diagnosesDAL.GetDiagnoses((int)this.AppointmentId!);
                 OnPropertyChanged(nameof(SelectedVisit));
                 OnPropertyChanged(nameof(AppointmentId));
                 OnPropertyChanged(nameof(VisitDate));
@@ -150,6 +251,22 @@ namespace HealthCareSync.ViewModels
         public ObservableCollection<Appointment> Visits { get; set; }
 
         /// <summary>
+        /// Gets or sets the lab tests.
+        /// </summary>
+        /// <value>
+        /// The lab tests.
+        /// </value>
+        public List<LabTest> LabTests { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ordered tests.
+        /// </summary>
+        /// <value>
+        /// The ordered tests.
+        /// </value>
+        public List<LabTestOperation> OrderedTests { get; set; }
+
+        /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -168,8 +285,63 @@ namespace HealthCareSync.ViewModels
             this.appointmentDal = new AppointmentDAL();
             this.patientDal = new PatientDAL();
             this.nurseDal = new NurseDAL();
+            this.labTestDAL = new LabTestDAL();
+            this.labTestOperationDAL = new LabTestOperationDAL();
+            this.diagnosesDAL = new DiagnosesDAL();
 
-            this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());   
+            this.Visits = new ObservableCollection<Appointment>(this.appointmentDal.GetAppointments());
+            this.setupLabTests();
+        }
+
+        /// <summary>
+        /// Enters the diagnoses.
+        /// </summary>
+        /// <param name="initial">The initial.</param>
+        /// <param name="final">The final.</param>
+        public void EnterDiagnoses(string? initial, string? final)
+        {
+            this.diagnosesDAL.EnterDiagnoses((int)AppointmentId!, initial, final);
+        }
+
+        /// <summary>
+        /// Deletes the ordered test.
+        /// </summary>
+        /// <param name="labTestOperation">The lab test operation.</param>
+        /// <returns></returns>
+        public bool DeleteOrderedTest(LabTestOperation labTestOperation)
+        {
+            if (string.IsNullOrWhiteSpace(labTestOperation.Result))
+            {
+                this.labTestOperationDAL.DeleteLabTestOperation(labTestOperation);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Orders the test.
+        /// </summary>
+        /// <param name="labTestCheckBoxes">The lab test checkboxes.</param>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns></returns>
+        public bool OrderTest(IEnumerable<CheckBox> labTestCheckBoxes, DateTime dateTime)
+        {
+            foreach (CheckBox cb in labTestCheckBoxes)
+            {
+                LabTest labTest = (LabTest)cb.Tag;
+
+                if (!this.labTestOperationDAL.OrderLabTest(dateTime, (int)this.AppointmentId!, labTest))
+                {
+                    return false;
+                }
+                else
+                {
+                    this.OrderedTests.Add(new LabTestOperation(dateTime, (int)AppointmentId!, labTest.Name, null, null));
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -187,7 +359,7 @@ namespace HealthCareSync.ViewModels
             var aptId = (int)this.AppointmentId!;
             var systolicInt = int.Parse(systolicReading);
             var diastolicInt = int.Parse(diastolicReading);
-            var bodyTemperatureInt = int.Parse(bodyTemperature);
+            var bodyTemperatureInt = double.Parse(bodyTemperature);
             var pulseBPMInt = int.Parse(pulseBPM);
             var weightDouble = double.Parse(weight);
             var heightDouble = double.Parse(height);
@@ -217,7 +389,7 @@ namespace HealthCareSync.ViewModels
             var aptId = (int)this.AppointmentId!;
             var systolicInt = int.Parse(systolicReading);
             var diastolicInt = int.Parse(diastolicReading);
-            var bodyTemperatureInt = int.Parse(bodyTemperature);
+            var bodyTemperatureInt = double.Parse(bodyTemperature);
             var pulseBPMInt = int.Parse(pulseBPM);
             var weightDouble = double.Parse(weight);
             var heightDouble = double.Parse(height);
@@ -285,6 +457,31 @@ namespace HealthCareSync.ViewModels
 
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Gets the lab test.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns></returns>
+        public LabTest? GetLabTest(string name)
+        {
+            return this.LabTests.Find(test => test.Name == name);
+        }
+
+        private void setupLabTests()
+        {
+            this.LabTests = this.labTestDAL.GetLabTests();
+        }
+
+        /// <summary>
+        /// Gets the nurse with username.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns></returns>
+        public string GetNurseWithUsername(string username)
+        {
+            return this.nurseDal.GetNurseWithUsername(username).FullName;
         }
 
     }

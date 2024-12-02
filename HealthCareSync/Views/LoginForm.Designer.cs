@@ -138,6 +138,7 @@
             passwordTB.PasswordChar = '*';
             passwordTB.Size = new Size(200, 32);
             passwordTB.TabIndex = 2;
+            passwordTB.KeyDown += passwordTB_KeyDown;
             // 
             // sigupLabel
             // 

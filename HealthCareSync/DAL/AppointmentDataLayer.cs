@@ -1,52 +1,65 @@
 ﻿using MySql.Data.MySqlClient;
 using HealthCareSync.Models;
+using System.Data;
+using System.Windows.Forms;
 
 namespace HealthCareSync.DAL
 {
     public class AppointmentDAL
     {
-        // Retrieve available time slots for a doctor on a given date
-
-        /**
-         * Retrieve available time slots for a doctor on a given date
-         * @precondition The date must be in the format "yyyy-MM-dd", 
-         * @precondition The time slots must be in the format "hh:mm"
-         * @param date The date for which to retrieve available time slots
-         * @return A list of available time slots for the given date
-         */
-        public List<(int AvailabilityId, int DoctorId, string TimeSlot, string DoctorName)> GetAvailableTimeSlots(DateTime date)
+        public List<string> GetAvailableDoctors(DateTime date)
         {
-            var timeSlots = new List<(int, int, string, string)>();
+            List<string> doctors = new List<string>();
 
-            string query = @"
-                SELECT da.availability_id, da.doctor_id, da.start_time, da.end_time, d.fname, d.lname 
-                FROM doctor_availability da
-                JOIN doctor d ON da.doctor_id = d.id
-                WHERE da.available_date = @date AND da.isAvailable = 1";
-
-            using (var connection = new MySqlConnection(Connection.ConnectionString()))
-            using (var command = new MySqlCommand(query, connection))
+            using (MySqlConnection conn = new MySqlConnection(Connection.ConnectionString()))
             {
-                command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand("GetAvailableDoctorsByDate", conn))
                 {
-                    while (reader.Read())
-                    {
-                        int availabilityId = reader.GetInt32("availability_id");
-                        int doctorId = reader.GetInt32("doctor_id");
-                        string timeSlot = $"{reader.GetTimeSpan("start_time").ToString(@"hh\:mm")}" +
-                            $" - {reader.GetTimeSpan("end_time").ToString(@"hh\:mm")}";
-                        string doctorName = $"{reader.GetString("fname")} {reader.GetString("lname")}";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("appointment_date", date);
 
-                        timeSlots.Add((availabilityId, doctorId, timeSlot, doctorName));
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string fullName = $"{reader["fname"]} {reader["lname"]}";
+                            doctors.Add(fullName);
+                        }
                     }
                 }
             }
 
-            return timeSlots;
+            return doctors;
         }
+
+
+        public List<string> GetAvailableTimeSlots(DateTime date, string doctorName)
+            {
+                var timeSlots = new List<string>();
+                string query = "SELECT da.start_time, da.end_time FROM doctor_availability da " +
+                               "JOIN doctor d ON da.doctor_id = d.id WHERE da.available_date = @date AND da.isAvailable = 1 " +
+                               "AND CONCAT(d.fname, ' ', d.lname) = @doctorName";
+                using (var connection = new MySqlConnection(Connection.ConnectionString()))
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@date", date.ToString("yyyy-MM-dd"));
+                    command.Parameters.AddWithValue("@doctorName", doctorName);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string timeSlot = $"{date.ToString("yyyy-MM-dd")} | " +
+                                $"{reader.GetTimeSpan("start_time").ToString(@"hh\:mm")} " +
+                                $"- {reader.GetTimeSpan("end_time").ToString(@"hh\:mm")}";
+                            timeSlots.Add(timeSlot);
+                        }
+                    }
+                }
+                return timeSlots;
+            }
+
 
         /**
          * Check if a time slot is available for a patient to schedule an appointment
@@ -120,15 +133,14 @@ namespace HealthCareSync.DAL
 
                         transaction.Commit();
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw;
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
-
 
         /**
          * Get a doctor's name by lookup the available time
@@ -163,40 +175,6 @@ namespace HealthCareSync.DAL
             }
 
             return doctorName;
-        }
-
-        /**
-         * Cancel an appointment for a patient
-         * @precondition The appointmentId must be valid
-         * @postcondition The appointment is removed from the database
-         * @param appointmentId The ID of the appointment to cancel
-         * @param availabilityId The ID of the availability slot
-         */
-        public int GetPatientIdByName(string patientName)
-        {
-            int patientId = 0;
-
-            string query = @"
-                SELECT id 
-                FROM patient 
-                WHERE CONCAT(fname, ' ', lname) = @patientName";
-
-            using (var connection = new MySqlConnection(Connection.ConnectionString()))
-            using (var command = new MySqlCommand(query, connection))
-            {
-                command.Parameters.AddWithValue("@patientName", patientName);
-
-                connection.Open();
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        patientId = reader.GetInt32("id");
-                    }
-                }
-            }
-
-            return patientId;
         }
 
         /**
@@ -394,10 +372,10 @@ namespace HealthCareSync.DAL
 
                         transaction.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw;
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -605,7 +583,5 @@ namespace HealthCareSync.DAL
 
             return appointments;
         }
-
-
     }
 }
