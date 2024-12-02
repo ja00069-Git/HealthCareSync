@@ -163,7 +163,7 @@
             saveButton.Location = new Point(1098, 511);
             saveButton.Margin = new Padding(4, 5, 4, 5);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(139, 36);
+            saveButton.Size = new Size(139, 45);
             saveButton.TabIndex = 5;
             saveButton.Text = "Save";
             saveButton.UseVisualStyleBackColor = false;
@@ -190,7 +190,7 @@
             clearButton.Location = new Point(817, 511);
             clearButton.Margin = new Padding(4, 5, 4, 5);
             clearButton.Name = "clearButton";
-            clearButton.Size = new Size(139, 36);
+            clearButton.Size = new Size(139, 45);
             clearButton.TabIndex = 9;
             clearButton.Text = "Clear";
             clearButton.UseVisualStyleBackColor = false;
@@ -558,7 +558,7 @@
             resetSearchButton.Location = new Point(211, 404);
             resetSearchButton.Margin = new Padding(4, 5, 4, 5);
             resetSearchButton.Name = "resetSearchButton";
-            resetSearchButton.Size = new Size(100, 36);
+            resetSearchButton.Size = new Size(100, 45);
             resetSearchButton.TabIndex = 76;
             resetSearchButton.Text = "Reset";
             resetSearchButton.UseVisualStyleBackColor = false;
@@ -574,7 +574,7 @@
             searchButton.Location = new Point(26, 404);
             searchButton.Margin = new Padding(4, 5, 4, 5);
             searchButton.Name = "searchButton";
-            searchButton.Size = new Size(114, 36);
+            searchButton.Size = new Size(114, 45);
             searchButton.TabIndex = 75;
             searchButton.Text = "Search";
             searchButton.UseVisualStyleBackColor = false;
@@ -686,7 +686,7 @@
             order_test_button.FlatStyle = FlatStyle.Flat;
             order_test_button.Font = new Font("Showcard Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             order_test_button.ForeColor = Color.White;
-            order_test_button.Location = new Point(672, 518);
+            order_test_button.Location = new Point(707, 502);
             order_test_button.Margin = new Padding(4, 5, 4, 5);
             order_test_button.Name = "order_test_button";
             order_test_button.Size = new Size(119, 39);
@@ -746,19 +746,19 @@
             // panel20
             // 
             panel20.BackColor = Color.IndianRed;
-            panel20.Location = new Point(1210, 49);
+            panel20.Location = new Point(1199, 49);
             panel20.Margin = new Padding(4, 5, 4, 5);
             panel20.Name = "panel20";
-            panel20.Size = new Size(1, 583);
+            panel20.Size = new Size(1, 508);
             panel20.TabIndex = 90;
             // 
             // panel19
             // 
             panel19.BackColor = Color.IndianRed;
-            panel19.Location = new Point(352, 56);
+            panel19.Location = new Point(343, 56);
             panel19.Margin = new Padding(4, 5, 4, 5);
             panel19.Name = "panel19";
-            panel19.Size = new Size(1, 583);
+            panel19.Size = new Size(1, 495);
             panel19.TabIndex = 88;
             // 
             // label18
@@ -795,7 +795,7 @@
             final_diagnosis_enter_btn.FlatStyle = FlatStyle.Flat;
             final_diagnosis_enter_btn.Font = new Font("Showcard Gothic", 12F);
             final_diagnosis_enter_btn.ForeColor = Color.White;
-            final_diagnosis_enter_btn.Location = new Point(114, 518);
+            final_diagnosis_enter_btn.Location = new Point(114, 512);
             final_diagnosis_enter_btn.Margin = new Padding(4, 5, 4, 5);
             final_diagnosis_enter_btn.Name = "final_diagnosis_enter_btn";
             final_diagnosis_enter_btn.Size = new Size(107, 39);
@@ -1059,6 +1059,7 @@
             // 
             // routineChecktabPage
             // 
+            routineChecktabPage.AutoScroll = true;
             routineChecktabPage.Controls.Add(panel5);
             routineChecktabPage.Controls.Add(visitsListBox);
             routineChecktabPage.Controls.Add(label1);
@@ -1113,7 +1114,7 @@
             routineChecktabPage.Location = new Point(4, 34);
             routineChecktabPage.Name = "routineChecktabPage";
             routineChecktabPage.Padding = new Padding(3);
-            routineChecktabPage.Size = new Size(1325, 577);
+            routineChecktabPage.Size = new Size(1325, 600);
             routineChecktabPage.TabIndex = 0;
             routineChecktabPage.Text = "Routine Check Tab Page";
             routineChecktabPage.UseVisualStyleBackColor = true;
