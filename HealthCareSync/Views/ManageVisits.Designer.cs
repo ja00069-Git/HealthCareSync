@@ -1160,7 +1160,7 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1409, 634);
+            ClientSize = new Size(1409, 654);
             Controls.Add(tabControl);
             Controls.Add(deleteButton);
             Controls.Add(thyroidTestCheckBox);
