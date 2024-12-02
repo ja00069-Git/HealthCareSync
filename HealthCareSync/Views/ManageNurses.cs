@@ -302,5 +302,19 @@ namespace HealthCareSync.Views
             this.refreshListBox();
         }
 
+        private void address1Label_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usernameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwordLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

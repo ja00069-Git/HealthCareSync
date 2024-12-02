@@ -78,7 +78,7 @@
             // idTextBox
             // 
             idTextBox.Enabled = false;
-            idTextBox.Location = new Point(1104, 548);
+            idTextBox.Location = new Point(1074, 364);
             idTextBox.Margin = new Padding(4, 5, 4, 5);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
@@ -91,7 +91,7 @@
             idLabel.AutoSize = true;
             idLabel.BackColor = Color.LightGray;
             idLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            idLabel.Location = new Point(994, 548);
+            idLabel.Location = new Point(998, 367);
             idLabel.Margin = new Padding(4, 0, 4, 0);
             idLabel.Name = "idLabel";
             idLabel.Size = new Size(52, 15);
@@ -112,17 +112,18 @@
             usernameLabel.AutoSize = true;
             usernameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             usernameLabel.ForeColor = SystemColors.MenuHighlight;
-            usernameLabel.Location = new Point(569, 100);
+            usernameLabel.Location = new Point(569, 88);
             usernameLabel.Margin = new Padding(4, 0, 4, 0);
             usernameLabel.Name = "usernameLabel";
             usernameLabel.Size = new Size(64, 15);
             usernameLabel.TabIndex = 64;
             usernameLabel.Text = "Username";
+            usernameLabel.Click += usernameLabel_Click;
             // 
             // address2TextBox
             // 
             address2TextBox.BorderStyle = BorderStyle.None;
-            address2TextBox.Location = new Point(217, 332);
+            address2TextBox.Location = new Point(191, 332);
             address2TextBox.Margin = new Padding(4, 5, 4, 5);
             address2TextBox.Multiline = true;
             address2TextBox.Name = "address2TextBox";
@@ -132,7 +133,7 @@
             // cityTextBox
             // 
             cityTextBox.BorderStyle = BorderStyle.None;
-            cityTextBox.Location = new Point(117, 251);
+            cityTextBox.Location = new Point(152, 417);
             cityTextBox.Multiline = true;
             cityTextBox.Name = "cityTextBox";
             cityTextBox.Size = new Size(232, 15);
@@ -141,7 +142,7 @@
             // zipTextBox
             // 
             zipTextBox.BorderStyle = BorderStyle.None;
-            zipTextBox.Location = new Point(210, 477);
+            zipTextBox.Location = new Point(170, 470);
             zipTextBox.Margin = new Padding(4, 5, 4, 5);
             zipTextBox.Multiline = true;
             zipTextBox.Name = "zipTextBox";
@@ -151,7 +152,7 @@
             // address1TextBox
             // 
             address1TextBox.BorderStyle = BorderStyle.None;
-            address1TextBox.Location = new Point(151, 153);
+            address1TextBox.Location = new Point(191, 260);
             address1TextBox.Multiline = true;
             address1TextBox.Name = "address1TextBox";
             address1TextBox.Size = new Size(498, 15);
@@ -219,11 +220,12 @@
             address1Label.AutoSize = true;
             address1Label.BackColor = Color.LightGray;
             address1Label.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            address1Label.Location = new Point(82, 153);
+            address1Label.Location = new Point(114, 260);
             address1Label.Name = "address1Label";
             address1Label.Size = new Size(57, 15);
             address1Label.TabIndex = 52;
             address1Label.Text = "Address 1";
+            address1Label.Click += address1Label_Click;
             // 
             // birthDateLabel
             // 
@@ -291,7 +293,7 @@
             // 
             nurseListBox.FormattingEnabled = true;
             nurseListBox.ItemHeight = 15;
-            nurseListBox.Location = new Point(703, 38);
+            nurseListBox.Location = new Point(1004, 45);
             nurseListBox.Name = "nurseListBox";
             nurseListBox.Size = new Size(193, 274);
             nurseListBox.TabIndex = 46;
@@ -312,7 +314,7 @@
             // phoneNumTextBox
             // 
             phoneNumTextBox.BorderStyle = BorderStyle.None;
-            phoneNumTextBox.Location = new Point(182, 106);
+            phoneNumTextBox.Location = new Point(210, 167);
             phoneNumTextBox.Multiline = true;
             phoneNumTextBox.Name = "phoneNumTextBox";
             phoneNumTextBox.Size = new Size(221, 25);
@@ -350,15 +352,15 @@
             unselectNurseButton.UseVisualStyleBackColor = false;
             unselectNurseButton.Click += unselectNurseButton_Click;
             // 
-            // dateTimePicker
+            // dateTimePickerForNurse
             // 
             dateTimePickerForNurse.Format = DateTimePickerFormat.Short;
-            dateTimePickerForNurse.Location = new Point(154, 57);
+            dateTimePickerForNurse.Location = new Point(180, 87);
             dateTimePickerForNurse.Name = "dateTimePickerForNurse";
             dateTimePickerForNurse.Size = new Size(197, 23);
             dateTimePickerForNurse.TabIndex = 74;
             // 
-            // stateComboBox
+            // stateComboBoxForNurse
             // 
             stateComboBoxForNurse.DropDownStyle = ComboBoxStyle.DropDownList;
             stateComboBoxForNurse.FormattingEnabled = true;
@@ -382,12 +384,13 @@
             passwordLabel.AutoSize = true;
             passwordLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             passwordLabel.ForeColor = SystemColors.ActiveCaption;
-            passwordLabel.Location = new Point(569, 177);
+            passwordLabel.Location = new Point(569, 155);
             passwordLabel.Margin = new Padding(4, 0, 4, 0);
             passwordLabel.Name = "passwordLabel";
             passwordLabel.Size = new Size(59, 15);
             passwordLabel.TabIndex = 77;
             passwordLabel.Text = "Password";
+            passwordLabel.Click += passwordLabel_Click;
             // 
             // panel3
             // 
@@ -428,7 +431,7 @@
             // panel5
             // 
             panel5.BackColor = Color.Blue;
-            panel5.Location = new Point(395, 127);
+            panel5.Location = new Point(569, 120);
             panel5.Name = "panel5";
             panel5.Size = new Size(264, 1);
             panel5.TabIndex = 81;
@@ -436,7 +439,7 @@
             // panel6
             // 
             panel6.BackColor = Color.Blue;
-            panel6.Location = new Point(82, 174);
+            panel6.Location = new Point(118, 287);
             panel6.Name = "panel6";
             panel6.Size = new Size(580, 1);
             panel6.TabIndex = 82;
@@ -480,7 +483,7 @@
             // panel11
             // 
             panel11.BackColor = Color.Blue;
-            panel11.Location = new Point(670, 10);
+            panel11.Location = new Point(983, 10);
             panel11.Name = "panel11";
             panel11.Size = new Size(1, 573);
             panel11.TabIndex = 84;
@@ -488,7 +491,7 @@
             // panel12
             // 
             panel12.BackColor = Color.Blue;
-            panel12.Location = new Point(703, 354);
+            panel12.Location = new Point(569, 173);
             panel12.Name = "panel12";
             panel12.Size = new Size(274, 2);
             panel12.TabIndex = 80;
@@ -519,7 +522,7 @@
             statusComboBox.Location = new Point(626, 470);
             statusComboBox.Margin = new Padding(4, 5, 4, 5);
             statusComboBox.Name = "statusComboBox";
-            statusComboBox.Size = new Size(315, 33);
+            statusComboBox.Size = new Size(315, 23);
             statusComboBox.TabIndex = 87;
             // 
             // label2
@@ -529,7 +532,7 @@
             label2.Location = new Point(564, 473);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(63, 25);
+            label2.Size = new Size(40, 15);
             label2.TabIndex = 86;
             label2.Text = "Status";
             // 
