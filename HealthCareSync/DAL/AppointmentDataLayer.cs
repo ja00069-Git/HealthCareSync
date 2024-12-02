@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using HealthCareSync.Models;
 using System.Data;
+using System.Windows.Forms;
 
 namespace HealthCareSync.DAL
 {
@@ -132,10 +133,10 @@ namespace HealthCareSync.DAL
 
                         transaction.Commit();
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw;
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -371,10 +372,10 @@ namespace HealthCareSync.DAL
 
                         transaction.Commit();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
                         transaction.Rollback();
-                        throw;
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
